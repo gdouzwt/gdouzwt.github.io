@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 11 Feb 2020 22:44:59 +0000</pubDate>
-    <lastBuildDate>Tue, 11 Feb 2020 22:44:59 +0000</lastBuildDate>
+    <pubDate>Tue, 11 Feb 2020 22:47:21 +0000</pubDate>
+    <lastBuildDate>Tue, 11 Feb 2020 22:47:21 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -37,6 +37,11 @@
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;现在这里又是一个普通段落了。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;杂记&quot;&gt;杂记&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;使用 Travis CI 也挺好玩的，搭建起持续集成的工作流。&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;bold &lt;strong&gt;constrained&lt;/strong&gt; &amp;amp; &lt;strong&gt;un&lt;/strong&gt;constrained&lt;/p&gt;
@@ -577,6 +582,7 @@ line of code  &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&g
 &lt;td&gt;The section title is required.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect3&quot;&gt;
 &lt;h4 id=&quot;插入视频&quot;&gt;插入视频&lt;/h4&gt;
