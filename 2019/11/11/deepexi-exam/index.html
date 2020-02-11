@@ -29,14 +29,16 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/zwt.min.css">
 
+    <!-- <link rel="stylesheet" href="/css/asciidoctor.css"> -->
+
     <!-- <link rel="stylesheet" href="/css/prism.css"> -->
 
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet" type="text/css">
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css"> -->
 
 
     <!-- Hux Delete, sad but pending in China
@@ -567,13 +569,22 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                     
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
                     <!-- add bilibili add target = "_blank" to <a> by Tao -->
                     
                     <li>
                         <a target="_blank" href="https://space.bilibili.com/86621709">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                                <i class="fas fa-tv fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -584,7 +595,7 @@
                                 <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
                                     <span class="fa-stack fa-lg">
                                         <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                        <i class="fab  fa-stack-1x fa-inverse">简</i>
                                     </span>
                                 </a>
                             </li>
@@ -594,7 +605,7 @@
                         <a href="https://twitter.com/gdouzwt">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -607,7 +618,7 @@
                         <a target="_blank" href="http://weibo.com/1889654893">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-weibo fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -620,7 +631,7 @@
                         <a target="_blank" href="https://github.com/gdouzwt">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -630,7 +641,7 @@
                 <p class="copyright text-muted" style="text-align: center">
                     Copyright &copy; 招文桃 2020
                     <br>
-                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <a href="https://github.com/gdouzwt/blog.git">主题</a>
                     <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="100px" height="20px"
@@ -654,9 +665,9 @@
 <!-- Custom Theme JavaScript -->
 <script src="/js/zwt.min.js "></script>
 
+<script src="/js/prism.js "></script>
 
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+<!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script> -->
 
 <!-- Service Worker -->
 
@@ -775,12 +786,12 @@
     })();
 </script>
     
-<script>
+<!-- <script>
 $(document).on('click', '[data-toggle="lightbox"]', function(event) {
                 event.preventDefault();
                 $(this).ekkoLightbox();
             });
-</script>
+</script> -->
 
 
 <!-- Side Catalog -->
@@ -830,7 +841,7 @@ $(document).on('click', '[data-toggle="lightbox"]', function(event) {
 </script>
 
 
-<script src="/js/prism.js "></script>
+
 
 
 <!-- Image to hack wechat -->

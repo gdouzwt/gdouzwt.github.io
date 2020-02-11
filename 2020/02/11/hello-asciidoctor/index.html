@@ -9,7 +9,7 @@
     <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
     
-    <title>AsciiDoc is Writing Zen - 招文桃 | 记录</title>
+    <title>Sample Page - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -29,14 +29,16 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/zwt.min.css">
 
+    <!-- <link rel="stylesheet" href="/css/asciidoctor.css"> -->
+
     <!-- <link rel="stylesheet" href="/css/prism.css"> -->
 
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet" type="text/css">
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css"> -->
 
 
     <!-- Hux Delete, sad but pending in China
@@ -177,12 +179,12 @@
                     <div class="tags">
                         
                     </div>
-                    <h1>AsciiDoc is Writing Zen</h1>
+                    <h1>Sample Page</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">由Doc Writer在2020年2月11日发布</span>
+                    <span class="meta">由招文桃在2020年2月11日发布</span>
                 </div>
             </div>
         </div>
@@ -200,10 +202,18 @@
         col-md-10 col-md-offset-1
         post-container line-numbers">
 
-        <div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p><em>Zen</em> in the <strong>art</strong> of writing <code>plain text</code> with <a href="http://asciidoc.org">AsciiDoc</a>.</p>
+        <div class="paragraph">
+<p>This is a sample page composed in <em>AsciiDoc</em>.
+Jekyll converts it to HTML using <a href="http://asciidoctor.org">Asciidoctor</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Hello {
+  public static void main(String[] args) {
+    System.out.println("Hello");
+  }
+}</code></pre>
+</div>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -212,40 +222,13 @@
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Use <a href="http://asciidoctor.org">Asciidoctor</a> for the best AsciiDoc experience.
-<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup>
-Then <span class="icon aqua"><i class="fa fa-twitter"></i></span> about it!
+and what now
 </td>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="sample_section">Sample Section</h2>
-<div class="sectionbody">
-<div class="ulist square">
-<ul class="square">
-<li>
-<p>item 1</p>
-</li>
-<li>
-<p>item 2</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby">puts <span class="string"><span class="delimiter">&quot;</span><span class="content">Hello, World!</span><span class="delimiter">&quot;</span></span></code></pre>
-</div>
-</div>
-</div>
-</div>
-<div id="footnotes">
-<hr>
-<div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Not to mention the best looking output!
-</div>
+<div class="paragraph">
+<p><span class="icon aqua"><i class="fa fa-twitter"></i></span></p>
 </div>
 
         <!-- 来必力City版安装代码 -->
@@ -553,13 +536,22 @@ Then <span class="icon aqua"><i class="fa fa-twitter"></i></span> about it!
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                     
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
                     <!-- add bilibili add target = "_blank" to <a> by Tao -->
                     
                     <li>
                         <a target="_blank" href="https://space.bilibili.com/86621709">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                                <i class="fas fa-tv fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -570,7 +562,7 @@ Then <span class="icon aqua"><i class="fa fa-twitter"></i></span> about it!
                                 <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
                                     <span class="fa-stack fa-lg">
                                         <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                        <i class="fab  fa-stack-1x fa-inverse">简</i>
                                     </span>
                                 </a>
                             </li>
@@ -580,7 +572,7 @@ Then <span class="icon aqua"><i class="fa fa-twitter"></i></span> about it!
                         <a href="https://twitter.com/gdouzwt">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -593,7 +585,7 @@ Then <span class="icon aqua"><i class="fa fa-twitter"></i></span> about it!
                         <a target="_blank" href="http://weibo.com/1889654893">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-weibo fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -606,7 +598,7 @@ Then <span class="icon aqua"><i class="fa fa-twitter"></i></span> about it!
                         <a target="_blank" href="https://github.com/gdouzwt">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -616,7 +608,7 @@ Then <span class="icon aqua"><i class="fa fa-twitter"></i></span> about it!
                 <p class="copyright text-muted" style="text-align: center">
                     Copyright &copy; 招文桃 2020
                     <br>
-                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <a href="https://github.com/gdouzwt/blog.git">主题</a>
                     <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="100px" height="20px"
@@ -640,9 +632,9 @@ Then <span class="icon aqua"><i class="fa fa-twitter"></i></span> about it!
 <!-- Custom Theme JavaScript -->
 <script src="/js/zwt.min.js "></script>
 
+<script src="/js/prism.js "></script>
 
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+<!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script> -->
 
 <!-- Service Worker -->
 
@@ -761,18 +753,18 @@ Then <span class="icon aqua"><i class="fa fa-twitter"></i></span> about it!
     })();
 </script>
     
-<script>
+<!-- <script>
 $(document).on('click', '[data-toggle="lightbox"]', function(event) {
                 event.preventDefault();
                 $(this).ekkoLightbox();
             });
-</script>
+</script> -->
 
 
 <!-- Side Catalog -->
 
 
-<script src="/js/prism.js "></script>
+
 
 
 <!-- Image to hack wechat -->

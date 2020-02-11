@@ -29,14 +29,16 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/zwt.min.css">
 
+    <!-- <link rel="stylesheet" href="/css/asciidoctor.css"> -->
+
     <!-- <link rel="stylesheet" href="/css/prism.css"> -->
 
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet" type="text/css">
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css"> -->
 
 
     <!-- Hux Delete, sad but pending in China
@@ -233,7 +235,7 @@
 
 <p>​		等了这么久还缺的是 一种方式表达，我有一连串的异步解决的值。所以我们需要一种范式 一种计算方面的模式，允许我们去描述这样的一种数据，这就是 <em>Reactive Streams</em> 规范的作用。</p>
 
-<p><a href="/img/image-20191205002630664.png" data-toggle="lightbox"><img src="/img/image-20191205002630664.png" class="img-fluid" /></a></p>
+<p><img src="/img/image-20191205002630664.png" alt="image-20191205002630664" /></p>
 
 <p><em>Reactive Streams</em> 规范是一些通用的底层接口，由这些组织提出 Pivotal, Netflix, Lightbend, Eclipse 基金会还有其它的。这是 4 不同的接口和一个类，给你能力。异步的数据串流，而且它们是非常非常基础的。它允许我们说 嘿 有数据进来了，除此以外并没有给你什么了。它不支持我们常用的操作，我们处理数据时期待的操作。我将它们比作数组 就像 Java 的数组，你们有多少人写代码用到数组的。大多数时候，是的，数组常常用到，对吧？通常你不会这样做的，如果我要描述一系列数字或什么的 我使用 <code>List</code> 或者 <code>Set</code> 随意吧，对吧？那会使用数据类型，因为这样处理数据方便惯用，我可以扩展它们，可以操作它们。可以流式操作，可以过滤它们之类的。所以这是非常常见的抽象，对吧？Java 数组不太好用，你们这些不看的，你们大概有二十人举手了。然后我说 “大多数时候”，大部分人放低手了。因为大部分人没有经常使用数组，我们使用更高层次的数据类型。这里也有同样的需求，对于这些响应式流。它们非常基础，作为一种基石。但我不会在生产环境只是要这些，我需要操作符，使用，组合处理流数据，更加容易，这就是 Project Reactor 的意义。Project Reactor 来自 Pivotal，它类似于 RxJava，它为你提供了这些好用的操作符。</p>
 
@@ -360,8 +362,6 @@ class SampleDataInitializer {
 <p><a href="/img/image-20191209093846979.png"><img src="/img/image-20191209093846979.png" alt="image-20191209093846979" /></a></p>
 
 <hr />
-
-<p><a href="/img/image-20191209093846979.png" data-toggle="lightbox"><img src="/img/image-20191209093846979.png" class="img-fluid" /></a></p>
 
 <p>日志显式格式，不同的系统可能不一样，但内容应该差不多。</p>
 
@@ -1023,13 +1023,22 @@ OK 噢 是这个 就是这样我的朋友们。</p>
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <ul class="list-inline text-center">
                     
+                    <li>
+                        <a href="/feed.xml">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
                     <!-- add bilibili add target = "_blank" to <a> by Tao -->
                     
                     <li>
                         <a target="_blank" href="https://space.bilibili.com/86621709">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                                <i class="fas fa-tv fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -1040,7 +1049,7 @@ OK 噢 是这个 就是这样我的朋友们。</p>
                                 <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
                                     <span class="fa-stack fa-lg">
                                         <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                        <i class="fab  fa-stack-1x fa-inverse">简</i>
                                     </span>
                                 </a>
                             </li>
@@ -1050,7 +1059,7 @@ OK 噢 是这个 就是这样我的朋友们。</p>
                         <a href="https://twitter.com/gdouzwt">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -1063,7 +1072,7 @@ OK 噢 是这个 就是这样我的朋友们。</p>
                         <a target="_blank" href="http://weibo.com/1889654893">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-weibo fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -1076,7 +1085,7 @@ OK 噢 是这个 就是这样我的朋友们。</p>
                         <a target="_blank" href="https://github.com/gdouzwt">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                             </span>
                         </a>
                     </li>
@@ -1086,7 +1095,7 @@ OK 噢 是这个 就是这样我的朋友们。</p>
                 <p class="copyright text-muted" style="text-align: center">
                     Copyright &copy; 招文桃 2020
                     <br>
-                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <a href="https://github.com/gdouzwt/blog.git">主题</a>
                     <iframe
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="100px" height="20px"
@@ -1110,9 +1119,9 @@ OK 噢 是这个 就是这样我的朋友们。</p>
 <!-- Custom Theme JavaScript -->
 <script src="/js/zwt.min.js "></script>
 
+<script src="/js/prism.js "></script>
 
-
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+<!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script> -->
 
 <!-- Service Worker -->
 
@@ -1231,12 +1240,12 @@ OK 噢 是这个 就是这样我的朋友们。</p>
     })();
 </script>
     
-<script>
+<!-- <script>
 $(document).on('click', '[data-toggle="lightbox"]', function(event) {
                 event.preventDefault();
                 $(this).ekkoLightbox();
             });
-</script>
+</script> -->
 
 
 <!-- Side Catalog -->
@@ -1286,7 +1295,7 @@ $(document).on('click', '[data-toggle="lightbox"]', function(event) {
 </script>
 
 
-<script src="/js/prism.js "></script>
+
 
 
 <!-- Image to hack wechat -->
