@@ -5,9 +5,49 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 11 Feb 2020 22:47:21 +0000</pubDate>
-    <lastBuildDate>Tue, 11 Feb 2020 22:47:21 +0000</lastBuildDate>
+    <pubDate>Tue, 11 Feb 2020 23:13:22 +0000</pubDate>
+    <lastBuildDate>Tue, 11 Feb 2020 23:13:22 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Travis CI上手</title>
+        <description>&lt;h3 id=&quot;配置文件&quot;&gt;配置文件&lt;/h3&gt;
+
+&lt;p&gt;我用于博客自动构建的&lt;code&gt;.travis.yml&lt;/code&gt;脚本：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt;language: ruby
+rvm:
+  - 2.6.3
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  - secure: D0RrVHHBEEJMyJK9OUUPM6Wms+D+zifJhHFl4BcmC0leSR0vANoQ6357Bl4miZL2flmnBU/1Z9WNzcDVM0JwQpF8ZVeEdMvgBY5+73Xjp8cIwYfWx8MAUB8J1Hug2aEiXw6KoSxjFOnUpSRnhCcWpviFNCZOa5XavMfe7+OHbNQT1U1xu+ZOmDG6Hrm3CMhfzu2cRPIfziAAgnWVfgtqA0STXnY9D0HvfsKPl6khy6VWkeF09Chqo/XVO/SV5LSgplkgXh1OzS6ITwT99UWDRqIeXYAvMJFyrHkzdxNgtAddYVxmx8WQqfqUFQ6A3HSnJy2Fq04H3gLszQxrVPzw8fNeOzBe7hIviaZdgRsglc26NO13EX//e4DA1ImiYKciFGvDNDBrqtv8u3XAG+8jVe/dLwKbBXnvi64udh2/H/lTBfWQ3eV08/R6m0m4aF8jbv0oBuXReyXuEy9D6xNm+yceekWzKAmTYPFb9W5XLveIgt8SIQO9P6tGuMWV6w7KRhgbpgI886ZeSVS3WcAGIr11SvSNa+x5WapOd/mizHrA8VvW4v8GjmYYwTOsmiLuYl2t1fWY76yYOOdSDLC9XhJN/mS3qxxX7WR4KCJgpstyzTVXj+uyuzi23sV1SdUvO35r3VkZk11ad9Qmp9WLXpdSQfMAKbu/lC7C9HfrGuM=
+cache:
+  bundler: true
+  directories:
+    - /home/travis/.rvm/
+install:
+- gem install bundler
+- bundle install
+script:
+- bundle exec rake deploy
+after_success:
+- bash &amp;lt;(curl -s https://codecov.io/bash)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;发现启用了 cache 之后，快很多了。搞到动图凑内容：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/cache_1581461859_5053.gif&quot; alt=&quot;cache_1581461859_5053&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;用来测试构建时长，哈哈哈哈！&lt;/p&gt;
+</description>
+        <pubDate>Wed, 12 Feb 2020 06:49:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/12/intro-to-travis/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/12/intro-to-travis/</guid>
+        
+        <category>持续集成</category>
+        
+        
+      </item>
     
       <item>
         <title>AsciiDoc语法参考</title>
@@ -41,7 +81,23 @@
 &lt;div class=&quot;sect3&quot;&gt;
 &lt;h4 id=&quot;杂记&quot;&gt;杂记&lt;/h4&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;使用 Travis CI 也挺好玩的，搭建起持续集成的工作流。&lt;/p&gt;
+&lt;p&gt;使用 Travis CI 也挺好玩的，搭建起持续集成的工作流。在这里也添加个动图吧：&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;一个普通图：&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/img/city.jpg&quot; alt=&quot;City&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;一个专用动图：&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/img/cache_1581461859_5053.gif&quot; alt=&quot;travis 真香！&quot;&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;bold &lt;strong&gt;constrained&lt;/strong&gt; &amp;amp; &lt;strong&gt;un&lt;/strong&gt;constrained&lt;/p&gt;
@@ -1875,33 +1931,6 @@ public class PalyWithAnimal {
         <guid isPermaLink="true">https://zwt.io/2020/01/24/java-virtual-method-invocation/</guid>
         
         <category>Java</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Java模块化</title>
-        <description>&lt;p&gt;为了准备 1Z0-816，所以要学习一下 Java 11 的基础部分。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/image-20200122001604874.png&quot; alt=&quot;image-20200122001604874&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;module-info.java 是模块的信息。&lt;/p&gt;
-
-&lt;p&gt;一个新的关键词 &lt;code&gt;module&lt;/code&gt; ，最简单的一个模块如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;module io.zwt.common {
-
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-</description>
-        <pubDate>Wed, 22 Jan 2020 00:14:00 +0000</pubDate>
-        <link>https://zwt.io/2020/01/22/java-modules/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/01/22/java-modules/</guid>
-        
-        <category>Java 11</category>
         
         
       </item>

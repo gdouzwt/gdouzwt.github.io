@@ -9,7 +9,7 @@
     <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
     
-    <title>作品链接 - 招文桃 | 记录</title>
+    <title>Travis CI上手 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io/2019/09/14/what-I-had-done/">
+    <link rel="canonical" href="https://zwt.io/2020/02/12/intro-to-travis/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -159,13 +159,13 @@
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-desk.jpg" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/post-bg-desk.jpg')
+        background-image: url('/img/leimu.jpg')
     }
 
     
@@ -178,15 +178,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#简历参考" title="简历参考">简历参考</a>
+                        <a class="tag" href="/tags/#持续集成" title="持续集成">持续集成</a>
                         
                     </div>
-                    <h1>作品链接</h1>
+                    <h1>Travis CI上手</h1>
                     
                     
-                    <h2 class="subheading">我做过什么？</h2>
+                    <h2 class="subheading">玩下持续构建、持续集成</h2>
                     
-                    <span class="meta">由招文桃在2019年9月14日发布</span>
+                    <span class="meta">由招文桃在2020年2月12日发布</span>
                 </div>
             </div>
         </div>
@@ -204,29 +204,34 @@
         col-md-10 col-md-offset-1
         post-container line-numbers">
 
-        <h2 id="翻译和视频制作">翻译和视频制作</h2>
+        <h3 id="配置文件">配置文件</h3>
 
-<ul>
-  <li>2015年 翻译制作了一套Android Studio的视频教程字幕，最初发布在我的旧博客，旧博客服务器到期了，没有继续了，不过内容被转载到了Android Studio中文社区，
- 地址如下：<a href="http://ask.android-studio.org/?/explore/category-video">http://ask.android-studio.org/?/explore/category-video</a></li>
-  <li>B站空间：<a href="https://space.bilibili.com/86621709">https://space.bilibili.com/86621709</a></li>
-</ul>
+<p>我用于博客自动构建的<code>.travis.yml</code>脚本：</p>
+<pre><code class="language-yaml">language: ruby
+rvm:
+  - 2.6.3
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  - secure: D0RrVHHBEEJMyJK9OUUPM6Wms+D+zifJhHFl4BcmC0leSR0vANoQ6357Bl4miZL2flmnBU/1Z9WNzcDVM0JwQpF8ZVeEdMvgBY5+73Xjp8cIwYfWx8MAUB8J1Hug2aEiXw6KoSxjFOnUpSRnhCcWpviFNCZOa5XavMfe7+OHbNQT1U1xu+ZOmDG6Hrm3CMhfzu2cRPIfziAAgnWVfgtqA0STXnY9D0HvfsKPl6khy6VWkeF09Chqo/XVO/SV5LSgplkgXh1OzS6ITwT99UWDRqIeXYAvMJFyrHkzdxNgtAddYVxmx8WQqfqUFQ6A3HSnJy2Fq04H3gLszQxrVPzw8fNeOzBe7hIviaZdgRsglc26NO13EX//e4DA1ImiYKciFGvDNDBrqtv8u3XAG+8jVe/dLwKbBXnvi64udh2/H/lTBfWQ3eV08/R6m0m4aF8jbv0oBuXReyXuEy9D6xNm+yceekWzKAmTYPFb9W5XLveIgt8SIQO9P6tGuMWV6w7KRhgbpgI886ZeSVS3WcAGIr11SvSNa+x5WapOd/mizHrA8VvW4v8GjmYYwTOsmiLuYl2t1fWY76yYOOdSDLC9XhJN/mS3qxxX7WR4KCJgpstyzTVXj+uyuzi23sV1SdUvO35r3VkZk11ad9Qmp9WLXpdSQfMAKbu/lC7C9HfrGuM=
+cache:
+  bundler: true
+  directories:
+    - /home/travis/.rvm/
+install:
+- gem install bundler
+- bundle install
+script:
+- bundle exec rake deploy
+after_success:
+- bash &lt;(curl -s https://codecov.io/bash)
+</code></pre>
 
-<!--more-->
+<p>发现启用了 cache 之后，快很多了。搞到动图凑内容：</p>
 
-<h2 id="竞赛">竞赛</h2>
+<p><img src="/img/cache_1581461859_5053.gif" alt="cache_1581461859_5053" /></p>
 
-<ul>
-  <li>2018.08 <a href="http://cxcy.cnsoftbei.com/index.php?m=content&amp;c=index&amp;a=show&amp;catid=6&amp;id=59">“中国软件杯”双创大赛中获决赛三等奖(互联网加养老-&gt;老人社区)</a></li>
-  <li>2017.12 <a href="http://www.apmcm.org/certificate/result/17ACHRSXY026">APMCM亚太地区大学生数学建模竞赛三等奖</a></li>
-  <li>2017.09 <a href="http://219.136.187.205/notice/showOpen/10471356">2017年广东众创杯大学生启航赛暨“赢在广州”第六届大学生创业大赛中荣获项目创新奖（大圣拼车新型公共运输信息平台）</a></li>
-  <li>2015.06.17 <a href="http://www.techshine.com/bsb/xw_view.asp?id=104">2015年第十届“毕昇杯”全国电子创新设计暨物联网应用系统设计竞赛获一等奖（旅行智能助载系统）</a></li>
-  <li>2015.06.07 <a href="http://news.gdou.edu.cn/show.php?contentid=18526">2015年“粤嵌杯”广东省首届大学生物联网和大数据创新应用大赛获一等奖（基于蓝牙4.0的智能跟踪行李箱）</a></li>
-</ul>
-
-<h2 id="读书">读书</h2>
-<p><a href="https://book.douban.com/people/gdouzwt/do">我在读的书</a></p>
-
+<p>用来测试构建时长，哈哈哈哈！</p>
 
 
         <!-- 来必力City版安装代码 -->
@@ -253,19 +258,12 @@
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2019/09/11/java-static-netsted-class/" data-toggle="tooltip" data-placement="top" title="Java静态嵌套类">
+                <a href="/2020/02/12/hello-asciidoctor/" data-toggle="tooltip" data-placement="top" title="AsciiDoc语法参考">
                 上一篇<br>
-                <span>Java静态嵌套类</span>
+                <span>AsciiDoc语法参考</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2019/09/17/data-structure-001/" data-toggle="tooltip" data-placement="top" title="数据结构001">
-                下一篇<br>
-                <span>数据结构001</span>
-                </a>
-            </li>
             
         </ul>
     </div>  
