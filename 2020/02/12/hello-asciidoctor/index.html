@@ -9,7 +9,7 @@
     <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
     
-    <title>JHipster Registry 使用过程 - 招文桃 | 记录</title>
+    <title>AsciiDoc语法参考 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io/2019/11/21/jhipster-registry-notes/">
+    <link rel="canonical" href="https://zwt.io/2020/02/12/hello-asciidoctor/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -178,15 +178,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#JHipster" title="JHipster">JHipster</a>
+                        <a class="tag" href="/tags/#Asciidoc" title="Asciidoc">Asciidoc</a>
+                        
+                        <a class="tag" href="/tags/#Notes" title="Notes">Notes</a>
                         
                     </div>
-                    <h1>JHipster Registry 使用过程</h1>
+                    <h1>AsciiDoc语法参考</h1>
                     
                     
-                    <h2 class="subheading">JHipster 搭微服务</h2>
+                    <h2 class="subheading">学习笔记</h2>
                     
-                    <span class="meta">由招文桃在2019年11月21日发布</span>
+                    <span class="meta">由招文桃在2020年2月12日发布</span>
                 </div>
             </div>
         </div>
@@ -204,16 +206,690 @@
         col-md-10 col-md-offset-1
         post-container line-numbers">
 
-        <h2 id="jhipster-registry-的使用过程">JHipster Registry 的使用过程</h2>
+        <div class="sect2">
+<h3 id="段落"><em>段落</em></h3>
+<div class="paragraph lead">
+<p>段落不需要特别的格式，<strong>直接</strong>写就是了。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="自然段"><em>自然段</em></h3>
+<div class="paragraph">
+<p>这是普通段落</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>开始至少空一格就成为自然段，同一个自然段里面的内容必须相邻，
+即不能隔空行。</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>隔空行就是另一个自然段了。自然段文字是等宽字体，然后会保留空格和新行。
+例如    保留了前边的空格，
+然后这样，保留了换新行。</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>现在这里又是一个普通段落了。</p>
+</div>
+<div class="paragraph">
+<p>bold <strong>constrained</strong> &amp; <strong>un</strong>constrained</p>
+</div>
+<div class="paragraph">
+<p>italic <em>constrained</em> &amp; <em>un</em>constrained</p>
+</div>
+<div class="paragraph">
+<p>bold italic <strong><em>constrained</em></strong> &amp; <strong><em>un</em></strong>constrained</p>
+</div>
+<div class="paragraph">
+<p>monospace <code>constrained</code> &amp; <code>un</code>constrained</p>
+</div>
+<div class="paragraph">
+<p>monospace bold <code><strong>constrained</strong></code> &amp; <code><strong>un</strong></code>constrained</p>
+</div>
+<div class="paragraph">
+<p>monospace italic <code><em>constrained</em></code> &amp; <code><em>un</em></code>constrained</p>
+</div>
+<div class="paragraph">
+<p>monospace bold italic <code><strong><em>constrained</em></strong></code> &amp; <code><strong><em>un</em></strong></code>constrained</p>
+</div>
+<div class="paragraph">
+<p><code>C&#43;&#43;</code> is valid syntax in the programming language by the same name.</p>
+</div>
+<div class="paragraph">
+<p><code>WHERE id &lt;= 20 AND value = "{name}"</code> is a SQL WHERE clause.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class Hello {
+  public static void main(String[] args) {
+    System.out.println("Hello");
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Werewolves are allergic to <mark>cassia cinnamon</mark>.</p>
+</div>
+<div class="paragraph">
+<p>Did the werewolves read the <span class="small">small print</span>?</p>
+</div>
+<div class="paragraph">
+<p>Where did all the <span class="underline">cores</span> run off to?</p>
+</div>
+<div class="paragraph">
+<p>We need <span class="line-through">ten</span> make that twenty VMs.</p>
+</div>
+<div class="paragraph">
+<p><span class="big">O</span>nce upon an infinite loop.</p>
+</div>
+<div class="paragraph">
+<p><sup>super</sup>script phrase</p>
+</div>
+<div class="paragraph">
+<p><sub>sub</sub>script phrase</p>
+</div>
+<div class="paragraph">
+<p>&#8220;double curved quotes&#8221;</p>
+</div>
+<div class="paragraph">
+<p>&#8216;single curved quotes&#8217;</p>
+</div>
+<div class="paragraph">
+<p>Olaf&#8217;s desk was a mess.</p>
+</div>
+<div class="paragraph">
+<p>All of the werewolves&#8217; desks were a mess.</p>
+</div>
+<div class="paragraph">
+<p>Olaf had been with the company since the &#8217;60s.</p>
+</div>
+<div class="paragraph">
+<p>Rubies are red,<br>
+Topazes are blue.</p>
+</div>
+<div class="paragraph">
+<p>Ruby is red.<br>
+Java is black.</p>
+</div>
+<div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Lists</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Edgar Allen Poe</p>
+</li>
+<li>
+<p>Sheri S. Tepper</p>
+</li>
+<li>
+<p>Bill Bryson</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>max nesting</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>level 1</p>
+<div class="ulist">
+<ul>
+<li>
+<p>level 2</p>
+<div class="ulist">
+<ul>
+<li>
+<p>level 3</p>
+<div class="ulist">
+<ul>
+<li>
+<p>level 4</p>
+<div class="ulist">
+<ul>
+<li>
+<p>level 5</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>level 1</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ordered, basic</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Step 1</p>
+</li>
+<li>
+<p>Step 2</p>
+</li>
+<li>
+<p>Step 3</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Ordered, max nesting</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>level 1</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>level 2</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>level 3</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>level 4</p>
+<div class="olist upperroman">
+<ol class="upperroman" type="I">
+<li>
+<p>level 5</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>level 1</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Checklist</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> checked</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> also checked</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> not checked</p>
+</li>
+<li>
+<p>normal list item</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Description, single-line</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">first term</dt>
+<dd>
+<p>definition of first term</p>
+</dd>
+<dt class="hdlist1">second term</dt>
+<dd>
+<p>definition of second term</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Description, multi-line</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">first term</dt>
+<dd>
+<p>definition of first term</p>
+</dd>
+<dt class="hdlist1">second term</dt>
+<dd>
+<p>definition of second term</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Q &amp; A</p>
+</div>
+<div class="qlist qanda">
+<ol>
+<li>
+<p><em>What is Asciidoctor?</em></p>
+<p>An implementation of the AsciiDoc processor in Ruby.</p>
+</li>
+<li>
+<p><em>What is the answer to the Ultimate Question?</em></p>
+<p>42</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Complex content in outline lists</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Every list item has at least one paragraph of content,
+which may be wrapped, even using a hanging indent.</p>
+<div class="paragraph">
+<p>Additional paragraphs or blocks are adjoined by putting
+a list continuation on a line adjacent to both blocks.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">list continuation</dt>
+<dd>
+<p>a plus sign (<code>&#43;</code>) on a line by itself</p>
+</dd>
+</dl>
+</div>
+</li>
+<li>
+<p>A literal paragraph does not require a list continuation.</p>
+<div class="literalblock">
+<div class="content">
+<pre>$ gem install asciidoctor</pre>
+</div>
+</div>
+</li>
+<li>
+<p>AsciiDoc lists may contain any complex content.</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Application</th>
+<th class="tableblock halign-left valign-top">Language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsciiDoc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asciidoctor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ruby</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>超链接</p>
+</div>
+<div class="paragraph">
+<p><a href="https://asciidoctor.org" class="bare">https://asciidoctor.org</a> - automatic!</p>
+</div>
+<div class="paragraph">
+<p><a href="https://asciidoctor.org">Asciidoctor</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/asciidoctor">Asciidoctor @ <strong>GitHub</strong></a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://discuss.asciidoctor.org" class="external" target="_blank" rel="noopener">Discuss Asciidoctor</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://discuss.asciidoctor.org" target="_blank" rel="noopener">Discuss Asciidoctor</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://example.org" class="teal" target="_blank" rel="noopener">Google, Yahoo, Bing</a></p>
+</div>
+<div class="paragraph">
+<p>See <a href="#自然段"><em>自然段</em></a> to learn how to write paragraphs.</p>
+</div>
+<div class="paragraph">
+<p>Learn how to organize the document into <a href="#section-titles">sections</a>.</p>
+</div>
+<div class="paragraph">
+<p>图片</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://asciidoctor.org/images/octocat.jpg" alt="GitHub mascot">
+</div>
+</div>
+<div class="paragraph">
+<p>UI Macro</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Shortcut</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>F11</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Toggle fullscreen</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="keyseq"><kbd>Ctrl</kbd>+<kbd>T</kbd></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Open a new tab</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="keyseq"><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>N</kbd></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">New incognito window</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>\</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Used to escape characters</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="keyseq"><kbd>Ctrl</kbd>+<kbd>]</kbd></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jump to keyword</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="keyseq"><kbd>Ctrl</kbd>+<kbd>+</kbd></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Increase zoom</p></td>
+</tr>
+</tbody>
+</table>
+<p>
+Content in a passthrough block is passed to the output unprocessed.
+That means you can include raw HTML, like this embedded Gist:
+</p>
 
-<p>是一个 Eureka server 应用程序发现服务，处理路由，负载均衡和扩展。</p>
+<script src="https://gist.github.com/mojavelinux/5333524.js">
+</script>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Four score and seven years ago our fathers brought forth
+on this continent a new nation&#8230;&#8203;</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; Abraham Lincoln<br>
+<cite>Address delivered at the dedication of the Cemetery at Gettysburg</cite>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+A person who never made a mistake never tried anything new.
+</blockquote>
+<div class="attribution">
+&#8212; Albert Einstein
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>A person who never made a mistake never tried anything new.</p>
+</div>
+</blockquote>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>If you don&#8217;t know where you are going, any road will get you there.</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; Charles Lutwidge Dodgson<br>
+<cite>Mathematician and author, also known as <a href="https://en.wikipedia.org/wiki/Lewis_Carroll">Lewis Carroll</a></cite>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">AsciiDoc history</div>
+<div class="paragraph">
+<p>AsciiDoc was first released in Nov 2002 by Stuart Rackham.
+It was designed from the start to be a shorthand syntax
+for producing professional documents like DocBook and LaTeX.</p>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="title">Example 1. Sample document</div>
+<div class="content">
+<div class="paragraph">
+<p>Here&#8217;s a sample AsciiDoc document:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>= Title of Document
+Doc Writer
+:toc:
 
-<p>是一个 Spring Cloud Config server 提供应用运行时配置</p>
-
-<p>是一个运维管理服务器，有仪表板，监控，管理应用程序。</p>
-
-<p>所以这东西是整合了 Eureka server 和 Spring Cloud Config server ?<!--more--></p>
-
+This guide provides...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The document header is useful, but not required.</p>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>An admonition block may contain complex content.</p>
+</div>
+<div class="ulist">
+<div class="title">A list</div>
+<ul>
+<li>
+<p>one</p>
+</li>
+<li>
+<p>two</p>
+</li>
+<li>
+<p>three</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Another paragraph.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>line of code  <i class="conum" data-value="1"></i><b>(1)</b>
+line of code  <i class="conum" data-value="2"></i><b>(2)</b>
+line of code  <i class="conum" data-value="3"></i><b>(3)</b>
+line of code  <i class="conum" data-value="4"></i><b>(4)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A callout behind a line comment for C-style languages.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>A callout behind a line comment for Ruby, Python, Perl, etc.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>A callout behind a line comment for Clojure.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>A callout behind a line comment for XML or SGML languages like HTML.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;section&gt;
+  &lt;title&gt;Section Title&lt;/title&gt; <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/section&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The section title is required.</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="插入视频">插入视频</h4>
+<div class="videoblock">
+<div class="content">
+<iframe src="https://player.vimeo.com/video/67480300" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Table Title</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name of Column 1</th>
+<th class="tableblock halign-left valign-top">Name of Column 2</th>
+<th class="tableblock halign-left valign-top">Name of Column 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cell in column 1, row 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cell in column 2, row 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cell in column 3, row 1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cell in column 1, row 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cell in column 2, row 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cell in column 3, row 2</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Artist</th>
+<th class="tableblock halign-left valign-top">Track</th>
+<th class="tableblock halign-left valign-top">Genre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Baauer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Harlem Shake</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hip Hop</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Lumineers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ho Hey</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Folk Rock</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Artist</th>
+<th class="tableblock halign-left valign-top">Track</th>
+<th class="tableblock halign-left valign-top">Genre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Baauer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Harlem Shake</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hip Hop</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all" style="width: 25%;">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>1</em></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><strong>2</strong></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><strong>4</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>5</em></p></td>
+<td class="tableblock halign-center valign-middle" colspan="2" rowspan="2"><p class="tableblock"><code>6</code></p></td>
+<td class="tableblock halign-left valign-bottom" rowspan="3"><p class="tableblock"><code>7</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><em>8</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>9</em></p></td>
+<td class="tableblock halign-right valign-top" colspan="2"><p class="tableblock"><code>10</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>To save the file, select <span class="menuseq"><b class="menu">File</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Save</b></span>.</p>
+</div>
+<div class="paragraph">
+<p>Select <span class="menuseq"><b class="menu">View</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="submenu">Zoom</b>&#160;<i class="fa fa-angle-right caret"></i> <b class="menuitem">Reset</b></span> to reset the zoom level to the default setting.</p>
+</div>
+</div>
+</div>
 
         <!-- 来必力City版安装代码 -->
         <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
@@ -239,19 +915,12 @@
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2019/11/21/reactive-evolution-part1/" data-toggle="tooltip" data-placement="top" title="响应式变革 Reactive Evolution 第 1 部分">
+                <a href="/2020/02/04/inner-class/" data-toggle="tooltip" data-placement="top" title="Java 内部类">
                 上一篇<br>
-                <span>响应式变革 Reactive Evolution 第 1 部分</span>
+                <span>Java 内部类</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2019/12/03/reactive-evolution-part2/" data-toggle="tooltip" data-placement="top" title="响应式变革 Reactive Evolution 第 2 部分">
-                下一篇<br>
-                <span>响应式变革 Reactive Evolution 第 2 部分</span>
-                </a>
-            </li>
             
         </ul>
     </div>  

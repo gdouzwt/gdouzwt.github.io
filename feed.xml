@@ -5,9 +5,706 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 11 Feb 2020 22:13:46 +0000</pubDate>
-    <lastBuildDate>Tue, 11 Feb 2020 22:13:46 +0000</lastBuildDate>
+    <pubDate>Tue, 11 Feb 2020 22:29:49 +0000</pubDate>
+    <lastBuildDate>Tue, 11 Feb 2020 22:29:49 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>AsciiDoc语法参考</title>
+        <description>&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;段落&quot;&gt;&lt;em&gt;段落&lt;/em&gt;&lt;/h3&gt;
+&lt;div class=&quot;paragraph lead&quot;&gt;
+&lt;p&gt;段落不需要特别的格式，&lt;strong&gt;直接&lt;/strong&gt;写就是了。&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;自然段&quot;&gt;&lt;em&gt;自然段&lt;/em&gt;&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;这是普通段落&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;开始至少空一格就成为自然段，同一个自然段里面的内容必须相邻，
+即不能隔空行。&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;隔空行就是另一个自然段了。自然段文字是等宽字体，然后会保留空格和新行。
+例如    保留了前边的空格，
+然后这样，保留了换新行。&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;现在这里又是一个普通段落了。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;bold &lt;strong&gt;constrained&lt;/strong&gt; &amp;amp; &lt;strong&gt;un&lt;/strong&gt;constrained&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;italic &lt;em&gt;constrained&lt;/em&gt; &amp;amp; &lt;em&gt;un&lt;/em&gt;constrained&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;bold italic &lt;strong&gt;&lt;em&gt;constrained&lt;/em&gt;&lt;/strong&gt; &amp;amp; &lt;strong&gt;&lt;em&gt;un&lt;/em&gt;&lt;/strong&gt;constrained&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;monospace &lt;code&gt;constrained&lt;/code&gt; &amp;amp; &lt;code&gt;un&lt;/code&gt;constrained&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;monospace bold &lt;code&gt;&lt;strong&gt;constrained&lt;/strong&gt;&lt;/code&gt; &amp;amp; &lt;code&gt;&lt;strong&gt;un&lt;/strong&gt;&lt;/code&gt;constrained&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;monospace italic &lt;code&gt;&lt;em&gt;constrained&lt;/em&gt;&lt;/code&gt; &amp;amp; &lt;code&gt;&lt;em&gt;un&lt;/em&gt;&lt;/code&gt;constrained&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;monospace bold italic &lt;code&gt;&lt;strong&gt;&lt;em&gt;constrained&lt;/em&gt;&lt;/strong&gt;&lt;/code&gt; &amp;amp; &lt;code&gt;&lt;strong&gt;&lt;em&gt;un&lt;/em&gt;&lt;/strong&gt;&lt;/code&gt;constrained&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;C&amp;#43;&amp;#43;&lt;/code&gt; is valid syntax in the programming language by the same name.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;code&gt;WHERE id &amp;lt;= 20 AND value = &quot;{name}&quot;&lt;/code&gt; is a SQL WHERE clause.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;public class Hello {
+  public static void main(String[] args) {
+    System.out.println(&quot;Hello&quot;);
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Werewolves are allergic to &lt;mark&gt;cassia cinnamon&lt;/mark&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Did the werewolves read the &lt;span class=&quot;small&quot;&gt;small print&lt;/span&gt;?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Where did all the &lt;span class=&quot;underline&quot;&gt;cores&lt;/span&gt; run off to?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We need &lt;span class=&quot;line-through&quot;&gt;ten&lt;/span&gt; make that twenty VMs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;span class=&quot;big&quot;&gt;O&lt;/span&gt;nce upon an infinite loop.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;sup&gt;super&lt;/sup&gt;script phrase&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;sub&gt;sub&lt;/sub&gt;script phrase&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&amp;#8220;double curved quotes&amp;#8221;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&amp;#8216;single curved quotes&amp;#8217;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Olaf&amp;#8217;s desk was a mess.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;All of the werewolves&amp;#8217; desks were a mess.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Olaf had been with the company since the &amp;#8217;60s.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Rubies are red,&lt;br&gt;
+Topazes are blue.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ruby is red.&lt;br&gt;
+Java is black.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div style=&quot;page-break-after: always;&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Lists&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Edgar Allen Poe&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Sheri S. Tepper&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bill Bryson&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;max nesting&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;level 1&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;level 2&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;level 3&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;level 4&lt;/p&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;level 5&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;level 1&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ordered, basic&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;Step 1&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Step 2&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Step 3&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ordered, max nesting&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;level 1&lt;/p&gt;
+&lt;div class=&quot;olist loweralpha&quot;&gt;
+&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;level 2&lt;/p&gt;
+&lt;div class=&quot;olist lowerroman&quot;&gt;
+&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;level 3&lt;/p&gt;
+&lt;div class=&quot;olist upperalpha&quot;&gt;
+&lt;ol class=&quot;upperalpha&quot; type=&quot;A&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;level 4&lt;/p&gt;
+&lt;div class=&quot;olist upperroman&quot;&gt;
+&lt;ol class=&quot;upperroman&quot; type=&quot;I&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;level 5&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;level 1&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Checklist&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist checklist&quot;&gt;
+&lt;ul class=&quot;checklist&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&quot;fa fa-check-square-o&quot;&gt;&lt;/i&gt; checked&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&quot;fa fa-check-square-o&quot;&gt;&lt;/i&gt; also checked&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;i class=&quot;fa fa-square-o&quot;&gt;&lt;/i&gt; not checked&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;normal list item&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Description, single-line&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;first term&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;definition of first term&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;second term&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;definition of second term&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Description, multi-line&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;first term&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;definition of first term&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;second term&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;definition of second term&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Q &amp;amp; A&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;qlist qanda&quot;&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;What is Asciidoctor?&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;An implementation of the AsciiDoc processor in Ruby.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;What is the answer to the Ultimate Question?&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;42&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Complex content in outline lists&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Every list item has at least one paragraph of content,
+which may be wrapped, even using a hanging indent.&lt;/p&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Additional paragraphs or blocks are adjoined by putting
+a list continuation on a line adjacent to both blocks.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;list continuation&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;a plus sign (&lt;code&gt;&amp;#43;&lt;/code&gt;) on a line by itself&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A literal paragraph does not require a list continuation.&lt;/p&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;$ gem install asciidoctor&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;AsciiDoc lists may contain any complex content.&lt;/p&gt;
+&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 50%;&quot;&gt;
+&lt;col style=&quot;width: 50%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Application&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Language&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;AsciiDoc&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Python&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Asciidoctor&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Ruby&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;超链接&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://asciidoctor.org&quot; class=&quot;bare&quot;&gt;https://asciidoctor.org&lt;/a&gt; - automatic!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://asciidoctor.org&quot;&gt;Asciidoctor&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/asciidoctor&quot;&gt;Asciidoctor @ &lt;strong&gt;GitHub&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://discuss.asciidoctor.org&quot; class=&quot;external&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Discuss Asciidoctor&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://discuss.asciidoctor.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Discuss Asciidoctor&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://example.org&quot; class=&quot;teal&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Google, Yahoo, Bing&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;See &lt;a href=&quot;#自然段&quot;&gt;&lt;em&gt;自然段&lt;/em&gt;&lt;/a&gt; to learn how to write paragraphs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Learn how to organize the document into &lt;a href=&quot;#section-titles&quot;&gt;sections&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;图片&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;https://asciidoctor.org/images/octocat.jpg&quot; alt=&quot;GitHub mascot&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;UI Macro&lt;/p&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 50%;&quot;&gt;
+&lt;col style=&quot;width: 50%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Shortcut&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;kbd&gt;F11&lt;/kbd&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Toggle fullscreen&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;T&lt;/kbd&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Open a new tab&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;N&lt;/kbd&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;New incognito window&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;kbd&gt;\&lt;/kbd&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Used to escape characters&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;]&lt;/kbd&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Jump to keyword&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;+&lt;/kbd&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Increase zoom&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;
+Content in a passthrough block is passed to the output unprocessed.
+That means you can include raw HTML, like this embedded Gist:
+&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/mojavelinux/5333524.js&quot;&gt;
+&lt;/script&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Four score and seven years ago our fathers brought forth
+on this continent a new nation&amp;#8230;&amp;#8203;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;attribution&quot;&gt;
+&amp;#8212; Abraham Lincoln&lt;br&gt;
+&lt;cite&gt;Address delivered at the dedication of the Cemetery at Gettysburg&lt;/cite&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+A person who never made a mistake never tried anything new.
+&lt;/blockquote&gt;
+&lt;div class=&quot;attribution&quot;&gt;
+&amp;#8212; Albert Einstein
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A person who never made a mistake never tried anything new.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class=&quot;quoteblock&quot;&gt;
+&lt;blockquote&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you don&amp;#8217;t know where you are going, any road will get you there.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;div class=&quot;attribution&quot;&gt;
+&amp;#8212; Charles Lutwidge Dodgson&lt;br&gt;
+&lt;cite&gt;Mathematician and author, also known as &lt;a href=&quot;https://en.wikipedia.org/wiki/Lewis_Carroll&quot;&gt;Lewis Carroll&lt;/a&gt;&lt;/cite&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sidebarblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;AsciiDoc history&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;AsciiDoc was first released in Nov 2002 by Stuart Rackham.
+It was designed from the start to be a shorthand syntax
+for producing professional documents like DocBook and LaTeX.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;exampleblock&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;Example 1. Sample document&lt;/div&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here&amp;#8217;s a sample AsciiDoc document:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;= Title of Document
+Doc Writer
+:toc:
+
+This guide provides...&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The document header is useful, but not required.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;An admonition block may contain complex content.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;div class=&quot;title&quot;&gt;A list&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;one&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;two&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;three&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Another paragraph.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;line of code  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+line of code  &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
+line of code  &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
+line of code  &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;A callout behind a line comment for C-style languages.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;A callout behind a line comment for Ruby, Python, Perl, etc.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;3&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;A callout behind a line comment for Clojure.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;4&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;A callout behind a line comment for XML or SGML languages like HTML.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&amp;lt;section&amp;gt;
+  &amp;lt;title&amp;gt;Section Title&amp;lt;/title&amp;gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
+&amp;lt;/section&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;colist arabic&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
+&lt;td&gt;The section title is required.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;插入视频&quot;&gt;插入视频&lt;/h4&gt;
+&lt;div class=&quot;videoblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;iframe src=&quot;https://player.vimeo.com/video/67480300&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;caption class=&quot;title&quot;&gt;Table 1. Table Title&lt;/caption&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 33.3333%;&quot;&gt;
+&lt;col style=&quot;width: 33.3333%;&quot;&gt;
+&lt;col style=&quot;width: 33.3334%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Name of Column 1&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Name of Column 2&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Name of Column 3&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 1, row 1&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 2, row 1&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 3, row 1&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 1, row 2&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 2, row 2&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 3, row 2&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 33.3333%;&quot;&gt;
+&lt;col style=&quot;width: 33.3333%;&quot;&gt;
+&lt;col style=&quot;width: 33.3334%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Artist&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Track&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Genre&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Baauer&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Harlem Shake&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Hip Hop&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;The Lumineers&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Ho Hey&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Folk Rock&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 33.3333%;&quot;&gt;
+&lt;col style=&quot;width: 33.3333%;&quot;&gt;
+&lt;col style=&quot;width: 33.3334%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Artist&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Track&lt;/th&gt;
+&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Genre&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Baauer&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Harlem Shake&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Hip Hop&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class=&quot;tableblock frame-all grid-all&quot; style=&quot;width: 25%;&quot;&gt;
+&lt;colgroup&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;col style=&quot;width: 25%;&quot;&gt;
+&lt;/colgroup&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;1&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-right valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;2&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-center valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;3&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-right valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-center valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;5&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-center valign-middle&quot; colspan=&quot;2&quot; rowspan=&quot;2&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;6&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-left valign-bottom&quot; rowspan=&quot;3&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;7&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-center valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;8&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;9&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;td class=&quot;tableblock halign-right valign-top&quot; colspan=&quot;2&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;10&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To save the file, select &lt;span class=&quot;menuseq&quot;&gt;&lt;b class=&quot;menu&quot;&gt;File&lt;/b&gt;&amp;#160;&lt;i class=&quot;fa fa-angle-right caret&quot;&gt;&lt;/i&gt; &lt;b class=&quot;menuitem&quot;&gt;Save&lt;/b&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Select &lt;span class=&quot;menuseq&quot;&gt;&lt;b class=&quot;menu&quot;&gt;View&lt;/b&gt;&amp;#160;&lt;i class=&quot;fa fa-angle-right caret&quot;&gt;&lt;/i&gt; &lt;b class=&quot;submenu&quot;&gt;Zoom&lt;/b&gt;&amp;#160;&lt;i class=&quot;fa fa-angle-right caret&quot;&gt;&lt;/i&gt; &lt;b class=&quot;menuitem&quot;&gt;Reset&lt;/b&gt;&lt;/span&gt; to reset the zoom level to the default setting.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        <pubDate>Wed, 12 Feb 2020 05:26:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/12/hello-asciidoctor/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/12/hello-asciidoctor/</guid>
+        
+        <category>Asciidoc</category>
+        
+        <category>Notes</category>
+        
+        
+      </item>
     
       <item>
         <title>Java 内部类</title>
@@ -1199,167 +1896,6 @@ public class PalyWithAnimal {
         <guid isPermaLink="true">https://zwt.io/2020/01/22/java-modules/</guid>
         
         <category>Java 11</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>响应式Spring Boot系列教程10</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;原文由 Trisha Gee 在当地时间2019年12月16日发布在 &lt;a href=&quot;https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-kotlin-rsocket-server/&quot;&gt;INTELLIJ IDEA BLOG&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;在这一节，我们使用Spring Profiles让应用程序决定使用哪个客户端（使用服务端发送事件的 WebClient，或 RSocket）连接到Kotlin Spring Boot股票价格服务。&lt;/p&gt;
-
-&lt;p&gt;现在我们有了一个RSocket客户端，可以让我们连接到我们的RSocket服务器，我们想在我们的JavaFX应用程序中使用它。&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;h3 id=&quot;创建-rsocketstockclient-bean&quot;&gt;创建 RSocketStockClient Bean&lt;/h3&gt;
-
-&lt;p&gt;我们特意创建两种&lt;code&gt;StockClient&lt;/code&gt;实现，一个通过RSocket连接，然后另一个是用WebClient。我们的&lt;code&gt;ClientConfiguration&lt;/code&gt;仅将其中一个Bean暴露，即&lt;code&gt;WebClientStockClient&lt;/code&gt;，如果我们希望应用程序能够使用RSocket客户端，则也需要添加一个&lt;code&gt;RSocketClient&lt;/code&gt; Bean。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;在stock-client模块的&lt;code&gt;ClientConfiguration&lt;/code&gt;创建一个新的&lt;code&gt;@Bean&lt;/code&gt;方法，命名为&lt;code&gt;rSocketStockClient&lt;/code&gt;，其返回值类型为&lt;code&gt;StockClient&lt;/code&gt;。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;这个方法体需要返回一个新的&lt;code&gt;RSocketStockClient&lt;/code&gt;，所以需要一个&lt;code&gt;rSocketRequester&lt;/code&gt;作为构造函数参数。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;给&lt;code&gt;rSocketStockClient&lt;/code&gt;方法添加一个&lt;code&gt;RSocketRequester&lt;/code&gt;作为参数。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;（提示：我们可以让IntelliJ IDEA添加适当的方法参数，如果我们传入一个未知变量&lt;code&gt;rSocketRequester&lt;/code&gt;到&lt;code&gt;RSocketStockClient&lt;/code&gt;的构造器，在未知变量按下Alt+Enter并选择“Create parameter”）&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;（提示：IntelliJ IDEA Ultimate会警告你说这个参数不能自动注入，因为没有类型匹配的Beans）&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;创建另一个名为&lt;code&gt;rSocketRequester&lt;/code&gt;的&lt;code&gt;@Bean&lt;/code&gt;方法，返回&lt;code&gt;RSocketRequester&lt;/code&gt;。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;给方法声明一个类型为&lt;code&gt;RSocketRequester.Builder&lt;/code&gt;的参数&lt;code&gt;builder&lt;/code&gt; 这应该会被Spring自动注入。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;使用&lt;code&gt;builder&lt;/code&gt;的&lt;code&gt;connectTcp&lt;/code&gt;方法，并给它 “localhost” 和端口 7000(这是Spring Boot的RSocket运行地址)。调用&lt;code&gt;block()&lt;/code&gt;方法完成这次连接。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@Configuration
-public class ClientConfiguration {
-    // WebClientStockClient bean 方法...
- 
-    @Bean
-    public StockClient rSocketStockClient(RSocketRequester rSocketRequester) {
-        return new RSocketStockClient(rSocketRequester);
-    }
- 
-    @Bean
-    public RSocketRequester rSocketRequester(RSocketRequester.Builder builder) {
-        return builder.connectTcp(&quot;localhost&quot;, 7000).block();
-    }
- 
-    // WebClient bean 方法...
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;选择使用哪个-bean&quot;&gt;选择使用哪个 Bean&lt;/h3&gt;
-
-&lt;p&gt;如果我们回到JavaFX的&lt;code&gt;ChartController&lt;/code&gt;（在stock-ui 模块），这个类就是用了&lt;code&gt;StockClient&lt;/code&gt;去连接到价格服务，并在图表上显示价格的。IntelliJ IDEA 旗舰版在这个类显示警告，说这里边有多于一个Bean符合 StockClient 类型，也就是我们的&lt;code&gt;rSocketStockClient&lt;/code&gt;和&lt;code&gt;webClientStockClient&lt;/code&gt;。我们需要配置一种方式，指定我们实际想要使用哪个客户端。一种做法是使用Spring profiles。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;添加一个&lt;code&gt;@Profile&lt;/code&gt;注解到&lt;code&gt;webClientStockClient&lt;/code&gt;方法，传入一个值 &lt;code&gt;sse&lt;/code&gt;（表示 Server-Sent Events)。&lt;/li&gt;
-  &lt;li&gt;给&lt;code&gt;rSocketStockClient&lt;/code&gt;添加一个&lt;code&gt;@Profile&lt;/code&gt;注解，值为&lt;code&gt;rsocket&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@Bean
-@Profile(&quot;sse&quot;)
-public StockClient webClientStockClient(WebClient webClient) {
-    return new WebClientStockClient(webClient);
-}
- 
-@Bean
-@Profile(&quot;rsocket&quot;)
-public StockClient rSocketStockClient(RSocketRequester rSocketRequester) {
-    return new RSocketStockClient(rSocketRequester);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;选择激活的配置&quot;&gt;选择激活的配置&lt;/h3&gt;
-
-&lt;p&gt;如果我们使用的是IntelliJ IDEA旗舰版，当我们在&lt;code&gt;ChartController&lt;/code&gt;里面，我们可以看到错误已经消失了。但我们还是需要指定想要使用哪个配置(profile)。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;去到stock-ui模块的application.properties文件&lt;/li&gt;
-  &lt;li&gt;设置 spring.profiles.active属性的值为&lt;code&gt;sse&lt;/code&gt;这应该会给我们同样的Bean和之前同样的功能。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-properties&quot;&gt;# web-application and application title properties here...
-spring.profiles.active=sse
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;重新运行应用程序，程序应该按预期启动，并像之前那样显示两组价格数据。&lt;/li&gt;
-  &lt;li&gt;注意到在运行窗口，JavaFX应用程序已经以&lt;em&gt;sse&lt;/em&gt;配置启动。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;调试日志&quot;&gt;调试日志&lt;/h3&gt;
-
-&lt;p&gt;如果我们想更加确认我们所使用的Bean，我们可以回到客户端并添加一些日志功能。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;在&lt;code&gt;WebClientStockClient&lt;/code&gt;里面的&lt;code&gt;pricesFor&lt;/code&gt;方法添加一个info等级的日志信息表示当前使用的是 WebClient stock client。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public Flux&amp;lt;StockPrice&amp;gt; pricesFor(String symbol) {
-    log.info(&quot;WebClient stock client&quot;);
-    return // 在这里创建Flux
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;在&lt;code&gt;RSocketStockClient&lt;/code&gt;也做类似的操作&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public Flux&amp;lt;StockPrice&amp;gt; pricesFor(String symbol) {
-    log.info(&quot;RSocket stock client&quot;);
-    return // 在这里创建Flux
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;重新运行应用程序，我们应该看到两个日志消息，表示我们当前使用的是WebClient stock client。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;通过-rsocket-获取价格&quot;&gt;通过 RSocket 获取价格&lt;/h3&gt;
-
-&lt;p&gt;最后让我们使用RSocket去获取股票价格并显示到JavaFX的折线图上吧。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;回到stock-ui的application.properties文件，并将活动的配置改为&lt;code&gt;rsocket&lt;/code&gt;。&lt;/li&gt;
-  &lt;li&gt;重新运行应用程序，所有东西应该按预期运行。这次我们使用的是&lt;em&gt;rsocket&lt;/em&gt;配置，并通过&lt;code&gt;RSocketStockClient&lt;/code&gt;连接到RSocket价格服务器。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-properties&quot;&gt;#这里是 web-application 和 application title 的属性...
-spring.profiles.active=rsocket
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;所以就是这样子。一个完整的带有JavaFX折线图，并订阅到一个Kotlin Spring Boot应用程序的响应式数据流的价格数据的端到端应用程序。而且我们能够配置通过服务端发送事件或新的RSocket协议获取这些股票价格。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/zwt-io/rsb/&quot;&gt;全部代码在 GitHub&lt;/a&gt;：https://github.com/zwt-io/rsb/&lt;/p&gt;
-</description>
-        <pubDate>Thu, 09 Jan 2020 11:12:00 +0000</pubDate>
-        <link>https://zwt.io/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/</guid>
-        
-        <category>JavaFX</category>
-        
-        <category>Spring Boot</category>
-        
-        <category>Reactive</category>
-        
-        <category>教程</category>
         
         
       </item>
