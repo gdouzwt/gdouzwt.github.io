@@ -1,0 +1,2247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>EST 基础测试回顾 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2019/10/07/ets-foundation-test-review/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#OCA" title="OCA">OCA</a>
+                        
+                    </div>
+                    <h1>EST 基础测试回顾</h1>
+                    
+                    
+                    <h2 class="subheading">整理错题，查漏补缺</h2>
+                    
+                    <span class="meta">由招文桃在2019年10月7日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <h3 id="基础测试的情况">基础测试的情况</h3>
+
+<h4 id="测试报告">测试报告</h4>
+
+<p>当时第一次测试结果报告如下：</p>
+
+<p><img src="/img/foundation-test.png" alt="foundation-test" /></p>
+
+<p>按照考试的主题（或者说考点）来看的话，Java Basics 正确率 6/7。然后，OO Concepts 过关的，Java Data Types 部分就只对了 3 题，有点危险。基础测试没有涉及到垃圾回收的内容，但是真正考试应该会有的，而且现在工作要求也肯定会问，需要了解的。关于操作符和条件判断结构居然也只有对了 6 个题，看起来真的有点 tricky。接下来的数组、循环结构和构造方法这些考点感觉还过得去的样子。 关于方法的使用居然有点不稳，要搞清楚了，可能需要翻译 Coderanch 的文章加深一下理解。这次没有涉及方法重载的题目，然而关于继承的理解，可能还不够深，要看看编程思想了。<code>instanceof</code>在继承相关主题没有考到，但在操作符题目里出现了，异常处理方面需要加强。最基本的 <code>String</code>， 以及相关的类要烂熟了，至少 API 文档过一遍。最后 Java 8 新的时间日期 API 还没有了解，这一次就新的旧的都看一遍吧，所以今天是要看完错题，找出对应的知识点，考点，然后读 API 文档。 <!--more--></p>
+
+<h3 id="接下来做什么">接下来做什么</h3>
+
+<h4 id="整理错题">整理错题</h4>
+
+<ol>
+  <li>
+    <p>Compared to public, protected, and private accessibilities, default accessibility is … <strong>(Working with Methods)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Less restrictive than <code>public</code></p>
+
+        <blockquote>
+          <p>肯定错啦，<code>public</code> 最宽了。</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />More restrictive than <code>public</code>, but less restrictive than <code>protected</code>.</p>
+
+        <blockquote>
+          <p>想到 “by default is protect”，默认情况下，就相当于保护了，但是更深一层限制在同一个包里。所以就 <code>default</code> &lt; <code>protected</code> 所以下一个选项是正确的。</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />More restrictive than <code>protected</code>, but less restrictive than <code>private</code>.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />More restrictive than <code>private</code>.</p>
+
+        <blockquote>
+          <p>肯定错， <code>private</code> 最窄了。</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Less restrictive than <code>protected</code> from within a package, and more restrictive than <code>protected</code> from outside a package.</p>
+
+        <blockquote>
+          <p>当时选择了这个选项，因为看起来好像很有道理，而且描述全面。但现在仔细看看，说的是，在同一个包内，访问权限比 <code>protected</code> 更受限，这已经错了，同一个包内两个一样的。后面部分就不用看了，当时就没多想，这次知道了，下次就不会错了。</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p>What can be the type of a <code>catch</code> argument? (Select the best option.) <strong>(Handling Exceptions)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Any class that extends <code>java.lang.Exception</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Any class that extends <code>java.lang.Exception</code> except any class that extends <code>java.lang.RuntimeException</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Any class that is-a <code>Throwable</code>.</p>
+
+        <blockquote>
+          <p>The catch argument type declares the type of exception that the handler can handle and must be the name of a class that extends <code>Throwable</code> or <code>Throwable</code> itself.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Any Object</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Any class that extends <code>Error</code></p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p>记录一个关于重写的： An overriding method must have the same parameter list and the same return type as that of the overridden method. 翻译成中文就是，重写方法必须与被重写方法具有相同的参数列表和返回类型。</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />True</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />False</p>
+
+        <blockquote>
+          <p>我答对了，不过好像没有理解正确。 解释是这样说的：</p>
+
+          <p>This would have been true prior to Java 1.5. But from Java 1.5, an overriding method is allowed to change the return type to any subclass of the original return type, also known as <strong>covariant return type</strong>. This does not apply to primitives, in which case, the return type of the overriding method must match exactly to the return type of the overridden method.</p>
+
+          <p>所以主要看返回值类型，重写必须参数列表相同才算重写，不然就是重载了。而在 Java 1.5 之前，重写方法的返回值必须与被重写方法返回值一致。不过从 Java 1.5 开始，重写方法的返回值类型可以是被重写方法返回值的任意子类，也称为 covariant return type（好像中文译为“<strong>协变返回类型</strong>”）</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p>Which of the following statements are true?<strong>(Working with Inheritance)</strong> 选择两个正确的，当时选错了。</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Private methods cannot be overridden in subclasses.</p>
+
+        <blockquote>
+          <p>Only methods that are inherited can be overridden and private methods are not inherited.</p>
+
+          <p>只有被继承的方法才能被重写，<strong>私有方法不会被继承</strong>。</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A subclass can override any method in a non-final superclass.</p>
+
+        <blockquote>
+          <p>Only the methods that are not declared to be final can be overridden. Further, private methods are not inherited so they cannot be overridden either.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An overriding method can declare that it throws a wider spectrum of checked exceptions than the method it is overriding.</p>
+
+        <blockquote>
+          <p>这个没有在选项给出解释，看底下更长的解释。</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />The parameter list of an overriding method must be a subset of the parameter list of the method that it is overriding.</p>
+
+        <blockquote>
+          <p>An overriding method (the method that is trying to override the base class’s method) must have the same parameters.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />The overriding method may opt not to declare any throws clause even if the original method has a throws clause.</p>
+
+        <blockquote>
+          <p>No exception(i.e. an empty set of exceptions) is a valid subset of the set of exceptions thrown by the original method so an overriding method can choose to not have any throws clause.</p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <p>A method can be overridden by defining a method with the same signature(i.e. name and parameter list) and return type as the method in a superclass. The return type can also be a subclass of the original method’s return type.</p>
+
+    <p>Only methods that are accessible can be overridden. A private method cannot, therefore, be overridden in subclasses, but the subclasses are allowed to define a new method with exactly the same signature.</p>
+
+    <p>A final method cannot be overridden.</p>
+
+    <p>An overriding method cannot exhibit behavior that contradicts the declaration of the original method. An overriding method, therefore, cannot return a different type (except a subtype) or throw a wider spectrum of exceptions than the original method in the superclass. This, of course, applies only to checked exceptions because unchecked exceptions are not required to be declared at all.</p>
+
+    <p>A subclass may have a static method with the same signature as a static method in the base class but it is not called overriding. It is called hiding because <strong>the concept of polymorphism doesn’t apply to static members.</strong></p>
+
+    <p>这部分这有点意思，之前没有了解到。关于方法重写和重载，还有静态成员的知识。对于静态方法，子类中具有与父类相同方法签名的静态方法，不叫重写，叫隐藏，因为多态的概念不适用于静态成员。</p>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p>Given: <strong>(Working with Methods)</strong></p>
+
+    <pre><code class="language-java">//In file AccessTest.java 
+package a; 
+public class AccessTest { 
+    int a; 
+    private int b; 
+    protected void c() {} 
+    public int d() { return 0; } 
+} 
+   
+//In file AccessTester.java 
+package b; 
+import a.AccessTest; 
+   
+public class AccessTester extends AccessTest { 
+    public static void main(String[] args) { 
+        AccessTest ref = new AccessTest(); 
+    } 
+} 
+</code></pre>
+
+    <p>Identify the correct statements -</p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Only <code>c()</code> and <code>b()</code> can be accessed by <code>ref</code>.</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>b</code>, <code>c()</code> as well as <code>d()</code>, can be accessed by <code>ref</code>.</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Only <code>d()</code> can be accessed by <code>ref</code>.</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Only a and <code>d()</code> can be accessed by <code>ref</code>.</li>
+    </ul>
+
+    <p>The wording of this question is a bit vague because it is not clear what is meant by “can be accessed by”. Expect such wording in the real exam as well. Our guess is that it means what variables of class <code>AceesssTest</code> can be accessed using the reference named <code>ref</code>.</p>
+
+    <p>Since a public member is always accessible to everyone, <code>ref.d()</code> is definitely correct. private is only accessible within that class, therefore, b cannot be accessed from anywhere outside of class <code>AccessTest</code>. A default (aka package protected) member is accessible only from members of the same package. Since <code>AccessTester</code> is in a different package <code>a</code> cannot be accessed from <code>AccessTester</code> either.</p>
+
+    <p>Now, the question is only about the method <code>c()</code>. A protected member is inherited by a subclass and it is therefore accessible in the subclass. However, in the words of Java Language Specification, protected members of a class are accessible outside the package only in subclasses of that class, and only when they are fields of objects that are being implemented by the code that is accessing them.</p>
+
+    <p>Basically, it implies that a protected member is accessible in the subclass only using a reference whose declared type is of the same subclass (or its subclass.).</p>
+
+    <p>In this case, the declared type of <code>ref</code> is <code>AccessTest</code>, which is not of the same type as the class from which you are trying to access <code>c()</code>. Therefore, you cannot do <code>ref.c()</code> in <code>AccessTester</code>. If you had <code>AccessTester ref = new AccessTester();</code> you could do <code>ref.c()</code> because now the declared type of <code>ref</code>(i.e. <code>AccessTester</code>) is the same subclass from which you are trying to access <code>c()</code>. It will work even if the declared type of the reference is a child of the subclass. For example, the following would be valid as well.</p>
+
+    <pre><code class="language-java">SubAccessTester ref = new SubAccessTester(); 
+ref.c();   // this is valid 
+</code></pre>
+
+    <p>Where <code>SubAccessTester</code> is a subclass of <code>AccessTester</code> - 
+<code>class SubAccessTester extends AccessTester {}</code></p>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p>Which of these statements concerning the use of modifiers are true? <strong>(Java Basics)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />By default (i.e. no modifier) the member is only accessible to classes in the same package and subclasses of the class.</p>
+
+        <blockquote>
+          <p>No. the member will be accessible only within the package.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />You cannot specify visibility of local variables.</p>
+
+        <blockquote>
+          <p>They are always only accessible within the block in which they are declared.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Local variable always have default accessibility.</p>
+
+        <blockquote>
+          <p>A local variable (aka automatic variable) means a variable declared in a method. They don’t have any accessibility. They are accessible only from the block they are declared in.</p>
+
+          <p><strong>Remember</strong>, they are not initialized automatically. You have to initialize them explicitly.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Local variables can be declared as private.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Local variables can only be declared as public.</p>
+      </li>
+    </ul>
+
+    <p>You cannot apply any modifier except <code>final</code> to a local variable. i.e. you cannot make them <code>transient</code>, <code>volatile</code>, <code>static</code>, <code>public</code>, and <code>private</code>.</p>
+
+    <p>But you can apply access modifier (<code>public</code> <code>private</code> and <code>protected</code>) and <code>final</code>, <code>transient</code>, <code>volatile</code>, <code>static</code> to instance variables.</p>
+
+    <p>You cannot apply <code>native</code> and <code>synchronized</code> to any kind of variable.</p>
+
+    <p>这些很经典的基础，关键词的运用，必须熟记。</p>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p>An abstract method cannot be overridden. <strong>(Working with inheritance)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />True</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />False</li>
+    </ul>
+
+    <p>Abstract methods are meant to be overridden in the subclass. Abstract methods describe behavior but do not implement it. So the subclasses have to override it to actually implement the behavior. A subclass may choose to override it, in which case, the subclass will <strong>have to be abstract too</strong>.</p>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p>What is the correct declaration for an abstract method ‘add’ in a class that is accessible to any class, takes no arguments and returns nothing? (You had to select 1 option)</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>public void add();</code></p>
+
+        <blockquote>
+          <p>An abstract method must have the <code>abstract</code> keyword and must not have a method body i.e. <code>{}</code>.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>abstract add();</code></p>
+
+        <blockquote>
+          <p>A method that is not supposed to return anything must specify <code>void</code> as its return type.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>abstract null add();</code></p>
+
+        <blockquote>
+          <p>A method that is not supposed to return anything must specify <code>void</code> as its return type. <code>null</code> is not a type, though it is a valid return value for any reference type.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>abstract public void add();</code></p>
+
+        <blockquote>
+          <p>It is invalid because has a method body i.e. <code>{}</code>.  <strong>有方法体都不可以</strong>。</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>abstract public void add() throws Exception;</code></p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p>Which of the following are correct about <code>java.util.function.Predicate</code>?</p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It is an interface that has only one abstract method (among other non-abstract methods) with the signature - <code>public void test(T t);</code></li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It is an interface class that has only one abstract method (among other non-abstract methods) with the signature - <code>public boolean test(T t);</code></li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It is an abstract class that has only abstract method (among other non-abstract methods) with the signature - <code>public abstract void test(T t);</code></li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It is an abstract class that has only on abstract method (among other non-abstract methods) with the signature - <code>public abstract boolean test(T t);</code></li>
+    </ul>
+
+    <p><code>java.util.function.Predicate</code> is one of the several functional interfaces that have been added to Java 8. This interface has exactly one abstract method named <code>test</code>, which takes any object as input and returns a <code>boolean</code>. This comes in very handy when you have a collection of objects and you want to go through each object of that collection and see if that object satisfies some criteria. For example, you may have a collection of <code>Employee</code> objects and, in one place of your application, you want to remove all such employees whose age is below 50, while in other place, you want to remove all such employees whose salary is above 100,000. In both the cases, you want to go through your collection of employees and check each <code>Employee</code> object to determine if it fits the criteria. This can be implemented by writing an interface named <code>CheckEmployee</code> and having a method <code>check(Employee)</code> which would return <code>true</code> if the passed object satisfies the criteria. The following code fragments illustrate how it can be done -</p>
+
+    <pre><code class="language-java">//define the interface for creating criteria 
+interface CheckEmployee { 
+ boolean check(Employee e); 
+} 
+ ...
+//write a method that filters Employees based on given criteria. 
+public void filterEmployees(ArrayList&lt;Employee&gt; dataList, CheckEmployee p) { 
+    Iterator&lt;Employee&gt; i = dataList.iterator(); 
+    while(i.hasNext()) { 
+        if(p.check(i.next())) { 
+            i.remove(); 
+        } 
+    } 
+} 
+... 
+//create a specific criteria by defining a class that implements CheckEmployee 
+class MyCheckEmployee implements CheckEmployee { 
+    public boolean check(Employee e) { 
+        return e.getSalary()&gt;100000; 
+    } 
+} 
+... 
+//use the filter method with the specific criteria to filter the collection. 
+filterEmployees(employeeList, new MyCheckEmployee()); 
+</code></pre>
+
+    <p>This is a very common requirement across applications. The purpose of <code>Predicate</code> interface (and other standard functional interfaces) is to eliminate the need for every application to write a customized interface. For example, you can do the same thing with the <code>Predicate</code> interface as follows</p>
+
+    <pre><code class="language-java">public void filterEmployees(ArrayList&lt;Employee dataList, Predicate&lt;Employee&gt; p) { 
+    Iterator&lt;Employee&gt; i = dataList.iterator(); 
+    while(i.hasNext()) { 
+        if(p.test(i.next())) { 
+            i.remove(); 
+        } 
+    } 
+} 
+... 
+// Instead of defining a MyPredicate class (like we did with MyCheckEmployee), we could also define and instantiate an anonymous inner class to reduce code clutter 
+Predicate&lt;Employee&gt; p = new Predicate&lt;Employee&gt;() { 
+    public boolean test(Employee e) { 
+        return e.getSalary()&gt;1000000; 
+    } 
+} 
+... 
+filterEmployees(employeeList, p); 
+</code></pre>
+
+    <p>Note that both the interfaces (<code>CheckEmployee</code> and <code>Predicate</code>) can be used with lambda expressions in exactly the same way. Instead of creating an anonymous inner class that implements the <code>CheckEmployee</code> or <code>Predicate</code> interface, you could just do -</p>
+
+    <p><code>filterEmployees(employeeList, e -&gt; e.getSalary()&gt;1000000);</code></p>
+
+    <p>The benefit with <code>Predicate</code> is that you don’t have to write it, It is already there in the standard java library.</p>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p>Which of the following are valid declarations in a class? (You had to select 1 option) <strong>(Working with Inheritance)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>abstract int absMethod(int param) throws Exception;</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>abstract native int absMethod(int param) throws Exception;</code></p>
+
+        <blockquote>
+          <p><code>native</code> method cannot be <code>abstract</code></p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>float native getVariance() throws Exception;</code></p>
+
+        <blockquote>
+          <p>return type should always be on the immediate left of the method name.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>abstract private int absMethod(int param) throws Exception;</code></p>
+
+        <blockquote>
+          <p><code>private</code> method cannot be <code>abstract</code>. A <code>private</code> method is not inherited so how can a subclass implement it?</p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of the following statements is/are true? (You had to select 1 option)</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Subclasses must define all the abstract methods that the superclass defines.</p>
+
+        <blockquote>
+          <p>Not if the subclass is also defined abstract!</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A class implementing an interface must define all the methods of that interface.</p>
+
+        <blockquote>
+          <p>Not if the class is defined abstract. Further, Java 8 allows interface to have and static methods, which need not be implemented by a non-abstract class that says it implements that interface.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />A class cannot override the super class’s constructor.</p>
+
+        <blockquote>
+          <p>Because constructors are not inherited.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It is possible for two classes to be the superclass of each other.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An interface can implement multiple interfaces.</p>
+
+        <blockquote>
+          <p>Interface cannot “implement” other interfaces. It can extend multiple interfaces. The following is a valid declaration <code>interface I1 extends I2, I3, I4 {}</code>。 <strong>记得了，接口是不可以实现其它接口的，但是可以实现多个接口。</strong></p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of the following statements regarding ‘break’ and ‘continue’ are true? (You had to select 1 option) <strong>(Using Loop Constructs)</strong> 这题选错了，注意。</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>break</code> without a label, can occur only in a <code>switch</code>, <code>while</code>, <code>do</code>, or <code>for</code> statement.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>continue</code> without a label, can occur only in a <code>switch</code>, <code>while</code>, <code>do</code>, or <code>for</code> statement.</p>
+
+        <blockquote>
+          <p>It cannot occur in a switch.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>break</code> can never occur without a label.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>continue</code> can never occur WITH a label.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />None of the above.</p>
+      </li>
+    </ul>
+
+    <p>A <code>break</code> statement with no label attempts to transfer control to the innermost enclosing <code>switch</code>, <code>while</code>, <code>do</code>, or <code>for</code> statement; this statement, which is called the break target, then immediately completes normally. If no <code>switch</code>, <code>while</code>, <code>do</code>, or <code>for</code> statement encloses the <code>break</code> statement, a compile-time error occurs.</p>
+
+    <p>A <code>break</code> statement with label Identifier attempts to transfer control to the enclosing labeled statement that has the same identifier as its label; this statement, which is called the break target, then immediately completes normally. In this case, the break target need not be a <code>while</code>, <code>do</code>, <code>for</code>, or <code>switch</code> statement.</p>
+
+    <p>A <code>continue</code> statement with no label attempts to transfer control to the innermost enclosing <code>while</code>, <code>do</code>, or <code>for</code> statement; this statement, which is called the continue target, then immediately ends the current iteration and begins a new one. If no <code>while</code>, <code>do</code>, or <code>for</code> statement encloses the <code>continue</code> statement, a compile-time error occurs.</p>
+
+    <p>A <code>continue</code> statement with label identifier attempts to transfer control to the enclosing labeled statement that has the same identifier as its label; that statement, which is called the continue target, then immediately ends the current iteration and begins a new one. The continue target must be a <code>while</code>, <code>do</code>, or <code>for</code> statement or a compile-time error occurs. If no labeled statement with identifier as its label contains the <code>continue</code> statement, a compile-time error occurs.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>What class of objects can be declared by the throws clause? <strong>(Handling Exceptions)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>Exception</code></li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>Error</code></li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Event</code></li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Object</code></li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>RuntimeException</code></li>
+    </ul>
+
+    <p>You can declare anything that is a <code>Throwable</code> or a subclass of <code>Throwable</code>, in the <code>throws</code> clause.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>Identify the valid members of <code>Boolean</code> class.</p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>parseBoolean(String)</code></li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>valueOf(boolean)</code></li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>parseBoolean(boolean)</code></li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>FALSE</code></p>
+
+        <blockquote>
+          <p><code>TRUE</code> and <code>FALSE</code> are valid static members of <code>Boolean</code> class.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Boolean(Boolean)</code></p>
+
+        <blockquote>
+          <p>There is no constructor that takes a <code>Boolean</code>.</p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <p><strong>You need to remember the following points about Boolean:</strong></p>
+
+    <ol>
+      <li>
+        <p><code>Boolean</code> class has two constructors - <code>Boolean(String)</code> and <code>Boolean(boolean)</code></p>
+
+        <p>The <code>String</code> constructor allocates a <code>Boolean</code> object representing the value <code>true</code> if string argument is not null and is equal, ignoring case, to the string “true”. Otherwise, allocate a Boolean object representing the value <code>false</code>. Examples: <code>new Boolean("True")</code> produces a <code>Boolean</code> object that represents <code>true</code>. <code>new Boolean("yes")</code> produces a <code>Boolean</code> object that represents <code>false</code>.</p>
+
+        <p>The <code>boolean</code> constructor is self-explanatory.</p>
+      </li>
+      <li>
+        <p><code>Boolean</code> class has two static helper methods for creating booleans - <code>parseBoolean</code> and <code>valueOf</code>.</p>
+
+        <p><code>Boolean.parseBoolean(String )</code> method returns a primitive boolean and not a <code>Boolean</code> object (Note - Same as with the case with other <code>parseXXX</code> methods such as <code>Integer.parseInt</code> - they return primitives and not objects). The boolean returned represents the value <code>true</code> if the string argument is not null and is equal, ignoring case, to the string “true”.</p>
+
+        <p><code>Boolean.valueOf(String )</code> and its overloaded <code>Boolean.valueOf(boolean )</code> version, on the other hand, work similarly but returns a reference to either <code>Boolean.TRUE</code> or <code>Boolean.FALSE</code> wrapper objects. Observe that they don’t create a new Boolean object but just return the static constants <code>TRUE</code> or <code>FALSE</code> defined in <code>Boolean</code> class.</p>
+      </li>
+      <li>
+        <p>When you use the equality operator ( <code>==</code> ) with booleans, if exactly one of the operands is a <code>Boolean</code> wrapper, it is first unboxed into a <code>boolean</code> primitive and then the two are compared (JLS 15.21.2). If both are <code>Boolean</code> wrappers, then their references are compared just like in the case of other objects. Thus, <code>new Boolean("true") == new Boolean("true")</code> is <code>false</code>, but <code>new Boolean("true") == Boolean.parseBoolean("true")</code> is <code>true</code>.</p>
+      </li>
+    </ol>
+
+    <hr />
+  </li>
+  <li>
+    <p><strong>(Working with Inheritance)</strong> A method with no access modifier defined in a class can be overridden by a method marked protected (assuming that it is not final) in the subclass. (You had to select 1 option)</p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />True</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />False</li>
+    </ul>
+
+    <p>An overriding method is allowed to make the overridden method more accessible, and since protected is more accessible than default (package), this is allowed. Note that protected access will allow access to the subclass even if the subclass is in a different package but package access will not.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of the following are <strong>NOT</strong> valid operators in Java? <strong>(Using Operators and Decision Constructs)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>sizeof</code></p>
+
+        <blockquote>
+          <p>It is a valid operator in C++ but not in java because the size of everything is known at compile time and is not machine dependent.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>&lt;&lt;&lt;</code></p>
+
+        <blockquote>
+          <p>For left shifts there is no difference between shifting signed and unsigned values so there is only one leftshift <code>'&lt;&lt;'</code> in java.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>instanceof</code></p>
+
+        <blockquote>
+          <p>这个居然也算是运算符，记混了，以为只是关键字！</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>mod</code></p>
+
+        <blockquote>
+          <p>No such thing.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>equals</code></p>
+
+        <blockquote>
+          <p><code>boolean equals(Object o)</code> is a method in <code>java.lang.Object.</code> It is not an operator.</p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of these statements are true?</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />All classes must explicitly define a constructor.</p>
+
+        <blockquote>
+          <p>A default no args one will be provided if not defined any.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />A constructor can be declared private.</p>
+
+        <blockquote>
+          <p><strong>This feature is used for implementing Singleton Classes.</strong> 单例模式，要可以手写。</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A constructor can declare a return value.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A constructor must initialize all the member variables of a class.</p>
+
+        <blockquote>
+          <p>All non-final instance variables get default values if not explicitly initialized.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />A constructor can access the non-static members of a class.</p>
+
+        <blockquote>
+          <p>A constructor is non-static, and so it can access directly both the static and non-static members of the class.</p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <p>Constructors need not initialize <strong>all</strong> the member variables of the class. A non-final member(i.e. an instance) variable will be assigned a default value if not explicitly initialized.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of these statements are true? (You had to select 2 option(s)) <strong>(Working with Inheritance)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A <code>super(&lt;appropriate list of arguments&gt;)</code> or <code>this(&lt;appropriate list of arguments&gt;)</code> call must always be provided explicitly as the first statement in the body of the constructor.</p>
+
+        <blockquote>
+          <p><code>super();</code> is automatically added if the subclass constructor doesn’t call any of the super class’s constructors.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />If a subclass does not have any declared constructors, the implicit default constructor of the subclass will have a call to <code>super()</code>.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />If neither <code>super()</code> or <code>this()</code> id declared as the first statement of the body of a constructor, then <code>this()</code> will implicitly be inserted as the first statement.</p>
+
+        <blockquote>
+          <p><code>super()</code> is added and not <code>this()</code></p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>super(&lt;appropriate list of arguments&gt;)</code> can only be called in the first line of the constructor but <code>this(&lt;appropriate list of arguments&gt;)</code> can be called from anywhere.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />You can either call <code>super(&lt;appropriate list of arguments&gt;)</code> or <code>this(&lt;appropriate list of arguments&gt;)</code> but not both from a constructor.</p>
+      </li>
+    </ul>
+
+    <p>Note that calling <code>super();</code> will not always work because if the superclass has defined a constructor with arguments and has not defined a no args constructor then no args constructor will not be provided by the compiler. It is provided only to the class that does not define ANY constructor explicitly.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of these combinations of switch expression types and case label value types are legal within a switch statement? (You had to select 1 option(s)) <strong>(Using Operators and Decision Constructs)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />switch expression of type int and case label value of type <code>char</code>.</p>
+
+        <blockquote>
+          <p>Note that the following is invalid though because a <code>char</code> cannot be assigned to an <code>Integer</code>.</p>
+
+          <pre><code class="language-java">Integer x = 1;   // int x = 1; is valid. 
+switch(x) { 
+case 'a' : System.out.println("a"); 
+} 
+</code></pre>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />switch expression of type <code>float</code> and case label value of type <code>int</code>.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />switch expression of type <code>byte</code> and case label value of type <code>float</code>.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />switch expression of type <code>char</code> and case label value of type <code>byte</code>.</p>
+
+        <blockquote>
+          <p>This will not work in all cases because a <code>byte</code> may have negative values which cannot be assigned to a char. For example, <code>char ch = -1;</code> does not compile. Therefore, the following does not compile either:</p>
+
+          <pre><code class="language-java">char ch = 'x';
+switch (ch) { 
+  case -1 : System.out.println("-1"); break; // This will not compile: possible loss of precision 
+  default:  System.out.println("default"); 
+} 
+</code></pre>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />switch expression of type boolean and case label value of type boolean.</p>
+      </li>
+    </ul>
+
+    <p>You should remember the following rules for a switch statement:</p>
+
+    <ol>
+      <li>
+        <p>Only <code>String</code>, <code>byte</code>, <code>char</code>, <code>short</code>, <code>int</code>, and <code>enum</code> values can be used as types of a switch variable. (<code>String</code> is allowed since Java 7.) Wrapper classes <code>Byte</code>, <code>Character</code>, <code>Short</code>, and <code>Integer</code> are allowed as well.</p>
+      </li>
+      <li>
+        <p>The case constants must be assignable to the switch variable. For example, if your switch variable is of class <code>String</code>, your case labels must use Strings as well.</p>
+      </li>
+      <li>
+        <p>The switch variable must be big enough to hold all the case constants. For example, if the switch variable is of type <code>char</code>, then none of the case constants can be greater than 65535 because a char’s range is from 0 to 65535. Similarly, the following will not compile because 300 cannot be assigned to ‘by’, which can only hold values from -128 to 127.</p>
+
+        <pre><code class="language-java">   byte by = 10; 
+   switch(by){ 
+       case 200 :  //some code; 
+       case 300 :  //some code; 
+   } 
+</code></pre>
+      </li>
+      <li>
+        <p>All case labels should be <strong>COMPILE TIME CONSTANTS</strong>.</p>
+      </li>
+      <li>
+        <p>No two of the case constant expressions associated with a switch statement may have the same value.</p>
+      </li>
+      <li>
+        <p>At most one default label may be associated with the same switch statement.</p>
+      </li>
+    </ol>
+
+    <hr />
+  </li>
+  <li>
+    <p>Consider the following code:</p>
+
+    <pre><code class="language-java">public class Conversion { 
+  public static void main(String[] args) { 
+    int i = 1234567890; 
+    float f = i; 
+    System.out.println( i - (int)f); 
+  } 
+} 
+</code></pre>
+
+    <p>What will it print when run?</p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 0.</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will not print 0.</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will not compile.</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will throw an exception at runtime.</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />None of the above.</li>
+    </ul>
+
+    <p>Actually, it prints -46. This is because the information was lost during the conversion from type int to type <code>float</code> as values of type <code>float</code> are not precise to nine significant digits. 
+Note: <strong>You are not required to know the number of significant digits that can be stored by a float for the exam. However, it is good to know about the loss of precision while using float and double.</strong></p>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of the following statements are true? (You had to select 2 option(s))</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>private</code> keyword can never be applied to a class.</p>
+
+        <blockquote>
+          <p><code>private</code>, <code>protected</code> and <code>public</code> can be applied to nested class.</p>
+
+          <p>Although not too important for the exam, you should still know the following terminology: A top level class is a class that is not a nested class. A nested class is any class whose declaration occurs within the body of another class or interface.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>synchronized</code> keyword can never be applied to a class.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>synchronized</code> keyword may be applied to a non-primitive variable.</p>
+
+        <blockquote>
+          <p>It can only be applied to a method or a block.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>final</code> keyword can never be applied to a class.</p>
+
+        <blockquote>
+          <p>It can be applied to class, variable and methods.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />A <code>final</code> variable can be hidden in a subclass.</p>
+      </li>
+    </ul>
+
+    <p>If the class declares a field with a certain name, then the declaration of that field is said to hide any and all accessible declarations of fields with the same name in superclasses and superinterfaces of the class. 
+For example,</p>
+
+    <pre><code class="language-java">class Base{ 
+int i=10; 
+} 
+class Sub extends Base{ 
+int i=20; //This i hides Base's i. 
+} 
+... 
+Sub s = new Sub(); 
+int k = s.i; //assigns 20 to k. 
+    
+k = ((Base)s).i;//assigns 10 to k. The cast is used to show the Base's i. 
+    
+Base b = new Sub(); 
+</code></pre>
+
+    <p><code>k = b.i;//assigns 10 to k</code> because which field is accessed depends on the class of the variable and not on the class of the actual object. The same rule applies to static methods but the opposite is true for instance methods.</p>
+
+    <p><code>final</code> keyword when applied to a class means the class cannot be subclassed, when applied to a method means the method cannot be overridden (it can be overloaded though) and when applied to a variable means that the variable is a constant.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p><strong>(Working with Java API - Time and Date)</strong> Identify the correct statements.</p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>LocalDate</code>, <code>LocalTime</code>, and <code>LocalDateTime</code> extend <code>Date</code>.</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>LocalDate</code>, <code>LocalTime</code>, and <code>LocalDateTime</code> implement <code>TemporalAccessor</code>.</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Both - <code>LocalDate</code> and <code>LocalTime</code> extend <code>LocalDateTime</code>, which extends <code>java.util.Date</code>.</li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>LocalDate</code>, <code>LocalTime</code>, and <code>LocalDateTime</code> implement <code>TemporalAccessor</code> and extend <code>java.util.Date</code>.</li>
+    </ul>
+
+    <p>Here are some points that you should keep in mind about the new Date/Time classes introduced in Java 8 -</p>
+
+    <ol>
+      <li>
+        <p>They are in package <code>java.time</code> and they have no relation at all to the old <code>java.util.Date</code> and <code>java.sql.Date</code>.</p>
+      </li>
+      <li>
+        <p><code>java.time.temporal.TemporalAccessor</code> is the base interface that is implemented by <code>LocalDate</code>, <code>LocalTime</code>, and <code>LocalDateTime</code> concrete classes. This interface defines read-only access to temporal objects, such as a date, time, offset or some combination of these, which are represented by the interface <code>TemporalField</code>.</p>
+      </li>
+      <li>
+        <p><code>LocalDate</code>, <code>LocalTime</code>, and <code>LocalDateTime</code> classes do not have any parent/child relationship among themselves. As their names imply, <code>LocalDate</code> contains just the date information and no time information, <code>LocalTime</code> contains only time and no date, while <code>LocalDateTime</code> contains date as well as time. None of them contains zone information. For that, you can use <code>ZonedDateTime</code>.</p>
+
+        <p>These classes are immutable and have no public constructors. You create objects of these classes using their static factory methods such as of(…) and from(<code>TemporalAccessor</code> ).  For example,</p>
+
+        <pre><code class="language-java">LocalDate ld = LocalDate.of(2015, Month.JANUARY, 1); 
+</code></pre>
+        <p>or</p>
+        <pre><code class="language-java">LocalDate ld = LocalDate.from(anotherDate); 
+</code></pre>
+        <p>or</p>
+        <pre><code class="language-java">LocalDateTime ldt = LocalDateTime.of(2015, Month.JANUARY, 1, 21, 10); //9.10 PM 
+</code></pre>
+        <p>Since you can’t modify them once created, if you want to create new object with some changes to the original, you can use the instance method named with(…). For example,</p>
+
+        <pre><code class="language-java">LocalDate sunday = ld.with(java.time.temporal.TemporalAdjusters.next(DayOfWeek.SUNDAY)); 
+</code></pre>
+      </li>
+      <li>
+        <p>Formatting of date objects into String and parsing of Strings into date objects is done by <code>java.time.format.DateTimeFormatter</code> class. This class provides public static references to readymade <code>DateTimeFormatter</code> objects through the fields named <code>ISO_DATE</code>, <code>ISO_LOCAL_DATE</code>, <code>ISO_LOCAL_DATE_TIME</code>, etc.  For example</p>
+
+        <pre><code class="language-java">LocalDate d1 = LocalDate.parse("2015-01-01", DateTimeFormatter.ISO_LOCAL_DATE); 
+</code></pre>
+
+        <p>The parameter type and return type of the methods of <code>DateTimeFormatter</code> class is the base interface <code>TemporalAccessor</code> instead of concrete classes such as <code>LocalDate</code> or <code>LocalDateTime</code>. So you shouldn’t directly cast the returned values to concrete classes like this -</p>
+
+        <pre><code class="language-java">LocalDate d2 = (LocalDate) DateTimeFormatter.ISO_LOCAL_DATE.parse("2015-01-01"); 
+//will compile but may or may not throw a ClassCastException at runtime. 
+</code></pre>
+
+        <p>You should do like this -</p>
+
+        <pre><code class="language-java">LocalDate d2 = 
+    LocalDate.from(DateTimeFormatter.ISO_LOCAL_DATE.parse("2015-01-01")); 
+</code></pre>
+      </li>
+      <li>
+        <p>Besides dates, <code>java.time</code> package also provides <code>Period</code> and <code>Duration</code> classes. <code>Period</code> is used for quantity or amount of time in terms of years, months and days, while <code>Duration</code> is used for quantity or amount of time in terms of hour, minute, and seconds.</p>
+
+        <p>Durations and periods differ in their treatment of daylight savings time when added to <code>ZonedDateTime</code>. A <code>Duration</code> will add an exact number of seconds, thus a duration of one day is always exactly 24 hours. By contrast, a <code>Period</code> will add a conceptual day, trying to maintain the local time.</p>
+
+        <p>For example, consider adding a period of one day and a duration of one day to 18:00 on the evening before a daylight savings gap. The Period will add the conceptual day and result in a <code>ZonedDateTime</code> at 18:00 the following day. By contrast, the <code>Duration</code> will add exactly 24 hours, resulting in a <code>ZonedDateTime</code> at 19:00 the following day (assuming a one hour DST gap).</p>
+      </li>
+    </ol>
+
+    <hr />
+  </li>
+  <li>
+    <p><strong>(Q 40 of 69 Working with Java API - Time and Date)</strong> Which of the following are true regarding the new Date-Time API of Java 8? (You had to select 2 option(s))</p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It uses the calendar system defined in ISO-8601 as the default calendar.
+        <blockquote>
+          <p>This calendar is based on the Gregorian calendar system and is used globally as the defacto standard for representing date and time. The core classes in the Date-Time API have names such as <code>LocalDateTime</code>, <code>ZonedDateTime</code>, and <code>OffsetDateTime</code>. All of these use the ISO calendar system.</p>
+
+          <p>If you want to use an alternative calendar system, such as Hijrah or Thai Buddhist, the <code>java.time.chrono</code> package allows you to use one of the predefined calendar systems. Or you can create your own.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Most of the actual date related classes in the Date-Time API such as <code>LocalDate</code>, <code>LocalTime</code>, and <code>LocalDateTime</code> are immutable.</li>
+    </ul>
+
+    <blockquote>
+      <p>These classes do not have any setters. Once created you cannot change their contents. Even their constructors are <strong>private</strong>.</p>
+    </blockquote>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>LocalDateTime</code> includes time zone information but <code>LocalDate</code> does not.
+        <blockquote>
+          <p>None of <code>LocalDate</code>, <code>LocalDateTime</code>, or <code>LocalTime</code> store zone information.</p>
+
+          <p><code>java.time.ZonedDateTime</code> does. <code>ZonedDateTime</code> is an immutable representation of a date-time with a time-zone. This class stores all date and time fields, to a precision of nanoseconds, and a time-zone, with a zone offset used to handle ambiguous local date-times. For example, the value “2nd October 2007 at 13:45:30.123456789 +02:20 in the Europe/Paris time-zone” can be stored in a <code>ZonedDateTime</code>.</p>
+
+          <p><code>ZonedDateTime</code> is not listed in official exam objectives.</p>
+        </blockquote>
+      </li>
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />To create a <code>LocalDate</code> or a <code>LocalDateTime</code> object, you can use one of their several constructors.
+        <blockquote>
+          <p>These classes do not have any public constructors. You need to use their static factory methods to get their instances.</p>
+
+          <p>For example:</p>
+
+          <pre><code class="language-java">java.time.LocalDate d1 = java.time.LocalDate.of(2015, Month.JANUARY, 31); 
+
+java.time.LocalDateTime d2 = java.time.LocalDateTime.of(2015, Month.JANUARY, 31, 10, 56); 
+
+java.time.LocalDateTime d3 = java.time.LocalDateTime.parse("2015-01-02T17:13:50"); 
+//Note that this will throw a java.time.format.DateTimeParseException if the input string lacks the time component i.e. T17:13:50 
+
+java.time.LocalDate d4 = java.time.LocalDate.parse("2015-01-02"); 
+//Note that this will throw a java.time.format.DateTimeParseException if the input string contains the time component 
+
+java.time.LocalTime d5 = java.time.LocalTime.parse("02:13:59.985"); 
+//Note that this will throw a java.time.format.DateTimeParseException if the input string contains the Date component. 
+</code></pre>
+        </blockquote>
+      </li>
+    </ul>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of the following statements concerning the switch construct are true? (You had to select 3 option(s))</p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />A character literal can be used as a value for a case label.</li>
+    </ul>
+
+    <blockquote>
+      <p><code>boolean</code>, <code>long</code>, <code>float</code> and <code>double</code> cannot be used.</p>
+    </blockquote>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />A ‘long’ cannot be used as a switch variable.</li>
+    </ul>
+
+    <blockquote>
+      <p><code>boolean</code>, <code>long</code>, <code>float</code> and <code>double</code> cannot be used.</p>
+    </blockquote>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />An empty switch block is a valid construct.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A switch block must have a <code>default</code> label.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />If present, the default label must be the last of all the labels.</p>
+
+        <blockquote>
+          <p>Any order is valid.</p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <p>Here are the rules for a switch statement:</p>
+    <ol>
+      <li>Only <code>String</code>, <code>byte</code>, <code>char</code>, <code>short</code>, <code>int</code>, (and their wrapper classes <code>Byte</code>, <code>Character</code>, <code>Short</code>, and <code>Integer</code>), and enums can be used as types of a switch variable. (<code>String</code> is allowed only since Java 7).</li>
+      <li>The case constants must be assignable to switch variable. For example, if your switch variable is of class <code>String</code>, your case labels must use <code>String</code> as well.</li>
+      <li>The switch variable must be big enough to hold all the case constants. For example, if the switch variable is of type <code>char</code>, then none of the case constants can be greater than 65535 because a char’s range is from 0 to 65535.</li>
+      <li>All case labels should be <strong>COMPILE TIME CONSTANTS</strong>.</li>
+      <li>No two of the case constant expressions associated with a switch statement may have the same value.</li>
+      <li>At most one <code>default</code> label may be associated with the same switch statement.</li>
+    </ol>
+
+    <hr />
+  </li>
+  <li>
+    <p>How can you declare a method <code>someMethod()</code> such that an instance of the class is not needed to access it and all the members of the same package have access to it?</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>public static void someMethod()</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>static void someMethod()</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>protected static void someMethod()</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>void someMethod()</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>protected void someMethod()</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>public abstract static void someMethod()</code></p>
+
+        <blockquote>
+          <p>static methods can’t be abstract.</p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <p>Since the question says, “…an instance of the class is not needed…”, the method has to be static. 
+Also, as the question does not say that other packages should not have access to the method so public or protected is also correct.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>Objects of which of the following classes can be thrown using a throw statement? <strong>(Handling Exceptions)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Event</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Object</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>Throwable</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>Exception</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>RuntimeException</code></p>
+      </li>
+    </ul>
+
+    <p>You can only throw a <code>Throwable</code> using a <code>throws</code> clause. Exception and Error are two main subclasses of <code>Throwable</code>.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>In which of these variable declarations, will the variable remain uninitialized unless explicitly initialized? (You had to select 1 option(s))</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Declaration of an instance variable of type int.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Declaration of a static class variable of type float.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Declaration of a local variable of type float.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Declaration of a static class variable of class Object.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Declaration of an instance variable of class Object.</p>
+      </li>
+    </ul>
+
+    <p>We have to explicitly initialize local variables otherwise they remain uninitialized and it will be a compile time error if such variables are accessed without getting initialized first. 
+Instance variables and static variables receive a default value if not explicitly initialized. All primitive types get a default value equivalent to 0, that is, int to 0 and float to 0.0f and so on and boolean to false. 
+The type/class of a variable does not affect whether a variable is initialized or not.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>A try statement must always have a … associated with it.</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>catch</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>throws</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>finally</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>catch</code>, <code>finally</code> or both</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>throw</code></p>
+      </li>
+    </ul>
+
+    <p>A try without resources must have either a <code>catch</code> or a <code>finally</code>. It may have both as well. 
+Thus, the following constructs are valid:</p>
+
+    <ol>
+      <li>
+        <pre><code class="language-java">try{ 
+} 
+catch(Exception e){  }  // no finally 
+</code></pre>
+      </li>
+      <li>
+        <pre><code class="language-java">try{ 
+} 
+finally{  }  // no catch 
+</code></pre>
+      </li>
+      <li>
+        <pre><code class="language-java">try{ 
+} 
+catch(Exception e) {  } 
+finally{  } 
+</code></pre>
+      </li>
+      <li>A catch can catch multiple exceptions:
+        <pre><code class="language-java">try{ 
+} 
+catch(Exception1 | Exception2 | Exception3 e) {  } 
+</code></pre>
+      </li>
+    </ol>
+
+    <p>Note: try with resources (which is not on this exam) may omit catch as well as finally blocks.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of the following classes should you use to represent just a date without any time or zone information? <strong>(Working with Java API - Time and Date)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.util.Date</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.sql.Date</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.time.Date</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>java.time.LocalDate</code></p>
+      </li>
+    </ul>
+
+    <p>Java 8 introduces a new package <code>java.time</code> to deal with dates. The old classes such as <code>java.util.Date</code> are not recommended anymore.</p>
+
+    <p>Briefly: 
+<code>java.time</code> Package: This is the base package of new Java Date Time API. All the commonly used classes such as <code>LocalDate</code>, <code>LocalTime</code>, <code>LocalDateTime</code>, <code>Instant</code>, <code>Period</code>, <code>Duration</code> are part of this package. All of these classes are immutable and thread safe.</p>
+
+    <p><code>java.time.format</code> Package: This package contains classes used for formatting and parsing date time objects such as <code>java.time.format.DateTimeFormatter</code>.</p>
+
+    <p>(The following two are not important for the exam.)</p>
+
+    <p><code>java.time.zone</code> Package: This package contains classes for supporting different time zones and their rules.</p>
+
+    <p><code>java.time.chrono</code> Package: This package defines generic APIs for non ISO calendar systems. We can extend <code>AbstractChronology</code> class to create our own calendar system.</p>
+
+    <p><code>java.time.temporal</code> Package: This package contains temporal objects and we can use it for find out specific date or time related to date/time object. For example, we can use these to find out the first or last day of the month. You can identify these methods easily because they always have format “withXXX”.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>Consider the following variable declaration within the definition of an interface: 
+<code>int i = 10;</code> 
+Which of the following declarations defined in a non-abstract class, is equivalent to the above? (You had to select 1 option(s))</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>public static int i = 10;</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>public final int i = 10;</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>public static final int i = 10;</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>public int i = 10;</code></p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>final int i = 10;</code></p>
+      </li>
+    </ul>
+
+    <p>Fields in an interface are implicitly <code>public</code>, <code>static</code> and <code>final</code>. Although you can put these words in the interface definition but it is not a good practice to do so.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of the following statements are true? (You had to select 2 option(s))</p>
+
+    <ul class="task-list">
+      <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />The modulus operator <code>%</code> can only be used with integer operands.</li>
+    </ul>
+
+    <blockquote>
+      <p>It can be used on floating points operands also. For example, <code>5.5 % 3 = 2.5</code></p>
+    </blockquote>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>&amp;</code> can have integral as well as boolean operands.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />The arithmetic operators <code>*</code>, <code>/</code> and <code>%</code> have the same level of precedence.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>&amp;&amp;</code> can have integer as well as boolean operands.</p>
+      </li>
+    </ul>
+
+    <blockquote>
+      <p><code>!</code>, <code>&amp;&amp;</code> and <code>||</code> operate only on booleans.</p>
+    </blockquote>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>~</code> can have integer as well as boolean operands.</p>
+
+        <blockquote>
+          <p><code>~</code> Operates only on integral types.</p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <p><strong>Note :</strong> 
+integral types means <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>, and, <code>char</code></p>
+
+    <p>As per Section 4.1 of JLS 8 -</p>
+
+    <p>The integral types are <code>byte</code>, <code>short</code>, <code>int</code>, and <code>long</code>, whose values are 8-bit, 16-bit, 32-bit, and 64-bit signed two’s-complement integers, respectively, and <code>char</code>, whose values are 16-bit unsigned integers representing UTF-16 code units.</p>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of the following statements are correct? (You had to select 3 option(s))</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />An abstract class can be extended by an abstract or a concrete class.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />A concrete class can be extended by an abstract class or a concrete class.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />An interface can be extended by another interface.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An interface can be extended by an abstract class.</p>
+      </li>
+    </ul>
+
+    <blockquote>
+      <p>A class “implements” an interface. It does not “extend” an interface.</p>
+    </blockquote>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An interface can be extended by a concrete class.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An abstract class cannot implement an interface.</p>
+
+        <blockquote>
+          <p>Any class, whether abstract or concrete, can implement any interface.</p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which statements concerning conversion are true? (You had to select 4 option(s))</p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Conversion from <code>char</code> to <code>long</code> does not need a cast.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Conversion from <code>byte</code> to short does not need a case.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Conversion from short to <code>char</code> needs a cast.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Conversion from <code>int</code> to <code>float</code> needs a cast.</p>
+      </li>
+    </ul>
+
+    <blockquote>
+      <p>It does not need a cast because a <code>float</code> can hold any value of <code>int</code>. Note that the opposite is not true because of the loss of precision.</p>
+    </blockquote>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Conversion from <code>byte</code>, <code>char</code>, or <code>short</code> to <code>int</code>, <code>long</code> or <code>float</code> does not need a case.</p>
+
+        <blockquote>
+          <p>Because <code>int</code>, <code>long</code>, or <code>float</code> are bigger than <code>byte</code> <code>char</code> or <code>short</code>.</p>
+        </blockquote>
+      </li>
+    </ul>
+
+    <p>Think of it as transferring the contents of one bucket into another. You can always transfer the contents of a smaller bucket to a bigger one. But the opposite is not always possible. You can transfer the contents of the bigger bucket into the smaller bucket only if the actual content in the bigger bucket can fit into the smaller one. Otherwise, it will spill.</p>
+
+    <p>It is the same with integral types as well. <code>byte</code> is smaller than <code>short</code> or int. So you can assign a <code>byte</code> to an <code>int</code> (or an <code>int</code> to a <code>float</code>, or a <code>float</code> to a <code>double</code>) without any cast. But for the reverse, you need to assure the compiler that the actual contents in my <code>int</code> will be smaller than a <code>byte</code> so let me assign this <code>int</code> to a <code>byte</code>. This is achieved by the cast.</p>
+
+    <pre><code class="language-java">int i = 10; 
+byte b = 20; 
+b = i;//will not compile because byte is smaller than int 
+b = (byte) i; //OK 
+</code></pre>
+
+    <p>Further, if you have a final variable and its value fits into a smaller type, then you can assign it without a cast because the compiler already knows its value and realizes that it can fit into the smaller type. This is called implicit narrowing and is allowed between <code>byte</code>, <code>int</code>, <code>char</code>, and, <code>short</code> but not for <code>long</code>, <code>float</code>, and <code>double</code>.</p>
+
+    <pre><code class="language-java">final int k = 10; 
+b = k; //Okay because k is final and 10 fits into a byte 
+final float f = 10.0;//will not compile because 10.0 is a double even though the value 10.0 fits into a float 
+i = f;//will not compile. 
+</code></pre>
+
+    <hr />
+  </li>
+  <li>
+    <p>Which of the following statements are correct regarding a functional interface? <strong>(Lambda Expressions)</strong></p>
+
+    <ul class="task-list">
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It has exactly one method and it must be abstract.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It has exactly one method and it may or may not be abstract.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It must have exactly one abstract method and may have other default or static methods.</p>
+      </li>
+      <li class="task-list-item">
+        <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It must have exactly one static method and may have other default or abstract methods.</p>
+      </li>
+    </ul>
+
+    <p>A functional interface is an interface that contains exactly one abstract method. It may contain zero or more default methods and/or static methods. Because a functional interface contains exactly one abstract method, you can omit the name of that method when you implement it using a lambda expression. For example, consider the following interface -</p>
+
+    <pre><code class="language-java">interface Predicate&lt;T&gt; { 
+  boolean test(T t); 
+} 
+</code></pre>
+
+    <p>The purpose of this interface is to provide a method that operates on an object of class <code>T</code> and returns a boolean.</p>
+
+    <p>You could have a method that takes an instance of class that implements this interface defined like this -</p>
+    <pre><code class="language-java">public void printImportantData(ArrayList&lt;Data&gt; dataList, Predicate&lt;Data&gt; p){ 
+  for(Data d: dataList) { 
+    if(p.test(d)) System.out.println(d); 
+  } 
+} 
+</code></pre>
+
+    <p>where Data class could be as simple as <code>public class Data { public int value;}</code></p>
+
+    <p>Now, you can call the above method as follows:</p>
+
+    <p><code>printImportantData(al, (Data d)-&gt;{ return d.value&gt;1;});</code></p>
+
+    <p>Notice the lack of method name here. This is possible because the interface has only one abstract method so the compiler can figure out the name. This can be shortened to:</p>
+
+    <p><code>printImportantData(al, (Data d)-&gt;d.value&gt;1);</code></p>
+
+    <p>Notice the lack of curly brackets, the <code>return</code> keyword, and the semicolon. This is possible because the method returns a boolean and the expression <code>d.value&gt;1</code> also returns a boolean. The compiler is, therefore, able to figure out that the value of this expression is to be returned from the method. This can be shortened even more to:</p>
+
+    <p><code>printImportantData(al, d-&gt;d.value&gt;1);</code></p>
+
+    <p>Notice that there is no declaration of d! The compiler can figure out all the information it needs because the interface has only one abstract method and that method has only one parameter. So you don’t need to write all those things in your code.</p>
+
+    <p>Compare the above approach to the old style using an inner class that does the same thing -</p>
+
+    <pre><code class="language-java">printImportantData(al, new Predicate&lt;Data&gt;() { 
+  public boolean test(Data d) { 
+    return d.value &gt; 1; 
+  } 
+}); 
+</code></pre>
+    <p>The <code>Predicate</code> interface described above can be used anywhere there is a need to “do something with an object and return a boolean” and is actually provided by the standard java library in <code>java.util.function</code> package. This package provides a few other useful functional interfaces.</p>
+
+    <p><code>Predicate&lt;T&gt;</code> Represents a predicate (boolean-valued function) of one argument of type <code>T</code>.</p>
+
+    <p><code>Consumer&lt;T&gt;</code> Represents an operation that accepts a single input argument of type <code>T</code> and returns no result.</p>
+
+    <p><code>Function&lt;T,R&gt;</code> Represents a function that accepts one argument of type <code>T</code> and produces a result of type <code>R</code></p>
+
+    <p><code>Supplier&lt;T&gt;</code> Represents a supplier of results of type <code>T</code>.</p>
+
+    <p>For the exam, you only need to be aware of <code>Predicate</code>.</p>
+
+    <p>Please see <a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">Lambda Expressions</a> for learning Lambda expressions in Java.</p>
+  </li>
+</ol>
+
+<h4 id="结束">结束</h4>
+
+<p>这个错题整理也太长了，到这里结束了，其他内容放到其他文章。</p>
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2019/09/29/core-java-interview-cracking/" data-toggle="tooltip" data-placement="top" title="Java核心技术及面试指南读书记录">
+                上一篇<br>
+                <span>Java核心技术及面试指南读书记录</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2019/10/12/errata/" data-toggle="tooltip" data-placement="top" title="OCA Study Guide Errata">
+                下一篇<br>
+                <span>OCA Study Guide Errata</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

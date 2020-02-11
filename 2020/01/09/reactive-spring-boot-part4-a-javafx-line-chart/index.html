@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>响应式Spring Boot系列教程4 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#JavaFX" title="JavaFX">JavaFX</a>
+                        
+                        <a class="tag" href="/tags/#Tutorial" title="Tutorial">Tutorial</a>
+                        
+                        <a class="tag" href="/tags/#Spring Boot" title="Spring Boot">Spring Boot</a>
+                        
+                        <a class="tag" href="/tags/#Reactive" title="Reactive">Reactive</a>
+                        
+                        <a class="tag" href="/tags/#教程" title="教程">教程</a>
+                        
+                        <a class="tag" href="/tags/#翻译" title="翻译">翻译</a>
+                        
+                    </div>
+                    <h1>响应式Spring Boot系列教程4</h1>
+                    
+                    
+                    <h2 class="subheading">JavaFX折线图</h2>
+                    
+                    <span class="meta">由招文桃在2020年1月9日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年11月18日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-a-javafx-line-chart/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一步，我们会看一下如何创建个一JavaFX应用程序显示一个折线图。这个应用程序会用到Spring的特性，类如<a href="https://en.wikipedia.org/wiki/Inversion_of_control">控制反转</a>。</p>
+
+<!--more-->
+
+<h3 id="创建一个-scene">创建一个 Scene</h3>
+
+<ol>
+  <li>打开在第2步中创建的stock-client工程，回到在第3步创建的stock-ui模块。</li>
+  <li>打开StageInitializer，我们要更新这个用于显示应用程序的用户界面。</li>
+  <li>在<code>onApplicationEvent</code>方法里，调用<code>stage.setScene()</code>，并给它传入一个父级元素（当前未定义），并将宽与高分别设为800×600。</li>
+</ol>
+
+<pre><code class="language-java">public void onApplicationEvent(StageReadyEvent event) {
+    Stage stage = event.getStage();
+    stage.setScene(new Scene(parent, 800, 600));
+}
+</code></pre>
+
+<p>（注意：这些代码目前未能通过编译）</p>
+
+<ol>
+  <li>创建一个类型为<code>Parent</code>的局部变量<code>parent</code>。</li>
+  <li>（提示：如果你在红色的<code>parent</code>字上按下Alt+Enter并选择”Create local variable” IntelliJ IDEA 创建一个变量，并直到它需要是<code>Parent</code>类型）</li>
+  <li>在<code>stage</code>初始化之后调用<code>stage.show()</code>。</li>
+</ol>
+
+<pre><code class="language-java">public void onApplicationEvent(StageReadyEvent event) {
+    Parent parent;
+    Stage stage = event.getStage();
+    stage.setScene(new Scene(parent, 800, 600));
+    stage.show();
+}
+</code></pre>
+
+<p>现在我们要明确这个父级元素是来自哪里的。</p>
+
+<h3 id="使用-fxml">使用 FXML</h3>
+
+<p>我们要使用FXML定义用户界面上需要哪些元素。在FXML上定义视图元素使得视图与模型以及控制器之间清晰地分离开（如果我们遵循MVC模式的话）。</p>
+
+<ol>
+  <li>在<code>onApplicationEvent</code>方法中定义一个<code>FXMLLoader</code>类型的局部变量。</li>
+</ol>
+
+<pre><code class="language-java">public void onApplicationEvent(StageReadyEvent event) {
+    FXMLLoader fxmlLoader;
+    Parent parent;
+ 
+    // ...其它方法
+}
+</code></pre>
+
+<p>我们尚未定义FXML相关类的依赖，然我们添加一个Maven依赖。</p>
+
+<ol>
+  <li>在我们的pom.xml文件，我们要添加一个<code>javafx-fxml</code>依赖。</li>
+  <li>（提示：在编辑器里边红色的FXMLLoader红色字按下Alt+Enter会给我们一个”Add Maven Dependency”选项）。</li>
+  <li>添加<code>org.openjfx:javafx-fxml</code>依赖，版本为13。</li>
+</ol>
+
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.openjfx&lt;/groupId&gt;
+    &lt;artifactId&gt;javafx-fxml&lt;/artifactId&gt;
+    &lt;version&gt;13&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<ol>
+  <li>现在在StageInitializer里面导入FXMLLoader类。</li>
+  <li>（提示：在编辑器的红色FXMLLoder文字上按下Alt+Enter 会有 “Import class”选项，或者IntelliJ IDEA可以不加提示地完成这操作如果设置了自动导入的方式）。</li>
+  <li>在StageInitializer中创建一个<code>chartResource</code>字段，它的类型将会是Spring的Resource。</li>
+  <li>我们可以使用<code>@Value</code>注解去告诉Spring在哪里找到文件，让我们说它在类路径上并且是一个名为chart.fxml的文件。</li>
+  <li>在<code>FXMLLoader</code>的构造函数里，传入<code>chartResource.getURL()</code>。</li>
+  <li>这个<code>getURL</code>会抛出异常，所以让我们用try/catch块围起来。简单起见，在catch部分我们将会抛出一个新的 <code>RuntimeException</code>，但是生成环境这种处理异常的方式没什么用。</li>
+  <li>最后我们现在可以初始化我们的父级元素了，通过调用<code>fxmlLoader.load()</code>方法。</li>
+</ol>
+
+<pre><code class="language-java">import javafx.fxml.FXMLLoader;
+import javafx.scene.*;
+import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationListener;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
+import java.io.IOException;
+ 
+@Component
+public class StageInitializer implements ApplicationListener&lt;StageReadyEvent&gt; {
+    @Value("classpath:/chart.fxml")
+    private Resource chartResource;
+ 
+    @Override
+    public void onApplicationEvent(StageReadyEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(chartResource.getURL());
+            Parent parent = fxmlLoader.load();
+ 
+            Stage stage = event.getStage();
+            stage.setScene(new Scene(parent, 800, 600));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
+</code></pre>
+
+<h3 id="创建-fxml-文件">创建 FXML 文件</h3>
+
+<ol>
+  <li>去到resource目录(src/main/resources)并创建一个新的FXML文件。</li>
+  <li>（提示：如果你使用 IntelliJ IDEA创建一个 “new FXML file” 你会得到一个基础的FXML文件）。</li>
+  <li>顶层元素应该是一个<code>VBox</code>，如果文件是由IntelliJ IDEA创建的，我们需要将它由<code>AnchorPane</code>改为<code>VBox</code></li>
+  <li>确保<code>VBox</code>有一个<code>fx:controller</code>属性，其值为<code>ChartController</code>。</li>
+  <li>（提示：IntelliJ IDEA即使在FXML文件内也可以代码生成，所以我们可以在<code>ChartController</code>文字的末尾按下Alt+Enter并选择”Create class”）。</li>
+  <li>（在与其它类相同的包里创建一个<code>ChartController</code>类。确保<code>fx:controller</code>指向的路径包含了完整的报名）。</li>
+  <li>我们可以使用Optimize Imports去移除FXML文件内不必要的导入。</li>
+</ol>
+
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+ 
+&lt;?import javafx.scene.layout.VBox?&gt;
+&lt;VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ChartController"&gt;
+ 
+&lt;/VBox&gt;
+</code></pre>
+
+<p>回到SpringBootApplication类使用Ctrl+Shift+F10（Windows）或Ctrl+Shift+R（macOS）运行这个应用程序。</p>
+
+<p>一个Java窗口应该会弹出来，宽高是我们在<code>Stage</code>设置的那样。这里还没有什么，因为我们还未放东西上去。</p>
+
+<h3 id="设置应用程序的标题">设置应用程序的标题</h3>
+
+<p>我们要做一些小改动，看我们是否能够控制在窗口显示的内容。</p>
+
+<ol>
+  <li>回到<code>StageInitialzer</code>，并添加一行去将视图的标题设为<code>applicationTitle</code>。</li>
+  <li>为<code>applicationTitle</code>创建一个<code>String</code>类型的字段。</li>
+  <li>（提示：我们可以让IntelliJ IDEA创建一个构造函数以适当的参数去初始化这个字段）。</li>
+  <li>添加一个构造函数参数以填充这个字段意味着我们可以使用Spring去填充这个标题的值。</li>
+  <li>我们使用<code>@Value</code>注解为这个参数设置默认的值。</li>
+</ol>
+
+<pre><code class="language-java">public class StageInitializer implements ApplicationListener&lt;StageReadyEvent&gt; {
+    @Value("classpath:/chart.fxml")
+    private Resource chartResource;
+    private String applicationTitle;
+ 
+    public StageInitializer(@Value("Demo title") String applicationTitle) {
+        this.applicationTitle = applicationTitle;
+    }
+ 
+    public void onApplicationEvent(StageReadyEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(chartResource.getURL());
+            Parent parent = fxmlLoader.load();
+ 
+            Stage stage = event.getStage();
+            stage.setScene(new Scene(parent, 800, 600));
+            stage.setTitle(applicationTitle);
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+    }
+}
+</code></pre>
+
+<p>当我们重新运行应用程序的时候，我们应该看到JavaFX在标题栏中使用这个新的标题。</p>
+
+<h3 id="设置从applicatioproperties读取应用程序标题">设置从applicatio.properties读取应用程序标题</h3>
+
+<p>硬编码字符串怎么说都是不好的，所以让我们从其它地方获取这个标题的值。</p>
+
+<ol>
+  <li>在 src/main/resources/application.properties，添加一个新的属性值<code>spring.application.ui.title</code>并设置一个值用于标题文字。</li>
+</ol>
+
+<pre><code class="language-properties">spring.application.ui.title=Stock Prices
+</code></pre>
+
+<ol>
+  <li>在<code>StageInitializer</code>，我们可以使用SpEL去表面我们想使用这个属性值作为我们的应用程序的标题。将应用程序标题的<code>@Value</code>改为指向这个属性。</li>
+</ol>
+
+<pre><code class="language-java">public StageInitializer(@Value("${spring.application.ui.title}") String applicationTitle) {
+    this.applicationTitle = applicationTitle;
+}
+</code></pre>
+
+<p>现在当我们运行这个应用程序（例如通过按两下Ctrl运行任何东西），我们应该能看到窗口标题使用了从这个应用程序属性获得的值。</p>
+
+<h3 id="从-spring-获取-javafx-控制器">从 Spring 获取 JavaFX 控制器</h3>
+
+<p>为充分利用Spring的特性，我们还有最后一件事需要做，这就是让 JavaFX从Spring的应用程序上下文中获取 Beans。</p>
+
+<ol>
+  <li>在我们的<code>fxmlLoader</code>上调用<code>setControllerFactory</code>。我们需要给它一个Lambda expression说明，给定一个类，返回一个对象。</li>
+  <li>创建一个类型为<code>ApplicationContext</code>的字段<code>applicationContext</code>。</li>
+  <li>为这个添加新的构造函数参数，以便将其初始化。</li>
+  <li>（提示：如果你在尚未初始化的一个字段上按下Alt+Enter，IntelliJ IDEA会提供选项让你为构造函数添加参数）。</li>
+  <li>现在我们可以在<code>setControllerFactory</code> Lambda 表达式的参数中<code>applicationContext</code>调用<code>getBean</code>方法为JavaFX提供所需的控制器）。</li>
+</ol>
+
+<pre><code class="language-java">// ...start of class happens above this line
+    private ApplicationContext applicationContext;
+ 
+    public StageInitializer(@Value("${spring.application.ui.title}") String applicationTitle, 
+                            ApplicationContext applicationContext) {
+        this.applicationTitle = applicationTitle;
+        this.applicationContext = applicationContext;
+    }
+ 
+    @Override
+    public void onApplicationEvent(StageReadyEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(chartResource.getURL());
+            fxmlLoader.setControllerFactory(aClass -&gt; applicationContext.getBean(aClass));
+// ...rest of the class
+</code></pre>
+
+<h3 id="创建一个折线图">创建一个折线图</h3>
+
+<p>现在我们整合好了，最后让我们创建折线图。</p>
+
+<ol>
+  <li>在chart.fxml里面，在<code>VBox</code>内，我们想要一个<code>LineChart</code>。</li>
+  <li>我们需要添加一个子元素，一个<code>xAxis</code>x轴。</li>
+  <li>在<code>xAixs</code>内，添加一个<code>CategoryAxis</code>这意味着x轴会有字符串类型的值。这是我们的时间轴，所以给它一个 “Time”标签。</li>
+  <li>在与<code>xAixs</code>同一级，添加一个<code>yAxis</code>。</li>
+  <li>在<code>yAxis</code>内，声明一个<code>NumberAxis</code>。 这个轴是用于股票价格，所以为它添加一个 “Price”标签。</li>
+  <li>通过将<code>LineChart</code>的<code>prefHeight</code>属性设为600，设置了图表的高度为600。</li>
+  <li>我们需要给这个<code>LineChart</code>一个<code>fx:id</code>，这就是<code>ChartController</code>里面的字段<code>ID</code>，会包含对这个<code>LineChart</code> 的一个引用，让我们将它命名为 “chart”。</li>
+</ol>
+
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+ 
+&lt;?import javafx.scene.layout.VBox?&gt;
+&lt;?import javafx.scene.chart.LineChart?&gt;
+&lt;?import javafx.scene.chart.CategoryAxis?&gt;
+&lt;?import javafx.scene.chart.NumberAxis?&gt;
+&lt;VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.mechanitis.demo.stockui.ChartController"&gt;
+    &lt;LineChart prefHeight="600" fx:id="chart"&gt;
+        &lt;xAxis&gt;
+            &lt;CategoryAxis label="Time"/&gt;
+        &lt;/xAxis&gt;
+        &lt;yAxis&gt;
+            &lt;NumberAxis label="Price"/&gt;
+        &lt;/yAxis&gt;
+    &lt;/LineChart&gt;
+&lt;/VBox&gt;
+</code></pre>
+
+<ol>
+  <li>（提示：IntelliJ IDEA 可以识别到在控制器类里面没有<code>chart</code>字段。在<code>fx:id</code>的值 “chart”上按下Alt+Enter并选择 “Create field ‘chart’“，然后IDE会在<code>ChartController</code>内生成正确的字段）。</li>
+  <li><code>ChartController</code>应该有一个类型为<code>LineChart</code>的字段称为chart。我们说这个图表有一个String类型的x轴和一个<code>Number</code>类型的y轴，所以我们可以将它定义为<code>LineChart&lt;String, Double&gt;</code>。</li>
+  <li>我们为它添加一个<code>@FXML</code>注解，表示这个字段由FXML填充。</li>
+  <li>确保<code>ChartController</code>被注解为Spring的<code>@Component</code>。</li>
+</ol>
+
+<pre><code class="language-java">import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
+import org.springframework.stereotype.Component;
+ 
+@Component
+public class ChartController {
+ 
+    @FXML
+    public LineChart&lt;String, Double&gt; chart;
+}
+</code></pre>
+
+<p>现在当我们运行应用程序，我们应该窗口中显示一个折线图的轮廓，带有显示数值的价格y轴，和显示时间的x轴。</p>
+
+<p>我们已经成功的创建了一个集成到Spring Boot的JavaFX应用程序，它可以用FXML定义视图呈现什么内容。在接下来的教程，我们会让这个图实时更新股票价格数据。</p>
+
+<p><a href="https://github.com/zwt-io/rsb/">全部代码在 GitHub</a>：https://github.com/zwt-io/rsb/</p>
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/" data-toggle="tooltip" data-placement="top" title="响应式Spring Boot系列教程3">
+                上一篇<br>
+                <span>响应式Spring Boot系列教程3</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/" data-toggle="tooltip" data-placement="top" title="响应式Spring Boot系列教程5">
+                下一篇<br>
+                <span>响应式Spring Boot系列教程5</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

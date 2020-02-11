@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>笔试题目回顾 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2019/09/26/exam-review/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#笔试面试" title="笔试面试">笔试面试</a>
+                        
+                    </div>
+                    <h1>笔试题目回顾</h1>
+                    
+                    
+                    <h2 class="subheading">做过的题目值得总结下</h2>
+                    
+                    <span class="meta">由招文桃在2019年9月26日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <h3 id="多选一选择题和编程题">多选一选择题和编程题</h3>
+
+<h4 id="javacore---14题">JavaCore - 14题</h4>
+
+<ol>
+  <li>
+    <p>下述哪些说法是正确的？（）</p>
+
+    <blockquote>
+      <p>A. 实例变量是用static关键字声明的</p>
+
+      <p>B. 方法变量在方法执行时创建</p>
+
+      <p>C. 实例变量是类的成员变量</p>
+
+      <p>D. 方法变量在使用之前必须初始化</p>
+    </blockquote>
+
+    <p>这个题有点怀疑它的准确性，单选题又问“哪些说法是正确的”……<!--more--></p>
+  </li>
+  <li>
+    <p>在设计接口定义时，不用声明可能抛出的异常，可以把它放在具体实现类里处理。（）</p>
+
+    <blockquote>
+      <p>A. 错</p>
+
+      <p>B. 对</p>
+    </blockquote>
+
+    <p>A 错的</p>
+  </li>
+  <li>
+    <p>定义一个接口使用的关键字是（）</p>
+
+    <blockquote>
+      <p>A. interface</p>
+
+      <p>B. class</p>
+
+      <p>C. extends</p>
+
+      <p>D. implements</p>
+    </blockquote>
+
+    <p>A</p>
+  </li>
+  <li>
+    <p>在hibernate的多对多关系中，对inverse属性描述正确的是（）</p>
+
+    <blockquote>
+      <p>A. 关系双方都在<code>&lt;set&gt;</code>节点中设置inverse=”true”属性</p>
+
+      <p>B. 一方在<code>&lt;set&gt;</code>节点中设置inverse=”false”属性，另一方不设置</p>
+
+      <p>C. 关系双方都在<code>&lt;set&gt;</code>节点中设置inverse=”false”属性</p>
+
+      <p>D. 关系双方都在<code>&lt;set&gt;</code>节点中去掉inverse属性</p>
+    </blockquote>
+
+    <p>很少直接用 hibernate 用Spring Data JPA，还要查一下文档。</p>
+  </li>
+  <li>
+    <p>下列代码的输出是什么？</p>
+
+    <pre><code class="language-java"> int[] xxx = {10,20};
+ List&lt;String&gt; list = new ArrayList&lt;String&gt;(10);
+ list.add("01");
+ list.add("02");
+ System.out.println(xxx.length + "," + list.size());
+</code></pre>
+
+    <blockquote>
+      <p>A. 2,2</p>
+
+      <p>B. 10,2</p>
+
+      <p>C. 2,10</p>
+
+      <p>D. 1,2</p>
+
+      <p>E. 编译错误</p>
+    </blockquote>
+
+    <p>A</p>
+  </li>
+  <li>
+    <p>在spring中， applicationContext.xml如下：</p>
+
+    <pre><code class="language-xml">&lt;bean id="chinese1" class="test1.Chinese" &gt;
+    &lt;!--设置注入：主要方式--&gt;
+    &lt;constructor-arg&gt;
+        &lt;ref local="steelAxe"/&gt;
+    &lt;/constructor-arg&gt;
+&lt;/bean&gt;
+&lt;bean id="stoneAxe" class="test1.StoneAxe"&gt;
+&lt;/bean&gt;
+&lt;bean id="steelAxe" class="test1.SteelAxe"&gt;
+&lt;/bean&gt;
+</code></pre>
+
+    <p>Beantest.java如下：</p>
+
+    <p><code>ApplicationContext ctx=new ClassPathxmlApplicationContext("applicationContext.xml");</code></p>
+
+    <p>以下说法错误的是（）</p>
+
+    <blockquote>
+      <p>A. ApplicationContext实例化时，将所有对象都实例化了</p>
+
+      <p>B. ApplicationContext实例化时，没有实例化Chinese对象</p>
+
+      <p>C. 所有类都只能生成一个对象（即支持单例模式）</p>
+
+      <p>D. 当前的依赖注入方式时构造方法注入</p>
+    </blockquote>
+
+    <p>spring 的 xml 配置方式也要熟悉啊，虽然现在基本用 Spring Boot，而且多采用 Java 配置。</p>
+  </li>
+  <li>
+    <p>JDBC中，一条SQL语句的执行结果存放在一个类的对象中，这个类时（）</p>
+
+    <blockquote>
+      <p>A. ResultSetMetaData</p>
+
+      <p>B. Driver</p>
+
+      <p>C. DatabaseMetaData</p>
+
+      <p>D. ResultSet</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>关于持久化状态的说法正确的是（）</p>
+
+    <blockquote>
+      <p>A. 持久化状态只能由load方法转换过来；</p>
+
+      <p>B. 持久化状态和游离状态的区别在于游离态没有对应的数据库记录；</p>
+
+      <p>C. 持久化状态不能改变；</p>
+
+      <p>D. 调用session的save方法可以改变变成持久化状态</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>JDBC中向MySQL发送并执行一个静态sql语句，应创建SQL语句对象的类是（）</p>
+
+    <blockquote>
+      <p>A. Statement</p>
+
+      <p>B. ResultSet</p>
+
+      <p>C. Connection</p>
+
+      <p>D. Driver</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>下列说法中错误的是：</p>
+
+    <blockquote>
+      <p>A. 没有在方法定义中指明throws的方法，不可能抛出checked异常</p>
+
+      <p>B.程序不应该尝试捕捉处理Error</p>
+
+      <p>C. 任何情况下，catch块都不应该将捕获的异常重新抛出</p>
+
+      <p>D. 异常的逃逸可能会导致线程的终止</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>System.out.println(Math.floor(-2.1));</p>
+
+    <p>打印的结果为：</p>
+
+    <blockquote>
+      <p>A. 2.0</p>
+
+      <p>B. -2.0</p>
+
+      <p>C. -3.0</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>以下声明中，错误的是？</p>
+
+    <blockquote>
+      <p>A. float f = 1;</p>
+
+      <p>B. float f = 1.2;</p>
+
+      <p>C. float f = (float)1.2;</p>
+
+      <p>D. float f = 12.f;</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>设数组Array由以下语句定义int Array = new int[10];则数组的第一个元素的正确引用方法为：</p>
+
+    <blockquote>
+      <p>A. Array[]</p>
+
+      <p>B. Array</p>
+
+      <p>C. Array[0]</p>
+
+      <p>D. Array[1]</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>try {}里有一个return语句，那么紧跟在这个try后的finally {}里的code会不会被执行？</p>
+
+    <blockquote>
+      <p>A. 会执行，在return前执行。</p>
+
+      <p>B. 会执行，在return后执行。</p>
+
+      <p>C. 其余三种说法全错</p>
+
+      <p>D. 不会执行。</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="jsp---4题">JSP - 4题</h4>
+
+<ol>
+  <li>
+    <p>要设置某个JSP页面为错误处理页面，以下page指令正确的是</p>
+
+    <blockquote>
+      <p>A. <code>%@ page extends="javax.servlet.jsp.JspErrorPage"%</code></p>
+
+      <p>B. <code>%@ page isErrorPage="true"%</code></p>
+
+      <p>C. <code>%@ page info="error"%</code></p>
+
+      <p>D. <code>%@ page errorPage="true"%</code></p>
+    </blockquote>
+  </li>
+  <li>
+    <p>在J2EE中，${2 + “4”}将输出（）</p>
+
+    <blockquote>
+      <p>A. 2 + 4</p>
+
+      <p>B. 6</p>
+
+      <p>C. 不会输出，因为表达式是错误的</p>
+
+      <p>D. 24</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>servlet的声明周期由一系列事件组成，把这些事件按照先后顺序排序，以下正确的是（）</p>
+
+    <blockquote>
+      <p>A. 实例化，加载类，初始化，请求处理，销毁</p>
+
+      <p>B. 加载类，实例化，初始化，请求处理，销毁</p>
+
+      <p>C. 加载类，实例化，请求处理，初始化，销毁</p>
+
+      <p>D. 加载类，初始化，实例化，请求处理，销毁</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>在JSP中，只有一行代码：<code>&lt;%=' A' + ' B' %&gt;</code>，运行将输出（）</p>
+
+    <blockquote>
+      <p>A. 131</p>
+
+      <p>B. AB</p>
+
+      <p>C. A+B</p>
+
+      <p>D. 错误信息，因为表式是错误</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="数据库---6题">数据库 - 6题</h4>
+
+<h5 id="oracle">Oracle</h5>
+
+<ol>
+  <li>
+    <p>如下语句：</p>
+
+    <pre><code class="language-plsql">if v_num&gt;5 then
+	v_example: =1:
+elsif v_num&gt;10 then
+	v_example: =2:
+elsif v_hum&lt;20 then
+	v_example: =3:
+elsif v_num&lt;39 then
+	v_example: =4:
+else
+	v_example: =5:
+</code></pre>
+
+    <p>如果v_num=37, 则v_example的值是多少？</p>
+
+    <blockquote>
+      <p>A. 4</p>
+
+      <p>B. 5</p>
+
+      <p>C. 1</p>
+
+      <p>D. 3</p>
+
+      <p>E. 2</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h5 id="mysql">MySQL</h5>
+
+<ol>
+  <li>
+    <p>数据库恢复的重要依据是什么？</p>
+
+    <blockquote>
+      <p>A. DD</p>
+
+      <p>B. 文档</p>
+
+      <p>C. DBA</p>
+
+      <p>D. 事务日志</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>用户经常查询雇员工资增长12%的情况，为提高性能需要建立一个索引，下列那条语句比较合适？</p>
+
+    <blockquote>
+      <p>A. create bitmap index my_idx_1 on employee (salary)</p>
+
+      <p>B. create unique index my_idex_1 on employee (salary)</p>
+
+      <p>C. create index my_idx_1 on employee (salary * 1.12)</p>
+
+      <p>D. create index my_idx_1 on employee (salary) reverse</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>在创建触发器时，哪一个语句决定了触发器是针对每一行执行一次，还是针对每个语句执行一次？</p>
+
+    <blockquote>
+      <p>A. REFERENCING</p>
+
+      <p>B. FOR EACH</p>
+
+      <p>C. NEW</p>
+
+      <p>D. ON</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>MySQL的数值处理函数不包含（）。</p>
+
+    <blockquote>
+      <p>A. Exp()</p>
+
+      <p>B. Cot()</p>
+
+      <p>C. Cos()</p>
+
+      <p>D. Tan()</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>MySQL中，以下哪个函数可以计算出日期之差？</p>
+
+    <blockquote>
+      <p>A. DateDiff()</p>
+
+      <p>B. DateSub()</p>
+
+      <p>C. SubDate()</p>
+
+      <p>D. DiffDate()</p>
+    </blockquote>
+
+    <p>这题选 <strong>A</strong> 测试过了。<code>SELECT DateDiff('2019-10-25', now())</code> 现在到 2019 年 10 月 25 日还有几天？</p>
+  </li>
+</ol>
+
+<h4 id="web基础---6题">Web基础 - 6题</h4>
+
+<ol>
+  <li>
+    <p>假设有以下的web.xml设定档：  —- 多选题</p>
+
+    <pre><code class="language-xml">&lt;security-constraint&gt;
+    &lt;web-resource-collection&gt;
+        &lt;web-resource-name&gt;Login Required&lt;/web-resource-name&gt;
+        &lt;url-pattern&gt;/delete.jsp&lt;/url-pattern&gt;
+        &lt;url-pattern&gt;/delete.do&lt;/url-pattern&gt;
+        &lt;http-method&gt;GET&lt;/http-method&gt;
+        &lt;http-method&gt;POST&lt;/http-method&gt;
+    &lt;/web-resource-collection&gt;
+    &lt;auth-constraint&gt;
+        &lt;role-name&gt;admin&lt;/role-name&gt;
+    &lt;/auth-constraint&gt;
+&lt;/security-constraint&gt;
+</code></pre>
+
+    <p>以下描述何者正确？</p>
+
+    <blockquote>
+      <ul class="task-list">
+        <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A. 其他角色可以使用GET、POST以外的HTTP方法存取</li>
+        <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />B. GET与POST方法只允许admin使用</li>
+        <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />C. admin角色只允许使用GET和POST方法</li>
+        <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />D. 只有admin角色才可以存取/delete.jsp与/delete.do</li>
+      </ul>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="html">HTML</h4>
+
+<ol>
+  <li>
+    <p>HTML中，target属性等于什么值，浏览器才会在一个新的、未命名的窗口中加载文档？</p>
+
+    <blockquote>
+      <p>A. _blank</p>
+
+      <p>B. _top</p>
+
+      <p>C. _self</p>
+
+      <p>D. _parent</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>在HTML页面中，CSS样式的属性名为background-image对应的style对象的属性名是</p>
+
+    <blockquote>
+      <p>A. back-ground</p>
+
+      <p>B. background</p>
+
+      <p>C. image</p>
+
+      <p>D. backgroundImage</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>表示放在每个定义术语词之前的HTML代码是？</p>
+
+    <blockquote>
+      <p>A. <code>&lt;dt&gt;</code></p>
+
+      <p>B. <code>&lt;dl&gt;&lt;/dl&gt;</code></p>
+
+      <p>C. <code>&lt;dd&gt;</code></p>
+    </blockquote>
+  </li>
+  <li>
+    <p>哪个HTML标签用来包含外部的样式表？</p>
+
+    <blockquote>
+      <p>A. <code>&lt;STYLE&gt;</code></p>
+
+      <p>B. <code>&lt;INCLUDE&gt;</code></p>
+
+      <p>C. <code>&lt;LINK&gt;</code></p>
+
+      <p>D. <code>&lt;CSS&gt;</code></p>
+    </blockquote>
+  </li>
+  <li>
+    <p>下列关于绝对路径的说法正确的一项是</p>
+
+    <blockquote>
+      <p>A. 创建外部链接时，必须使用绝对路径</p>
+
+      <p>B. 使用绝对路径需要考虑源文件的位置</p>
+
+      <p>C. 在绝对路径中，如果目标文件被移动，则链接同时可用</p>
+
+      <p>D. 绝对路径时被链接文档的完整URL，不包含使用的传输协议</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="软件工程和计算机基础">软件工程和计算机基础</h4>
+
+<h5 id="软件工程">软件工程</h5>
+
+<ol>
+  <li>
+    <p>程序的三种基本控制结构的共同特点是（）。</p>
+
+    <blockquote>
+      <p>A. 不能嵌套使用</p>
+
+      <p>B. 仅用于自动控制系统</p>
+
+      <p>C. 只能用来描述简单程序</p>
+
+      <p>D. 单入口，单出口</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h5 id="计算机基础">计算机基础</h5>
+
+<ol>
+  <li>
+    <p>32位处理器的最大虚拟地址空间为</p>
+
+    <blockquote>
+      <p>A. 16GB</p>
+
+      <p>B. 2GB</p>
+
+      <p>C. 8GB</p>
+
+      <p>D. 4GB</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="linux">Linux</h4>
+
+<ol>
+  <li>
+    <p>/dev/hdd3分区表示（）</p>
+
+    <blockquote>
+      <p>A. 第4块IDE硬盘的第3个分区，是扩展区</p>
+
+      <p>B. 第3块IDE硬盘的第3个分区，是主分区</p>
+
+      <p>C. 第1块IDE硬盘的第3个分区，是逻辑分区</p>
+
+      <p>D. 第4块IDE硬盘的第3个分区，是主分区或扩展分区</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>Linux管道符</p>
+
+    <blockquote>
+      <p>A. <code>&lt;</code></p>
+
+      <p>B. <code>&gt;</code></p>
+
+      <p>C. <code>&gt;&gt;</code></p>
+
+      <p>D. <code>|</code></p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="数据结构与算法">数据结构与算法</h4>
+
+<ol>
+  <li>
+    <p>设无向图G=(V, E)和G’ =(V’, E’)，如果G’是G的生成树，则下面的说法中错误的是（）</p>
+
+    <blockquote>
+      <p>A. G’ 为 G的连通分量</p>
+
+      <p>B. G’ 是 G的一个无环子图</p>
+
+      <p>C. G’ 为 G的子图</p>
+
+      <p>D. G’ 为G的极小连通图且 V = V’</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>若长度为 $n$ 的线性表采用顺序存储结构，在其第 $i$ 个位置插入一个新元素的算法的时间复杂度为（）(1&lt;=i&lt;=n+1)。</p>
+
+    <blockquote>
+      <p>A. $O(0)$</p>
+
+      <p>B. $O(n)$</p>
+
+      <p>C. $O(1)$</p>
+
+      <p>D. $O(n^2)$</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>栈和队列的共同点是</p>
+
+    <blockquote>
+      <p>A. 都是先进后出</p>
+
+      <p>B. 没有共同点</p>
+
+      <p>C. 都是先进先出</p>
+
+      <p>D. 只允许在端点处插入和删除元素</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>线性表的顺序存储结构和线性表的链式存储结构分别是</p>
+
+    <blockquote>
+      <p>A. 顺序存取的存储结构、顺序存取的存储结构</p>
+
+      <p>B. 随机存取的存储结构、随机存取的存储结构</p>
+
+      <p>C. 任意存取的存储结构、任意存取的存储结构</p>
+
+      <p>D. 随机存取的存储结构、顺序存取的存储结构</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="测试理论-白盒测试">测试理论-&gt;白盒测试</h4>
+
+<ol>
+  <li>
+    <p>有以下C语言代码段：下列测试用例可以实现条件覆盖的是（）。</p>
+
+    <pre><code class="language-c">int cal(int x,int y,int z){
+	int k = 0;
+    if(x&gt;3 || y&gt;4){
+        k = x + y;
+    }
+    if(z &gt; 2){
+        k += z;
+    }
+    return k;
+}
+</code></pre>
+
+    <blockquote>
+      <p>A. {x = 4、y = 4、z = 1} {x = 2、y = 5、 z = 3}</p>
+
+      <p>B. {x = 4、y = 4、z = 3} {x = 2、 y = 3、z = 3}</p>
+
+      <p>C. {x = 4、y = 4、z = 1} {x = 2、 y = 5、z = 2}</p>
+
+      <p>D. {x = 4、y = 4、z = 4} {x = 4、 y = 4、z = 3}</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>有以下C语言代码段：下列测试用例可以实现判定覆盖的是（）。</p>
+
+    <pre><code class="language-c">void cal(intx, int y, int z)
+{
+    int k=0,j=0;
+    if(x&gt;3&amp;&amp;y&gt;4){
+        k=x+y;
+    }
+    if((x+y)&gt;5||z&gt;5){
+        j=x+y+z;
+    }
+}
+</code></pre>
+
+    <blockquote>
+      <p>A. {x = 3, y = 5, z = 5} {x = 2, y = 3, z = 5}</p>
+
+      <p>B. {x = 4, y = 5, z = 5} {x = 3, y = 3, z = 5}</p>
+
+      <p>C. {x = 4, y = 5, z = 5} {x = 2, y = 3, z = 5}</p>
+
+      <p>D. {x = 4, y = 5, z = 5} {x = 2, y = 4, z = 5}</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h4 id="编程题">编程题</h4>
+
+<p>按升序顺序输出begin到end闭区间的所有素数（在大于1的自然数中，除了1和它本身以外不再有其他因数）。</p>
+
+<p>无需添加主函数，试题采用 JDK 1.7 编译。</p>
+
+<p>样例一</p>
+
+<blockquote>
+  <p>输入</p>
+
+  <p>int begin 1</p>
+
+  <p>int end 10</p>
+
+  <p>输出（int[])</p>
+
+  <p>2，3，5，7</p>
+</blockquote>
+
+<pre><code class="language-java">package com.baiyi;
+
+import java.util.*;
+
+public class TestUtils {
+    
+    /**
+     * 按升序顺序获取闭区间内的素数列表
+     *
+     * @param begin 开始值
+     * @param end 结束值
+     * @return 整型数组
+     */
+    public static int[] getPrimers(int begin, int end) throws Exception{
+        // 请在此添加代码
+    }
+    
+    // 若有需要，请在此处添加辅助变量、方法
+}
+</code></pre>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2019/09/25/thoughts-on-oca/" data-toggle="tooltip" data-placement="top" title="关于OCA的一些想法">
+                上一篇<br>
+                <span>关于OCA的一些想法</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2019/09/27/redis-basics/" data-toggle="tooltip" data-placement="top" title="学习Redis基础知识">
+                下一篇<br>
+                <span>学习Redis基础知识</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

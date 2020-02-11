@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/page3/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/leimu.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>记录</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading" id="jinrishici-sentence">正在加载古诗词……</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+<div class="post-preview">
+    <a href="/2020/01/01/moon-rising-in-the-rosy-clouds/">
+        <h2 class="post-title">
+            彩云追月
+        </h2>
+        
+        <h3 class="post-subtitle">
+            最近听的音乐&nbsp;&nbsp;2020年1月1日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <p>据报告，我上一年听了很多摇滚乐。</p>
+
+<p>但是摇滚乐的情绪张力比较大，比较长时间内都处于一种应激状态，焦虑、有压力要释放的感觉。</p>
+
+ <a href="/2020/01/01/moon-rising-in-the-rosy-clouds/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/12/22/calculus-2014-2015-1/">
+        <h2 class="post-title">
+            复习 2014-2015-1
+        </h2>
+        
+        <h3 class="post-subtitle">
+            复习微积分&nbsp;&nbsp;2019年12月22日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <h1 id="a">A</h1>
+
+<h4 id="一填空题">一、填空题</h4>
+
+<p><strong>1.</strong>  若函数 <script type="math/tex">% <![CDATA[
+f(x) =\begin{cases}a + x, x > 0 \\ e^{-x},\space\space\space x < 0 \end{cases} %]]></script> 在点 $x = 0$ 处连续，则 $a = $ <em>__</em> .</p>
+
+<p><strong>2.</strong>  若 $f(x) = e^{-x}$，则 $f^{(n)}(x) = $ <em>__</em> .</p>
+
+<p><strong>3.</strong>   $\displaystyle \int \ln x dx = $ <em>__</em> .</p>
+
+<p><strong>4.</strong>  曲线 $\displaystyle y = x^3 - x + 1$  在 $(0, 1)$ 处的切线方程为 <em>__</em> .</p>
+
+<p><strong>5.</strong>  函数 $y = x^3 + 3x^2 - 1$ 在 $[-1, 1]$ 上最大值为 <em>__</em> .</p>
+
+<p><strong>6.</strong> 设 $\displaystyle F(x) = \int_{0}^{x^2}(t^3 - t)dt$，则 $F’(1) =$ <em>__</em> .</p>
+
+<p><strong>7.</strong>  $\displaystyle\int_{-1}^{1}(x^3 - \sqrt{1-x^2})dx=$<em>__</em> .</p>
+
+<p><strong>8.</strong> 曲线 $y = x^2$ 与曲线 $y = x$ 所围成图形的面积为 <em>__</em> .</p>
+
+ <a href="/2019/12/22/calculus-2014-2015-1/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/12/20/calculus-2012-2013-1/">
+        <h2 class="post-title">
+            复习 2012-2013-1
+        </h2>
+        
+        <h3 class="post-subtitle">
+            复习微积分&nbsp;&nbsp;2019年12月20日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <h1 id="a">A</h1>
+
+<h4 id="一填空21-分每小题-3-分">一、填空（21 分，每小题 3 分）</h4>
+
+<p><strong>1.</strong>  函数 <script type="math/tex">y =\begin{cases}x^2 + 1, x > 0 \\ ae^x, \space\space\space\space\space x \le 0\end{cases}</script> 在 $x = 0$ 点连续，则 $a = $ <em>__</em> .</p>
+
+<p><strong>2.</strong>  当 $x\to 0$ 时，$\displaystyle ax - 3 \sin x$ 与 $x$ 等价，则 $a= $ <em>__</em></p>
+
+<p><strong>3.</strong>  设 $f(x) = e^{2x}$，则$f^{(n)}(0)$= <em>__</em></p>
+
+<p><strong>4.</strong>  曲线 $\displaystyle y = \ln x$ 上与直线 $x + y = 1$ 垂直的切线方程为 <em>__</em></p>
+
+<p><strong>5.</strong>  曲线 $y = xe^x$ 的拐点为 <em>__</em>.</p>
+
+<p><strong>6.</strong> 设$\displaystyle\Phi(x) = \int_{1}^{1+x^2} \sin t^2 dt$，则 $\Phi’(1) =$ <em>__</em> .</p>
+
+<p><strong>7.</strong>  $\displaystyle\int_{-a}^{a}(x\cos x - 5\sin x + 1)dx=$<em>__</em></p>
+
+ <a href="/2019/12/20/calculus-2012-2013-1/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/12/20/calculus-2011-2012-1/">
+        <h2 class="post-title">
+            复习 2011-2012-1
+        </h2>
+        
+        <h3 class="post-subtitle">
+            复习微积分&nbsp;&nbsp;2019年12月20日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <h1 id="a">A</h1>
+
+<h4 id="一求下列极限5-x-4--20-分">一、求下列极限（5 X 4 = 20 分）</h4>
+
+<p><strong>1.</strong>  $\displaystyle \lim_{x\to\infty}(\frac{2x+3}{2x-3})^{3x+2}$</p>
+
+<p><strong>2.</strong>  $\displaystyle\lim_{x\to0} \frac{x-\arcsin x}{\sin x^3}$</p>
+
+<p><strong>3.</strong>  $\displaystyle \lim_{x \to 0} (1 - \frac{x^2}{2})^{\frac{1}{\sin^2 x}}$</p>
+
+<p><strong>4.</strong>  $\displaystyle\lim_{x\to x^{0^+}} \frac{\int_{0}^{x^2}t^{\frac{3}{2}}dt}{\int_{0}^{x}t(t-\sin t)dt}$</p>
+
+ <a href="/2019/12/20/calculus-2011-2012-1/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/12/16/cracking-android-device/">
+        <h2 class="post-title">
+            刷机过程记录
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Redmi Note 4X（高通平台）&nbsp;&nbsp;2019年12月16日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <p>LineageOS Android Distribution https://lineageos.org/</p>
+
+<p>https://download.lineageos.org/extras</p>
+
+<p>https://wiki.lineageos.org/devices/mido/install</p>
+
+<p>Resurrection Remix OS https://www.resurrectionremix.com/</p>
+
+<p>mido https://get.resurrectionremix.com/?dir=mido</p>
+
+<p><a href="https://twrp.me/">TeamWin - TWRP</a></p>
+
+<h3 id="download-twrp-331-0-midoimg"><a href="https://dl.twrp.me/mido/twrp-3.3.1-0-mido.img">Download twrp-3.3.1-0-mido.img</a></h3>
+
+<p>OpenGAPPS</p>
+
+<p>https://opengapps.org/#aboutsection</p>
+
+<p>音量键下 + 开机键进入recovery，然后输入以下命令：</p>
+
+<pre><code>fastboot flash recovery twrp-3.3.1-0-mido.img
+</code></pre>
+
+<p>接着</p>
+
+<pre><code>fastboot boot twrp-3.3.1-0-mido.img
+</code></pre>
+
+<p>一番wipe 之后，sideload，使用以下命令</p>
+
+<pre><code>adb sideload lineage-16.0-20191215-nightly-mido-signed.zip
+</code></pre>
+
+<p>明天早详细整理</p>
+ <a href="/2019/12/16/cracking-android-device/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/12/03/reactive-evolution-part2/">
+        <h2 class="post-title">
+            响应式变革 Reactive Evolution 第 2 部分
+        </h2>
+        
+        <h3 class="post-subtitle">
+            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理&nbsp;&nbsp;2019年12月3日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <h2 id="响应式变革第-2-部分构造边缘服务客户端">响应式变革第 2 部分——构造边缘服务客户端</h2>
+
+<h3 id="第二节开场">第二节开场</h3>
+
+<p>现在 我们已经构建了一个服务是一个 HTTP API 额…… 我们演示了 WebSocket 我们演示了 响应式 NoSQL 和 SQL 数据访问 在 Spring Data 的世界里 我们全部用 Java 写的加点 JavaScript 对吧 那有点 额…… 你懂得 总会遇到 JavaScript 的对吧？就如谚语所说那样。额 然后 现在 是时候将我们的注意力转到 构建客户端 构建一个东西 我们可以用来 额 与那个服务进行通信 去构建边缘服务 而边缘服务是在逻辑上在架构的边缘的东西 首个来自外界请求的端口。会被适配到对下游微服务的请求，而边缘服务是逻辑上我们处理，一些边界关键问题。例如 负载均衡
+路由 还有安全之类的。所以我们要在这里做 在这个边缘服务里做，额 我们要构建一个 像往常一样。通过到 start.spring.io OK? 所以我们开始，啊 现在。我们要构建一个应用，你知道吗 顺便说一下 有点失望。之前从 10 月 31 日开始。那时候是万圣节前夜。从 10 月 31 日开始，这是万圣节前夜风格的。那很酷啊，现在变回暗色模式也很好 你懂的。但 当时这里有个南瓜和鬼怪的，随意啦 没关系。</p>
+ <a href="/2019/12/03/reactive-evolution-part2/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/11/21/jhipster-registry-notes/">
+        <h2 class="post-title">
+            JHipster Registry 使用过程
+        </h2>
+        
+        <h3 class="post-subtitle">
+            JHipster 搭微服务&nbsp;&nbsp;2019年11月21日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <h2 id="jhipster-registry-的使用过程">JHipster Registry 的使用过程</h2>
+
+<p>是一个 Eureka server 应用程序发现服务，处理路由，负载均衡和扩展。</p>
+
+<p>是一个 Spring Cloud Config server 提供应用运行时配置</p>
+
+<p>是一个运维管理服务器，有仪表板，监控，管理应用程序。</p>
+
+<p>所以这东西是整合了 Eureka server 和 Spring Cloud Config server ?</p>
+ <a href="/2019/11/21/jhipster-registry-notes/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/11/21/reactive-evolution-part1/">
+        <h2 class="post-title">
+            响应式变革 Reactive Evolution 第 1 部分
+        </h2>
+        
+        <h3 class="post-subtitle">
+            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理&nbsp;&nbsp;2019年11月21日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <h2 id="响应式变革第-1-部分构造服务端">响应式变革第 1 部分——构造服务端</h2>
+
+<h3 id="传统的方式">传统的方式</h3>
+
+<p>​		响应式编程不是一个特别新的话题，不是新的概念。大概在 5 年前就开始讨论这个话题了。它更多地应该是一个答案。对更老的问题的答案，一个已经存在很久了的问题——如何扩展系统，可以支持更多用户，处理更多进入系统的请求。响应式编程是一种表达方式，一种新的答案。而答案的本身，并不是很新颖。响应式编程，更多是关于线程的使用效率。是关于让你的系统，让你的软件，在 JVM 上更好地处理线程的一种方式。这是很重要的，因为线程代价高，JVM 的线程开销大。</p>
+ <a href="/2019/11/21/reactive-evolution-part1/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/11/17/effective-java-item1-notes/">
+        <h2 class="post-title">
+            Effective Java 条款1
+        </h2>
+        
+        <h3 class="post-subtitle">
+            读书笔记&nbsp;&nbsp;2019年11月17日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <h2 id="item-1-consider-static-factory-methods-instead-of-constructors">ITEM 1: Consider static factory methods instead of constructors</h2>
+
+<p>属于 “创建和销毁对象” 那章。静态工厂方法跟“四人帮”设计模式里面的<em>工厂方法</em>模式是不同的。</p>
+ <a href="/2019/11/17/effective-java-item1-notes/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/11/15/concurrency/">
+        <h2 class="post-title">
+            Java 并发
+        </h2>
+        
+        <h3 class="post-subtitle">
+            基础内容&nbsp;&nbsp;2019年11月15日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <h2 id="concurrency-并发">Concurrency 并发</h2>
+
+<h3 id="synchronized-语句块">Synchronized 语句块</h3>
+
+<pre><code class="language-java">package synchronizing;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class SheepManager {
+	
+	private int sheepCount = 0;
+	
+	// private void incrementAndReport() {
+	private void incrementAndReport() {
+		synchronized(this) {
+        System.out.print((++sheepCount)+" ");
+        }
+	}
+
+	public static void main(String[] args) {
+
+		ExecutorService service = null;
+		try {
+			service = Executors.newFixedThreadPool(20);
+			
+			SheepManager manager = new SheepManager();
+			for(int i = 0; i &lt; 10; i++) 
+				service.submit(()-&gt; manager.incrementAndReport());
+			} finally {
+				if (service != null) service.shutdown();
+			}
+	}
+}
+</code></pre>
+
+<p>使用 Monitor 或称为 Lock，使用 synchronized 的时候，注意🔒的对象是那个。保证同步，就要去要锁同一个对象。</p>
+ <a href="/2019/11/15/concurrency/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page2">&larr; 近期文章</a>
+    </li>
+    
+    
+    <li class="next">
+        <a href="/page4">早期文章 &rarr;</a>
+    </li>
+    
+</ul>
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/" >关于我</a></h5>
+                    <div class="short-about">
+                        
+                            <a href="/about">
+                                <img src="/img/large.png" style="cursor: pointer"/>
+                            </a>
+                        
+                        
+                            <p>堅持信念</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                        <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                            
+                            <li>
+                                <a target="_blank" href="https://space.bilibili.com/86621709">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">B</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            <!-- add jianshu add target = "_blank" to <a> by BY -->
+                            
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a href="https://twitter.com/gdouzwt">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="http://weibo.com/1889654893">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/gdouzwt">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                        
+                            <p>✉️ <a href="mailto:zhao@wen-tao.com">zhao@wen-tao.com</a></p>
+                        
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+
+                <hr>
+
+                <h5>资格认证</h5>
+                <div>
+
+                    <a target="_blank" href="https://www.youracclaim.com/badges/dee74bd5-6ec6-455a-b28b-c125291b7232/">
+                        <img src="/img/badge.png" style="cursor: pointer"/>
+                    </a>
+                    <!-- <div data-iframe-width="263" data-iframe-height="391.86" data-share-badge-id="dee74bd5-6ec6-455a-b28b-c125291b7232"> -->
+                    <!-- </div><script type="text/javascript" async src="//cdn.youracclaim.com/assets/utilities/embed.js"></script> -->
+                    <!-- <iframe name="acclaim-badge" allowtransparency="true" frameborder="0" id="embedded-badge-dee74bd5-6ec6-455a-b28b-c125291b7232" scrolling="no" src="//www.youracclaim.com/embedded_badge/dee74bd5-6ec6-455a-b28b-c125291b7232" style="width: 263px; height: 391.86px;" title="View my verified achievement on Acclaim."></iframe> -->
+                </div>
+    		</div>
+        
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

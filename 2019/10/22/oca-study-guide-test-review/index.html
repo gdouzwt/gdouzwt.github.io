@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>OCA Study Guide 练习回顾 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2019/10/22/oca-study-guide-test-review/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#OCA" title="OCA">OCA</a>
+                        
+                    </div>
+                    <h1>OCA Study Guide 练习回顾</h1>
+                    
+                    
+                    <h2 class="subheading">全部章节的错题</h2>
+                    
+                    <span class="meta">由招文桃在2019年10月22日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <blockquote>
+  <p>这文章讲OCA准备过程，读过的书籍。 这本书叫 OCA Oracle Certified Associate Java SE 8 Programmer I Study Guide 以下按章节整理错题：  <!--more--></p>
+</blockquote>
+
+<h4 id="chapter-1-java-building-blocks-223">Chapter 1 Java Building Blocks (2/23😄)</h4>
+
+<p><strong>18.</strong>Which represent the order in which the following statements can be assembled into a program that will compile successfully? (Choose all that apply)<br />
+<code>A: class Rabbit {}</code><br />
+<code>B: import java.util.*;</code><br />
+<code>C: package animals;</code></p>
+
+<blockquote>
+  <p><strong>A.</strong> A, B, C<br />
+<strong>B.</strong> B, C, A<br />
+<strong>C.</strong> C, B, A<br />
+<strong>D.</strong> B, A<br />
+<strong>E.</strong> C, A<br />
+<strong>F.</strong> A, C<br />
+<strong>G.</strong> A, B</p>
+</blockquote>
+
+<p><strong>22.</strong>Which of the following are true statements? (Choose all that apply)</p>
+
+<blockquote>
+  <p><strong>A.</strong> Java allows operator overloading.<br />
+<strong>B.</strong> Java code compiled on Windows can run on Linux.<br />
+<strong>C.</strong> Java has pointers to specific locations in memory.<br />
+<strong>D.</strong> Java is a procedural language.<br />
+<strong>E.</strong> Java is an object-oriented language.<br />
+<strong>F.</strong> Java is a functional programming language.</p>
+</blockquote>
+
+<h4 id="chapter-2-operators-and-statements-320">Chapter 2 Operators and Statements (3/20😊)</h4>
+
+<p><strong>9.</strong>How many times will the following code print “Hello World”?</p>
+<pre><code class="language-java">3: for(int i=0; i&lt;10 ; ) {
+4: i = i++;
+5: System.out.println("Hello World");
+6: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> 9<br />
+<strong>B.</strong> 10<br />
+<strong>C.</strong> 11<br />
+<strong>D.</strong> The code will not compile because of line 3.<br />
+<strong>E.</strong> The code will not compile because of line 5.<br />
+<strong>F.</strong> The code contains an infinite loop and does not terminate.</p>
+</blockquote>
+
+<p><strong>16.</strong>What is the output of the following code snippet?</p>
+<pre><code class="language-java">3: do {
+4: int y = 1;
+5: System.out.print(y++ + " ");
+6: } while(y &lt;= 10);
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> 1 2 3 4 5 6 7 8 9<br />
+<strong>B.</strong> 1 2 3 4 5 6 7 8 9 10<br />
+<strong>C.</strong> 1 2 3 4 5 6 7 8 9 10 11<br />
+<strong>D.</strong> The code will not compile because of line 6.<br />
+<strong>E.</strong> The code contains an infinite loop and does not terminate.</p>
+</blockquote>
+
+<p><strong>17.</strong>What is the output of the following code snippet?</p>
+<pre><code class="language-java">3:  boolean keepGoing = true;
+4:  int result = 15, i = 10;
+5:  do {
+6:  i--;
+7:  if(i==8) keepGoing = false;
+8:  result -= 2;
+9:  } while(keepGoing);
+10: System.out.println(result);
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> 7<br />
+<strong>B.</strong> 9<br />
+<strong>C.</strong> 10<br />
+<strong>D.</strong> 11<br />
+<strong>E.</strong> 15<br />
+<strong>F.</strong> The code will not compile because of line 8.</p>
+</blockquote>
+
+<h4 id="chapter-3-core-java-apis-1333">Chapter 3 Core Java APIs (13/33😂)</h4>
+
+<p><strong>4.</strong>What is the result of the following code?</p>
+<pre><code class="language-java">7: StringBuilder sb = new StringBuilder();
+8: sb.append("aaa").insert(1, "bb").insert(4, "ccc");
+9: System.out.println(sb);
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> abbaaccc<br />
+<strong>B.</strong> abbaccca<br />
+<strong>C.</strong> bbaaaccc<br />
+<strong>D.</strong> bbaaccca<br />
+<strong>E.</strong> An exception is thrown.<br />
+<strong>F.</strong> The code does not compile.</p>
+</blockquote>
+
+<p><strong>5.</strong>What is the result of the following code?</p>
+
+<pre><code class="language-java">2: String s1 = "java";
+3: StringBuilder s2 = new StringBuilder("java");
+4: if (s1 == s2)
+5: System.out.print("1");
+6: if (s1.equals(s2))
+7: System.out.print("2");
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> 1<br />
+<strong>B.</strong> 2<br />
+<strong>C.</strong> 12<br />
+<strong>D.</strong> No output is printed.<br />
+<strong>E.</strong> An exception is thrown.<br />
+<strong>F.</strong> The code does not compile.</p>
+</blockquote>
+
+<p><strong>15.</strong>Which of these array declarations is not legal? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> <code>int[][] scores = new int[5][];</code><br />
+<strong>B.</strong> <code>Object[][][] cubbies = new Object[3][0][5];</code><br />
+<strong>C.</strong> <code>String beans[] = new beans[6];</code><br />
+<strong>D.</strong> <code>java.util.Date[] dates[] = new java.util.Date[2][];</code><br />
+<strong>E.</strong> <code>int[][] types = new int[];</code><br />
+<strong>F.</strong> <code>int[][] java = new int[][];</code></p>
+</blockquote>
+
+<p><strong>16.</strong>Which of these compile when replacing line 8? (Choose all that apply)</p>
+<pre><code class="language-java">7: char[]c = new char[2];
+8: // INSERT CODE HERE
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> <code>int length = c.capacity;</code><br />
+<strong>B.</strong> <code>int length = c.capacity();</code><br />
+<strong>C.</strong> <code>int length = c.length;</code><br />
+<strong>D.</strong> <code>int length = c.length();</code><br />
+<strong>E.</strong> <code>int length = c.size;</code><br />
+<strong>F.</strong> <code>int length = c.size();</code><br />
+<strong>G.</strong> None of the above.</p>
+</blockquote>
+
+<p><strong>17.</strong>Which of these compile when replacing line 8? (Choose all that apply)</p>
+<pre><code class="language-java">7: ArrayList l = new ArrayList();
+8: // INSERT CODE HERE
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> <code>int length = l.capacity;</code><br />
+<strong>B.</strong> <code>int length = l.capacity();</code><br />
+<strong>C.</strong> <code>int length = l.length;</code><br />
+<strong>D.</strong> <code>int length = l.length();</code><br />
+<strong>E.</strong> <code>int length = l.size;</code><br />
+<strong>F.</strong> <code>int length = l.size();</code><br />
+<strong>G.</strong> None of the above.</p>
+</blockquote>
+
+<p><strong>18.</strong>Which of the following are true? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> An array has a fixed size.<br />
+<strong>B.</strong> An <code>ArrayList</code> has a fixed size.<br />
+<strong>C.</strong> An array allows multiple dimensions.<br />
+<strong>D.</strong> An array is ordered.<br />
+<strong>E.</strong> An <code>ArrayList</code> is ordered.<br />
+<strong>F.</strong> An array is immutable.<br />
+<strong>G.</strong> An <code>ArrayList</code> is immutable.</p>
+</blockquote>
+
+<p><strong>19.</strong>Which of the following are true? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> Two arrays with the same content are equal.<br />
+<strong>B.</strong> Two ArrayLists with the same content are equal.<br />
+<strong>C.</strong> If you call <code>remove(0)</code> using an empty <code>ArrayList</code> object, it will compile successfully.<br />
+<strong>D.</strong> If you call <code>remove(0)</code> using an empty <code>ArrayList</code> object, it will run successfully.<br />
+<strong>E.</strong> None of the above.</p>
+</blockquote>
+
+<p><strong>20.</strong>What is the result of the following statements?</p>
+<pre><code class="language-java">6:  List&lt;String&gt; list = new ArrayList&lt;String&gt;();
+7:  list.add("one");
+8:  list.add("two");
+9:  list.add(7);
+10: for(String s : list) System.out.print(s);
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> onetwo<br />
+<strong>B.</strong> onetwo7<br />
+<strong>C.</strong> onetwo followed by an exception<br />
+<strong>D.</strong> Compiler error on line 9.<br />
+<strong>E.</strong> Compiler error on line 10.</p>
+</blockquote>
+
+<p><strong>24.</strong>What is the result of the following?</p>
+<pre><code class="language-java">6: String [] names = {"Tom", "Dick", "Harry"};
+7: List&lt;String&gt; list = names.asList();
+8: list.set(0, "Sue");
+9: System.out.println(names[0]);
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> Sue<br />
+<strong>B.</strong> Tom<br />
+<strong>C.</strong> Compiler error on line 7.<br />
+<strong>D.</strong> Compiler error on line 8.<br />
+<strong>E.</strong> An exception is thrown.</p>
+</blockquote>
+
+<p><strong>25.</strong>What is the result of the following?</p>
+<pre><code class="language-java">List&lt;String&gt; hex = Arrays.asList("30", "8", "3A", "FF");
+Collections.sort(hex);
+int x = Collections.binarySearch(hex, "8");
+int y = Collections.binarySearch(hex, "3A");
+int z = Collections.binarySearch(hex, "4F");
+System.out.println(x + " " + y + " " + z);
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> 0 1 –2<br />
+<strong>B.</strong> 0 1 –3<br />
+<strong>C.</strong> 2 1 –2<br />
+<strong>D.</strong> 2 1 –3<br />
+<strong>E.</strong> None of the above.<br />
+<strong>F.</strong> The code doesn’t compile.</p>
+</blockquote>
+
+<p><strong>26.</strong>Which of the following are true statements about the following code? (Choose all that apply)</p>
+<pre><code class="language-java">4: List&lt;Integer&gt; ages = new ArrayList&lt;&gt;();
+5: ages.add(Integer.parseInt("5"));
+6: ages.add(Integer.valueOf("6"));
+7: ages.add(7);
+8: ages.add(null);
+9: for (int age : ages) System.out.print(age);
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> The code compiles.<br />
+<strong>B.</strong> The code throws a runtime exception.<br />
+<strong>C.</strong> Exactly one of the add statements uses autoboxing.<br />
+<strong>D.</strong> Exactly two of the add statements use autoboxing.<br />
+<strong>E.</strong> Exactly three of the add statements use autoboxing.</p>
+</blockquote>
+
+<p><strong>29.</strong>Which of the following can be inserted into the blank to create a date of June 21, 2014? (Choose all that apply)</p>
+<pre><code class="language-java">import java.time.*;
+public class StartOfSummer {
+    public static void main(String[] args) {
+    LocalDate date = _________
+    }
+}
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> <code>new LocalDate(2014, 5, 21);</code><br />
+<strong>B.</strong> <code>new LocalDate(2014, 6, 21);</code><br />
+<strong>C.</strong> <code>LocalDate.of(2014, 5, 21);</code><br />
+<strong>D.</strong> <code>LocalDate.of(2014, 6, 21);</code><br />
+<strong>E.</strong> <code>LocalDate.of(2014, Calendar.JUNE, 21);</code><br />
+<strong>F.</strong> <code>LocalDate.of(2014, Month.JUNE, 21);</code></p>
+</blockquote>
+
+<p><strong>30.</strong>What is the output of the following code?</p>
+<pre><code class="language-java">LocalDate date = LocalDate.of(2018, Month.APRIL, 40);
+System.out.println(date.getYear() + " " + date.getMonth() + " "
++ date.getDayOfMonth());
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> 2018 APRIL 4<br />
+<strong>B.</strong> 2018 APRIL 30<br />
+<strong>C.</strong> 2018 MAY 10<br />
+<strong>D.</strong> Another date.<br />
+<strong>E.</strong> The code does not compile.<br />
+<strong>F.</strong> A runtime exception is thrown.</p>
+</blockquote>
+
+<h4 id="chapter-4-methods-and-encapsulation-1429">Chapter 4 Methods and Encapsulation (14/29😂)</h4>
+
+<p><strong>2.</strong>Which of the following compile? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> <code>final static void method4() { }</code><br />
+<strong>B.</strong> <code>public final int void method() { }</code><br />
+<strong>C.</strong> <code>private void int method() { }</code><br />
+<strong>D.</strong> <code>static final void method3() { }</code><br />
+<strong>E.</strong> <code>void final method() {}</code><br />
+<strong>F.</strong> <code>void public method() { }</code></p>
+</blockquote>
+
+<p><strong>5.</strong>Given the following method, which of the method calls return 2? (Choose all that apply)</p>
+<pre><code class="language-java">public int howMany(boolean b, boolean... b2) {
+return b2.length;
+}
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> <code>howMany();</code><br />
+<strong>B.</strong> <code>howMany(true);</code><br />
+<strong>C.</strong> <code>howMany(true, true);</code><br />
+<strong>D.</strong> <code>howMany(true, true, true);</code><br />
+<strong>E.</strong> <code>howMany(true, {true});</code><br />
+<strong>F.</strong> <code>howMany(true, {true, true});</code><br />
+<strong>G.</strong> <code>howMany(true, new boolean[2]);</code></p>
+</blockquote>
+
+<p><strong>6.</strong>Which of the following are true? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> Package private access is more lenient than protected access.<br />
+<strong>B.</strong> A public class that has private fields and package private methods is not visible to classes outside the package.<br />
+<strong>C.</strong> You can use access modifiers so only some of the classes in a package see a particular package private class.<br />
+<strong>D.</strong> You can use access modifiers to allow read access to all methods, but not any instance variables.<br />
+<strong>E.</strong> You can use access modifiers to restrict read access to all classes that begin with the word Test.</p>
+</blockquote>
+
+<p><strong>9.</strong>Which are methods using JavaBeans naming conventions for accessors and mutators? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> <code>public boolean getCanSwim() { return canSwim;}</code><br />
+<strong>B.</strong> <code>public boolean canSwim() { return numberWings;}</code><br />
+<strong>C.</strong> <code>public int getNumWings() { return numberWings;}</code><br />
+<strong>D.</strong> <code>public int numWings() { return numberWings;}</code><br />
+<strong>E.</strong> <code>public void setCanSwim(boolean b) { canSwim = b;}</code></p>
+</blockquote>
+
+<p><strong>11.</strong>Which are true of the following code? (Choose all that apply)</p>
+<pre><code class="language-java">1:  public class Rope {
+2:    public static void swing() {
+3:        System.out.print("swing ");
+4:    }
+5:    public void climb() {
+6:        System.out.println("climb ");
+7:    }
+8:    public static void play() {
+9:        swing();
+10:       climb();
+11:   }
+12:   public static void main(String[] args) {
+13:       Rope rope = new Rope();
+14:       rope.play();
+15:       Rope rope2 = null;
+16:       rope2.play();
+17:   }
+18: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> The code compiles as is.<br />
+<strong>B.</strong> There is exactly one compiler error in the code.<br />
+<strong>C.</strong> There are exactly two compiler errors in the code.<br />
+<strong>D.</strong> If the lines with compiler errors are removed, the output is climb climb .<br />
+<strong>E.</strong> If the lines with compiler errors are removed, the output is swing swing .<br />
+<strong>F.</strong> If the lines with compile errors are removed, the code throws a NullPointerException.</p>
+</blockquote>
+
+<p><strong>12.</strong>What is the output of the following code?</p>
+<pre><code class="language-java">import rope.*;
+import static rope.Rope.*;
+public class RopeSwing {
+    private static Rope rope1 = new Rope();
+    private static Rope rope2 = new Rope();
+    {
+        System.out.println(rope1.length);
+    }
+    public static void main(String[] args) {
+        rope1.length = 2;
+        rope2.length = 8;
+        System.out.println(rope1.length);
+    }
+}
+package rope;
+public class Rope {
+    public static int length = 0;
+}
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> 02<br />
+<strong>B.</strong> 08<br />
+<strong>C.</strong> 2<br />
+<strong>D.</strong> 8<br />
+<strong>E.</strong> The code does not compile.<br />
+<strong>F.</strong> An exception is thrown.</p>
+</blockquote>
+
+<p><strong>15.</strong>What is the result of the following statements?</p>
+<pre><code class="language-java">1:  public class Test {
+2:    public void print(byte x) {
+3:      System.out.print("byte");
+4:    }
+5:    public void print(int x) {
+6:      System.out.print("int");
+7:    }
+8:    public void print(float x) {
+9:      System.out.print("float");
+10:   }
+11:   public void print(Object x) {
+12:     System.out.print("Object");
+13:   }
+14:   public static void main(String[] args) {
+15:     Test t = new Test();
+16:     short s = 123;
+17:     t.print(s);
+18:     t.print(true);
+19:     t.print(6.789);
+20:   }
+21: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> bytefloatObject<br />
+<strong>B.</strong> intfloatObject<br />
+<strong>C.</strong> byteObjectfloat<br />
+<strong>D.</strong> intObjectfloat<br />
+<strong>E.</strong> intObjectObject<br />
+<strong>F.</strong> byteObjectObject</p>
+</blockquote>
+
+<p><strong>17.</strong>Which of the following are output by the following code? (Choose all that apply)</p>
+<pre><code class="language-java">public class StringBuilders {
+    public static StringBuilder work(StringBuilder a,
+    StringBuilder b) {
+        a = new StringBuilder("a");
+        b.append("b");
+        return a;
+    }
+    public static void main(String[] args) {
+        StringBuilder s1 = new StringBuilder("s1");
+        StringBuilder s2 = new StringBuilder("s2");
+        StringBuilder s3 = work(s1, s2);
+        System.out.println("s1 = " + s1);
+        System.out.println("s2 = " + s2);
+        System.out.println("s3 = " + s3);
+    }
+}
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> s1 = a<br />
+<strong>B.</strong> s1 = s1<br />
+<strong>C.</strong> s2 = s2<br />
+<strong>D.</strong> s2 = s2b<br />
+<strong>E.</strong> s3 = a<br />
+<strong>F.</strong> s3 = null<br />
+<strong>G.</strong> The code does not compile.</p>
+</blockquote>
+
+<p><strong>18.</strong>Which of the following are true? (Choose 2)</p>
+<blockquote>
+  <p><strong>A.</strong> <code>this()</code> can be called from anywhere in a constructor.<br />
+<strong>B.</strong> <code>this()</code> can be called from any instance method in the class.<br />
+<strong>C.</strong> <code>this.variableName</code> can be called from any instance method in the class.<br />
+<strong>D.</strong> <code>this.variableName</code> can be called from any static method in the class.<br />
+<strong>E.</strong> You must include a default constructor in the code if the compiler does not include one.<br />
+<strong>F.</strong> You can call the default constructor written by the compiler using <code>this()</code>.<br />
+<strong>G.</strong> You can access a private constructor with the <code>main()</code> method.</p>
+</blockquote>
+
+<p><strong>20.</strong>Which code can be inserted to have the code print 2?</p>
+<pre><code class="language-java">public class BirdSeed {
+    private int numberBags;
+    boolean call;
+
+    public BirdSeed() {
+        // LINE 1
+        call = false;
+        // LINE 2
+    }
+    public BirdSeed(int numberBags) {
+        this.numberBags = numberBags;
+    }
+    public static void main(String[] args) {
+        BirdSeed seed = new BirdSeed();
+        System.out.println(seed.numberBags);
+} }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> Replace line 1 with <code>BirdSeed(2)</code>;<br />
+<strong>B.</strong> Replace line 2 with <code>BirdSeed(2)</code>;<br />
+<strong>C.</strong> Replace line 1 with <code>new BirdSeed(2)</code>;<br />
+<strong>D.</strong> Replace line 2 with <code>new BirdSeed(2)</code>;<br />
+<strong>E.</strong> Replace line 1 with <code>this(2)</code>;<br />
+<strong>F.</strong> Replace line 2 with <code>this(2)</code>;</p>
+</blockquote>
+
+<p><strong>22.</strong>What is the result of the following?</p>
+<pre><code class="language-java">1: public class Order {
+2:   static String result = "";
+3:   { result += "c"; }
+4:   static
+5:   { result += "u"; }
+6:   { result += "r"; }
+7: }
+
+1: public class OrderDriver {
+2:   public static void main(String[] args) {
+3:     System.out.print(Order.result + " ");
+4:     System.out.print(Order.result + " ");
+5:     new Order();
+6:     new Order();
+7:     System.out.print(Order.result + " ");
+8:   }
+9: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> curur<br />
+<strong>B.</strong> ucrcr<br />
+<strong>C.</strong> u ucrcr<br />
+<strong>D.</strong> u u curcur<br />
+<strong>E.</strong> u u ucrcr<br />
+<strong>F.</strong> ur ur urc<br />
+<strong>G.</strong> The code does not compile.</p>
+</blockquote>
+
+<p><strong>26.</strong>What is the result of the following class?</p>
+<pre><code class="language-java">1: import java.util.function.*;
+2: 
+3: public class Panda {
+4:   int age;
+5:   public static void main(String[] args) {
+6:     Panda p1 = new Panda();
+7:     p1.age = 1;
+8:     check(p1, p -&gt; p.age &lt; 5);
+9:   }
+10:  private static void check(Panda panda, Predicate&lt;Panda&gt; pred) {
+11:    String result = pred.test(panda) ? "match" : "not match";
+12:    System.out.print(result);
+13: } }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> match<br />
+<strong>B.</strong> not match<br />
+<strong>C.</strong> Compiler error on line 8.<br />
+<strong>D.</strong> Compiler error on line 10.<br />
+<strong>E.</strong> Compiler error on line 11.<br />
+<strong>F.</strong> A runtime excep</p>
+</blockquote>
+
+<p><strong>27.</strong>What is the result of the following code?</p>
+<pre><code class="language-java">1:  interface Climb {
+2:    boolean isTooHigh(int height, int limit);
+3:  }
+4:  
+5:  public class Climber {
+6:    public static void main(String[] args) {
+7:      check((h, l) -&gt; h.append(l).isEmpty(), 5);
+8:    }
+9:    private static void check(Climb climb, int height) {
+10:     if (climb.isTooHigh(height, 10))
+11:       System.out.println("too high");
+12:     else
+13:       System.out.println("ok");
+14:   }
+15: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> ok<br />
+<strong>B.</strong> too high<br />
+<strong>C.</strong> Compiler error on line 7.<br />
+<strong>D.</strong> Compiler error on line 10.<br />
+<strong>E.</strong> Compiler error on a different line.<br />
+<strong>F.</strong> A runtime exception is thrown.</p>
+</blockquote>
+
+<p><strong>29.</strong>Which lambda can replace the MySecret class to return the same value? (Choose all that apply)</p>
+<pre><code class="language-java">interface Secret {
+  String magic(double d);
+}
+class MySecret implements Secret {
+  public String magic(double d) {
+    return "Poof";
+  }
+}
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> <code>caller((e) -&gt; "Poof");</code><br />
+<strong>B.</strong> <code>caller((e) -&gt; {"Poof"});</code><br />
+<strong>C.</strong> <code>caller((e) -&gt; { String e = ""; "Poof" });</code><br />
+<strong>D.</strong> <code>caller((e) -&gt; { String e = ""; return "Poof"; });</code><br />
+<strong>E.</strong> <code>caller((e) -&gt; { String e = ""; return "Poof" });</code><br />
+<strong>F.</strong> <code>caller((e) -&gt; { String f = ""; return "Poof"; });</code></p>
+</blockquote>
+
+<h4 id="chapter-5-class-design-1220">Chapter 5 Class Design (12/20😭)</h4>
+
+<p><strong>1.</strong>What modifiers are implicitly applied to all interface methods? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> <code>protected</code><br />
+<strong>B.</strong> <code>public</code><br />
+<strong>C.</strong> <code>static</code><br />
+<strong>D.</strong> <code>void</code><br />
+<strong>E.</strong> <code>abstract</code><br />
+<strong>F.</strong> <code>default</code></p>
+</blockquote>
+
+<p><strong>2.</strong>What is the output of the following code?</p>
+<pre><code class="language-java">1:  class Mammal {
+2:    public Mammal(int age) {
+3:      System.out.print("Mammal");
+4:    }
+5:  }
+6:  public class Platypus extends Mammal {
+7:    public Platypus() {
+8:      System.out.print("Platypus");
+9:    }
+10:   public static void main(String[] args) {
+11:     new Mammal(5);
+12:   }
+13: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> Platypus<br />
+<strong>B.</strong> Mammal<br />
+<strong>C.</strong> PlatypusMammal<br />
+<strong>D.</strong> MammalPlatypus<br />
+<strong>E.</strong> The code will not compile because of line 7.<br />
+<strong>F.</strong> The code will not compile because of line 11.</p>
+</blockquote>
+
+<p><strong>3.</strong>Which of the following statements can be inserted in the blank line so that the code will
+compile successfully? (Choose all that apply)</p>
+<pre><code class="language-java">public interface CanHop {}
+public class Frog implements CanHop {
+  public static void main(String[] args) {
+    ____________frog = new TurtleFrog();
+  }
+}
+public class BrazilianHornedFrog extends Frog {}
+public class TurtleFrog extends Frog {}
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> Frog<br />
+<strong>B.</strong> TurtleFrog<br />
+<strong>C.</strong> BrazilianHornedFrog<br />
+<strong>D.</strong> CanHop<br />
+<strong>E.</strong> Object<br />
+<strong>F.</strong> Long</p>
+</blockquote>
+
+<p><strong>4.</strong>Which statement(s) are correct about the following code? (Choose all that apply)</p>
+<pre><code class="language-java">public class Rodent {
+  protected static Integer chew() throws Exception {
+    System.out.println("Rodent is chewing");
+    return 1;
+  }
+}
+public class Beaver extends Rodent {
+  public Number chew() throws RuntimeException {
+    System.out.println("Beaver is chewing on wood");
+    return 2;
+  }
+}
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> It will compile without issue.<br />
+<strong>B.</strong> It fails to compile because the type of the exception the method throws is a subclass of the type of exception the parent method throws.<br />
+<strong>C.</strong> It fails to compile because the return types are not covariant.<br />
+<strong>D.</strong> It fails to compile because the method is protected in the parent class and public in the subclass.<br />
+<strong>E.</strong> It fails to compile because of a static modifier mismatch between the two methods.</p>
+</blockquote>
+
+<p><strong>5.</strong>Which of the following may only be hidden and not overridden? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> private instance methods<br />
+<strong>B.</strong> protected instance methods<br />
+<strong>C.</strong> public instance methods<br />
+<strong>D.</strong> static methods<br />
+<strong>E.</strong> public variables<br />
+<strong>F.</strong> private variables</p>
+</blockquote>
+
+<p><strong>8.</strong>Choose the correct statement about the following code:</p>
+<pre><code class="language-java">1: public interface Herbivore {
+2:   int amount = 10;
+3:   public static void eatGrass();
+4:   public int chew() {
+5:     return 13;
+6:   }
+7: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> It compiles and runs without issue.<br />
+<strong>B.</strong> The code will not compile because of line 2.<br />
+<strong>C.</strong> The code will not compile because of line 3.<br />
+<strong>D.</strong> The code will not compile because of line 4.<br />
+<strong>E.</strong> The code will not compile because of lines 2 and 3.<br />
+<strong>F.</strong> The code will not compile because of lines 3 and 4.</p>
+</blockquote>
+
+<p><strong>10.</strong>Which statements are true for both abstract classes and interfaces? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> All methods within them are assumed to be <code>abstract</code>.<br />
+<strong>B.</strong> Both can contain <code>public static final</code> variables.<br />
+<strong>C.</strong> Both can be extended using the <code>extends</code> keyword.<br />
+<strong>D.</strong> Both can contain default methods.<br />
+<strong>E.</strong> Both can contain <code>static</code> methods.<br />
+<strong>F.</strong> Neither can be instantiated directly.<br />
+<strong>G.</strong> Both inherit <code>java.lang.Object</code>.</p>
+</blockquote>
+
+<p><strong>11.</strong>What modifiers are assumed for all interface variables? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> <code>public</code><br />
+<strong>B.</strong> <code>protected</code><br />
+<strong>C.</strong> <code>private</code><br />
+<strong>D.</strong> <code>static</code><br />
+<strong>E.</strong> <code>final</code><br />
+<strong>F.</strong> <code>abstract</code></p>
+</blockquote>
+
+<p><strong>16.</strong>What is the output of the following code?</p>
+<pre><code class="language-java">1:  abstract class Reptile {
+2:    public final void layEggs() { System.out.println("Reptile laying eggs"); }
+3:    public static void main(String[] args) {
+4:      Reptile reptile = new Lizard();
+5:      reptile.layEggs();
+6:    }
+7:  }
+8:  public class Lizard extends Reptile {
+9:    public void layEggs() { System.out.println("Lizard laying eggs"); }
+10: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> Reptile laying eggs<br />
+<strong>B.</strong> Lizard laying eggs<br />
+<strong>C.</strong> The code will not compile because of line 4.<br />
+<strong>D.</strong> The code will not compile because of line 5.<br />
+<strong>E.</strong> The code will not compile because of line 9.</p>
+</blockquote>
+
+<p><strong>18.</strong>What is the output of the following code? (Choose all that apply)</p>
+<pre><code class="language-java">1:  interface Aquatic {
+2:    public default int getNumberOfGills(int input) { return 2; }
+3:  }
+4:  public class ClownFish implements Aquatic {
+5:    public String getNumberOfGills() { return "4"; }
+6:    public String getNumberOfGills(int input) { return "6"; }
+7:    public static void main(String[] args) {
+8:      System.out.println(new ClownFish().getNumberOfGills(-1));
+9:    }
+10: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> 2<br />
+<strong>B.</strong> 4<br />
+<strong>C.</strong> 6<br />
+<strong>D.</strong> The code will not compile because of line 5.<br />
+<strong>E.</strong> The code will not compile because of line 6.<br />
+<strong>F.</strong> The code will not compile because of line 8.</p>
+</blockquote>
+
+<p><strong>19.</strong>Which of the following statements can be inserted in the blank so that the code will compile successfully? (Choose all that apply)</p>
+<pre><code class="language-java">public class Snake {}
+public class Cobra extends Snake {}
+public class GardenSnake {}
+public class SnakeHandler {
+  private Snake snake;
+  public void setSnake(Snake snake) { this.snake = snake; }
+  public static void main(String[] args) {
+    new SnakeHandler().setSnake(__________);
+  }
+}
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> <code>new Cobra()</code><br />
+<strong>B.</strong> <code>new GardenSnake()</code><br />
+<strong>C.</strong> <code>new Snake()</code><br />
+<strong>D.</strong> <code>new Object()</code><br />
+<strong>E.</strong> <code>new String("Snake")</code><br />
+<strong>F.</strong> <code>null</code></p>
+</blockquote>
+
+<p><strong>20.</strong>What is the result of the following code?</p>
+<pre><code class="language-java">1:  public abstract class Bird {
+2:    private void fly() { System.out.println("Bird is flying"); }
+3:    public static void main(String[] args) {
+4:      Bird bird = new Pelican();
+5:      bird.fly();
+6:    }
+7:  }
+8:  class Pelican extends Bird {
+9:    protected void fly() { System.out.println("Pelican is flying"); }
+10: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> Bird is flying<br />
+<strong>B.</strong> Pelican is flying<br />
+<strong>C.</strong> The code will not compile because of line 4.<br />
+<strong>D.</strong> The code will not compile because of line 5.<br />
+<strong>E.</strong> The code will not compile because of line 9.</p>
+</blockquote>
+
+<h4 id="chapter-6-exceptions-1220">Chapter 6 Exceptions (12/20😭)</h4>
+
+<p><strong>1.</strong>Which of the following statements are true? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> Runtime exceptions are the same thing as checked exceptions.<br />
+<strong>B.</strong> Runtime exceptions are the same thing as unchecked exceptions.<br />
+<strong>C.</strong> You can declare only checked exceptions.<br />
+<strong>D.</strong> You can declare only unchecked exceptions.<br />
+<strong>E.</strong> You can handle only Exception subclasses.</p>
+</blockquote>
+
+<p><strong>2.</strong>Which of the following pairs fill in the blanks to make this code compile? (Choose all that apply)</p>
+<pre><code class="language-java">7: public void ohNo() _____ Exception {
+8: _____________ Exception();
+9: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> On line 7, fill in <code>throw</code><br />
+<strong>B.</strong> On line 7, fill in <code>throws</code><br />
+<strong>C.</strong> On line 8, fill in <code>throw</code><br />
+<strong>D.</strong> On line 8, fill in <code>throw new</code><br />
+<strong>E.</strong> On line 8, fill in <code>throws</code><br />
+<strong>F.</strong> On line 8, fill in <code>throws new</code></p>
+</blockquote>
+
+<p><strong>5.</strong>Which of the following exceptions are thrown by the JVM? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> <code>ArrayIndexOutOfBoundsException</code><br />
+<strong>B.</strong> <code>ExceptionInInitializerError</code><br />
+<strong>C.</strong> <code>java.io.IOException</code><br />
+<strong>D.</strong> <code>NullPointerException</code><br />
+<strong>E.</strong> <code>NumberFormatException</code></p>
+</blockquote>
+
+<p><strong>7.</strong>What is printed besides the stack trace caused by the NullPointerException from line 16?</p>
+<pre><code class="language-java">1:  public class DoSomething {
+2:    public void go() {
+3:      System.out.print("A");
+4:      try {
+5:        stop();
+6:      } catch (ArithmeticException e) {
+7:        System.out.print("B");
+8:      } finally {
+9:        System.out.print("C");
+10:     }
+11:     System.out.print("D");
+12:   }
+13:   public void stop() {
+14:     System.out.print("E");
+15:     Object x = null;
+16:     x.toString();
+17:     System.out.print("F");
+18:   }
+19:   public static void main(String[] args) {
+20:     new DoSomething().go();
+21:   }
+22: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> AE<br />
+<strong>B.</strong> AEBCD<br />
+<strong>C.</strong> AEC<br />
+<strong>D.</strong> AECD<br />
+<strong>E.</strong> No output appears other than the stack trace.</p>
+</blockquote>
+
+<p><strong>13.</strong>Which of the following statements are true? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> You can declare a method with <code>Exception</code> as the return type.<br />
+<strong>B.</strong> You can declare any subclass of <code>Error</code> in the throws part of a method declaration.<br />
+<strong>C.</strong> You can declare any subclass of <code>Exception</code> in the throws part of a method declaration.<br />
+<strong>D.</strong> You can declare any subclass of <code>Object</code> in the throws part of a method declaration.<br />
+<strong>E.</strong> You can declare any subclass of <code>RuntimeException</code> in the throws part of a method declaration.</p>
+</blockquote>
+
+<p><strong>14.</strong>Which of the following can be inserted on line 8 to make this code compile? (Choose all that apply)</p>
+<pre><code class="language-java">7: public void ohNo() throws IOException {
+8:   // INSERT CODE HERE
+9: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> <code>System.out.println("it's ok");</code><br />
+<strong>B.</strong> <code>throw new Exception();</code><br />
+<strong>C.</strong> <code>throw new IllegalArgumentException();</code><br />
+<strong>D.</strong> <code>throw new java.io.IOException();</code><br />
+<strong>E.</strong> <code>throw new RuntimeException();</code></p>
+</blockquote>
+
+<p><strong>15.</strong>Which of the following are unchecked exceptions? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> <code>ArrayIndexOutOfBoundsException</code><br />
+<strong>B.</strong> <code>IllegalArgumentException</code><br />
+<strong>C.</strong> <code>IOException</code><br />
+<strong>D.</strong> <code>NumberFormatException</code><br />
+<strong>E.</strong> <code>Any exception that extends RuntimeException</code><br />
+<strong>F.</strong> <code>Any exception that extends Exception</code></p>
+</blockquote>
+
+<p><strong>16.</strong>Which scenario is the best use of an exception?</p>
+<blockquote>
+  <p><strong>A.</strong> An element is not found when searching a list.<br />
+<strong>B.</strong> An unexpected parameter is passed into a method.<br />
+<strong>C.</strong> The computer caught fire.<br />
+<strong>D.</strong> You want to loop through a list.<br />
+<strong>E.</strong> You don’t know how to code a method.</p>
+</blockquote>
+
+<p><strong>17.</strong>Which of the following can be inserted into Lion to make this code compile? (Choose all that apply)</p>
+<pre><code class="language-java">class HasSoreThroatException extends Exception {}
+class TiredException extends RuntimeException {}
+interface Roar {
+  void roar() throws HasSoreThroatException;
+}
+class Lion implements Roar {// INSERT CODE HERE
+}
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> <code>public void roar(){}</code><br />
+<strong>B.</strong> <code>public void roar() throws Exception{}</code><br />
+<strong>C.</strong> <code>public void roar() throws HasSoreThroatException{}</code><br />
+<strong>D.</strong> <code>public void roar() throws IllegalArgumentException{}</code><br />
+<strong>E.</strong> <code>public void roar() throws TiredException{}</code></p>
+</blockquote>
+
+<p><strong>18.</strong>Which of the following are true? (Choose all that apply)</p>
+<blockquote>
+  <p><strong>A.</strong> Checked exceptions are allowed to be handled or declared.<br />
+<strong>B.</strong> Checked exceptions are required to be handled or declared.<br />
+<strong>C.</strong> Errors are allowed to be handled or declared.<br />
+<strong>D.</strong> Errors are required to be handled or declared.<br />
+<strong>E.</strong> Runtime exceptions are allowed to be handled or declared.<br />
+<strong>F.</strong> Runtime exceptions are required to be handled or declared.</p>
+</blockquote>
+
+<p><strong>19.</strong>Which of the following can be inserted in the blank to make the code compile? (Choose all that apply)</p>
+<pre><code class="language-java">public static void main(String[] args) {
+  try {
+    System.out.println("work real hard");
+  } catch ( ______ e) {
+  } catch (RuntimeException e) {
+  }
+}
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> <code>Exception</code><br />
+<strong>B.</strong> <code>IOException</code><br />
+<strong>C.</strong> <code>IllegalArgumentException</code><br />
+<strong>D.</strong> <code>RuntimeException</code><br />
+<strong>E.</strong> <code>StackOverflowError</code><br />
+<strong>F.</strong> None of the above.</p>
+</blockquote>
+
+<p><strong>20.</strong>What does the output of the following contain? (Choose all that apply)</p>
+<pre><code class="language-java">12: public static void main(String[] args) {
+13:   System.out.print("a");
+14:   try {
+15:     System.out.print("b");
+16:     throw new IllegalArgumentException();
+17:   } catch (IllegalArgumentException e) {
+18:     System.out.print("c");
+19:     throw new RuntimeException("1");
+20:   } catch (RuntimeException e) {
+21:     System.out.print("d");
+22:     throw new RuntimeException("2");
+23:   } finally {
+24:     System.out.print("e");
+25:     throw new RuntimeException("3");
+26:   }
+27: }
+</code></pre>
+<blockquote>
+  <p><strong>A.</strong> abce<br />
+<strong>B.</strong> abde<br />
+<strong>C.</strong> An exception with the message set to “1”<br />
+<strong>D.</strong> An exception with the message set to “2”<br />
+<strong>E.</strong> An exception with the message set to “3”<br />
+<strong>F.</strong> Nothing, the code does not compile.</p>
+</blockquote>
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2019/10/17/TT-test-review/" data-toggle="tooltip" data-placement="top" title="打印 99 乘法表">
+                上一篇<br>
+                <span>打印 99 乘法表</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2019/10/23/ets-test2-review/" data-toggle="tooltip" data-placement="top" title="ETS Test 2 回顾">
+                下一篇<br>
+                <span>ETS Test 2 回顾</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

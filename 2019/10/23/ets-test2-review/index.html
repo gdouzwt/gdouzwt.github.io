@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>ETS Test 2 回顾 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2019/10/23/ets-test2-review/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#OCA" title="OCA">OCA</a>
+                        
+                    </div>
+                    <h1>ETS Test 2 回顾</h1>
+                    
+                    
+                    <h2 class="subheading">Test 2 76% (53/70) 正确率通过</h2>
+                    
+                    <span class="meta">由招文桃在2019年10月23日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <blockquote>
+  <p>Enthuware Test Studio Test 2 错题回顾，题目编号为测试系统的编号。</p>
+</blockquote>
+
+<p><strong>2.</strong>Given:</p>
+<pre><code class="language-java">package loops;
+public class JustLooping {
+    private int j;
+    void showJ(){
+        while(j&lt;=5){
+            for(int j=1; j &lt;= 5;){
+                System.out.print(j+" ");
+                j++;
+            }
+            j++;
+        }
+    }
+    public static void main(String[] args) {
+        new JustLooping().showJ();
+    }
+}
+</code></pre>
+<p>What is the result?<br />
+<strong>You had to select 1 option</strong> <!--more--></p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will not compile.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 1 2 3 4 5 five times.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 1 3 5 five times.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 1 2 3 4 5 once.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will print 1 2 3 4 5 six times.</li>
+</ul>
+
+<h5 id="explanation--2">✨<strong>Explanation</strong>  2</h5>
+
+<p>The point to note here is that the <code>j</code> in for loop is different from the instance member <code>j</code>. Therefore, <code>j++</code> occuring in the <code>for</code> loop doesn’t affect the while loop. The <code>for</code> loop prints 1 2 3 4 5.<br />
+The while loop runs <code>for</code> the values 0 to 5 i.e. 6 iterations. Thus, 1 2 3 4 5 is printed 6 times. Note that after the end of the while loop the value of <code>j</code> is 6.</p>
+
+<hr />
+
+<p><strong>6.</strong>Given:</p>
+<pre><code class="language-java">//in file Movable.java
+package p1;
+public interface Movable {
+  int location = 0;
+  void move(int by);
+  public void moveBack(int by);
+}
+
+//in file Donkey.java
+package p2;
+import p1.Movable;
+public class Donkey implements Movable{
+    int location = 200;
+    public void move(int by) {
+        location = location+by;
+    }
+    public void moveBack(int by) {
+        location = location-by;
+    }
+}
+
+//in file TestClass.java
+package px;
+import p1.Movable;
+import p2.Donkey;
+public class TestClass {
+    public static void main(String[] args) {
+        Movable m = new Donkey();
+        m.move(10);
+        m.moveBack(20);
+        System.out.println(m.location);
+    }
+}
+</code></pre>
+<p>Identify the correct statement(s).<br />
+<strong>You had to select 1 option</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Donkey.java will not compile.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />TestClass.java will not compile.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Movable.java will not compile.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 190 when TestClass is run.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will print 0 when TestClass is run.</li>
+</ul>
+
+<h5 id="explanation--6">✨<strong>Explanation</strong>  6</h5>
+
+<p>There is no problem with the code. All variables in an interface are implicitly <code>public</code>, <code>static</code>, and <code>final</code>. All methods in an interface are <code>public</code>.<br />
+There is no need to define them so explicitly. Therefore, the <code>location</code> variable in <code>Movable</code> is <code>public</code> and <code>static</code> and the <code>move()</code> method is <code>public</code>.<br />
+Now, when you call <code>m.move(10)</code> and <code>m.moveBack(20)</code>, the instance member <code>location</code> of <code>Donkey</code> is updated to 190 because  the reference <code>m</code> refers to a <code>Donkey</code> at run time and so <code>move</code> and <code>moveBack</code> methods of <code>Donkey</code> are invoked at runtime. However, when you print <code>m.location</code>, it is the Movable’s <code>location</code> (which is never updated) that is printed.</p>
+
+<hr />
+
+<p><strong>8.</strong>What will be the result of trying to compile and execute the following program?</p>
+<pre><code class="language-java">public class TestClass{
+   public static void main(String args[] ){
+      int i = 0 ;
+      int[] iA = {10, 20} ;
+      iA[i] = i = 30 ;
+      System.out.println(""+ iA[ 0 ] + " " + iA[ 1 ] + "  "+i) ;
+    }
+}
+</code></pre>
+<p><strong>You had to select 1 options</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will throw <code>ArrayIndexOutOfBoundsException</code> at Runtime</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Compile time Error.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 10 20 30</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will print 30 20 30</li>
+</ul>
+
+<h5 id="explanation--8">✨<strong>Explanation</strong>  8</h5>
+
+<p>The statement <code>iA[i] = i = 30;</code> will be processed as follows:<br />
+<code>iA[i] = i = 30;</code> 👉 <code>iA[0] = i = 30;</code>  👉  <code>i = 30; iA[0] = i ;</code> 👉  <code>iA[0] = 30;</code></p>
+
+<p>Here is what JLS says on this:<br />
+<strong>1</strong> Evaluate Left-Hand Operand First<br />
+<strong>2</strong> Evaluate Operands before Operation<br />
+<strong>3</strong> Evaluation Respects Parentheses and Precedence<br />
+<strong>4</strong> Argument Lists are Evaluated Left-to-Right</p>
+
+<p>For Arrays: First, the dimension expressions are evaluated, left-to-right. If any of the expression evaluations completes abruptly, the expressions to the right of it are not evaluated.</p>
+
+<hr />
+
+<p><strong>11.</strong>Consider the following class :</p>
+<pre><code class="language-java">public class Test{
+   public static void main(String[] args){
+      if (args[0].equals("open"))
+         if (args[1].equals("someone"))
+            System.out.println("Hello!");
+      else System.out.println("Go away "+ args[1]);
+    }
+}
+</code></pre>
+<p>Which of the following statements are true if the above program is run with the command line :<br />
+<code>java Test closed</code><br />
+<strong>You had to select 1 options</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will throw <code>ArrayIndexOutOfBoundsException</code> at runtime.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will end without exceptions and will print nothing.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print <code>Go away</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print <code>Go away</code> and then will throw <code>ArrayIndexOutOfBoundsException</code>.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />None of the above.</li>
+</ul>
+
+<h5 id="explanation--11">✨<strong>Explanation</strong>  11</h5>
+
+<p>As in C and C++, the Java <code>if</code> statement suffers from the so-called “dangling <code>else</code> problem,” The problem is that both the outer <code>if</code> statement and the inner <code>if</code> statement might conceivably own the <code>else</code> clause. In this example, one might be tempted to assume that the programmer intended the <code>else</code> clause to belong to the outer <code>if</code> statement.</p>
+
+<p>The Java language, like C and C++ and many languages before them, arbitrarily decree that an <code>else</code> clause belongs to the innermost <code>if</code> so as the first <code>if()</code> condition fails (<code>args[0]</code> not being “open”) there is no <code>else</code> associated to execute. So, the program does nothing. The else actually is associated with the second <code>if</code>.<br />
+So had the command line been :<br />
+<code>java Test open</code>, it would have executed the second <code>if</code> and thrown <code>ArrayIndexOutOfBoundsException</code>.<br />
+If the command line had been:<br />
+<code>java Test open xyz</code>, it would execute the else part(which is associated with the second <code>if</code>) and would have printed “Go away xyz”.</p>
+
+<hr />
+
+<p><strong>14.</strong>Which of the following code snippets will compile without any errors?<br />
+(Assume that the statement <code>int x = 0;</code> exists prior to the statements below.)<br />
+<strong>You had to select 3 options</strong></p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>while (false) { x=3; }</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>if (false) { x=3; }</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>do{ x = 3; } while(false);</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>for( int i = 0; i&lt; 0; i++) x = 3;</code></li>
+</ul>
+
+<h5 id="explanation--14">✨<strong>Explanation</strong>  14</h5>
+
+<p><code>while (false) { x=3; }</code> is a compile-time error because the statement <code>x=3;</code> is not reachable;<br />
+Similarly, <code>for( int i = 0; false; i++) x = 3;</code> is also a compile time error because <code>x = 3;</code> is unreachable.</p>
+
+<p>In <code>if(false){ x=3; }</code>, although the body of the condition is unreachable, this is not an error because the JLS explicitly defines this as an exception to the rule. It allows this construct to support optimizations through the conditional compilation. For example,<br />
+<code>if(DEBUG){ System.out.println("beginning task 1"); }</code><br />
+Here, the <code>DEBUG</code> variable can be set to false in the code while generating the production version of the class file, which will allow the compiler to optimize the code by removing the whole if statement entirely from the class file.</p>
+
+<hr />
+
+<p><strong>20.</strong>Given the following code, which of these statements are true?</p>
+<pre><code class="language-java">class TestClass{
+   public static void main(String args[]){
+      int k = 0;
+      int m = 0;
+      for ( int i = 0; i &lt;= 3; i++){
+         k++;
+         if ( i == 2){
+            // line 1
+         }
+         m++;
+      }
+      System.out.println( k + ", " + m );
+   }
+}
+</code></pre>
+<p><strong>You had to select 3 options</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will print 3, 2 when line 1 is replaced by <code>break;</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 3, 2 when line 1 is replaced by <code>continue</code>.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will print 4, 3 when line 1 is replaced by <code>continue</code>.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 4, 4 when line 1 is replaced by <code>i = m++;</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will print 3, 3 when line 1 is replaced by <code>i = 4;</code></li>
+</ul>
+
+<h5 id="explanation--20">✨<strong>Explanation</strong>  20</h5>
+
+<p>This is a simple loop. All you need to do is execute each statement in your head. For example, if line 1 is replaced by <code>break</code>:</p>
+
+<blockquote>
+  <p>① k=0, m=0<br />
+② iteration 1: i=0<br />
+   ⇨ k = 1<br />
+   ⇨ i == 2 is false<br />
+   ⇨ m = 1<br />
+③ iteration 2: i = 1<br />
+   ⇨ k=2<br />
+   ⇨ i==2 is false<br />
+   ⇨ m = 2<br />
+④ iteration 3: i = 2<br />
+   ⇨ k=3<br />
+   ⇨ i==2 is true<br />
+   ⇨ break<br />
+⑤ print 3, 2</p>
+</blockquote>
+
+<hr />
+
+<p><strong>25.</strong>Which of these statements are true?<br />
+<strong>You had to select 2 options</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A static method can call other non-static methods in the same class by using the ‘this’ keyword.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />A calss may contain both static and non-static variables and both static and non-static methods.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Each object of a class has its own copy of each non-static member variable.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Instance methods of a class has it own copy of each non-static member variable.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Instance methods may access local variables of static methods.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />All methods in a class are implicitly passed a ‘this’ parameter when called.</li>
+</ul>
+
+<h5 id="explanation--25">✨<strong>Explanation</strong>  25</h5>
+
+<p>‘this’ is assigned a reference to the current object automatically by the JVM. Thus, within an instance method <code>foo</code>, calling <code>this.foo();</code> is same as calling <code>foo();</code><br />
+Since there is no current object available for a static method, ‘this’ reference is not available in static methods and therefore it can only be used within instance methods. For the same reason, static methods cannot access non static fields or methods of that class directly i.e. without a reference to an instance of that class.<br />
+Note : you can’t reassign ‘this’ like this: <code>this = new Object();</code></p>
+
+<hr />
+
+<p><strong>28.</strong>Which of the following comparisons will yield false?<br />
+<strong>You had to select 3 options</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Boolean.parseBoolean("true") == true</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>Boolean.parseBoolean("TrUe") == new Boolean(null);</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>new Boolean("TrUe") == new Boolean(true);</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>new Boolean() == false;</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>new Boolean("true") == Boolean.TRUE</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>new Boolean("no") == false;</code></li>
+</ul>
+
+<h5 id="explanation--28">✨<strong>Explanation</strong>  28</h5>
+
+<p><strong>You need to remember the following points about <code>Boolean</code>:</strong><br />
+<strong>1.</strong> <code>Boolean</code> class has two constructors - <code>Boolean(String)</code> and <code>Boolean(boolean)</code> The <code>String</code> constructor allocates a <code>Boolean</code> object representing the value <code>true</code> if the string argument is not <code>null</code> and is equal, ignoring case, to the string “true”. Otherwise, allocate a <code>Boolean</code> object representing the value <code>false</code>. Examples: <code>new Boolean("True")</code> produces a <code>Boolean</code> object that represents <code>true</code>. <code>new Boolean("yes")</code> produces a <code>Boolean</code> object that represents <code>false</code>.
+The <code>boolean</code> constructor is self explanatory.<br />
+<strong>2.</strong> <code>Boolean</code> class has two static helper methods for creating booleans - <code>parseBoolean</code> and <code>valueOf</code>. <code>Boolean.parseBoolean(String )</code> method returns a primitive <code>boolean</code> and not a <code>Boolean</code> object (Note - Same is with the case with other parseXXX methods such as <code>Integer.parseInt</code> - they return primitives and not objects). The <code>boolean</code> returned represents the value <code>true</code> if the string argument is not null and is equal, ignoring case, to the string “true”.<br />
+<code>Boolean.valueOf(String )</code> and its overloaded <code>Boolean.valueOf(boolean )</code> version, on the other hand, work similarly but return a reference to either <code>Boolean.TRUE</code> or <code>Boolean.FALSE</code> wrapper objects. Observe that they dont create a new <code>Boolean</code> object but just return the static constants <code>TRUE</code> or <code>FALSE</code> defined in <code>Boolean</code> class.<br />
+<strong>3.</strong> When you use the equality operator ( <code>==</code> ) with booleans, if exactly one of the operands is a <code>Boolean</code> wrapper, it is first unboxed into a <code>boolean</code> primitive and then the two are compared (JLS 15.21.2). If both are <code>Boolean</code> wrappers, then their references are compared just like in the case of other objects. Thus, <code>new Boolean("true") == new Boolean("true")</code> is <code>false</code>, but <code>new Boolean("true") == Boolean.parseBoolean("true")</code> is true.</p>
+
+<hr />
+
+<p><strong>29.</strong>Identify the valid for loop constructs assuming the following declarations:</p>
+<pre><code class="language-java">Object o = null;
+Collection c = //valid collection object.
+int[][] ia = //valid array
+</code></pre>
+<p><strong>You had to select 2 options</strong></p>
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>for(o : c){ }</code></p>
+
+    <blockquote>
+      <p>Cannot use an existing/predefined variable in the variable declaration part.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>for(final Object o2 :c){ }</code></p>
+
+    <blockquote>
+      <p>final is the only modifier (excluding annotations) that is allowed here.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>for(int i : ia) { }</code></p>
+
+    <blockquote>
+      <p>Each element of ia is itself an array. Thus, they cannot be assigned to an <code>int</code>.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>for(Iterator it : c.iterator()){ }</code>
+    <blockquote>
+      <p><code>c.iterator()</code> does not return any Collection. Note that the following would have been valid:<br />
+<code>Collection&lt;Iterator&gt; c</code> = //some collection that contains Iterator objects<br />
+<code>for(Iterator it : c){ }</code></p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>for(int i : ia[0]){ }</code></p>
+
+    <blockquote>
+      <p>Since <code>ia[0]</code> is an array of ints, this is valid. (It may throw a <code>NullPointerException</code> or <code>ArrayIndexOutOfBoundsException</code> at runtime if <code>ia</code> is not appropriately initialized.)</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h5 id="explanation--29">✨<strong>Explanation</strong>  29</h5>
+<p>see above 👆</p>
+
+<hr />
+
+<p><strong>33.</strong>Which of these assignments are valid?<br />
+<strong>You had to select 3 options</strong></p>
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>short s = 12;</code></p>
+
+    <blockquote>
+      <p>This is valid since 12 can fit into a short and an implicit narrowing conversion can occur.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>long g = 012;</code></p>
+
+    <blockquote>
+      <p>012 is a valid octal number.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>int i = (int) false;</code></p>
+
+    <blockquote>
+      <p>Values of type boolean cannot be converted to any other types.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>float f = -123;</code></p>
+
+    <blockquote>
+      <p>Implicit widening conversion will occur in this case.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>float d = 0 * 1.5;</code></p>
+
+    <blockquote>
+      <p>double cannot be implicitly narrowed to a float even though the value is representable by a float.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h5 id="explanation--33">✨<strong>Explanation</strong>  33</h5>
+<p>Note that<br />
+<code>float d = 0 * 1.5f;</code> and <code>float d = 0 * (float)1.5;</code> are OK<br />
+An implicit narrowing primitive conversion may be used if all of the following conditions are satisfied:<br />
+<strong>1.</strong> The expression is a compile time constant expression of type <code>byte</code>, <code>char</code>, <code>short</code>, or <code>int</code>.<br />
+<strong>2.</strong> The type of the variable is <code>byte</code>, <code>short</code>, or <code>char</code>.<br />
+<strong>3.</strong> The value of the expression (which is known at compile time, because it is a constant expression) is representable in the type of the variable.<br />
+Note that implicit narrowing conversion does not apply to <code>long</code> or <code>double</code>. So, <code>char ch = 30L;</code> will fail even though 30 is representable in <code>char</code>.</p>
+
+<hr />
+
+<p><strong>44.</strong>What will the following code print?</p>
+<pre><code class="language-java">public class TestClass{
+        int x = 5;
+        int getX(){ return x; }
+
+        public static void main(String args[]) throws Exception{
+            TestClass tc = new TestClass();
+            tc.looper();
+            System.out.println(tc.x);
+        }
+        
+        public void looper(){
+            int x = 0;
+            while( (x = getX()) != 0 ){
+                for(int m = 10; m&gt;=0; m--){
+                    x = m;
+                }
+            }
+            
+       }     
+}
+</code></pre>
+<p><strong>You had to select 1 option</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will not compile.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will throw an exception at runtime.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 0.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 5.</li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />None of these.</p>
+
+    <blockquote>
+      <p>This program will compile and run but will never terminate.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h5 id="explanation--44">✨<strong>Explanation</strong>  44</h5>
+<p>Note that <code>looper()</code> declares an automatic variable <code>x</code>, which <strong>shadows</strong> the instance variable <code>x</code>. So when <code>x = m;</code> is executed, it is the local variable <code>x</code> that is changed not the instance field <code>x</code>. So <code>getX()</code> never returns 0. If you remove <code>int x = 0;</code> from <code>looper()</code>, it will print 0 and end.</p>
+
+<hr />
+
+<p><strong>48.</strong>What will the following program print?</p>
+<pre><code class="language-java">class Test{
+   public static void main(String args[]){
+      int var = 20, i=0;
+      do{
+         while(true){
+         if( i++ &gt; var) break;
+         }
+      }while(i&lt;var--);
+      System.out.println(var);
+   }
+}
+</code></pre>
+<p><strong>You had to select 1 option</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />19</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />20</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />21</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />22</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will enter an infinite loop.</li>
+</ul>
+
+<h5 id="explanation--48">✨<strong>Explanation</strong>  48</h5>
+<p>When the first iteration of outer do-while loop starts, <code>var</code> is 20. Now, the inner loop executes till <code>i</code> becomes 21.
+Now, the condition for outer do-while is checked, <code>while( 22 &lt; 20 )</code>, [<code>i</code> is 22 because of the last <code>i++&gt;var</code> check], thereby making <code>var</code> 19. And as the condition is <code>false</code>, the outer loop also ends.
+So, 19 is printed.</p>
+
+<hr />
+
+<p><strong>56.</strong>Consider the following code:</p>
+<pre><code class="language-java">class A{
+   A() {  print();   }
+   void print() { System.out.println("A"); }
+}
+class B extends A{
+   int i =   4;
+   public static void main(String[] args){
+      A a = new B();
+      a.print();
+   }
+   void print() { System.out.println(i); }
+}
+</code></pre>
+<p>What will be the output when class B is run ?<br />
+<strong>You had to select 1 option</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print A, 4</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print A, A</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will print 0, 4</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print 4, 4</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />None of the above.</li>
+</ul>
+
+<h5 id="explanation--56">✨<strong>Explanation</strong>  56</h5>
+<p>Note that method <code>print()</code> is overridden in class <code>B</code>. Due to polymorphism, the method to be executed is selected depending on the class of the actual object.<br />
+Here, when an object of class <code>B</code> is created, first <code>B</code>’s default constructor (which is not visible in the code but is automatically provided by the compiler because <code>B</code> does not define any constructor explicitly) is called. The first line of this constructor is a call to <code>super()</code>, which invokes <code>A</code>’s constructor. <code>A</code>’s constructor in turn calls <code>print()</code>. Now, print is a non-private instance method and is therefore polymorphic, which means, the selection of the method to be executed depends on the class of actual object on which it is invoked. Here, since the class of actual object is <code>B</code>, <code>B</code>’s print is selected instead of <code>A</code>’s print. At this point of time, variable <code>i</code> has not been initialized (because we are still in the middle of initializing <code>A</code>), so its default value i.e. 0 is printed.<br />
+Finally, 4 is printed.</p>
+
+<hr />
+
+<p><strong>58.</strong>What will be the result of attempting to compile and run the following program?</p>
+<pre><code class="language-java">class TestClass{
+   public static void main(String args[]){
+      int i = 0;
+      loop :         // 1
+      {
+         System.out.println("Loop Lable line");
+         try{
+            for (  ;  true ;  i++ ){
+               if( i &gt;5) break loop;       // 2
+            }
+         }
+         catch(Exception e){
+            System.out.println("Exception in loop.");
+         }
+         finally{
+            System.out.println("In Finally");      // 3
+         }
+      }
+   }
+}
+</code></pre>
+<p><strong>You had to select 1 option</strong></p>
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Compilation error at line 1 as this is an invalid syntax for defining a label.</p>
+
+    <blockquote>
+      <p>You can apply a label to any code block or a block level statement (such as a for statement) but <strong>not</strong> to declarations. For example: <code>loopX : int i = 10;</code></p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Compilation error at line 2 as ‘loop’ is not visible here.</li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />No compilation error and line 3 will be executed.</p>
+
+    <blockquote>
+      <p>Even if the <code>break</code> takes the control out of the block, the <code>finally</code> clause will be executed.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />No compilation error and line 3 will NOT be executed.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Only the line with the label loop will be printed.</li>
+</ul>
+
+<h5 id="explanation--58">✨<strong>Explanation</strong>  58</h5>
+<p>A <code>break</code> without a label breaks the current loop (i.e. no iterations any more) and a <code>break</code> with a label tries to pass the control to the given label. ‘Tries to’ means that if the <code>break</code> is in a <code>try</code> block and the <code>try</code> block has a <code>finally</code> clause associated with it then it will be executed.</p>
+
+<hr />
+
+<p><strong>65.</strong>Consider the following code snippet:</p>
+<pre><code class="language-java">XXXX m ;
+//other code
+  switch( m ){
+     case 32  : System.out.println("32");   break;
+     case 64  : System.out.println("64");   break;
+     case 128 : System.out.println("128");  break;
+  }
+</code></pre>
+<p>What type can ‘m’ be of so that the above code compiles and runs as expected ?<br />
+<strong>You had to select 3 options</strong></p>
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>int m;</code></p>
+
+    <blockquote>
+      <p><code>m</code> can hold all the case values.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>long m;</code></p>
+
+    <blockquote>
+      <p>long, <code>float</code>, <code>double</code>, and <code>boolean</code> can never be used as a <code>switch</code> variable.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>char m;</code></p>
+
+    <blockquote>
+      <p><code>m</code> can hold all the case values.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>byte m;</code></p>
+
+    <blockquote>
+      <p><code>m</code> will not be able to hold 128. a <code>byte</code>’s range is -128 to 127.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>short m;</code></p>
+
+    <blockquote>
+      <p><code>m</code> can hold all the case values.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h5 id="explanation--65">✨<strong>Explanation</strong>  65</h5>
+<p><strong>Here are the rules for a switch statement:</strong><br />
+<strong>1.</strong> Only <code>String</code>, <code>byte</code>, <code>char</code>, <code>short</code>, <code>int</code>, (and their wrapper classes <code>Byte</code>, <code>Character</code>, <code>Short</code>, and <code>Integer</code>), and <em>enums</em> can be used as types of a <code>switch</code> variable. (<code>String</code> is allowed only since Java 7).<br />
+<strong>2.</strong> The case constants must be assignable to the <code>switch</code> variable. For example, if your <code>switch</code> variable is of class <code>String</code>, your case labels must use Strings as well.<br />
+<strong>3.</strong> The <code>switch</code> variable must be <strong>big enough</strong> to hold all the case constants. For example, if the <code>switch</code> variable is of type <code>char</code>, then none of the case constants can be greater than 65535 because a <code>char</code>’s range is from 0 to 65535.<br />
+<strong>4.</strong>  All case labels should be <strong>COMPILE TIME CONSTANTS</strong>.<br />
+<strong>5.</strong> No two of the case constant expressions associated with a <code>switch</code> statement may have the same value.<br />
+<strong>6.</strong> At most one <code>default</code> label may be associated with the same <code>switch</code> statement.</p>
+
+<hr />
+<p><strong>69.</strong>Consider the following code:</p>
+<pre><code class="language-java">interface Flyer{ String getName(); }
+
+class Bird implements Flyer{
+    public String name;
+    public Bird(String name){
+        this.name = name;
+    }
+    public String getName(){ return name; }
+}
+
+class Eagle extends Bird {
+    public Eagle(String name){
+        super(name);
+    }
+}
+
+public class TestClass {
+    public static void main(String[] args) throws Exception {
+        Flyer f = new Eagle("American Bald Eagle");
+        //PRINT NAME HERE
+   }
+}
+</code></pre>
+<p>Which of the following lines of code will print the name of the Eagle object?<br />
+<strong>You had to select 3 options</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>System.out.println(f.name);</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>System.out.println(f.getName());</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>System.out.println(((Eagle)f).name);</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>System.out.println(((Bird)f).getName());</code></li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>System.out.println(Eagle.name);</code></p>
+
+    <blockquote>
+      <p><code>name</code> is not a <code>static</code> field in class <code>Eagle</code>.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>System.out.println(Eagle.getName(f));</code></p>
+
+    <blockquote>
+      <p>This option doesn’t make any sense.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h5 id="explanation--69">✨<strong>Explanation</strong>  69</h5>
+<p>While accessing a method or variable, the compiler will only allow you to access a method or variable that is visible through the class of the reference.<br />
+When you try to use <code>f.name</code>, the class of the reference <code>f</code> is <code>Flyer</code> and <code>Flyer</code> has no field named “<code>name</code>”, thus, it will not compile. But when you cast <code>f</code> to <code>Bird</code> (or <code>Eagle</code>), the compiler sees that the class <code>Bird</code> (or <code>Eagle</code>, because <code>Eagle</code> inherits from <code>Bird</code>) does have a field named “<code>name</code>” so <code>((Eagle)f).name</code> or <code>((Bird)f).name</code> will work fine.<br />
+<code>f.getName()</code> will work because <code>Flyer</code> does have a <code>getName()</code> method.</p>
+
+<p>🔚</p>
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2019/10/22/oca-study-guide-test-review/" data-toggle="tooltip" data-placement="top" title="OCA Study Guide 练习回顾">
+                上一篇<br>
+                <span>OCA Study Guide 练习回顾</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2019/10/25/oca-exam-prep-review/" data-toggle="tooltip" data-placement="top" title="OCA 回顾与评价">
+                下一篇<br>
+                <span>OCA 回顾与评价</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

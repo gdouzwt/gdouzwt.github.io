@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Java 多线程编程 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2019/11/07/java-multithreading/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#Multithreading" title="Multithreading">Multithreading</a>
+                        
+                    </div>
+                    <h1>Java 多线程编程</h1>
+                    
+                    
+                    <h2 class="subheading">回顾 Java 多线程编程的基础知识</h2>
+                    
+                    <span class="meta">由招文桃在2019年11月7日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <h3 id="多线程编程">多线程编程</h3>
+
+<h4 id="java-的线程模型">Java 的线程模型</h4>
+
+<h5 id="线程的优先级">线程的优先级</h5>
+
+<h5 id="线程同步问题">线程同步问题</h5>
+
+<h5 id="线程的消息机制">线程的消息机制</h5>
+
+<h5 id="thread-类-和-runnable-接口">Thread 类 和 Runnable 接口<!--more--></h5>
+
+<h4 id="主线程">主线程</h4>
+
+<pre><code class="language-java">// Controlling the main Thread.
+class CurrentThreadDemo {
+  public static void main(String args[]) {
+    Thread t = Thread.currentThread();
+
+    System.out.println("Current thread: " + t);
+
+    // change the name of the thread
+    t.setName("My Thread");
+    System.out.println("After name change: " + t);
+
+    try {
+      for(int n = 5; n &gt; 0; n--) {
+        System.out.println(n);
+        Thread.sleep(1000);
+      }
+    } catch (InterruptedException e) {
+      System.out.println("Main thread interrupted");
+    }
+  }
+}
+</code></pre>
+
+<h5 id="创建一个线程">创建一个线程</h5>
+
+<h5 id="实现-runnable-接口">实现 Runnable 接口</h5>
+
+<pre><code class="language-java">// Create a second thread.
+class NewThread implements Runnable {
+  Thread t;
+
+  NewThread() {
+    // Create a new, second thread
+    t = new Thread(this, "Demo Thread");
+    System.out.println("Child thread: " + t);
+    t.start(); // Start the thread
+  }
+
+  // This is the entry point for the second thread.
+  public void run() {
+    try {
+      for(int i = 5; i &gt; 0; i--) {
+        System.out.println("Child Thread: " + i);
+        Thread.sleep(500);
+      }
+    } catch (InterruptedException e) {
+      System.out.println("Child interrupted.");
+    }
+    System.out.println("Exiting child thread.");
+  }
+}
+
+class ThreadDemo {
+  public static void main(String args[]) {
+    new NewThread(); // create a new thread
+
+    try {
+      for(int i = 5; i &gt; 0; i--) {
+        System.out.println("Main Thread: " + i);
+        Thread.sleep(1000);
+      }
+    } catch (InterruptedException e) {
+      System.out.println("Main thread interrupted.");
+    }
+    System.out.println("Main thread exiting.");
+  }
+}
+</code></pre>
+
+<h5 id="继承-thread-类">继承 Thread 类</h5>
+
+<pre><code class="language-java">// Create a second thread by extending Thread
+class NewThread extends Thread {
+
+  NewThread() {
+    // Create a new, second thread
+    super("Demo Thread");
+    System.out.println("Child thread: " + this);
+    start(); // Start the thread
+  }
+
+  // This is the entry point for the second thread.
+  public void run() {
+    try {
+      for(int i = 5; i &gt; 0; i--) {
+        System.out.println("Child Thread: " + i);
+        Thread.sleep(500);
+      }
+    } catch (InterruptedException e) {
+      System.out.println("Child interrupted.");
+    }
+    System.out.println("Exiting child thread.");
+  }
+}
+
+class ExtendThread {
+  public static void main(String args[]) {
+    new NewThread(); // create a new thread
+
+    try {
+      for(int i = 5; i &gt; 0; i--) {
+        System.out.println("Main Thread: " + i);
+        Thread.sleep(1000);
+      }
+    } catch (InterruptedException e) {
+      System.out.println("Main thread interrupted.");
+    }
+    System.out.println("Main thread exiting.");
+  }
+}
+</code></pre>
+
+<h5 id="该用哪种方式">该用哪种方式？</h5>
+
+<h4 id="创建多个线程">创建多个线程</h4>
+
+<pre><code class="language-java">// Create multiple threads.
+class NewThread implements Runnable {
+  String name; // name of thread
+  Thread t;
+
+  NewThread(String threadname) {
+    name = threadname;
+    t = new Thread(this, name);
+    System.out.println("New thread: " + t);
+    t.start(); // Start the thread
+  }
+
+  // This is the entry point for thread.
+  public void run() {
+    try {
+      for(int i = 5; i &gt; 0; i--) {
+        System.out.println(name + ": " + i);
+        Thread.sleep(1000);
+      }
+    } catch (InterruptedException e) {
+      System.out.println(name + "Interrupted");
+    }
+    System.out.println(name + " exiting.");
+  }
+}
+
+class MultiThreadDemo {
+  public static void main(String args[]) {
+    new NewThread("One"); // start threads
+    new NewThread("Two");
+    new NewThread("Three");
+
+    try {
+      // wait for other threads to end
+      Thread.sleep(10000);
+    } catch (InterruptedException e) {
+      System.out.println("Main thread Interrupted");
+    }
+
+    System.out.println("Main thread exiting.");
+  }
+}
+</code></pre>
+
+<h4 id="使用-isalive-和-join">使用 <code>isAlive()</code> 和 <code>join()</code></h4>
+
+<pre><code class="language-java">// Using join() to wait for threads to finish.
+class NewThread implements Runnable {
+  String name; // name of thread
+  Thread t;
+
+  NewThread(String threadname) {
+    name = threadname;
+    t = new Thread(this, name);
+    System.out.println("New thread: " + t);
+    t.start(); // Start the thread
+  }
+
+  // This is the entry point for thread.
+  public void run() {
+    try {
+      for(int i = 5; i &gt; 0; i--) {
+        System.out.println(name + ": " + i);
+        Thread.sleep(1000);
+      }
+    } catch (InterruptedException e) {
+      System.out.println(name + " interrupted.");
+    }
+    System.out.println(name + " exiting.");
+  }
+}
+
+class DemoJoin {
+  public static void main(String args[]) {
+    NewThread ob1 = new NewThread("One");
+    NewThread ob2 = new NewThread("Two");
+    NewThread ob3 = new NewThread("Three");
+
+    System.out.println("Thread One is alive: "
+                        + ob1.t.isAlive());
+    System.out.println("Thread Two is alive: "
+                        + ob2.t.isAlive());
+    System.out.println("Thread Three is alive: "
+                        + ob3.t.isAlive());
+    // wait for threads to finish
+    try {
+      System.out.println("Waiting for threads to finish.");
+      ob1.t.join();
+      ob2.t.join();
+      ob3.t.join();
+    } catch (InterruptedException e) {
+      System.out.println("Main thread Interrupted");
+    }
+
+    System.out.println("Thread One is alive: "
+                        + ob1.t.isAlive());
+    System.out.println("Thread Two is alive: "
+                        + ob2.t.isAlive());
+    System.out.println("Thread Three is alive: "
+                        + ob3.t.isAlive());
+
+    System.out.println("Main thread exiting.");
+  }
+}
+</code></pre>
+
+<h4 id="线程优先级">线程优先级</h4>
+
+<h4 id="线程同步">线程同步</h4>
+
+<h5 id="使用同步的方法">使用同步的方法</h5>
+
+<pre><code class="language-java">// This program is not synchronized.
+class Callme {
+  void call(String msg) {
+    System.out.print("[" + msg);
+    try {
+      Thread.sleep(1000);
+    } catch(InterruptedException e) {
+      System.out.println("Interrupted");
+    }
+    System.out.println("]");
+  }
+}
+
+class Caller implements Runnable {
+  String msg;
+  Callme target;
+  Thread t;
+
+  public Caller(Callme targ, String s) {
+    target = targ;
+    msg = s;
+    t = new Thread(this);
+    t.start();
+  }
+
+  public void run() {
+    target.call(msg);
+  }
+}
+
+class Synch {
+  public static void main(String args[]) {
+    Callme target = new Callme();
+    Caller ob1 = new Caller(target, "Hello");
+    Caller ob2 = new Caller(target, "Synchronized");
+   Caller ob3 = new Caller(target, "World");
+
+    // wait for threads to end
+    try {
+      ob1.t.join();
+      ob2.t.join();
+      ob3.t.join();
+    } catch(InterruptedException e) {
+      System.out.println("Interrupted");
+    }
+  }
+}
+</code></pre>
+
+<h5 id="同步语句">同步语句</h5>
+
+<pre><code class="language-java">// This program uses a synchronized block.
+class Callme {
+  void call(String msg) {
+    System.out.print("[" + msg);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      System.out.println("Interrupted");
+    }
+    System.out.println("]");
+  }
+}
+
+class Caller implements Runnable {
+  String msg;
+  Callme target;
+  Thread t;
+
+  public Caller(Callme targ, String s) {
+    target = targ;
+    msg = s;
+    t = new Thread(this);
+    t.start();
+  }
+
+  // synchronize calls to call()
+  public void run() {
+    synchronized(target) { // synchronized block
+      target.call(msg);
+    }
+  }
+}
+
+class Synch1 {
+  public static void main(String args[]) {
+    Callme target = new Callme();
+    Caller ob1 = new Caller(target, "Hello");
+    Caller ob2 = new Caller(target, "Synchronized");
+    Caller ob3 = new Caller(target, "World");
+
+    // wait for threads to end
+    try {
+      ob1.t.join();
+      ob2.t.join();
+      ob3.t.join();
+    } catch(InterruptedException e) {
+      System.out.println("Interrupted");
+    }
+  }
+}
+</code></pre>
+
+<h4 id="线程间通信">线程间通信</h4>
+
+<pre><code class="language-java">// An incorrect implementation of a producer and consumer.
+class Q {
+  int n;
+
+  synchronized int get() {
+    System.out.println("Got: " + n);
+    return n;
+  }
+
+  synchronized void put(int n) {
+    this.n = n;
+    System.out.println("Put: " + n);
+  }
+}
+
+class Producer implements Runnable {
+  Q q;
+
+  Producer(Q q) {
+    this.q = q;
+    new Thread(this, "Producer").start();
+  }
+
+  public void run() {
+    int i = 0;
+
+    while(true) {
+      q.put(i++);
+    }
+  }
+}
+
+class Consumer implements Runnable {
+  Q q;
+
+  Consumer(Q q) {
+    this.q = q;
+    new Thread(this, "Consumer").start();
+  }
+
+  public void run() {
+    while(true) {
+      q.get();
+    }
+  }
+}
+
+class PC {
+  public static void main(String args[]) {
+    Q q = new Q();
+    new Producer(q);
+    new Consumer(q);
+
+    System.out.println("Press Control-C to stop.");
+  }
+}
+</code></pre>
+
+<p>生产者与消费者的正确玩法</p>
+
+<pre><code class="language-java">// A correct implementation of a producer and consumer.
+class Q {
+  int n;
+  boolean valueSet = false;
+
+  synchronized int get() {
+    while(!valueSet)
+      try {
+        wait();
+
+      } catch(InterruptedException e) {
+        System.out.println("InterruptedException caught");
+      }
+
+      System.out.println("Got: " + n);
+      valueSet = false;
+      notify();
+      return n;
+  }
+
+  synchronized void put(int n) {
+    while(valueSet)
+      try {
+        wait();
+      } catch(InterruptedException e) {
+        System.out.println("InterruptedException caught");
+      }
+
+      this.n = n;
+      valueSet = true;
+      System.out.println("Put: " + n);
+      notify();
+  }
+}
+
+class Producer implements Runnable {
+  Q q;
+
+  Producer(Q q) {
+    this.q = q;
+    new Thread(this, "Producer").start();
+  }
+
+  public void run() {
+    int i = 0;
+
+    while(true) {
+      q.put(i++);
+    }
+  }
+}
+
+class Consumer implements Runnable {
+  Q q;
+
+  Consumer(Q q) {
+    this.q = q;
+    new Thread(this, "Consumer").start();
+  }
+
+  public void run() {
+    while(true) {
+      q.get();
+    }
+  }
+}
+
+class PCFixed {
+  public static void main(String args[]) {
+    Q q = new Q();
+    new Producer(q);
+    new Consumer(q);
+
+    System.out.println("Press Control-C to stop.");
+  }
+}
+</code></pre>
+
+<h5 id="死锁">死锁</h5>
+
+<pre><code class="language-java">// An example of deadlock.
+class A {
+  synchronized void foo(B b) {
+    String name = Thread.currentThread().getName();
+
+    System.out.println(name + " entered A.foo");
+
+    try {
+      Thread.sleep(1000);
+    } catch(Exception e) {
+      System.out.println("A Interrupted");
+    }
+
+    System.out.println(name + " trying to call B.last()");
+    b.last();
+  }
+
+  synchronized void last() {
+    System.out.println("Inside A.last");
+  }
+}
+
+class B {
+  synchronized void bar(A a) {
+    String name = Thread.currentThread().getName();
+    System.out.println(name + " entered B.bar");
+
+    try {
+      Thread.sleep(1000);
+    } catch(Exception e) {
+      System.out.println("B Interrupted");
+    }
+
+    System.out.println(name + " trying to call A.last()");
+    a.last();
+  }
+
+  synchronized void last() {
+    System.out.println("Inside A.last");
+  }
+}
+
+class Deadlock implements Runnable {
+  A a = new A();
+  B b = new B();
+
+  Deadlock() {
+    Thread.currentThread().setName("MainThread");
+    Thread t = new Thread(this, "RacingThread");
+    t.start();
+
+    a.foo(b); // get lock on a in this thread.
+    System.out.println("Back in main thread");
+  }
+
+  public void run() {
+    b.bar(a); // get lock on b in other thread.
+    System.out.println("Back in other thread");
+  }
+
+  public static void main(String args[]) {
+    new Deadlock();
+  }
+}
+</code></pre>
+
+<h4 id="线程的挂起恢复和停止">线程的挂起，恢复和停止</h4>
+
+<pre><code class="language-java">// Suspending and resuming a thread for Java 2
+class NewThread implements Runnable {
+  String name; // name of thread
+  Thread t;
+  boolean suspendFlag;
+  
+  NewThread(String threadname) {
+    name = threadname;
+    t = new Thread(this, name);
+    System.out.println("New thread: " + t);
+    suspendFlag = false;
+    t.start(); // Start the thread
+  }
+
+  // This is the entry point for thread.
+  public void run() {
+    try {
+      for(int i = 15; i &gt; 0; i--) {
+        System.out.println(name + ": " + i);
+        Thread.sleep(200);
+        synchronized(this) {
+          while(suspendFlag) {
+            wait();
+          }
+        }
+      }
+    } catch (InterruptedException e) {
+      System.out.println(name + " interrupted.");
+    }
+    System.out.println(name + " exiting.");
+  }
+
+  synchronized void mysuspend() {
+    suspendFlag = true;
+  }
+
+  synchronized void myresume() {
+    suspendFlag = false;
+    notify();
+  }
+}
+
+class SuspendResume {
+  public static void main(String args[]) {
+    NewThread ob1 = new NewThread("One");
+    NewThread ob2 = new NewThread("Two");
+
+    try {
+      Thread.sleep(1000);
+      ob1.mysuspend();
+      System.out.println("Suspending thread One");
+      Thread.sleep(1000);
+      ob1.myresume();
+      System.out.println("Resuming thread One");
+      ob2.mysuspend();
+      System.out.println("Suspending thread Two");
+      Thread.sleep(1000);
+      ob2.myresume();
+      System.out.println("Resuming thread Two");
+    } catch (InterruptedException e) {
+      System.out.println("Main thread Interrupted");
+    }
+
+    // wait for threads to finish
+    try {
+      System.out.println("Waiting for threads to finish.");
+      ob1.t.join();
+      ob2.t.join();
+    } catch (InterruptedException e) {
+      System.out.println("Main thread Interrupted");
+    }
+ 
+    System.out.println("Main thread exiting.");
+  }
+}
+</code></pre>
+
+<h4 id="获取一个线程的状态">获取一个线程的状态</h4>
+
+<h4 id="使用多线程编程">使用多线程编程</h4>
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2019/11/06/java-lambda-revisited/" data-toggle="tooltip" data-placement="top" title="Java Lambda 表达式">
+                上一篇<br>
+                <span>Java Lambda 表达式</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2019/11/11/jpackage-early-access/" data-toggle="tooltip" data-placement="top" title="JDK 的 jpackage 早期预览版">
+                下一篇<br>
+                <span>JDK 的 jpackage 早期预览版</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

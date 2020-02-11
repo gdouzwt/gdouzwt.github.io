@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>响应式变革 Reactive Evolution 第 2 部分 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2019/12/03/reactive-evolution-part2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Reactive Programming" title="Reactive Programming">Reactive Programming</a>
+                        
+                        <a class="tag" href="/tags/#响应式编程" title="响应式编程">响应式编程</a>
+                        
+                        <a class="tag" href="/tags/#Spring WebFlux" title="Spring WebFlux">Spring WebFlux</a>
+                        
+                        <a class="tag" href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway">Spring Cloud Gateway</a>
+                        
+                        <a class="tag" href="/tags/#RSocket" title="RSocket">RSocket</a>
+                        
+                        <a class="tag" href="/tags/#R2DBC" title="R2DBC">R2DBC</a>
+                        
+                        <a class="tag" href="/tags/#Kotlin" title="Kotlin">Kotlin</a>
+                        
+                    </div>
+                    <h1>响应式变革 Reactive Evolution 第 2 部分</h1>
+                    
+                    
+                    <h2 class="subheading">根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理</h2>
+                    
+                    <span class="meta">由招文桃在2019年12月3日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <h2 id="响应式变革第-2-部分构造边缘服务客户端">响应式变革第 2 部分——构造边缘服务客户端</h2>
+
+<h3 id="第二节开场">第二节开场</h3>
+
+<p>现在 我们已经构建了一个服务是一个 HTTP API 额…… 我们演示了 WebSocket 我们演示了 响应式 NoSQL 和 SQL 数据访问 在 Spring Data 的世界里 我们全部用 Java 写的加点 JavaScript 对吧 那有点 额…… 你懂得 总会遇到 JavaScript 的对吧？就如谚语所说那样。额 然后 现在 是时候将我们的注意力转到 构建客户端 构建一个东西 我们可以用来 额 与那个服务进行通信 去构建边缘服务 而边缘服务是在逻辑上在架构的边缘的东西 首个来自外界请求的端口。会被适配到对下游微服务的请求，而边缘服务是逻辑上我们处理，一些边界关键问题。例如 负载均衡
+路由 还有安全之类的。所以我们要在这里做 在这个边缘服务里做，额 我们要构建一个 像往常一样。通过到 start.spring.io OK? 所以我们开始，啊 现在。我们要构建一个应用，你知道吗 顺便说一下 有点失望。之前从 10 月 31 日开始。那时候是万圣节前夜。从 10 月 31 日开始，这是万圣节前夜风格的。那很酷啊，现在变回暗色模式也很好 你懂的。但 当时这里有个南瓜和鬼怪的，随意啦 没关系。<!--more--></p>
+
+<h3 id="开始写代码-kotlin">开始写代码 Kotlin</h3>
+
+<p>OK 我们要构建一个应用基于 Kotlin 的 我们要构建一个 reservation-client OK? 就是这样很好 我们要在这边选择 正确的东西当然选择 Java 13 然后我们有一些需要的依赖 我们需要响应式 Web 支持我们需要 RSocket 额 我们需要 Spring Cloud Gateway 我们需要 响应式 Redis 支持 我们需要 Spring Security 支持 然后我觉得我对我目前的选择满意了。所以我要点击 Generate 当我确认我已经有了我所需要的 是的 齐了 好 所以我要构建一个应用现在 这是一个 zip 文件可以打开的像往常一样 这是我们的 IDE UAO 喔 这是什么东西让我们看一下 我们不需要那个这个也不要 这也不需要 OK？ reservation… 好 我给自己拿了两杯咖啡 只是以防万一 好东西 跑起来吧 好这是基于 Kotlin 的应用程序 你们有多少人使用 Kotlin OK 实际上很不错啊 手先别放下 让我看看 哇…… 那很好啊那大概有 三分之一 或者 四分之一 我觉得惊讶 这很让人惊奇 这很酷 好东西 所以 Kotlin 是一种好的编程语言 构建在 JVM 之上
+你懂得 编译到字节码 有互操作性 跟其它的各种库之类的东西 使得它如此吸引人 目前 Kotlin 最大的用户是安卓用户 那是有很好的原因的 Android 很难有现代版本的 Java Java 8 怎么讲都不 跟它们相关 对吧 你不能保证你在安卓写的代码 可以编程成 Java 8 因为很多人没有与 Java 8 兼容的运行时 所以你要编写代码编译到 Java 7 之类的或者目标是 Java 7  这可能有点让人失望 因为我们现在用的是 Java 13 对吧 版本号差不多是两倍了 然而我们还不能在安卓用户端使用它 所以 Kotlin 是非常不错的 它可以编译到更加老的版本 同时仍使用一种语言 用起来更像 Java 20 的感觉相比较于 Java 7 对吧 额…… 额 我意思我喜欢 Java 的 很显然啦 但是 那只是 按照定义来讲它并没有那么有趣、前沿对吧 额…… 所以 Kotlin 非常不错的语言 在 Kotlin 有些东西你要理解的 首先 函数是由 fun 开头的 函数名紧随其后 所有在 Kotlin 当中你可能称为方法的其实都只是函数 如果它们在一个类里边 我说它们是成员函数如果在一个类之外 它们只是函数 它们只是顶层的东西 它们可以这样的 这是需要注意的我们这里有的是 一个空的类这是一个空的类 里边什么都没有 那里是同样的东西对吧 所以我有一个空的类 里边什么都没有这个函数不属于这个类
+它可以 那样的话 我就要这样做 对吧 但我不是要这样做我只是有一个顶层的类 一个顶层的函数 它们看起来是相互相邻的 额 在 Kotlin 里边 参数名称  放前边然后才是类型 对吧 额 有一种同一的语法给泛型参数的那就是<xxx> 这是一个数组 String数组 相当于 String[] 对吧 OK 这基本上就是你需要理解的了</xxx></p>
+
+<h3 id="讲一点-kotlin-背景基础知识">讲一点 Kotlin 背景基础知识</h3>
+
+<p>我们要做的是 我们要构建一个应用 那会访问一个 API 额…… 边缘服务 首先要做一些事情 我要确保这个应用 在 9999 端口启动 我们要确保注释掉 那个…… 那个…… 安全相关的东西 因为那会锁住这个应用的 我们现在还不想这样 好吧 计算机 好？ 好 这样可以了 好吗 我要选择 Enable-Auto import 因为有时候要更改 classpath 我希望工具会跟上节奏 OK 现在我要创建一个类 它将会是 额 Java config 风格的端点 我将会创建一个 API 网关使用 Spring Cloud API Gateway 这是第一类 边缘服务 一个 API 网关是一种将外界请求 并处理它们 以一种通用的方式有点与载荷本身无关的那样 它基本不知道那是 JSON 还是 XML 也不怎么关心 它只是做一些通用的转换与载荷的语义无关
+与特定的载荷本身无关 所以我们要创建一个基于 Spring Cloud Gateway的网关 现在 Spring Cloud Gateway
+是构建在 Spring 响应式 Web 支持之上的 所以它本身就是响应式的了我要在这里创建一个 Java 配置风格的端点
+所以我在创建一个 额……  我们过去称之为 Bean 配置方法的 现在是函数 我正在注入一个类型为 RouteLocatorBuilder 的参数 我要使用 RouteLocatorBuilder 去构建我的网关路由你做的方式是构建一个路由
+然后你构建（builder 模式） OK？ 现在 额…… 在 Java 的话看起来就像这样 显然 在 Java 你会有分号但在这里是可选的 可以有任意多个这样的route() 调用 每个路由对应着某些会进入到服务的东西的定义然后你想要拦截处理 然后转发到其它东西OK? 通常你有一个像这样的 Lambda 然后 Lambda 有一个 route 配置 或 规范然后使用路由的规范去定义 例如 当每个请求进入到 这个路径 称为 /proxy … and().host(… 这个主机 ……然后我想将它发送到
+这个 URL 所以 localhost …现在当然 我实际这样做不到 对吧？ 这会发生什么？ 首先  嗯…… 
+我需要返回一个 RouteLocator …RouterLocator… 那就是返回值 那就是它抱怨的 额 首先将要发生的是 我想要
+匹配 /proxy 然后我想匹配这个主机名 当然如果路径是 /proxy 那么 如果我转发到这个不作任何地更改那会变成 /reservations/proxy 那不是我想要的 所以我需要 去过滤、我要按某种方式处理一下 所以这里我们有 filter 回调 我们写…… 然后赋予一个 lambda 我们可以使用 filterSpec… 然后写…… 这将会作为一个代理 这些过滤器是这里真正的力量 它赋予你能力做各种事情 想象一下 你有一个 HTTP (不好意思口误）HTML 5 客户端然后那个 HTML5 客户端 想要调用下游的服务 额 为了让那成为可能 你要确保你支持 CORS 跨域请求脚本 对吧而为了那样做 你要写
+我想要添加一个首部 HttpHeaders. 噢 不是这个 你可以看到不少人也想到了这个 对吧 HttpHeaders我们要允许 ACESS_CONTROL_ALLOW_ORIGIN ALLOW_ORIGIN 我想要说 允许所有东西 OK？嗯 所以那是 让我们去掉另一个
+使得这不必要地长 OK 拜拜 然后这个 OK？ 好 这就是这些代码 让我们看一下如果运行会怎样 正在编译 curl 减号 额不好意思 http://locahost:9999/proxy  这样当然是不行的 额 噢~ 不是这个 security.rsocket #%……￥%@#
+哼？ 这是什么鬼 我这辈子都没见过这个 说真的 这真有趣 这就是追求新技术的馈赠 OK 我们有这个让我们注释掉它 我以为我已经注释掉安全相关的依赖了 不是吗 我觉得我已经注释掉了 maven reimport… 别 那是什么？ …rsocket.core? 哇 看起来我们的确遇到些问题了 但我们可以 有可能解决它 让我们看一下 噢这个 spring-security-rsocket 没人想要这东西 我没要这个 OK 这次好了 这是新的 OK 好 那么 它们想帮忙的 因为我最初勾选了RSocket
+它引入了其它东西 然后我勾选了 Security 它将这两样都引入了 但这两样我不是全都要 OK 现在它显示它找不到端点 对吧 404 所以现在 我指定一个主机断言 -H”host.devoxx.spring.io” OK 然后 那…… 失败了 额 9999
+-H … devoxx.spring.io 连接被拒绝…… 噢 因为我的服务（未运行） OK 它正在代理请求到这边这个东西 我的 ReservationService 那东西还没有运行 OK 让我们重启它 然后这些就是请求 如果我美化输出到 JSON….  json_pp
+OK 就是这样 这是我们的数据 OK 所以我们代理转发了数据 我们也可以看更加详尽的输出 去掉那个 我们可以看到我们这样做 它添加 Access-Control-Allow-Origin 首部到响应所以现在任何  JavaScript 客户端 可以连接到我的边缘服务 而那会允许它们获取到数据 它会响应式不阻塞地转发请求  那不会等待完整的响应 它会流式传输数据当可用的时候 它会从下游的微服务获取到数据 在这个例子中就是 localhost:8080/reservations 然后它会发送回到给我们的客户端 OK？ 所以现在 让我们再回顾一下这代码 既然我们 已经让应用程序的基本骨架可以跑起来了 这个是在 Kotlin 种非常像 Java 做法 OK ? 但有很多方面我们可以改善的 首先 我们有一个函数 创建了一个表达式那个我们之后返回了我们实际上没有 什么东西在中间 没有逻辑 没有状态 什么都没有 我们不 我们并没有从中获益 所以我们可以使用等号 在这个例子 我们实际上可以 做个赋值 基本上我们可以写 这个函数 = 这个表达式 所以如果你调用这个 它是等价于调用那个的 那样更好一点 另一个 Kotlin 做得很好的是 它有种很好的能力 如果一个函数最后的参数是个lambda 你可以将lambda写到函数的外边 所以在这个例子 我可以将它重写成这样 喔 这看起来有点傻 不是吗？
+现在我在那里什么都没有了 对吧 但功能上是一样的 所以在 Kotlin 你也可以去掉括号 对吧 那也是同样的东西
+额 这样好了一点 对吧？这边也一样 我可以修改这个 即使这些全都很不错 但是我们有这些不必要 有些…… 
+lambda 的参数 对吧 这是一个路由的规范 但 这只是中间变量这些是我们创建了为了有个名字而已但我们并不需要这些名字因为我们直到 lambda 有它的参数 所以我们可以去掉这些变量名 然后我们可以用 it 引用it 是一个隐式地被创建的参数 对吧 如果你用过 groovy 你就知道这些东西了 对吧所以同样的东西 我可以在这做同样的东西 我可以写 it 对吧 当然 在这个例子 可能会有点疑惑因为变量范围的问题 这可能是你想要保留变量名的原因 OK 随你OK 我喜欢那样 看起来更好一点了 但甚至在这里 我们还可以做得更好 所以 其实 Kotlin 当中有个很好的特性或可以获得扩展函数 这些是在 JVM、JDK 还有在 classpath 上的代码里面 但它们被添加到已存在的类型所以你可以将类型粘起来 非常像 ruby 例如你可以给已存在的类添加东西 额 这意味着你可以像玩视频游戏你可以解锁一个秘密等级
+你的类路径上有这些库 那些通常是为 Java 用户准备的但它们表达了某些 API 功能某些能力到 Kotlin 而且只有通过使用 Kotlin 才可以使用它所以实际上 我们还可以再次重写一遍 routes 然后这是 DSL所以 RouteLocatorBuilder 是 Java API 是用 Java 写的 你可以看到代码 是 Java 对吧 不过 这里有个额外的函数 称为 routes 我们可以看到 是一个扩展函数 让我下载它 OK下载源代码吧 谁在下种子 随意吧  OK 这个函数 是定义在 RouteLocator 之上的并且它需要一个 RouteLocator 做参数 从这里之后它接收一个参数 那是一个 lambda 那 这很有趣 这个lambda语法
+没有参数 然后返回 Void  Unit 相当于 Void 这个 lambda 也写作 也被定义做 额… 基于对上下文绑定的RouteLocator DSL引用的 所以基本上 在那个lambda 如果我调用 this. 我实际上调用的是  我是对着一个 RouteLocator 实例调用的 this. 我原来的 ‘this’ 已经被替换成这个 DSL 的 ‘this’ 这意味着我可以对着这个（方法）调用，我意思是类型 而实际不需要声明那个类型 我的 lambda 被插入到那个对象里 它的上下文 基本上是这样
+所以现在我可以重写这些 更加明确地 我可以说 route… 然后我要匹配一个路径为 /proxy 而且，顺便说一下，我可以这样做我们可以那样做 但我们也有额 中缀表示法 对吧 所以 …host… 我可以这样做 我写 “*.spring.io” 随意啦
+但因为这是中缀标记法我可以去掉所有这些 对吧 同样的东西 额……然后 我想要创建 filter 然后这个 filter 包括设置路径 对吧 “/reservations” 然后我想要添加响应首部 让我…… 复制这个 OK 跟之前的一样 然后是 uri 在这里 “http… “http://localhost:8080/” 好了  就这样 这就是整个东西 所以现在我可以重写 全部 我不需要 build 上下文会帮我完成的 就是作用范围它本身给予了我那个 对吧  然后就是这样 这就是全部的重写的 DSL 所以你得到像这样的
+类型安全的 看起来有点像 有点让我想起 以前的 Apache 配置文件 对吧 不同的是这是编译器的 而且是类型安全的
+对吧 这很不错。</p>
+
+<h3 id="kotlin-dsl-配置-spring-cloud-gateway">Kotlin DSL 配置 Spring Cloud Gateway</h3>
+
+<p>​		所以这跟刚才给你展示的东西基本上是一样的，为了证明 让我们重启一下应用。我喝点咖啡 我觉得我值得这样做OK？那么，看吧 这就是我们的数据。所以这就是跑起来了的应用，现在，那个过滤器，就是魔法的所作。是力量所在。我可以做各种有趣的事情，我可以修改首部 我可以修改请求 URI，我可以修改请求体、响应体，我可以保存。或者是移除首部 例如 host 首部，我可以做重定向、可以做重试，我可以做重写 URL 重写。一些你可能会用 NGINX 或 mod_rewrite 做的事。你可以很容在这里做到，路径重写之类的东西，你可以在这里做，我可以设置响应的状态。我可以做各种事情。使用这些 filter 我最喜欢做的事情之一是当然是创建我自己的 filter 对吧？因为你可以完全掌控所以如果你想要创建你自己的 filter。做起来很简单 对吧 你可以 你可以看那是怎么做的嗯……另一样我最喜欢做的事是，考虑下限制访问速率，那么速率限制器是一个非常简单的东西。速率限制器是一种东西，当有一个请求进来的时候。查看进来的请求，基于你的规范的条件来验证。然后，选择保留还是拒绝那个请求，还有通常那个标准是。你所规定的一个计数 一个预算，你说，我允许，额…… 让我们假设 10 个记录 5 个请求，每秒十个请求。或5请求每秒 或者是 每秒百万个请求，不管是什么吧。对你来说可以接受就好，一个速率限制器，关注两个很常见的应用场景。第一种用例，是 嘿~ 我想要限制在全球范围的绝对请求次数，到 随意吧 n 个请求每秒 5 让我们只用 5 简单容易好算数 OK？所以假设我们想要限制每秒访问的绝对次数为5个请求，这意味着不管人们在哪里发起请求。也不管是一个客户端、机器人或者是人。什么都没关系，你只需限制每秒5个请求就好了。对于全球范围 OK？嗯…… 这是很常见的用例，如果，由于某种原因你有一个很昂贵的下游服务。那很难扩展起来的，例如 我想到的是大型机。对吧 某种大型机 你可以处理 x 个请求。x 个事务处理 x 个用户 但如果你再添加一个 你要买个新的大型机，对吧？这些东西还未开始用就已经要花几百万了,对吧? 如果可以的话没人想要扩展这些东西所以这非常有用 像说 嘿~ 我要将所有东西汇聚起来降低到这个小的 受限的速率 我要说 OK 这里只有 5 个请求只是简单的数学 我确信你可以处理比那更多的 对吧? 但是我只将它限制到每秒5个请求 对全球范围 不管是谁在发起请求 嗯……</p>
+
+<p>​		这是一种应用场景 另一个应用场景是 我想要处理 我想每个用户 都是每秒只能发起5个请求 好吧 所以在这个案例你没有扩展起来的问题 很可能地 现在是 2019 年 快到 2020年了。你可以使用一个云平台 例如 <code>CloudFoundry</code>或者你可以用 Kubernetes 构建一些东西 额 随意什么东西吧 对吧？如果是这样的案例你想要限制对下游服务的调用 但你不想限制用户的绝对数量 通常你只是限制每个用户的请求数量 以确保每个人都参与公平的游戏 额 没有人 你懂得 滥用系统 并从中获益 你不希望有机器人对你的页面发送垃圾请求 或者是爬虫之类的 不管什么发现一种方式毁了系统对其它人的服务质量 所以速率限制器在这两方面都有用 嗯…… 速率限制器维持进入系统的请求的计数同时 它们与你所给的预算作比较 如果预算超了 它们拒绝请求 它们将请求发到别的地方去 所以我们有了速率限制器 嗯…… 一个追踪进入系统请求数的速率限制器 我们有一个边缘服务 我有一个边缘服务 一个速率限制器这个速率限制器 现在 让我们假设 我们想控制并限制每秒请求次数到 5 如果我创建另一个这样的边缘服务实例会怎样？如果我将这个边缘服务的 JVM 线程 并将其部署 然后我现在有两个实例在负载均衡器后面 当中每一个都可以配置成不可以超过每秒5个请求 那么现在 我变成可以每秒请求十次 不是吗？ 我所转发请求到的下游服务那个 reservation 服务 会看到十个请求每秒 因为我有两个节点 两个都允许每秒五个请求 这样不好 对吧 这就是将预算值写死在 Java 代码里的问题我们需要某种方式去追踪用户的数量 而且是保持追踪 独立地追踪某个特定的节点 我们需要一些东西是可见的 是一致的 能跨越所有的 JVM 访问 对吧 而且定义上来讲它必须要闪电般迅速 本质上 我们需要原子性的数字 然后是非常快的 可以运行在集群当中 而且那可以容易地接入到我们的应用 因此 我要放入额…… 该放在哪？Redis 对吧 就是它 我添加了 spring-boot-starter-data-redis-reactive OK？所以我们将要创建一个基于 Redis 的速率限制器。</p>
+
+<h3 id="开始配置限流器-ratelimiter">开始配置限流器 RateLimiter</h3>
+
+<p>​		K? re… 额 fun… 我会将它限制为5个请求每秒 然后我要冲破到 7 OK？OK 就是这样 嗯…… 现在为了让它能用。我需要配置速率限制器 所以我可以写 set… setRateLimiter 像这样子然后我只需调用 redisRateLimiter 但请记住 在 Kotlin 里边 就像现在的很多语言那样 例如 Groovy、Scala Ceylon 基本上其它东西 你可以只写 基于属性的访问它同样是这样调用 rateLimiter 这个 rateLimiter 它会查找速率 它会查找当前的计数 那个将会对我们调用的计数进行验证的 在 Redis 里边 嗯 什么是键值对存储啊 所以为了找到那个值 你要找到那个键 知道要用哪个键所以我们要给它一个 keyResolver 所以我们写 keyResolver… 然后我们可以插入 KeyResolver 嗯 这个 KeyResolver 有一个很简单的任务 返回一个数据流对吧 所以我可以写 你懂的 额 这是我的键 对吧？这是我们要在 Redis 里面使用的 key 这里有人看过《美丽人生》这电影吗？ La vita è bella 电影台词 没有吗？ 好吧 不管如何 这是这东西 嗯 额…… 所以 KeyResolver OK? 它返回 单个的数据流 这是首个应用场景我说 不管世上谁在发起请求 我不在乎你在哪里我不在乎 你在的地方是白天 而你在购物 然后那服务 应该会允许你 完全使用这系统 与此同时也有人在半夜使用这服务他们应该在睡觉的 我可以将他们的服务降级 因为这时候那各地区没有太多流量 你在这世上任何地方都无所谓因为我期望每秒不超过5个请求 就全球范围而言 OK？ 这就是一种应用场景 一个键 管理所有 OK ?</p>
+
+<h3 id="限流器的基本需求">限流器的基本需求</h3>
+
+<p>​		你可以那样做现在注意到作为参数我们有个请求 对吧 那个请求 是 it 我们可以只用 it 但它在那里 我们可以根据它验证一些东西我们可以说 嘿~给我 <code>Principal</code> 给我当前的 Java Security Principal 与这个请求相关的 对吧 所以 Principal 然后我想要将那个 Principal 然后我想 map 它一下 我要写 map… 所以它会给我 一个 <code>publisherOfName</code> 所以 <code>Publisher</code> <code>Publisher&lt;String&gt;</code> 的名字 等于这个 就是这样 好 这是我在这里创建的类
+额 我显示地指定类型 那样你们可以看到 但你们不必要这样做 你也可以这样写 好吗？ 同样的东西这是我的数据流的名称 我可以返回那个啦 我可以只是写 return… <code>publisherOfName</code> 对吧 让我们这样做吧 OK? 额…… 在 Kotlin 当中 顺便提一句 最后一行 在一个函数里面 或是 lambda 在这个例子 是那个被返回的对象 所以其实这也能用所以实际是我在这里返回 我这里获取到了名称 不过如果没有名称会怎样？ 如果这里没有 Principal 会怎样？在当前的请求里 那么…… 我们需要 .switchIfEmpty(… 所以我们写 Mono.empty()… OK? 现在返回一个数据流的名称如果存在的话 在请求当中 然后我们会讲那个 Principal 从哪里来 我稍后再讲 给我几分钟 不过 如果那不存在的话 那么我们希望返回 …empty()… 这是非常寻常的策略 我刚才所作的是 我创建了一个 keyResolver 那会基于当前用户返回当前的 key 如果 jlong 是已经认证了的 已登陆到系统的 那么 我会得到那个响应 我会获得那个 key 名称是 jlong
+我可以运用那个 KeyResolver 这是如此常见的策略 如此容易写 因为太常用 实际上 我们会有个 <code>PrincipalNameKeyResolver</code> 好吗？ 就是这些东西 好东西 实际上它太常用了 所以它是默认的 所以我们会变回这样。</p>
+
+<h3 id="默认的-principalnamekeyresolver">默认的 PrincipalNameKeyResolver</h3>
+
+<p>​		好吗？那么，这是我们的速率限制器。现在让我们谈一下安全然后 这边就是事情变得有点有趣的时候了安全是非常重要的很显然啦额 还有这并不是带来希望的消息如果你因其中一方而离开这个讲座的话你还不够资格做安全我不希望你自我感觉良好我想你记住你在安全方面很糟糕统计概率上来讲 你会搞砸的额…… 我也会搞砸这里边没有 这没有温暖而模糊的东西你真的需要怀着沉重心情望着镜子并接受你在安全方便很糟糕你不知道自己在做什么我也是这样对吧 这就是关键所在如果你要做安全你不该做 如果你觉得你应该进入安全领域重新思考一下回家 喝点什么 拥抱你的家人 喂一下你的狗 做些别的不要自己做安全方面 你就是不够资格那么而应该我想考虑的是在你的组织里面有人受雇做这方面的你应该相信他们而且 也有像 Spring Security 这样的工具你可以使用你也应该相信那个对吧 我们有一整个团队全职干这个的因为这些东西非常非常难 有很多我们作为工程师不能理解的东西 作为系统工程师或者是应用程序工程师 额 对于我们来说完全是陌生的 但对于普通的安全工程师而言却很有意义的 额这有很多的应用案例出现 在应用程序开发的世界 我们只是认为那是理所当然的 这因为安全与响应式编程的交互而变得更糟糕哈 那么…… 开始时候使用 Spring Security 理想的话 雇一个团队 确保他们也使用 Spring Security 我意思是安全专家 额…… 当我们使用 Spring Security 构建一个应用 我们关注两件事 这些都是正交的顾虑 它们互相之间并不相连这些是 额…… 授权 那也就是说我可以做什么？ 当我进入到系统后 我能够访问哪些资源？ 通过…… 额 通过哪个……我能通过哪个门在屋里穿行？ 给定一个钥匙 基本上是这样 那是授权 然后我们有身份认证 认证回答了问题谁在发起请求？ John? 还是 Josh 或 Jane? 是谁发的请求？ 他名称是什么他的身份是什么 那个正在敲门的人 你可以使用其中一个去通知另一个 例如 我可以说噢 那是 Josh Josh 有 你懂的 Josh 是好朋友 他可以进来这个房间 例如 可能那是其他人呢 你不是特别相信他们的 你懂的 你不想让他们看到 你的笔记本上的 PHP 代码 你们之间还没那么亲密所以 所以你不会告诉他 对吧 他们并没有那个权限 他们没那个权限 那就是授权 Spring Security 处理所有这些正交的顾虑 这些顾虑 这些事相关的但是不是同样的事情 现在想一下认证 让我们将观念切换回那些基础的认证概念我们在认证方面的目标是 获取一个从外界进来的请求 然后将那个请求变成一个东西 那可以告诉我们 是谁在发起请求 所以我们要将进来的 HTTP 请求 进来的对服务的请求 不管是什么吧 然后将它变成一种标记 关于请求者的某些 Id 我们要请求获取身份认证 关于请求者的 有很多种方式实现这个 你可以做基于 x.509 的相互认证 基于证书的认证对吧 这是其中一种方式 你可以做基于表单的用户名/密码认证 你可以做 HTTP basic 用户名/密码认证对吧你可以做各种不同的事情 你可以有 cookie “记住我”之类的东西 你可以使用令牌 你有对应着某些身份认证的令牌那会从一个认证服务器那里解析的 使用 OAuth 很多不同的方式可以达到这个特定的目的 可以做到对于给定的请求 这是 Josh 这是 Jane OK?  哈 然后取个简单的例子 然我们讨论一下用户名和密码 如果请求中有用户名和密码那会怎样？ 不管是一个表单 还是 HTTP basic 请求 当用户名和密码进入到系统 你提取用户名然后你有密码然后你要跟某些东西对比 然我们假设你有一张表 OK 一张 SQL 表 充满用户名和密码 所以当请求进来的时候 请求进来然后我们有密码 然后这个密码 额…… 是加密的 当请求进来时 没有 对吧 那是未加密的对吧 你需要那样做 你要加密对吧 基本上是 你要这样做的原因是 但愿在你的 SQL 表里 所有东西都是加密的 那是加密的吧？ OK 我要……喔…… 我才不会使用你们的软件呢 看起来只有五个人 剩下的人 你们吓到我了 额…… 这是怎么回事 我以为 大家都会喊 yeah但是 但…… 没所谓吧，额 是的 哈哈哈 嗯…… 那么…… OK 但愿你的密码以某种方式加密了 对吧 而且…… 因为它是加密存在数据库里的 类似地你也需要对进来的请求中的密码进行加密 并比较它们 对吧，你可以要做选择所有的用户名和密码并查看 passwordEncodes.equals 那个请求的已加密的密码 如果那为真的 你可以接受进来的请求 说这真的是 额 你懂得 他所说的 是真的 对吧？ OK 那么关于密码加密怎么说？那是什么原理 额 密码加密 就是前面提及的几样东西之一 我们早前提到的 会耗时间的通常是 CPU 密集型任务目前  Spring Security 使用的是 BCrypt 作为默认的密码加密器 它支持十多种不同的密码加密方式 但在目前 2019 年默认的密码加密器 以后可能会变的
+如果你在看这个视频 在 2020 年 或者甚至是下一周 对吧 我们现在是 2019 年 11 月初 但是因为安全领域经常发生变化你并不知道这些东西会不会变得过时 有些时候某种加密方式很正常 然后 然后不行了它们会被破解 不再可接受的了 所以 就目前而言 BCrypt 挺好 BCrypt 是非常 OK 的密码加密格式 那是 默认的 额 然后 还有它是 CPU 密集型的 那意味着 它要花费时间 它是计算上不高效的 你要坐在那里 等待结果 为了等待加密 要花多长时间取决于你那是编码强度的维度 你可以配置的 有点像调整杠杆 去取得更强健的秘密或不那么强健的密码 强度越强 花费时间越长 可能要一秒 也可能要两秒 你不知道的 关键是当那正在发生的时候 我们的服务会发生什么？你在阻塞 你坐在那个线程上 你在阻塞 这正是我们在响应式系统所不希望的OK 那么…… 现在我们将坏消息放到一边了对吧 那可能会阻塞的 你觉得 Spring Security 在这里能做什么？Spring Security 所做的是 当它准备要做用户认证的时候 它 创建… 它使用…… 它使用后台线程 它使用调度器 它从主线程池中移开 这就是我们所能做的 对吧这就是我们所能做的
+不可能在加密算法上实现响应式的 你所能做的就是将它移到一边 那就是 Spring Security 所做的那么好消息是
+在坏消息中有个好消息 好消息是 那就是你 所有不同的认证技术和不同的 你用惯的东西 使用的这些不同方法用于在 Spring Security 当中做用户认证的 某些依赖一些加密算法 所有这些机制这些你可能早已经熟悉了，如果你有用 Spring Security 它们的所有 继续能用得好好的 基本上不用修改 在响应式的世界里 这是好事 坏消息是所有的这些
+你所熟悉的东西 所有的 这些做加密的技术 毫无疑问 你们肯动用过当中一些 继续能用 不用更改 在 Spring Security 当中 这有好有坏对吧 额…… 这的确意味着你要特别注意将任务移到其它线程 在这个例子中 Spring Security 为你做了这件事 OK 但我早期提到 这是你需要注意的问题 移开或隔离此类阻塞的交互OK 你有用户名和密码 但顺便一下 也有替代方案 对吧 有不少基于用户名与密码认证的替代方案 嗯…… 而且重要的是要留意这些选择 对吧，其中一种选择是使用 OAuth OAuth 是非常适合的 额 因为 你做的是获得一个 Token 一个 Token 进来
+然后你要根据授权服务器验证那个 token 对吧 或者是一个已被加密的 JWT 已经被验证了的 基本上是一个自验证的
+但是 额…… 不过哪种方式至少都会与实际干活的第三方有交互 去验证 用户名和密码 但只需做一次 如果那是一个授权服务器 是在第二个节点完成的 更好的是 如果你购买基于云的服务提供者 例如 okta 他们会为你做加密 当你支付 okta 或者像 okta 的机构 去作为一个 OAuth HUB 你实际上是购买他们的安全服务 这其实很好 因为有整个团队全职干这件事 但你实际上也购买他们的 CPU 周期 你给钱他们为你做这个占进超的操作在他们的计算机 而不是你
+对吧 这实际上挺划算的如果你那样想 你购买的不仅是他们的知识 还有，你懂得 CPU周期 现在额 那是其中一种选择  你可以使用 你可以使用那个 请记住，让你的安全人员在队里很重要 这方面我可以一直讲好几年请记住 很多事情 我们觉得合理的其实不是让他们也加入决策过程是好的 我再次猜测才学到几乎都要猜两次才中 你懂得 你不会清楚安全的兼容性 关键点是 如果用户名和密码进来 然后我有这个密码想要 我想要加密并针对请求的密码进行校验 我要做什么 我获取那个密码并加密 然后我对数据表做一个选择全部操作 然后 username=? 以及 password=？
+我看一下那个东西 如果我够聪明的话 作为一个系统工程师 一个应用工程师 我说 OK 你知道吗 每个密码加密需要 2 秒钟 我会给我自己更多一点时间 我要短路求值那个验证过程 我准备说 select * users where username=? 如果那个用户不存在 那就不用管密码了 对吧 如果用户名不存在 就不用管密码了 听起来非常合理对吧 我之前就是这么干的 但从安全角度来看完全是错误的  黑客利用这一点 别人想黑你的系统时 别人利用这一点 说 噢 好你有一个登录页面 如果用户存在需要2秒登录 即使密码错误 但如果用户不存在 就不花时间 所以他们可能不知道你的密码
+但他们现在知道 jlong 存在于数据库里 例如 对吧 这是时间相关黑客 这我以前都没想过的 但安全人员会考虑到 Spring Security 会返回假 密码 如果不匹配的话 这个例子 总会是两秒，不过什么情况 对吧 现在 额 那是现在已不是非此即彼 所以我们要做的是 讲 Spring Security 加入到我们的应用 然后我 我要这样做 使用你可能用到的最坏的东西 我没时间为你设置 Active Directory 或是 或 SAML 或 或是 OAuth 所以我们只做 基于用户名和密码的加密的东西 硬编码密码， 别这样做 千万别这样做 所以 我们要写 fun… OK 我们的认证 将会是一个 MapReactive…而现在我要加入 Spring Security 依赖</p>
+
+<h3 id="讲了安全方面的情况-主要还是-spring-security">讲了安全方面的情况 主要还是 Spring Security</h3>
+
+<p>OK 就是这样。好 将会给我一个 MapReactive…… 电脑干活吧 然后我们要创建一些用户 我写User… 这个方法是已经过时了 这个函数是过时了 额 它基本上 你可以看到 没有将其移除的计划 对吧 但它不是安全的 它只有在做演示的时候才是可以接受的 嗯哼 嗯 所以它会使用默认的那个 在目前也就是 BCrypt 对吧 如果你将所有的数据存到数据库 以 BCrypt 的形式，今天的话 然后到明天默认的换了其它的话 量子 BCrypt 之类的 那样子突然就没人能登录进系统了 对吧 因为你使用不同的加密方式 那就是为什么你要指定需要使用加密方式就我们的目的因为我实际并没有与数据库交互 只是在内存的 那没关系的 OK? 现在 我们创建一个用户名 还有一个密码 OK？ 还有就是 我给自己一些角色 USER OK？ 好东西 看看那 现在 我也添加 Spring Security 的领头人 Rod Winch 而他 我相信他保护我的数据 还有我的生命 隐式地 所以我们这样做 关于这个 demo 有趣的方面是 我在这边为你演示的 这个 demo 我做过不少次 我经常到处飞 每年我都尽量去多点地方 我尽量访问更多的人 额 你懂得在全球范围内 而那会让我有的忙的
+我已经访问了 三十多个国家 有时候更多 每一年 每年都去很多很多城市 成百成千里路 从北美来到这边就已经要 600000 英里了对吧 所以我尽量去适应  我设法接触更多的观众所以我在不同的时区都做过这个 demo现在我们在欧洲 现在是 这离我所在的州不是很远 Rod Winch 住在堪萨斯州 美国本土正中心 有时候我在其它国家做这个 demo 我去到更远 到东边 例如我去东欧 我去亚洲 我去中东 我去世界各地 你懂的 我去 澳大利亚 比如说似乎不管我在哪里做这个 demo 与我在哪里做这个 demo 无关 我注意到的一些事情是那 每次我做这个 demo 不管我在世上何处一些奇怪的事情发生了 似乎不管在何处都会发生的 不管我在哪个时区 只是很奇怪 每次我做这个 demo 我在这边硬编码写死用户名和密码在舞台上 每次我现场做这个 demo 在地球上的任何地方 不管在哪个时区一些真的非常奇怪的东西 开始发生 每次我做这个 demo 因为他无法理解 由于他不必要理解的原因 Rod Winch 在每次我做这个 demo 的时候 在台上将用户名和密码写死在代码里的时候 每次我做这个 demo Rod Winch 他开始回复邮件
+每次我做这个 demo Rod Winch 开始回应 Google Hangout 和 Slack 或在 Twitter 他开始发起 Pull Requests 不管我在世上何处只是看起来 每次我做这个 demo 的时候都会成功 他就突然出现了 不管是在什么时候 Rod Winch 是一个顾家的人 他有好的妻儿 他应该睡得很好的 有时候 对吧 你觉得但不管什么时候 我做这个 demo 时他开始睡不着每次我做这个 demo 我写死用户名和密码到代码中时由于一些 Rod Winch 没法理解的原因Spring Security 领头 Rod Winch 不必要理解的原因每次我做这个 demo 当我在台上写死用户名和密码到代码里 Rod Winch Spring Security 的领头人 开始难过 这将他唤醒 睡得那么沉的时候 他没得选择 只好干些活 因为他不知道那是怎么回事
+所以我的朋友们 不管你做什么 我无法强调更多了 不要让 Rod Winch 难过 不要做这样的事情。</p>
+
+<h3 id="authentication">Authentication</h3>
+
+<p>​		现在，我们要也要做授权控制。OK？ authorization… 然后我们使用 ServerHttpSecurity 构造器 就像这样 然后写 http. 我们要启用一些东西 我想要构建它 这很好 我将要 使用 HTTP basic OK 我想要 HTTP basic 很好 我要写 HTTP basic 定制化它 这里的类型是什么？这是一个定制器 然后 withDefaults() 好 我要禁用 csrf() 因为在这里我不需要 所以我写 Customizer Customizer… OK 额 it… .disable() OK 只是一个 lambda 我可以这样做 嗯 我想要设置一个 授权交换器 OK 当请求进来时我想要允许 anyExchange()… 可以被访问 当我们要限制一个端点 当 .pathMatchers… /proxy 是一个 被允许的 额 不好意思 当你发起一个请求到 /proxy 我需要它时被认证的 其它东西都可以通过 但这个端点会被锁住 而且这是特别重要的 因为 这个需要出现在前面 我想要确保 我们先匹配这个然后是通配符其它所有东西都匹配了 如果这个放在下面这里 那么我们不会有机会到达这个规则因为它会匹配第一个
+OK 所以很重要的是最具体的规则 放在前面 所以这是默认的配置 OK 让我们看一下那会怎么样 好了 这就是结果
+你可以看到这是 401 Unahuthorized Basic realm=”Realm”  我需要认证 OK 所以 -vu jlong:pw 设为 http basic
+当我这样做时 我在下边这里获得了数据 这是 JSON 随着我发起请求 我接收到 3 个首部 表示我限流的容量 X-RateLimit-Burst-Capacity 以及 Replenish-Rate … OK 那么现在 我想要获取一些流量 但愿会超出它的限额在我发起请求的时候 你可以看到我使用的是额 稍微切换下 负载均衡器 额 不好意思 负载生成器 当你那样做的时候你可以 看到 429 Too Many Requests 它正在拒绝请求 因为它超出了一个很小的限额 我只是指定 5 个 那样的话我随便用 Bash 就可以超了 然后其中一些能通过 你可以看到 所以这边有一个通过了 所以这是每秒5个对吧 你看这边 你看 你看 然后最后结果是 429 对吧 所以每5个请求能通过 然后在那之后 请求被拒绝。</p>
+
+<h3 id="限流器的演示">限流器的演示</h3>
+
+<p>OK 非常常见，非常简单地运行 Spring 给与我们能力 你懂的做各种有趣的事情 现在 目前 我已经使用了 Java 的配置风格 然我快速地指出 在 Kotlin 我们有 好的 设施 你可以在 Java 里面做的 但为了好玩 我会在这里创建一个 context context OK 然后我要添加 我的 Bean 我要像这样添加一个 Bean 所以你可以看到 Bean 你可以注册 其它 Bean 例如这个 RateLimiter 我可以按这种方式注册 我可以说 Bean 然后删除那个这实际上是函数式风格的注册
+所以我可以说 addInitializers… context 然后 哇啦 OK？ 这实际上是一个函数调用 所以我可以做 if if (Math.random() &gt; .5 ) 对吧 那样的话这个 Bean 不会被注册 如果小于则会 随意吧 如果它是大于的就会被注册否则不会 你可以选择任一风格 实际上这些东西可以混合搭配的 唯一的问题当然是 通过将它取出来 使得我现在得要注册这个 Bean  作为一个参数 所以 redisRateLimiter… 你可以混合搭配的 OK 随你便 现在我们有函数式的响应式端点 我们有 API Gateway 我们使用 Spring Cloud Gateway 我们看了 看了响应式…… 我们看了在响应式编程上下文中的安全 我们看了API Gateway 不同的过滤器 当中包含限流器 现在让我们来讨论一下 API 额 适配器 API 适配器是一个东西将进来的数据 然后它有点知道荷载中是什么 它知道如何操作或者按某种方式转换处理那个进来的荷载
+并在更改之后继续转发 OK？ 一个 API 适配器 额 不是一个特别的东西 你可以只使用普通的函数式响应式风格我实际上可以 在这里使用函数式响应式风格 然后你看到我在前面的 Java 代码也是这么干 这些是 DSL 你可以想象到的
+对于此类东西 在 Kotlin 的世界里 所以我们只需要写 router… 我可以写 … 我可以产生服务端响应OK？ 所以在这边我产生一个响应 额 那是 基于进来的名字的 基于那…… 我要通过调用下游预约服务产生响应为了要调用那个 Web 服务 我要使用 WebClient 那个 HTTP 客户端，像这样 然后我要调用下游的服务 我写 webclient…当数据进来的时候 我将会对此修改 我将其转变成一个发布者 类型为 Reservation 的 我可以用 Java 指定 我可以指定为类型字面量 即 Reservation.class 但在 Kotlin 我可以有这个疑似泛型的东西 我可以提供泛型的参数 但你发现我的类路径中没有那个类 用那个类型 被创建一个数据类型 创建为 data class val id… 这是一个 Integer然后是 val name: String 作为 DTO 所以就是这样 你可以看到 IDE 在提示我添加这个扩展函数 那允许我指定泛型参数 然后它知道那是什么因为有点 验证并在运行时捕获泛型参数 我不需要指定一个类型记号 例如 Foo.class 所以 Reservation reservaions…
+好吧这是一个 发布者 类型为 Reservation 所以这是我的 已更新的代码 让我们看一下有这个 好 实际上我并不需要它 对吧 这是多余的 如果我移除它 保留这个移除那个 一样可以 这是同样的东西 编译器能够知道 随你 所以这是我的 reservations 我所要做的是将它发送回来 那个 Reservation 我实际上想将它 map 到 我只需保留名字 其它的都不需要 OK? 我将要写 reservations 你可以看到那里还有另一个扩展函数 在函数体中的第二个参数 嗯 函数或方法
+是发布者的类型 所以 findAll 返回 一个发布者 类型为 Reservation 但是因为泛型 因为 Java 泛型的缺少在运行时没办法让我捕获 那个泛型参数 我没法说 嘿 T.class 是什么 对吧 不存在的 但这是 Reservation.class 我得要将它传进来 在 Kotlin 我不用这样 我可以只说<code>&lt;Reservation&gt;</code> 然后它能捕获 在编译时 被捕获并为我写在代码中就像我显式地写了类型 token 所以这是我的函数时响应式端点 非常简单的 HTTP 调用 然我们确保它能用让我们看一下得到什么 注意我跨越线路进行网络请求 嗯 首先 我写死了这个主机和端口 这是好主意吗？可能不吧 我应该使用负载均衡器 噢 我需要 一个 WebClient Bean 让我们在这里创建一个 fun webClient…</p>
+
+<h3 id="一点关于-webclient">一点关于 WebClient</h3>
+
+<p>​		额 OK？所以现在我们有了一个 WebClient 让我们看一下 我启动这个 我写死了这个用户名和密码 额 这里这个主机名 你不应该这样做 如果你使用 Spring Cloud 和服务发现客户端 你可以使用 Apache ZooKeeper 或者是 ashicorp Consul 或者是 Eureka 随意吧 你可以说 lb:… 对吧 那实际上是 或 你甚至可以使用 HTTP 不好意思 那只是 http 你可以那样做 对吧 但我写死了用户名和密码 即便如此 让我们假设我做对了负载均衡如果没有实例可用 没有服务可用怎么办 如果某些东西出错了 网络断开之类的 额 这里有些操作符可以使用说 OK 例如 onErrorResume…然后返回 Flux.empty() 如果某些事情出错 我可以控制返回的发布者 非常方便 而如果某事出错 我们可以重试我可以重试十次 我可以重试十次 然后指数回退 OK 指数式退避 这里发生的是有点跳动 因为那样你想要避免瀑布式重试风暴 对吧 如果我的服务重试 一秒后重试会发生什么 它重试如果还是失败 就2秒后再重试 3 秒后再重试 直到 10 次但不是准确的 1秒 想象 5个客户端同一时间发起 5 个同样的请求 结果会 你懂得 扩散那个 失去那个服务 所以要确保我们避免这些 所以我们有回退 额 在 Backoff 里面 你可以做很多有趣的事情 你可以做更多有趣的事情确保你的服务可以承受一些失败 我喜欢 Backoff 和 retry 另一个你可能使用的是 Timeout 这是非常常见的东西在这里使用超时问题在于 timeout 它们并不是特别公平对吧 它们是有点 它们是有点不太友好 如果你这样想 想象下我的服务要调用另一个服务 然后另一个服务调用另一个服务 我的服务在这边提供 9 个简单的路由是 20 秒 这很不正常如果你的服务访问要 20 秒 恭喜 你的工作是世上最简单的工作  对吧 你可以在 20 秒内做任何事情 对吧还是 假设你的服务提供需要整整 20 秒 然后你还调用另一个服务 那个服务要返回到给你 要多快？ 我会说 10 秒 对吧？如果你设置超时 你可以确保你在十秒内超时 然后再试多一次 直到你的服务能够被访问到 在破坏服务协议之前 所以你要将它除以二 那样你可以重试两次 对吧 你调用的东西如何? 如果那个东西调用另一个服务 它要在两秒钟内响应这意味着它调用的服务要在 5 秒内响应 对吧 所以这变得很不公平 想象下很差的服务 在那之后要在两秒半之内响应最终这会变得不堪一击对吧 所以 timeout 是最后的选择 它们能用 但是最后的选择 对吧 我并不想 将我整个系统构筑与超时判断之上 而是一种常见的分布式系统模式 额 谷歌首先提出的 然后 Uber 和 Netflix 都使用称为 服务对冲这个 hedging 所以 当你 当你 去一个赌场 我不知道这里是否有赌场 如果你赌博 这是种坏的 这是一种坏的策略孤注一掷你希望分散赌注 你要确保将风险分散 将风险分散到各个可能的投资对吧 你想要保留选择所以分散赌注意味着你只是分散了风险 这边也是一样的 这就是我们将要做的 分散投资 通过不发起同样的请求 到下游服务 所以我们要做的是 让我们将这代码移到这里 让我们重写这个代码 让我们假设我有 在这边假设我有个调用 val call1 =… 然后这是个发布者 <code>Flux&lt;String&gt;</code> 然后我们不知道这将会来自哪里 //todo OK? 我假设你会在那里发起个网络请求OK call3 还有 call2 OK？ 现在我有它们三个 我想要第一个 我想要在同一时间发起三个请求 而我可以这样做记得是因为我们有调度器 调度器可以在同一时间发起三个请求 请求会发出去当返回时 我想要返回的第一个响应 其中一个可能失效 其中一个可能去吃午饭了 你不知道 可能垃圾回收了 可能停止了 不管什么那个服务现在不可用而三者之一肯定是可用的 而我使用 3 作为一个简单的数字 你可以用个 for 循环 然后选择一些数字你可以使用 Spring Cloud Discovery 客户端 去询问服务注册表 你懂得 zookeeper consul eureka 随意吧你可以说 嘿 服务注册表给我 x 个实例 给我 20% 的容量 不管是啥 对吧 但让我们假设我想要第一个 我想要第一个的原因是因为我想最快的第一个开始发出值的发布者 那就是我想保留的 所以我写 Flux.first(call1, call2, call3) OK?他所做的是要保留第一个发布者然后 它取消管道的被压到其它两个现在我不用浪费时间 在不会产生结果的数据流上面 然后我尽快获得最快的结果OK?这是很常见的策略 而且很容易实现。</p>
+
+<h3 id="超时重试分散风险">超时、重试、分散风险</h3>
+
+<p>​		但想象一下不用响应式 API 实现的话，你所做的是一种竞争状态，定义上来说 这是一种竞争状态 你实际上希望 某些事情会出错 某些事情会先发生对吧？ 当你没有注意到 这并不是你想写的代码 在一般的多线程代码 你没有见到 任何的 Phaser、Semapore、CoutDownLatch 或是 CyclicBarrier 或是线程 或是 Executors 在这代码里然而它们肯定都存在在那里 还有请记住 这不是希望的消息 记住 只有一个人真正懂得如何写多线程代码而 那人不是你
+这就是最关键的 那不是你 是谁不重要 只是不是你 好吗？ 将它交给框架吧 尽管如此 相信我们我们也不敢保证百分百没问题 对吧 我们很肯定 这已经是久经考验了 被一些业务专家 但 你懂的 这些东西易出错 OK 额 现在 顺便说一下 你记得 Java 5 吗 那个 双重锁定模式 他们发现那个继承上来说是不安全的在 JVM 在 Java 5 之前对吧甚至是 JVM 甚至开发 JVM 的人 发现他们的多线程代码有个bug 在我们所依赖的 5 个版本的 Java 对吧 嗯 所以我们有了这个响应式 API 有边缘服务 也有这些可以使得代码刚强健的模式 这是非常自然的表达在响应式的世界里所有这些我觉得很有趣 其中一样我可以讨论的是断路器 我在这里并没有引入断路器 因为我们并没有足够的时间 但你可以使用一个项目叫 Spring Cloud Circuit Breaker 它支持响应式断路器 它有四种不同的实现 阿里巴巴 Sentinel Spring Retry 还有 Hystrix 当然还有 Resilience4j 你可以很容易地使用它们包装 这个特定的调用到断路器 如果出问题了
+它会重试 重试 重试 你甚至可以让它重试直到某些条件为真 通常那会是一个布尔量 系统某处的一个开关可以禁用某个路径 所有这些都很有趣但是 断路器我认为是问题的症结也就我们没有更好的方式。</p>
+
+<h3 id="讲响应式编程模式比传统自己写多线程的优势">讲响应式编程模式比传统自己写多线程的优势</h3>
+
+<p>​		我在这里给你展示的很多东西，是基于没有更好的方式构建更好的服务。目前我给你展示的所有都是基于 HTTP 的 我也挺喜欢 HTTP 的我希望它一天能成大事 但我不知道这是否是服务的最佳选择 是获取文档的很好选择
+当做服务的时候我们还可以做得更好 对于有状态的连接 对吧 我想有更好的东西 更快的异构的服务环境 我想有更好的东西 有很多组织想要解决这个问题 Google 方面创造了 gRPC 而那促进了很多 HTTP 2 的变革而 gRPC 默认并不是响应式的 它支持异步 但不支持响应式 在硅谷有家“小公司” SalesForce 他们为 gRPC 创建了一个插件是一个 gRPC 的编译器插件 会创建基于 Reactor 的服务 有点意思实际上你可以 代码生成 而不是默认的gRPC代码生成
+你代码生成基于 Reactor 的服务 我喜欢那个 但在我看来 我认为 gRPC 不是准确的好选择 首先它要求用 HTTP 2
+HTTP 并不支持多路复用 那是流水线的但跟实际支持多路复用不同 而且它还要用到 Google protobuf 所有东西都需要以 Google protobuf 编码 所以我推荐一个叫 RSocket 的东西 在最后几分钟将会看到的是 RSocket RSocket 是由 Facebook 创建的二进制协议 这是一个原生支持响应式的二进制协议 由从 Netflix 后来到了 Facebook 的人创造的 而且 这是一种开放的二进制协议 因为它是开放的 而且是二进制协议 谁都可以使用 有客户端包括不同的语言 包括 C++ 包括 JavaScript 当然包含 Java 当这个来自 Netflix 的团队创建 RSocket 一直在搞 RxJava 很多年了 并了解 那个技术的扩展 当那个团队来自 Netflix 决定创建 RSocket他们为 RSocket 构建一个 Java 客户端很自然地
+搞 RxJava 的这个团队 顺便提一下 那是一个与 Reactive Streams 规范兼容的框架 RxJava 2 及其后版本 现在是 3
+这些都是响应式数据流 很自然地那个团队来自 Netflix 的研究和使用 RxJava 很久了所以当他们去到 Facebook 他们创建了一个 Java 客户端RSocket 客户端 很自然地他们选择 Reactor所以他们这样做了而 我是开玩笑的 我不知道他们为什么这样选择我当然感激 因为这使得我们更容易使用它了顺便说一下 用 RxJava 2 也没有问题RxJava 很不错 也兼容 Reactive Streams所以你可以在 WebFlux 用 Reactive Streams任何返回发布者的像 Akka Streams 和 Vertex RxJava 2 可以跟这些东西交互 但是它是基于 Reactor 的 OK? 然后那支持 使得我们非常容易集成所以我们确实这样做了。</p>
+
+<h3 id="介绍-rsocket-对比-grpc">介绍 RSocket 对比 gRPC</h3>
+
+<p>​		我要做的是构建多一个边缘服务，再多一个 API 适配器。但这一次我想要回到我们的 GreetingService 我要将它变成一个 RSocket 服务 有两件事是必须做的 首先你要写点代码 肯定要啦 对吧 所以喔那发生了什么？
+Controller OK？我这个键卡了 感谢苹果 OK 然后是 @MessageMapping greetings 这是我的 RSocket 代码不用客气 我已经写好了 现在 为了能这个可用 我要在一个不同的端口运行 7777 然后我运行这个程序 现在 在客户端 我想要消费那个 RSocket 服务 请记住 RSocket 是一个二进制协议 可以做一些你在 HTTP 中不可以做的 首先是当客户端与服务连接时 当一个节点连接到另一个节点 它们成为对等关系 不再是服务器与客户端的关系它们是请求者与响应者的关系 一方可以发起会话任一方可以随意响应 任一方都可随意发送多或少它们可以发送 0 个值 1 个值一个响应式流的值 它们可以应用原生的背压式 你可以恢复一个 Stream 对吧 我可以拿 10 个记录然后进入没有 WiFi 的隧道 然后恢复 取多 10 个记录下来 对于 HTTP 如果我的 HTTP 客户端 不管是否响应式 与我的响应式服务器断开连接我的响应式 Web 服务 就说 噢 Socket 没了 所有调用都取消了 然后我应用背压式到这个响应式流 然后那会取消响应式流 在我的 MongoDB 或 R2DBC 数据源 对吧 那是传递性背压式 但你只能做一次 用 RSocket 我可以我可以暂停 可以继续 我可以做真实的响应式背压式对吧 这是非常有用的东西 想象一下它们是省带宽的如果你知道你懂的我要穿越一个隧道我要从这个点开始重新连接 对吧 那么 RSocket 嗯…… 额 支持所有不同的消息交换模式它支持 Fire and forget 它支持数据流输入输出 它支持单个消息入 没有值出或当个消息入数据流出来数据流进无消息出 随意吧 但你可以做所有各种消息交换模式 这是线路上真实的背压式 额 它是与荷载无关的所以 你可以发送 JSON、Thrift、Areon或是 Datapack 随你 或是 Google probuf 这样没问题对吧 嗯 它还有其它的好处使得它非常适合构建可扩展的服务 假设我们想用 WebSocket 做二进制通信 安全方面如何？ 你如何做 WebSocket 安全 对吧？它是一个 非常简单的问题但不是一个好的答案 如果你首次加载 WebSocket 端点 那里还会有 HTTP 首部的记得我说过协议升级 更换端点吗 那可以用 HTTP 首部做安全 像往常一样使用 Spring Security 能跑起来了你如何做安全?在 WebSocket 并没有首部 在 RSocket 里有首部 你应该有首部传递在范围外的信息 去传输一些像 Token 的东西这只是一些 HTTP 的基本限制 以及 WebSocket 等其它协议 显然它们并不是为服务而设计的 它们为文档获取而设计的
+所以 RSocket 克服了很多缺点 它是有状态的连接 很多你体验到的降速 当你使用 HTTP 的时候 是因为你经常连接和重连 用 RSocket 的话 你一直是连接状态 一旦已连接 任一方可以发送任意多少数据一个打开的 Socket 可以处理
+同时处理很多很多连接 很多很多请求 这就是我所说的多路复用所以这是一个很有趣的协议。</p>
+
+<h3 id="rsocket-应用举例使用场景对比">RSocket 应用举例，使用场景，对比</h3>
+
+<p>​		让我们在这里构造我们的 API 适配器，再多一个端点 我们称之为 greetings{name}… 然后在这里我要调用下游的 RSocket 服务 然后我将要返回一个请求数据流 但我要将它通过服务发送事件返回给客户端 OK? 所以我要在这边注入我的 RSocket 客户端 fun rsocketClient… builder 额不好意思 RSocket… 随意吧 builder…
+RScoketRequester… .connectTcp… 我们只是想连接一遍 例如我可以这样做 OK？这就是我们的 RSocket 客户端
+现在 现在我要注入 RSocket 客户端 所以我写 在这里写 rsocketClient 好吧 RSocketRequester 然后我发起请求 rsocketClient… 然后端点是 greetings 而我要传入的数据是 是 greetings 请求和响应 什么…… 这是什么？这是之前打开的东西 我已删除了 OK 所以这是数据 额 val request 那会是一个“问候”的详情 我也要在这里创建
+data class GreetingRequest(val name:String)还有 GreetingResponse 现在是 GreetingRequest 和 GreetingResponse greetingRequest 然后 name 我从当前请求的路径变量中获取所以就是这些我会将它传进这里 我写 request… 然后返回的数据会是 stream 我会返回类型为 GreetingResponse 的发布者 val greetings 好吗 好东西 greetings 好的 这就是我的数据 所以这是我全部东西 当然这将会是一个服务发送事件流所以我发送回一个 contentType 去告知框架差异化处理 MediaType… 然后运行 好吗 那么现在 打开浏览器 访问 localhost:9999/greetings Devoxx 它会产生响应 每一秒 不间断地 通过网线 你懂的 不浪费时间一直到永远永远
+请记住为了得到那个服务发送事件流 在这个 9999 端口 我做了一个 RSocket 调用 到 端口 7777那是 响应式地发送不间断的数据流 这就是能用 对吧 这是一个二进制协议 我在最后将它变成了 JSON 这有点可怜 但 你可以看到正在发送什么对吧 现在 RSocket 有点意思 有些有趣的组织 已经开始使用了 它已经被整合到 Spring 5.2.x了 以及 Spring Boot 2.2 两个都 GA 了 所有东西我给你展示的 实际上所有东西除了 Spring Cloud Gateway 都是 GA 的东西 甚至我展示的 Spring Cloud Gateway 都是GA 了 你可以像在旧版本中那样使用它 但我现在使用的是一个非 GA 版本的 Spring Cloud Gateway 嗯 RSocket 正如我所说 是起源于来自 Netflix 的人的所以当他们去了 Facebook
+有了一些有趣的可能性 我们有新的 RSocket 支持 在 Spring Cloud Gateway 其中一个很有用的使用常见 想象下你有 RSocket 网关作为一个汇集器 请求去到 Spring Cloud Gateway 端点然后它们转发请求到其它的节点想象这些其它的节点 完全是黑箱子 没有入口的 完全封锁起来的 没有办法对它们发起请求的 当它们启动时它们打开一个rsocket 连接到网关 然后网关会将它们路由到其中某个可用的节点 其中一样网关可以询问这些节点的是嘿 你的健康状态如何? 你的可用性如何？ 你们有多少人使用 Actuator？ Spring Boot Actuator一系列的 HTTP 端点你可以用来询问个问题 你健康吗 你的启动时长是多久 状态怎样？指标如何？那些信息 时已经内建在协议中了在协议中有一帧 用于广播应用的健康状态 所以智能客户端可以看到它然后 你不是那么忙吧 我要将请求发给你这就像背压式的反转 而不是客户端控制流量 现在服务它自身可以广播它自身可处理请求的可用性这就是网关的作用最好的安全方案是你不需要担心的方案这就是这特定的组合给你带来的与网关的整合非常吸引人如果我有更多时间 我甚至可能会演示下。</p>
+
+<h3 id="演示完-rsocket">演示完 RSocket</h3>
+
+<p>​		但恐怕 我的朋友们，我们就要没时间了。快速的问题 谁玩得开心？好东西谁学到东西了？哇我很开心几乎大家都举手了那让我开心很显然我玩得开心 我穿着 Spring T恤还有 Spring 内裤 我当然开心我热爱这些东西 对吧当我的朋友们你不必只是听我在吹很多公司都已经大规模应用这些东西了我讲所有这些东西我花了很多时间跟不同的机构交流在世界各地我在巡讲这个月下旬 我会到中国的四个城市跟 Netifi 一起，另一家搞 RSocket 的公司还有 我会去阿里巴巴另一家公司全是用 Spring 的即使它只是中国的一家“小”公司我相信它某天会壮大的 额它们上一年做了 300亿美金 销售额，不好意思是上一年一天的他们做了 300 亿美金销售额你们…… 知道吗？好吧 只是好奇 了解一下他们都是用的 Spring 他们都对 RSocket 很好奇好的 我的朋友们 嗯……希望你们学到些东西 我很乐意回答问题感谢你们的时间 我后面还有两个讲座 一个讲Kotlin 一个讲测试的如果你想了解如何测试这些东西的话你绝对也应该来看看那个非常感谢祝你有美好的一天记得投票!我想有机会再回来 你要给我投票噢 拜托了</p>
+
+<h3 id="结尾">结尾</h3>
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2019/11/21/jhipster-registry-notes/" data-toggle="tooltip" data-placement="top" title="JHipster Registry 使用过程">
+                上一篇<br>
+                <span>JHipster Registry 使用过程</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2019/12/16/cracking-android-device/" data-toggle="tooltip" data-placement="top" title="刷机过程记录">
+                下一篇<br>
+                <span>刷机过程记录</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

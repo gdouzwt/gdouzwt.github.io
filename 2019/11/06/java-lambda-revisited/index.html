@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Java Lambda 表达式 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2019/11/06/java-lambda-revisited/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#Lambda" title="Lambda">Lambda</a>
+                        
+                    </div>
+                    <h1>Java Lambda 表达式</h1>
+                    
+                    
+                    <h2 class="subheading">深入理解 Lambda</h2>
+                    
+                    <span class="meta">由招文桃在2019年11月6日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <h2 id="lambda-expressions">Lambda Expressions</h2>
+
+<h4 id="introducing-lambda-expressions">Introducing Lambda Expressions</h4>
+
+<h5 id="lambda-expression-基础">Lambda Expression 基础</h5>
+
+<h5 id="函数式接口">函数式接口</h5>
+
+<h5 id="一些函数表达式例子">一些函数表达式例子</h5>
+<p>演示一个简单的 Lambda 表达式</p>
+
+<pre><code class="language-java">// Demonstrate a simple lambda expression. 
+ 
+// A functional interface. 
+interface MyNumber { 
+  double getValue();  
+}
+</code></pre>
+
+<p>使用 Lambda 表达式 <!--more--></p>
+
+<pre><code class="language-java">class LambdaDemo { 
+  public static void main(String args[]) 
+  { 
+    MyNumber myNum;  // declare an interface reference 
+ 
+    // Here, the lambda expression is simply a constant expression. 
+    // When it is assigned to myNum, a class instance is 
+    // constructed in which the lambda expression provides an override 
+    // of the getValue() method in MyNumber. 
+    myNum = () -&gt; 123.45; 
+ 
+    // Call getValue(), which is overridden by the previously assigned 
+    // lambda expression. 
+    System.out.println("A fixed value: " + myNum.getValue()); 
+ 
+    // Here, a more complex expression is used. 
+    myNum = () -&gt; Math.random() * 100; 
+ 
+    // These call the lambda expression in the previous line. 
+    System.out.println("A random value: " + myNum.getValue()); 
+    System.out.println("Another random value: " + myNum.getValue()); 
+ 
+    // A lambda expression must be compatible with the method 
+    // defined by the functional interface. Therefore, this won't work: 
+//  myNum = () -&gt; "123.03"; // Error! 
+  } 
+}
+</code></pre>
+
+<p>另一个lambda demo</p>
+
+<pre><code class="language-java">// Another functional interface. 
+interface NumericTest { 
+ boolean test(int n);  
+} 
+</code></pre>
+
+<p>演示使用</p>
+
+<pre><code class="language-java">class LambdaDemo2 { 
+  public static void main(String args[]) 
+  { 
+    // A lambda expression that tests if a number is even. 
+    NumericTest isEven = (n) -&gt; (n % 2)==0; 
+ 
+    if(isEven.test(10)) System.out.println("10 is even"); 
+    if(!isEven.test(9)) System.out.println("9 is not even"); 
+ 
+    // Now, use a lambda expression that tests if a number 
+    // is non-negative. 
+    NumericTest isNonNeg = (n) -&gt; n &gt;= 0; 
+ 
+    if(isNonNeg.test(1)) System.out.println("1 is non-negative"); 
+    if(!isNonNeg.test(-1)) System.out.println("-1 is negative"); 
+  } 
+
+</code></pre>
+
+<p>演示需要两个参数的 lambda</p>
+
+<pre><code class="language-java">// Demonstrate a lambda expression that takes two parameters. 
+ 
+interface NumericTest2 { 
+  boolean test(int n, int d); 
+} 
+ 
+class LambdaDemo3 { 
+  public static void main(String args[]) 
+  { 
+    // This lambda expression determines if one number is  
+    // a factor of another. 
+    NumericTest2 isFactor = (n, d) -&gt; (n % d) == 0; 
+ 
+    if(isFactor.test(10, 2)) 
+      System.out.println("2 is a factor of 10"); 
+ 
+    if(!isFactor.test(10, 3)) 
+      System.out.println("3 is not a factor of 10");   
+  } 
+}
+</code></pre>
+
+<h4 id="语句块函数表达式">语句块函数表达式</h4>
+
+<p>演示快语句的函数表达式</p>
+
+<pre><code class="language-java">// A block lambda that computes the factorial of an int value. 
+ 
+interface NumericFunc { 
+  int func(int n); 
+} 
+ 
+class BlockLambdaDemo { 
+  public static void main(String args[]) 
+  { 
+ 
+    // This block lambda computes the factorial of an int value. 
+    NumericFunc factorial = (n) -&gt;  { 
+      int result = 1; 
+ 
+      for(int i=1; i &lt;= n; i++) 
+        result = i * result; 
+ 
+      return result; 
+    }; 
+ 
+    System.out.println("The factoral of 3 is " + factorial.func(3)); 
+    System.out.println("The factoral of 5 is " + factorial.func(5)); 
+  } 
+}
+</code></pre>
+
+<p>反转字符串的函数表达式</p>
+
+<pre><code class="language-java">// A block lambda that reverses the characters in a string. 
+ 
+interface StringFunc { 
+  String func(String n); 
+} 
+ 
+class BlockLambdaDemo2 { 
+  public static void main(String args[]) 
+  { 
+ 
+    // This block lambda that reverses the charactrers in a string. 
+    StringFunc reverse = (str) -&gt;  { 
+      String result = ""; 
+      int i; 
+ 
+      for(i = str.length()-1; i &gt;= 0; i--) 
+        result += str.charAt(i); 
+ 
+      return result; 
+    }; 
+ 
+    System.out.println("Lambda reversed is " + 
+                         reverse.func("Lambda")); 
+    System.out.println("Expression reversed is " + 
+                         reverse.func("Expression")); 
+  } 
+}
+</code></pre>
+
+<h4 id="泛型函数式接口">泛型函数式接口</h4>
+
+<p>泛型化的函数式接口</p>
+
+<pre><code class="language-java">// Use a generic functional interface with lambda expressions. 
+ 
+// A generic functional interface. 
+interface SomeFunc&lt;T&gt; { 
+  T func(T t); 
+} 
+ 
+class GenericFunctionalInterfaceDemo { 
+  public static void main(String args[]) 
+  { 
+ 
+    // Use a String-based version of SomeFunc. 
+    SomeFunc&lt;String&gt; reverse = (str) -&gt;  { 
+      String result = ""; 
+      int i; 
+ 
+      for(i = str.length()-1; i &gt;= 0; i--) 
+        result += str.charAt(i); 
+ 
+      return result; 
+    }; 
+ 
+    System.out.println("Lambda reversed is " + 
+                       reverse.func("Lambda")); 
+    System.out.println("Expression reversed is " + 
+                       reverse.func("Expression")); 
+ 
+    // Now, use an Integer-based version of SomeFunc. 
+    SomeFunc&lt;Integer&gt; factorial = (n) -&gt;  { 
+      int result = 1; 
+ 
+      for(int i=1; i &lt;= n; i++) 
+        result = i * result; 
+ 
+      return result; 
+    }; 
+ 
+    System.out.println("The factoral of 3 is " + factorial.func(3)); 
+    System.out.println("The factoral of 5 is " + factorial.func(5)); 
+  } 
+}
+</code></pre>
+
+<h4 id="函数表达式作为参数传递">函数表达式作为参数传递</h4>
+
+<p>函数做参数</p>
+
+<pre><code class="language-java">// Use lambda expressions as an argument to a method. 
+ 
+interface StringFunc { 
+  String func(String n); 
+} 
+ 
+class LambdasAsArgumentsDemo { 
+ 
+  // This method has a functional interface as the type of 
+  // its first parameter. Thus, it can be passed a reference to 
+  // any instance of that interface, including the instance created 
+  // by a lambda expression. 
+  // The second parameter specifies the string to operate on. 
+  static String stringOp(StringFunc sf, String s) { 
+    return sf.func(s); 
+  } 
+ 
+  public static void main(String args[]) 
+  { 
+    String inStr = "Lambdas add power to Java"; 
+    String outStr; 
+ 
+    System.out.println("Here is input string: " + inStr); 
+ 
+    // Here, a simple expression lambda that uppercases a string 
+    // is passed to stringOp( ). 
+    outStr = stringOp((str) -&gt; str.toUpperCase(), inStr); 
+    System.out.println("The string in uppercase: " + outStr); 
+ 
+    // This passes a block lambda that removes spaces. 
+    outStr = stringOp((str) -&gt;  { 
+                       String result = ""; 
+                       int i; 
+ 
+                       for(i = 0; i &lt; str.length(); i++) 
+                       if(str.charAt(i) != ' ') 
+                         result += str.charAt(i); 
+ 
+                       return result; 
+                     }, inStr); 
+ 
+    System.out.println("The string with spaces removed: " + outStr); 
+ 
+ 
+    // Of course, it is also possible to pass a StringFunc instance 
+    // created by an earlier lambda expression. For example,  
+    // after this declaration executes, reverse refers to a 
+    // synthetic instance of StringFunc. 
+    StringFunc reverse = (str) -&gt;  { 
+      String result = ""; 
+      int i; 
+ 
+      for(i = str.length()-1; i &gt;= 0; i--) 
+        result += str.charAt(i); 
+ 
+      return result; 
+    }; 
+ 
+    // Now, reverse can be passed as the first parameter to stringOp() 
+    // since it refers to a StringFunc object. 
+    System.out.println("The string reversed: " + 
+                       stringOp(reverse, inStr)); 
+  } 
+}
+</code></pre>
+
+<h4 id="函数表达式与异常">函数表达式与异常</h4>
+
+<p>关于函数表达式与异常处理</p>
+
+<pre><code class="language-java">// Throw an exception from a lambda expression. 
+ 
+interface DoubleNumericArrayFunc { 
+  double func(double[] n) throws EmptyArrayException; 
+} 
+ 
+class EmptyArrayException extends Exception { 
+  EmptyArrayException() { 
+    super("Array Empty"); 
+  } 
+} 
+ 
+class LambdaExceptionDemo { 
+ 
+  public static void main(String args[]) throws EmptyArrayException 
+  { 
+    double[] values  = { 1.0, 2.0, 3.0, 4.0 }; 
+ 
+    // This block lambda computes the average of an array of doubles. 
+    DoubleNumericArrayFunc average = (n) -&gt;  { 
+      double sum = 0; 
+ 
+      if(n.length == 0) 
+        throw new EmptyArrayException(); 
+ 
+      for(int i=0; i &lt; n.length; i++) 
+        sum += n[i]; 
+ 
+      return sum / n.length; 
+    }; 
+ 
+    System.out.println("The average is " + average.func(values)); 
+ 
+    // This causes an exception to be thrown. 
+    System.out.println("The average is " + average.func(new double[0])); 
+  } 
+}
+</code></pre>
+
+<h4 id="函数表达式与变量捕获">函数表达式与变量捕获</h4>
+
+<p><em>variable capture</em></p>
+
+<p><em>effective final</em></p>
+
+<p>Lambda 可以访问包围它的方法的局部变量，也可以使用 <em>this</em> ，但是不可以修改局部变量，没有自己的 <em>this</em></p>
+
+<pre><code class="language-java">// An example of capturing a local variable from the enclosing scope.
+
+interface MyFunc {
+    int func(int n);
+}
+
+class VarCapture {
+    public static void main(String[] args) {
+        // A local variable that can be captured.
+        int num = 10;
+        
+        MyFunc myLambda = (n) -&gt; {
+            // This use of num is OK. It does not modify num.
+            int v = num + n;
+            
+            // However, the following is illegal because it attempts
+            // to modify the value of num.
+       //   num++;
+            return v;
+        };
+        // The following line would also cause an error, because
+        // it would remove the effectively final status from num.
+       //   num = 9;
+    }
+}
+</code></pre>
+
+<h4 id="方法引用">方法引用</h4>
+
+<h5 id="引用静态方法">引用静态方法</h5>
+
+<pre><code class="language-java">// Demonstrate a method reference for a static method. 
+ 
+// A functional interface for string operations. 
+interface StringFunc { 
+  String func(String n); 
+} 
+ 
+// This class defines a static method called strReverse(). 
+class MyStringOps { 
+  // A static method that reverses a string. 
+  static String strReverse(String str) { 
+      String result = ""; 
+      int i; 
+ 
+      for(i = str.length()-1; i &gt;= 0; i--) 
+        result += str.charAt(i); 
+ 
+      return result; 
+  } 
+}     
+ 
+class MethodRefDemo { 
+ 
+  // This method has a functional interface as the type of 
+  // its first parameter. Thus, it can be passed any instance 
+  // of that interface, including a method reference. 
+  static String stringOp(StringFunc sf, String s) { 
+    return sf.func(s); 
+  } 
+ 
+  public static void main(String args[]) 
+  { 
+    String inStr = "Lambdas add power to Java"; 
+    String outStr; 
+ 
+    // Here, a method reference to strReverse is passed to stringOp(). 
+    outStr = stringOp(MyStringOps::strReverse, inStr); 
+ 
+    System.out.println("Original string: " + inStr); 
+    System.out.println("String reversed: " + outStr); 
+  } 
+}
+</code></pre>
+
+<h5 id="引用实例方法">引用实例方法</h5>
+
+<pre><code class="language-java">// Demonstrate a method reference to an instance method 
+ 
+// A functional interface for string operations. 
+interface StringFunc { 
+  String func(String n); 
+} 
+ 
+// Now, this class defines an instance method called strReverse(). 
+class MyStringOps { 
+  String strReverse(String str) { 
+      String result = ""; 
+      int i; 
+ 
+      for(i = str.length()-1; i &gt;= 0; i--) 
+        result += str.charAt(i); 
+ 
+      return result; 
+  } 
+}     
+ 
+class MethodRefDemo2 { 
+ 
+  // This method has a functional interface as the type of 
+  // its first parameter. Thus, it can be passed any instance 
+  // of that interface, including method references. 
+  static String stringOp(StringFunc sf, String s) { 
+    return sf.func(s); 
+  } 
+ 
+  public static void main(String args[]) 
+  { 
+    String inStr = "Lambdas add power to Java"; 
+    String outStr; 
+ 
+    // Create a MyStringOps object. 
+    MyStringOps strOps = new MyStringOps( ); 
+ 
+    // Now, a method reference to the instance method strReverse 
+    // is passed to stringOp(). 
+    outStr = stringOp(strOps::strReverse, inStr); 
+ 
+    System.out.println("Original string: " + inStr); 
+    System.out.println("String reversed: " + outStr); 
+  } 
+}
+</code></pre>
+
+<p>另一个例子</p>
+
+<pre><code class="language-java">// Use an instance method reference with different objects. 
+ 
+// A functional interface that takes two reference arguments 
+// and returns a boolean result. 
+interface MyFunc&lt;T&gt; { 
+  boolean func(T v1, T v2); 
+} 
+ 
+// A class that stores the temperature high for a day. 
+class HighTemp { 
+  private int hTemp; 
+ 
+  HighTemp(int ht) { hTemp = ht; } 
+ 
+  // Return true if the invoking HighTemp object has the same 
+  // temperature as ht2. 
+  boolean sameTemp(HighTemp ht2) { 
+    return hTemp == ht2.hTemp; 
+  } 
+ 
+  // Return true if the invoking HighTemp object has a temperature 
+  // that is less than ht2. 
+  boolean lessThanTemp(HighTemp ht2) { 
+    return hTemp &lt; ht2.hTemp; 
+  } 
+} 
+ 
+class InstanceMethWithObjectRefDemo { 
+ 
+  // A method that returns the number of occurences 
+  // of an object for which some criteria, as specified by 
+  // the MyFunc parameter, is true. 
+  static &lt;T&gt; int counter(T[] vals, MyFunc&lt;T&gt; f, T v) { 
+    int count = 0; 
+ 
+    for(int i=0; i &lt; vals.length; i++) 
+      if(f.func(vals[i], v)) count++; 
+ 
+    return count;   
+  } 
+ 
+  public static void main(String args[]) 
+  { 
+    int count; 
+ 
+    // Create an array of HighTemp objects. 
+    HighTemp[] weekDayHighs = { new HighTemp(89), new HighTemp(82), 
+                                new HighTemp(90), new HighTemp(89), 
+                                new HighTemp(89), new HighTemp(91), 
+                                new HighTemp(84), new HighTemp(83) }; 
+ 
+    // Use counter() with arrays of the class HighTemp. 
+    // Notice that a reference to the instance method 
+    // sameTemp() is passed as the second argument. 
+    count = counter(weekDayHighs, HighTemp::sameTemp, 
+                  new HighTemp(89)); 
+    System.out.println(count + " days had a high of 89"); 
+ 
+    // Now, create and use another array of HighTemp objects. 
+    HighTemp[] weekDayHighs2 = { new HighTemp(32), new HighTemp(12), 
+                                new HighTemp(24), new HighTemp(19), 
+                                new HighTemp(18), new HighTemp(12), 
+                                new HighTemp(-1), new HighTemp(13) }; 
+ 
+    count = counter(weekDayHighs2, HighTemp::sameTemp, 
+                    new HighTemp(12)); 
+    System.out.println(count + " days had a high of 12"); 
+ 
+ 
+    // Now, use lessThanTemp() to find days when temperature was less 
+    // that a specified value. 
+    count = counter(weekDayHighs, HighTemp::lessThanTemp, 
+                    new HighTemp(89)); 
+    System.out.println(count + " days had a high less than 89"); 
+ 
+    count = counter(weekDayHighs2, HighTemp::lessThanTemp, 
+                    new HighTemp(19)); 
+    System.out.println(count + " days had a high of less than 19"); 
+  } 
+}
+</code></pre>
+
+<h5 id="泛型方法引用">泛型方法引用</h5>
+
+<pre><code class="language-java">// Demonstrate a method reference to a generic method 
+// declared inside a non-generic class. 
+ 
+// A functional interface that operates on an array 
+// and a value, and returns an int result. 
+interface MyFunc&lt;T&gt; { 
+  int func(T[] vals, T v); 
+} 
+ 
+// This class defines a method called countMatching() that 
+// returns the number of items in an array that are equal  
+// to a specified value. Notice that countMatching() 
+// is generic, but MyArrayOps is not. 
+class MyArrayOps { 
+  static &lt;T&gt; int countMatching(T[] vals, T v) { 
+    int count = 0; 
+ 
+    for(int i=0; i &lt; vals.length; i++) 
+      if(vals[i] == v) count++; 
+ 
+      return count; 
+  } 
+}     
+ 
+class GenericMethodRefDemo { 
+ 
+  // This method has the MyFunc functional interface as the 
+  // type of its first parameter. The other two parameters 
+  // receive an array and a value, both of type T. 
+  static &lt;T&gt; int myOp(MyFunc&lt;T&gt; f, T[] vals, T v) { 
+    return f.func(vals, v); 
+  } 
+ 
+  public static void main(String args[]) 
+  { 
+    Integer[] vals = { 1, 2, 3, 4, 2 ,3, 4, 4, 5 }; 
+    String[] strs = { "One", "Two", "Three", "Two" }; 
+    int count; 
+ 
+    count = myOp(MyArrayOps::&lt;Integer&gt;countMatching, vals, 4); 
+    System.out.println("vals contains " + count + " 4s"); 
+ 
+    count = myOp(MyArrayOps::&lt;String&gt;countMatching, strs, "Two"); 
+    System.out.println("strs contains " + count + " Twos"); 
+  } 
+}
+</code></pre>
+
+<p>另一个例子</p>
+
+<pre><code class="language-java">// Use a method reference to help find the maximum value in a collection. 
+import java.util.*; 
+ 
+class MyClass { 
+  private int val; 
+ 
+  MyClass(int v) { val = v; } 
+ 
+  int getVal() { return val; } 
+} 
+ 
+class UseMethodRef { 
+  // A compare() method compatible with the one defined by Comparator&lt;T&gt;. 
+  static int compareMC(MyClass a, MyClass b) { 
+    return a.getVal() - b.getVal(); 
+  } 
+ 
+  public static void main(String args[]) 
+  { 
+    ArrayList&lt;MyClass&gt; al = new ArrayList&lt;MyClass&gt;(); 
+ 
+    al.add(new MyClass(1)); 
+    al.add(new MyClass(4)); 
+    al.add(new MyClass(2)); 
+    al.add(new MyClass(9)); 
+    al.add(new MyClass(3)); 
+    al.add(new MyClass(7)); 
+ 
+    // Find the maximum value in al using the compareMC() method. 
+    MyClass maxValObj = Collections.max(al, UseMethodRef::compareMC); 
+ 
+    System.out.println("Maximum value is: " + maxValObj.getVal()); 
+  } 
+}
+</code></pre>
+
+<h4 id="构造器引用">构造器引用</h4>
+
+<p>例子</p>
+
+<pre><code class="language-java">// Demonstrate a Constructor reference. 
+ 
+// MyFunc is a functional interface whose method returns 
+// a MyClass reference. 
+interface MyFunc { 
+   MyClass func(int n); 
+} 
+ 
+class MyClass { 
+  private int val; 
+ 
+  // This constructor takes an argument. 
+  MyClass(int v) { val = v; } 
+ 
+  // This is the default constructor. 
+  MyClass() { val = 0; } 
+ 
+  // ... 
+ 
+  int getVal() { return val; };   
+}     
+ 
+class ConstructorRefDemo { 
+  public static void main(String args[]) 
+  { 
+    // Create a reference to the MyClass constructor. 
+    // Because func() in MyFunc takes an argument, new 
+    // refers to the parameterized constructor in MyClass, 
+    // not the default constructor. 
+    MyFunc myClassCons = MyClass::new; 
+ 
+    // Create an instance of MyClass via that constructor reference. 
+    MyClass mc = myClassCons.func(100); 
+ 
+    // Use the instance of MyClass just created. 
+    System.out.println("val in mc is " + mc.getVal( )); 
+  } 
+}
+</code></pre>
+
+<p>涉及泛型的构造器引用</p>
+
+<pre><code class="language-java">// Demonstrate a constructor reference with a generic class. 
+ 
+// MyFunc is now a generic functional interface. 
+interface MyFunc&lt;T&gt; { 
+   MyClass&lt;T&gt; func(T n); 
+} 
+ 
+class MyClass&lt;T&gt; { 
+  private T val; 
+ 
+  // A constructor that takes an argument. 
+  MyClass(T v) { val = v; } 
+ 
+  // This is the default constructor. 
+  MyClass( ) { val = null;  } 
+ 
+  // ... 
+ 
+  T getVal() { return val; };   
+}     
+ 
+class ConstructorRefDemo2 { 
+ 
+  public static void main(String args[]) 
+  { 
+    // Create a reference to the MyClass&lt;T&gt; constructor. 
+    MyFunc&lt;Integer&gt; myClassCons = MyClass&lt;Integer&gt;::new; 
+ 
+    // Create an instance of MyClass&lt;T&gt; via that constructor reference. 
+    MyClass&lt;Integer&gt; mc = myClassCons.func(100); 
+ 
+    // Use the instance of MyClass&lt;T&gt; just created. 
+    System.out.println("val in mc is " + mc.getVal( )); 
+  } 
+}
+</code></pre>
+
+<p>使用构造器引用创建类工厂</p>
+
+<pre><code class="language-java">// Implement a simple class factory using a constructor reference. 
+ 
+interface MyFunc&lt;R, T&gt; { 
+   R func(T n); 
+} 
+ 
+// A simple generic class. 
+class MyClass&lt;T&gt; { 
+  private T val; 
+ 
+  // A constructor that takes an argument. 
+  MyClass(T v) { val = v; } 
+ 
+  // The default constructor. This constructor 
+  // is NOT used by this program. 
+  MyClass() { val = null; } 
+  // ... 
+ 
+  T getVal() { return val; };   
+}     
+ 
+// A simple, non-generic class. 
+class MyClass2 { 
+  String  str; 
+ 
+  // A constructor that takes an argument. 
+  MyClass2(String s) { str = s; } 
+ 
+  // The default constructor. This 
+  // constructor is NOT used by this program. 
+  MyClass2() { str = ""; } 
+ 
+  // ... 
+ 
+  String getVal() { return str; };   
+}     
+ 
+class ConstructorRefDemo3 { 
+ 
+  // A factory method for class objects. The class must 
+  // have a constructor that takes one parameter of type T. 
+  // R specifies the type of object being created. 
+  static &lt;R,T&gt; R myClassFactory(MyFunc&lt;R, T&gt; cons, T v) { 
+    return cons.func(v); 
+  } 
+  
+  public static void main(String args[]) 
+  { 
+    // Create a reference to a MyClass constructor. 
+    // In this case, new refers to the constructor that 
+    // takes an argument. 
+    MyFunc&lt;MyClass&lt;Double&gt;, Double&gt; myClassCons = MyClass&lt;Double&gt;::new; 
+ 
+    // Create an instance of MyClass by use of the factory method. 
+    MyClass&lt;Double&gt; mc = myClassFactory(myClassCons, 100.1); 
+ 
+    // Use the instance of MyClass just created. 
+    System.out.println("val in mc is " + mc.getVal( )); 
+ 
+    // Now, create a different class by use of myClassFactory(). 
+    MyFunc&lt;MyClass2, String&gt; myClassCons2 = MyClass2::new; 
+ 
+    // Create an instance of MyClass2 by use of the factory method. 
+    MyClass2 mc2 = myClassFactory(myClassCons2, "Lambda"); 
+ 
+    // Use the instance of MyClass just created. 
+    System.out.println("str in mc2 is " + mc2.getVal( )); 
+  } 
+}
+</code></pre>
+
+<h4 id="预定义的函数式接口">预定义的函数式接口</h4>
+
+<p>内置的函数式接口</p>
+
+<pre><code class="language-java">// Use the Function built-in functional interface. 
+ 
+// Import the Function interface. 
+import java.util.function.Function; 
+ 
+class UseFunctionInterfaceDemo { 
+  public static void main(String args[]) 
+  { 
+ 
+    // This block lambda computes the factorial of an int value. 
+    // This time, Function is the functional interface. 
+    Function&lt;Integer, Integer&gt; factorial = (n) -&gt;  { 
+      int result = 1; 
+      for(int i=1; i &lt;= n; i++) 
+        result = i * result; 
+      return result; 
+    }; 
+ 
+    System.out.println("The factoral of 3 is " + factorial.apply(3)); 
+    System.out.println("The factoral of 5 is " + factorial.apply(5)); 
+  } 
+}
+</code></pre>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2019/11/04/java-generic-revisited/" data-toggle="tooltip" data-placement="top" title="Java 泛型回顾">
+                上一篇<br>
+                <span>Java 泛型回顾</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2019/11/07/java-multithreading/" data-toggle="tooltip" data-placement="top" title="Java 多线程编程">
+                下一篇<br>
+                <span>Java 多线程编程</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

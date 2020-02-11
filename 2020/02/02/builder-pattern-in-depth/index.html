@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>深入生成器设计模式 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2020/02/02/builder-pattern-in-depth/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Design Pattern" title="Design Pattern">Design Pattern</a>
+                        
+                        <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
+                        
+                    </div>
+                    <h1>深入生成器设计模式</h1>
+                    
+                    
+                    <h2 class="subheading">Builder Pattern in Depth</h2>
+                    
+                    <span class="meta">由招文桃在2020年2月2日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <h3 id="gof-定义">GoF 定义</h3>
+
+<blockquote>
+  <p>Separate the construction of a complex object from its representation so that the same construction processes can create different representations.</p>
+
+  <p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同表示。（中文版书里的翻译）</p>
+</blockquote>
+
+<p>Builder 在《设计模式》的中文版里边翻译为“生成器”，那我就按这个译法吧。生成器模式属于创建型模式（Creational patterns），它关注如何创建对象。当需要构建的对象比较复杂，由多个部分组成，也就说它的构造方法会有很多参数，就可以考虑使用这种模式。生成器模式认为对象的构建机制应该独立于它的组成部分（也就是属性），对象的<strong>构建过程</strong>不关注对象的<strong>组成部分</strong>。所以同一个构建过程可以构建出不同表示（属性）的对象（通过<strong>改变构建步骤</strong>）。<!--more-->在 GoF 书中的生成器模式 UML 类图如下：</p>
+
+<p><img src="/img/builder-pattern.png" alt="Builder" /></p>
+
+<p>上图中，Product 是所要创建的复杂对象，ConcreteBuilder 类表示具体的生成器，它实现了 Builder 接口，负责组装构成最终对象的各部分。ConcreteBuilder 定义了<strong>构建过程</strong>和<strong>对象组装机制</strong>，就是如何用各部分、按照怎样的步骤去构造一个 Product 对象。ConcreteBuilder 还定义了 getResult() 方法，用于返回构建好的 Product 对象。然后 Director 则是负责通过使用 Builder 接口去构建最终所需的 Product 对象，就是做指挥的。</p>
+
+<p>以上是对经典的 GoF 生成器模式的解读，下面结合具体的例子加深理解。</p>
+
+<h3 id="具体简单例子">具体简单例子</h3>
+
+<p>在这个例子里会有这些参与者：Builder, Car, MotorCycle, Product, 以及 Director。其中，Car, MotorCycle 是实现了 Builder 接口的具体类。Builder 用于构建 Product 对象的各部分，Product 则是要被创建的复杂对象（小车或摩托车）。因为 Car 和 MotorCycle 都实现了 Builder 接口，所以需要实现接口中的方法，即 <code>startUpOperations()</code>, <code>buildBody()</code>, <code>insertWheels()</code>, <code>addHeadLights()</code>, <code>endOperations()</code>, 和 <code>getVehicle()</code> 方法。前五个方法好理解，对应载具的构建过程，开始，构建车身，装轮子，装头灯，收尾。而 <code>getVehicle()</code> 方法，就是返回已构建好的载具。 然后还有 Director，它调用同一个 <code>construct()</code> 方法去构建不同类型的载具。这个具体例子的类图如下：</p>
+
+<p><img src="/img/builder-pattern-vehicles.png" alt="builder-pattern-vehicles" /></p>
+
+<h4 id="代码实现">代码实现</h4>
+
+<pre><code class="language-java">package jdp2e.builder.demo;
+
+import java.util.LinkedList;
+
+//The common interface
+// 公共接口
+interface Builder {
+	void startUpOperations();
+
+	void buildBody();
+
+	void insertWheels();
+
+	void addHeadlights();
+
+	void endOperations();
+
+	/* The following method is used to retrieve the object that is constructed. */
+	Product getVehicle();
+}
+
+//Car class
+class Car implements Builder {
+	private String brandName;
+	private Product product;
+
+	public Car(String brand) {
+		product = new Product();
+		this.brandName = brand;
+	}
+
+	public void startUpOperations() {
+		// Starting with brand name
+		product.add(String.format("Car model is :%s", this.brandName));
+	}
+
+	public void buildBody() {
+		product.add("This is a body of a Car");
+	}
+
+	public void insertWheels() {
+		product.add("4 wheels are added");
+	}
+
+	public void addHeadlights() {
+		product.add("2 Headlights are added");
+	}
+
+	public void endOperations() { // Nothing in this case
+	}
+
+	public Product getVehicle() {
+		return product;
+	}
+}
+
+//Motorcycle class
+class MotorCycle implements Builder {
+	private String brandName;
+	private Product product;
+
+	public MotorCycle(String brand) {
+		product = new Product();
+		this.brandName = brand;
+	}
+
+	public void startUpOperations() { // Nothing in this case
+	}
+
+	public void buildBody() {
+		product.add("This is a body of a Motorcycle");
+	}
+
+	public void insertWheels() {
+		product.add("2 wheels are added");
+	}
+
+	public void addHeadlights() {
+		product.add("1 Headlights are added");
+	}
+
+	public void endOperations() {
+		// Finishing up with brand name
+		product.add(String.format("Motorcycle model is :%s", this.brandName));
+	}
+
+	public Product getVehicle() {
+		return product;
+	}
+}
+
+// Product class 
+class Product {
+	/*
+	 * You can use any data structure that you prefer. I have used
+	 * LinkedList&lt;String&gt; in this case.
+	 */
+	private LinkedList&lt;String&gt; parts;
+
+	public Product() {
+		parts = new LinkedList&lt;String&gt;();
+	}
+
+	public void add(String part) {
+		// Adding parts
+		parts.addLast(part);
+	}
+
+	public void showProduct() {
+		System.out.println("\nProduct completed as below :");
+		for (String part : parts)
+			System.out.println(part);
+	}
+}
+
+// Director class 
+class Director {
+	Builder builder;
+
+	// Director knows how to use the builder and the sequence of steps.
+	public void construct(Builder builder) {
+		this.builder = builder;
+		builder.startUpOperations();
+		builder.buildBody();
+		builder.insertWheels();
+		builder.addHeadlights();
+		builder.endOperations();
+	}
+}
+
+public class BuilderPatternExample {
+
+	public static void main(String[] args) {
+		System.out.println("***Builder Pattern Demo***");
+		Director director = new Director();
+
+		Builder fordCar = new Car("Ford");
+		Builder hondaMotorycle = new MotorCycle("Honda");
+
+		// Making Car
+		director.construct(fordCar);
+		Product p1 = fordCar.getVehicle();
+		p1.showProduct();
+
+		// Making MotorCycle
+		director.construct(hondaMotorycle);
+		Product p2 = hondaMotorycle.getVehicle();
+		p2.showProduct();
+	}
+}
+
+</code></pre>
+
+<p><strong>输出结果：</strong></p>
+
+<pre><code class="language-console">***Builder Pattern Demo***
+
+Product completed as below :
+Car model is :Ford
+This is a body of a Car
+4 wheels are added
+2 Headlights are added
+
+Product completed as below :
+This is a body of a Motorcycle
+2 wheels are added
+1 Headlights are added
+Motorcycle model is :Honda
+</code></pre>
+
+<h3 id="q--a">Q &amp; A</h3>
+
+<ol>
+  <li>
+    <p>使用生成器模式有什么好处?</p>
+
+    <ul>
+      <li>你可以用生成器模式逐步构建复杂对象，并且可以改变构建步骤。通过隐藏构建复杂对象的细节（构建每部分的细节），加强了封装性。 Director 可以从 Builder 获取最终构建完成的 Product，在表面看了就好像只有一个方法（construct()）用于构建最终产品，其他的内部方法只是涉及构建具体的部分。</li>
+      <li>使用这种模式，同样的构建过程，可以产生不同的产品。</li>
+      <li>因为你可以改变构造步骤，所以你可以改变产品的内部表示。</li>
+    </ul>
+  </li>
+  <li>
+    <p>生成器模式的坏处？</p>
+
+    <ul>
+      <li>不适用于处理可变对象（mutable object），即创建后可被修改的对象。</li>
+      <li>可能需要写些重复代码，例如不同的具体生成器有些代码类似或重复，某些情况下可能会有不好的影响，并可能成为<em><a href="https://blog.csdn.net/jiangpingjiangping/article/details/78067595">反模式</a></em>。</li>
+      <li>一个具体的生成器专用于产生某类产品，所以要生产另一类产品，就需要编写一个用于该类产品的具体生成器。</li>
+      <li>生成器模式只有在构建比较复杂的对象时用才有优势。</li>
+    </ul>
+  </li>
+  <li>
+    <p>在上面例子中我可以使用抽象类而不是接口吗？</p>
+
+    <ul>
+      <li>可以的。你可以使用抽象类，而不是用接口。</li>
+    </ul>
+  </li>
+  <li>
+    <p>如何确定应该使用抽象类还是接口？</p>
+
+    <ul>
+      <li>如果你想要一些集中的或是默认的行为，那么抽象类是更好的选择，因为这种情况下你可以提供一些默认的实现。另一方面，使用接口则需要从零开始实现，接口定义了某些规则/契约，强调应该做什么，但不强调怎么做。还有就是如果要考虑实现多继承，接口就更合适。 如果你要给接口添加一个新的方法，那么这个接口的所有实现都需要实现这个新方法，有点麻烦。但如果在抽象类中添加一个新方法，并有默认实现，那么旧代码不受影响。在 Java 8 引入了 <code>default</code> 关键字在接口的用法，可以在接口里提供默认方法。</li>
+      <li>下面是抽象类更适用的场景：
+        <ul>
+          <li>想要在多个联系紧密的类之间共享代码</li>
+          <li>被继承的抽象类有很多公共方法或字段，或者它们当中需要非公有访问修饰符。</li>
+          <li>你想使用非静态或非 <code>final</code> 字段，这样可以修改其所属对象的状态。</li>
+        </ul>
+      </li>
+      <li>接下来是使用接口更合适的场景：
+        <ul>
+          <li>希望一些不相关的类实现你的接口。</li>
+          <li>指定某种数据类型的行为，但是不关心如何实现。</li>
+          <li>想要适用多继承。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>上面例子中，在 Car 里，brand name 在第一步添加了，而在 MotorCycle 里， brand name 在最后一步添加，这是故意的吗？</p>
+
+    <p>是的。这是为了说明，每种具体生成器可以自由决定如何产生最终产品。</p>
+  </li>
+  <li>
+    <p>为什么使用单独一个类作为 Director？应该可以使用客户端代码（client code）充当 Director 的角色啊。</p>
+
+    <p>这方面没有限制。上面的代码例子，将 Director 角色与客户端代码分离，但是接下来的例子会直接适用客户端代码做 Director。</p>
+  </li>
+  <li>
+    <p>客户端代码（client code）是什么意思？</p>
+
+    <p>包含 main() 方法的类就是客户端代码（client code）。在 <em>Effective Java</em> 一书的第 4 页，有三段话讲了术语 <em>exported API</em> 以及 a <em>client</em> of the API. 引用如下：</p>
+
+    <blockquote>
+      <p>This book uses a few technical terms that are not defined in <em>The Java Language Specification</em>. The term <em>exported API</em>, or simply <em>API</em>, refers to the classes, interfaces, constructors, members, and serialized forms by which a programmer accesses a class, interface, or package. (The term <em>API</em>, which is short for <em>application programming interface</em>, is used in preference to the otherwise preferable term <em>interface</em> to avoid confusion with the language construct of that name.) A programmer who writes a program that uses an API is referred to as a <em>user</em> of the API. A class whose implementation uses an API is a <em>client</em> of the API.</p>
+
+      <p>Classes, interfaces, constructors, members, and serialized forms are collectively known as <em>API elements</em>. An exported API consists of the API elements that are accessible outside of the package that defines the API. These are the API elements that any client can use and the author of the API commits to support. Not coincidentally, they are also the elements for which the Javadoc utility generates documentation in its default mode of operation. Loosely speaking, the exported API of a package consists of the public and protected members and constructors of every public class or interface in the package.</p>
+
+      <p>In Java 9, a <em>module system</em> was added to the platform. If a library makes use of the module system, its exported API is the union of the exported APIs of all the packages exported by the library’s module declaration.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>前面提到改变构建步骤。能否演示一下通过改变构建步骤产生不同的最终产品？</p>
+
+    <p>下面的例子给出演示。</p>
+  </li>
+</ol>
+
+<h3 id="改进版例子">改进版例子</h3>
+
+<p>改进版例子做了如下修改：</p>
+
+<ul>
+  <li>这次只关注 Car 作为最终产品。</li>
+  <li>定制 Car 的构建步骤包含这些：
+    <ul>
+      <li>开始的消息（startUpMessage)。</li>
+      <li>处理结束消息（endOperationsMessage）</li>
+      <li>确定车身材料（bodyType）</li>
+      <li>车轮数量（noOfWheels）</li>
+      <li>车头灯数量（noOfHeadLights）</li>
+    </ul>
+  </li>
+  <li>客户端代码同时充当了 Director 的角色。</li>
+  <li>生成器的接口被重命名为 ModifiedBuilder， 除 constructCar() 和 getConstructedCar() 方法外，接口中的其他方法的返回类型都是 ModifiedBuilder，这样可以实现方法链（method chaining）。</li>
+</ul>
+
+<h4 id="代码实现-1">代码实现</h4>
+
+<pre><code class="language-java">package jdp2e.builder.demo;
+
+//The common interface
+interface ModifiedBuilder {
+	/*
+	 * All these methods return type is ModifiedBuilder. This will help us to apply
+	 * method chaining
+	 */
+	ModifiedBuilder startUpOperations(String startUpMessage);
+
+	ModifiedBuilder buildBody(String bodyType);
+
+	ModifiedBuilder insertWheels(int noOfWheels);
+
+	ModifiedBuilder addHeadlights(int noOfHeadLights);
+
+	ModifiedBuilder endOperations(String endOperationsMessage);
+
+	/* Combine the parts and make the final product. */
+	ProductClass constructCar();
+
+	// Optional method:To get the already constructed object
+	ProductClass getConstructedCar();
+}
+
+//Car class
+class CarBuilder implements ModifiedBuilder {
+	private String startUpMessage = "Start building the product";// Default start-up message
+	private String bodyType = "Steel";// Default body
+	private int noOfWheels = 4;// Default number of wheels
+	private int noOfHeadLights = 2;// Default number of head lights
+	private String endOperationsMessage = "Product creation completed";// Default finish up message
+	ProductClass product;
+
+	@Override
+	public ModifiedBuilder startUpOperations(String startUpMessage) {
+		this.startUpMessage = startUpMessage;
+		return this;
+	}
+
+	@Override
+	public ModifiedBuilder buildBody(String bodyType) {
+		this.bodyType = bodyType;
+		return this;
+	}
+
+	@Override
+	public ModifiedBuilder insertWheels(int noOfWheels) {
+		this.noOfWheels = noOfWheels;
+		return this;
+	}
+
+	@Override
+	public ModifiedBuilder addHeadlights(int noOfHeadLights) {
+		this.noOfHeadLights = noOfHeadLights;
+		return this;
+	}
+
+	@Override
+	public ModifiedBuilder endOperations(String endOperationsMessage) {
+		this.endOperationsMessage = endOperationsMessage;
+		return this;
+	}
+
+	@Override
+	public ProductClass constructCar() {
+
+		product = new ProductClass(this.startUpMessage, this.bodyType, this.noOfWheels, this.noOfHeadLights,
+				this.endOperationsMessage);
+		return product;
+	}
+
+	@Override
+	public ProductClass getConstructedCar() {
+		return product;
+	}
+}
+
+//Product class 
+final class ProductClass {
+	private String startUpMessage;
+	private String bodyType;
+	private int noOfWheels;
+	private int noOfHeadLights;
+	private String endOperationsMessage;
+
+	public ProductClass(final String startUpMessage, String bodyType, int noOfWheels, int noOfHeadLights,
+			String endOperationsMessage) {
+		this.startUpMessage = startUpMessage;
+		this.bodyType = bodyType;
+		this.noOfWheels = noOfWheels;
+		this.noOfHeadLights = noOfHeadLights;
+		this.endOperationsMessage = endOperationsMessage;
+	}
+
+	/*
+	 * There is no setter methods used here to promote immutability. Since the
+	 * attributes are private and there is no setter methods, the keyword "final" is
+	 * not needed to attach with the attributes.
+	 */
+	@Override
+	public String toString() {
+		return "Product Completed as:\n startUpMessage=" + 
+            startUpMessage + "\n bodyType=" + 
+            bodyType + "\n noOfWheels=" + 
+            noOfWheels + "\n noOfHeadLights=" + 
+            noOfHeadLights + "\n endOperationsMessage=" + 
+            endOperationsMessage;
+	}
+
+}
+
+//Director class 
+public class BuilderPatternModifiedExample {
+
+	public static void main(String[] args) {
+		System.out.println("***Modified Builder Pattern Demo***");
+		/*
+		 * Making a custom car (through builder) Note the steps: 
+		 * Step1:Get a builder object with required parameters 
+		 * Step2:Setter like methods are used.They will set the optional fields also. 
+		 * Step3:Invoke the constructCar() method to get the final car.
+		 */
+		final ProductClass customCar1 = new CarBuilder()
+            .addHeadlights(5)
+            .insertWheels(5)
+            .buildBody("Plastic")
+			.constructCar();
+		System.out.println(customCar1);
+		System.out.println("--------------");
+		/*
+		 * Making another custom car (through builder) with a different sequence and
+		 * steps.
+		 */
+		ModifiedBuilder carBuilder2 = new CarBuilder();
+		final ProductClass customCar2 = carBuilder2
+            .insertWheels(7)
+            .addHeadlights(6)
+            .startUpOperations("I am making my own car")
+            .constructCar();
+		System.out.println(customCar2);
+		System.out.println("--------------");
+
+		/*
+		 * customCar2 = carBuilder2.insertWheels(70)//error because customCar2 is final
+		 * .addHeadlights(6) .startUpOperations("I am making my own car")
+		 * .constructCar(); System.out.println(customCar2);
+		 */
+		
+		// Verifying the getConstructedCar() method
+		final ProductClass customCar3 = carBuilder2.getConstructedCar();
+		System.out.println(customCar3);
+
+	}
+}
+
+</code></pre>
+
+<p><strong>输出结果：</strong></p>
+
+<pre><code class="language-console">***Modified Builder Pattern Demo***
+Product Completed as:
+startUpMessage=Start building the product
+bodyType=Plastic
+noOfWheels=5
+noOfHeadLights=5
+endOperationsMessage=Product creation completed
+--------------
+Product Completed as:
+startUpMessage=I am making my own car
+bodyType=Steel
+noOfWheels=7
+noOfHeadLights=6
+endOperationsMessage=Product creation completed
+--------------
+Product Completed as:
+startUpMessage=I am making my own car
+bodyType=Steel
+noOfWheels=7
+noOfHeadLights=6
+endOperationsMessage=Product creation completed
+</code></pre>
+
+<p>在改进版例子中，第 124 行，构建 <code>customCar1</code>，逐步调用了 <code>addHeadLights()</code>, <code>insertWheels()</code>, <code>buildBody()</code> 方法。 然后当构建 <code>customCar2</code> 时，方法的调用顺序不同了，而没调用的方法，会取默认值。</p>
+
+<h3 id="q--a-1">Q &amp; A</h3>
+
+<ol>
+  <li>
+    <p>改进版例子中客户端代码用到 <code>final</code> 关键字，但是 <code>ProductClass</code> 的属性却没有用 <code>final</code> 关键字，为什么？</p>
+
+    <p>在客户端代码使用 <code>final</code> 关键字是为了提高不可修改性（immutability），但是在 <code>ProductClass</code> 属性已经是私有且那个类没有 setter 方法，所以已经是不可修改了，不需要使用 <code>final</code> 关键字。</p>
+  </li>
+  <li>
+    <p>不可修改的对象有什么好处？</p>
+
+    <p>这样的对象一旦构建完成，就可以安全地共享，更重要的是它们是线程安全的（thread-safe），所以在多线程环境中省去了很多同步操作。</p>
+  </li>
+  <li>
+    <p>何时应该考虑使用生成器模式？</p>
+  </li>
+</ol>
+
+<h3 id="总结">总结</h3>
+
+<h3 id="参考">参考</h3>
+
+<ul>
+  <li>[Gamma95] Gamma, Erich, Richard Helm, Ralph Johnson, and John Vlissides. 1995. <em>Design Patterns: Elements of Reusable Object-Oriented Software.</em> Reading, MA: Addison-Wesley. ISBN: 0201633612</li>
+  <li>Sarcar, Vaskaran. <em>Design Patterns in Java, Second Edition.</em> Apress, 2019</li>
+  <li><a href="https://springframework.guru/gang-of-four-design-patterns/builder-pattern/">Springframework guru: Builder Pattern</a></li>
+  <li>Joshua Block. <em>Effective Java, Third Edition.</em> Addison-Wesley, 2018</li>
+  <li><a href="https://blog.csdn.net/jiangpingjiangping/article/details/78067595">设计模式杂谈——模式与反模式之争</a></li>
+</ul>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2020/02/01/spring-classes/" data-toggle="tooltip" data-placement="top" title="Spring Boot的类">
+                上一篇<br>
+                <span>Spring Boot的类</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2020/02/04/inner-class/" data-toggle="tooltip" data-placement="top" title="Java 内部类">
+                下一篇<br>
+                <span>Java 内部类</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

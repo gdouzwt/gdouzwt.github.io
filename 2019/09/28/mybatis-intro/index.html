@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>学习MyBatis基础知识 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2019/09/28/mybatis-intro/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#MyBatis" title="MyBatis">MyBatis</a>
+                        
+                        <a class="tag" href="/tags/#数据库" title="数据库">数据库</a>
+                        
+                    </div>
+                    <h1>学习MyBatis基础知识</h1>
+                    
+                    
+                    <h2 class="subheading">学习笔记</h2>
+                    
+                    <span class="meta">由招文桃在2019年9月28日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <h3 id="目录">目录</h3>
+
+<h4 id="第1章-mybatis入门-1">第1章 MyBatis入门 1</h4>
+
+<h5 id="11-mybatis简介-2">1.1 MyBatis简介 2</h5>
+
+<p>与其他的ORM不同，MyBatis没有将Java对象与数据库表关联起来，而是将Java方法与SQL语句关联。SQL语句可以被动态生成。<!--more--></p>
+
+<h5 id="12-创建maven项目-3">1.2 创建Maven项目 3</h5>
+
+<p>Maven配置参考pom.xml</p>
+
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+    &lt;properties&gt;
+&lt;!--        &lt;maven.compiler.source&gt;1.8&lt;/maven.compiler.source&gt;--&gt;
+&lt;!--        &lt;maven.compiler.target&gt;1.8&lt;/maven.compiler.target&gt;--&gt;
+        &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;/properties&gt;
+
+    &lt;groupId&gt;io.zwt&lt;/groupId&gt;
+    &lt;artifactId&gt;simple&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.12&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+            &lt;version&gt;3.3.0&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-generator&lt;/artifactId&gt;
+            &lt;version&gt;1.3.7&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.1.38&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+            &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+            &lt;version&gt;1.7.12&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+            &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+            &lt;version&gt;1.7.12&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;log4j&lt;/groupId&gt;
+            &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+            &lt;version&gt;1.2.17&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;1.6&lt;/source&gt;
+                    &lt;target&gt;1.6&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+&lt;/project&gt;
+
+</code></pre>
+
+<h5 id="13-简单配置让mybatis跑起来--7">1.3 简单配置让MyBatis跑起来  7</h5>
+
+<ul>
+  <li>1.3.1 准备数据库 8</li>
+</ul>
+
+<p>创建一些测试数据库。</p>
+
+<ul>
+  <li>1.3.2 配置MyBatis 8</li>
+</ul>
+
+<p>配置文件mybatis-config.xml 参考</p>
+
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;
+&lt;configuration&gt;
+    &lt;settings&gt;
+        &lt;setting name="logImpl" value="LOG4J"/&gt;
+    &lt;/settings&gt;
+    &lt;typeAliases&gt;
+        &lt;package name="io.zwt.simple.model"/&gt;
+    &lt;/typeAliases&gt;
+
+    &lt;environments default="development"&gt;
+        &lt;environment id="development"&gt;
+            &lt;transactionManager type="JDBC"&gt;
+                &lt;property name="" value=""/&gt;
+            &lt;/transactionManager&gt;
+            &lt;dataSource type="UNPOOLED"&gt;
+                &lt;property name="driver" value="com.mysql.jdbc.Driver"/&gt;
+                &lt;property name="url" value="jdbc:mysql://localhost:3306/mybatis"/&gt;
+                &lt;property name="username" value="xxxx"/&gt;
+                &lt;property name="password" value="xxxx"/&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+
+    &lt;mappers&gt;
+        &lt;package name="io.zwt.simple.mapper"/&gt;
+&lt;!--                &lt;mapper resource="io/zwt/simple/mapper/CountryMapper.xml"/&gt;--&gt;
+&lt;!--                &lt;mapper resource="io/zwt/simple/mapper/UserMapper.xml"/&gt;--&gt;
+&lt;!--                &lt;mapper resource="io/zwt/simple/mapper/RoleMapper.xml"/&gt;--&gt;
+&lt;!--                &lt;mapper resource="io/zwt/simple/mapper/PrivilegeMapper.xml"/&gt;--&gt;
+&lt;!--                &lt;mapper resource="io/zwt/simple/mapper/UserRoleMapper.xml"/&gt;--&gt;
+&lt;!--                &lt;mapper resource="io/zwt/simple/mapper/RolePrivilegeMapper.xml"/&gt;--&gt;
+    &lt;/mappers&gt;
+&lt;/configuration&gt;
+</code></pre>
+
+<ul>
+  <li>1.3.3 创建实体类和Mapper.xml文件 10</li>
+</ul>
+
+<p>实体类就普通POJO，Mapper.xml文件可以参考如下：</p>
+
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;
+&lt;mapper namespace="io.zwt.simple.mapper.CountryMapper"&gt;
+    &lt;select id="selectAll" resultType="Country"&gt;
+        select id, countryname, countrycode from country
+    &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+
+<ul>
+  <li>1.3.4 配置Log4j以便查看MyBatis操作数据库的过程 11</li>
+</ul>
+
+<p>Log4j挺有用的，方便，配置参考如下：</p>
+
+<pre><code class="language-properties">#全局配置 
+log4j.rootLogger=ERROR, stdout 
+#MyBatis 日志配置 
+log4j.logger.io.zwt.simple.mapper=TRACE 
+#控制台输出配置 
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender 
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout 
+log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n 
+</code></pre>
+
+<ul>
+  <li>1.3.5 编写测试代码让MyBatis跑起来 12</li>
+</ul>
+
+<p>单元测试，使用了JUnit 4.12，熟悉下，到时候可以用JUnit 5，刚开始的单元测试代码如下：</p>
+
+<pre><code class="language-java">package io.zwt.simple.mapper;
+
+import io.zwt.simple.model.Country;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.io.Reader;
+import java.util.List;
+
+public class CountryMapperTest {
+
+    private static SqlSessionFactory sqlSessionFactory;
+
+    @BeforeClass
+    public static void init() {
+        try {
+            Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+            reader.close();
+        } catch (IOException ignore) {
+            ignore.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testSelectAll() {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            List&lt;Country&gt; countryList = sqlSession.selectList("selectAll");
+            printCountryList(countryList);
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    private void printCountryList(List&lt;Country&gt; countryList) {
+        for (Country country : countryList) {
+            System.out.printf("%-4d%4s%4s\n",
+                    country.getId(), country.getCountryname(), country.getCountrycode());
+        }
+    }
+}
+</code></pre>
+
+<h5 id="14-本章小结-14">1.4 本章小结 14</h5>
+
+<p>上手简单，感觉还不错的样子。</p>
+
+<h4 id="第2章-mybatis-xml方式的基本用法-15">第2章 MyBatis XML方式的基本用法 15</h4>
+
+<h5 id="21-一个简单的权限控制需求-16">2.1 一个简单的权限控制需求 16</h5>
+
+<p>搞个简单的RBAC做例子。</p>
+
+<p>2.1.1 创建数据库表 16 16</p>
+
+<p>创建了五个表：用户表、角色表、权限表、用户角色关系表和角色权限关系表。</p>
+
+<p>2.1.2 创建实体类 19 19</p>
+
+<p>实体类也是很常规的POJO，后期可以使用MBG生成。</p>
+
+<h5 id="22-使用xml方式-21">2.2 使用XML方式 21</h5>
+
+<p>语句映射是特点。MyBatis 3.0 支持使用接口来调用方法。命名空间和方法id</p>
+
+<h5 id="23-select用法-23">2.3 select用法 23</h5>
+
+<p>在接口（例如UserMapper)中添加一个<code>selectById</code>方法，后面代码参考如下：</p>
+
+<pre><code class="language-java">package io.zwt.simple.mapper;
+
+import io.zwt.simple.model.SysRole;
+import io.zwt.simple.model.SysUser;
+
+import java.util.List;
+
+public interface UserMapper {
+
+    /**
+     * 通过id查询用户
+     *
+     * @param id
+     * @return
+     */
+
+    SysUser selectById(Long id);
+
+    /**
+     * 查询全部用户
+     *
+     * @return
+     */
+    List&lt;SysUser&gt; selectAll();
+
+    /**
+     * 根据用户 id 获取角色信息
+     *
+     * @param userId
+     * @return
+     */
+    List&lt;SysRole&gt; selectRolesByUserId(Long userId);
+}
+
+</code></pre>
+
+<p>接着在对应的Mapper.xml文件（例如UserMapper.xml）里面添加<code>&lt;resultMap&gt;</code>和<code>&lt;select&gt;</code>部分代码，参考如下：</p>
+
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;
+&lt;mapper namespace="io.zwt.simple.mapper.UserMapper"&gt;
+    &lt;resultMap id="userMap" type="io.zwt.simple.model.SysUser"&gt;
+        &lt;id property="id" column="id"/&gt;
+        &lt;result property="userName" column="user_name"/&gt;
+        &lt;result property="userPassword" column="user_password"/&gt;
+        &lt;result property="userEmail" column="user_email"/&gt;
+        &lt;result property="userInfo" column="user_info"/&gt;
+        &lt;result property="headImg" column="head_img" jdbcType="BLOB"/&gt;
+        &lt;result property="createTime" column="create_time" jdbcType="TIMESTAMP"/&gt;
+    &lt;/resultMap&gt;
+
+    &lt;select id="selectById" resultMap="userMap"&gt;
+        select * from sys_user where id = #{id}
+    &lt;/select&gt;
+
+    &lt;select id="selectAll" resultType="io.zwt.simple.model.SysUser"&gt;
+        select id,
+            user_name userName,
+            user_password userPassword,
+            user_email uersEmail,
+            user_info userInfo,
+            head_img headImg,
+            create_time createTime
+        from sys_user
+    &lt;/select&gt;
+
+    &lt;select id="selectRolesByUserId" resultType="io.zwt.simple.model.SysRole"&gt;
+        select
+            r.id,
+            r.role_name roleName,
+            r.enabled,
+            r.create_by createBy,
+            r.create_time createTime
+        from sys_user u
+        inner join sys_user_role ur on u.id = ur.user_id
+        inner join sys_role r on ur.role_id = r.id
+        where u.id = #{userId}
+    &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+
+<p>接口和XML通过将namespace的值设置为接口的全限定名称来进行关联的，接口中方法名和XML中的<code>select</code>标签的<code>id</code>属性值对应。</p>
+
+<h5 id="24-insert用法-35">2.4 insert用法 35</h5>
+
+<ul>
+  <li>2.4.1 简单的insert方法 35</li>
+</ul>
+
+<p>基本使用</p>
+
+<ul>
+  <li>2.4.2 使用JDBC方式返回主键自增的值 38</li>
+</ul>
+
+<p>id 回写</p>
+
+<ul>
+  <li>2.4.3 使用selectKey返回主键的值 40</li>
+</ul>
+
+<p>不同数据库的selectKey使用方式不同</p>
+
+<h5 id="25-update用法-42">2.5 update用法 42</h5>
+
+<h5 id="26-delete用法-45">2.6 delete用法 45</h5>
+
+<h5 id="27-多个接口参数的用法-47">2.7 多个接口参数的用法 47</h5>
+
+<h5 id="28-mapper接口动态代理实现原理-50">2.8 Mapper接口动态代理实现原理 50</h5>
+
+<h5 id="29-本章小结-51">2.9 本章小结 51</h5>
+
+<h4 id="第3章-mybatis注解方式的基本用法-53">第3章 MyBatis注解方式的基本用法 53</h4>
+
+<h5 id="31-select注解-54">3.1 @Select注解 54</h5>
+
+<ul>
+  <li>
+    <p>3.1.1 使用mapUnderscoreToCamelCase配置 55</p>
+  </li>
+  <li>
+    <p>3.1.2 使用resultMap方式 55</p>
+  </li>
+</ul>
+
+<h5 id="32-insert注解-58">3.2 @Insert注解 58</h5>
+
+<ul>
+  <li>
+    <p>3.2.1 不需要返回主键 58</p>
+  </li>
+  <li>
+    <p>3.2.2 返回自增主键 58</p>
+  </li>
+  <li>
+    <p>3.2.3 返回非自增主键 59</p>
+  </li>
+</ul>
+
+<h5 id="33-update注解和delete注解-59">3.3 @Update注解和@Delete注解 59</h5>
+
+<h5 id="34-provider注解-60">3.4 Provider注解 60</h5>
+
+<h5 id="35-本章小结-61">3.5 本章小结 61</h5>
+
+<h4 id="第4章-mybatis动态sql">第4章 MyBatis动态SQL</h4>
+
+<h5 id="41-if用法-64">4.1 if用法 64</h5>
+
+<p>4.1.1 在WHERE条件中使用if 64</p>
+
+<p>4.1.2 在UPDATE更新列中使用if 68</p>
+
+<p>4.1.3 在INSERT动态插入列中使用if 70</p>
+
+<h5 id="42-choose用法-72">4.2 choose用法 72</h5>
+
+<h5 id="43-wheresettrim用法-75">4.3 where、set、trim用法 75</h5>
+
+<ul>
+  <li>
+    <p>4.3.1 where用法 75</p>
+  </li>
+  <li>
+    <p>4.3.2 set用法 76</p>
+  </li>
+  <li>
+    <p>4.3.3 trim用法 77</p>
+  </li>
+</ul>
+
+<h5 id="44-foreach用法-78">4.4 foreach用法 78</h5>
+
+<ul>
+  <li>
+    <p>4.4.1 foreach实现in集合 78</p>
+  </li>
+  <li>
+    <p>4.4.2 foreach实现批量插入 81</p>
+  </li>
+  <li>
+    <p>4.4.3 foreach实现动态UPDATE 84</p>
+  </li>
+</ul>
+
+<h5 id="45-bind用法-86">4.5 bind用法 86</h5>
+
+<h5 id="46-多数据库支持-86">4.6 多数据库支持 86</h5>
+
+<h5 id="47-ognl用法-89">4.7 OGNL用法 89</h5>
+
+<h5 id="48-本章小结-90">4.8 本章小结 90</h5>
+
+<h4 id="第5章-mybatis代码生成器-91">第5章 Mybatis代码生成器 91</h4>
+
+<h5 id="51-xml配置详解-92">5.1 XML配置详解 92</h5>
+
+<ul>
+  <li>
+    <p>5.1.1 property标签 95</p>
+  </li>
+  <li>
+    <p>5.1.2 plugin标签 96</p>
+  </li>
+  <li>
+    <p>5.1.3 commentGenerator标签 97</p>
+  </li>
+  <li>
+    <p>5.1.4 jdbcConnection标签 99</p>
+  </li>
+  <li>
+    <p>5.1.5 javaTypeResolver标签 100</p>
+  </li>
+  <li>
+    <p>5.1.6 javaModelGenerator标签 101</p>
+  </li>
+  <li>
+    <p>5.1.7 sqlMapGenerator标签 102</p>
+  </li>
+  <li>
+    <p>5.1.8 javaClientGenerator标签 103</p>
+  </li>
+  <li>
+    <p>5.1.9 table标签 104</p>
+  </li>
+</ul>
+
+<h5 id="52-一个配置参考示例-109">5.2 一个配置参考示例 109</h5>
+
+<h5 id="53-运行mybatis-generator-111">5.3 运行MyBatis Generator 111</h5>
+
+<ul>
+  <li>
+    <p>5.3.1 使用Java编写代码运行 111</p>
+  </li>
+  <li>
+    <p>5.3.2 从命令提示符运行 113</p>
+  </li>
+  <li>
+    <p>5.3.3 使用Maven Plugin运行 115</p>
+  </li>
+  <li>
+    <p>5.3.4 使用Eclipse插件运行 117</p>
+  </li>
+</ul>
+
+<h5 id="54-example介绍-119">5.4 Example介绍 119</h5>
+
+<h5 id="55-本章小结-124">5.5 本章小结 124</h5>
+
+<h4 id="第6章-mybatis高级查询-125">第6章 MyBatis高级查询 125</h4>
+
+<h5 id="61-高级结果映射-126">6.1 高级结果映射 126</h5>
+
+<ul>
+  <li>
+    <p>6.1.1 一对一映射 126</p>
+  </li>
+  <li>
+    <p>6.1.2 一对多映射 140</p>
+  </li>
+  <li>
+    <p>6.1.3 鉴别器映射 156</p>
+  </li>
+</ul>
+
+<h5 id="62-存储过程-159">6.2 存储过程 159</h5>
+
+<ul>
+  <li>
+    <p>6.2.1 第一个存储过程 162</p>
+  </li>
+  <li>
+    <p>6.2.2 第二个存储过程 164</p>
+  </li>
+  <li>
+    <p>6.2.3 第三个和第四个存储过程 166</p>
+  </li>
+  <li>
+    <p>6.2.4 在Oracle中使用游标参数的存储过程 168</p>
+  </li>
+</ul>
+
+<h5 id="63-使用枚举或其他对象-170">6.3 使用枚举或其他对象 170</h5>
+
+<ul>
+  <li>
+    <p>6.3.1 使用MyBatis提供的枚举处理器 170</p>
+  </li>
+  <li>
+    <p>6.3.2 使用自定义的类型处理器 172</p>
+  </li>
+  <li>
+    <p>6.3.3 对Java 8日期（JSR-310）的支持 175</p>
+  </li>
+</ul>
+
+<h5 id="64-本章小结-176">6.4 本章小结 176</h5>
+
+<h4 id="第7章-mybatis缓存配置-177">第7章 MyBatis缓存配置 177</h4>
+
+<h5 id="71-一级缓存-178">7.1 一级缓存 178</h5>
+
+<h5 id="72-二级缓存-181">7.2 二级缓存 181</h5>
+
+<ul>
+  <li>
+    <p>7.2.1 配置二级缓存 181</p>
+  </li>
+  <li>
+    <p>7.2.2 使用二级缓存 184</p>
+  </li>
+</ul>
+
+<h5 id="73-集成ehcache缓存-187">7.3 集成EhCache缓存 187</h5>
+
+<h5 id="74-集成redis缓存-190">7.4 集成Redis缓存 190</h5>
+
+<h5 id="75-脏数据的产生和避免-191">7.5 脏数据的产生和避免 191</h5>
+
+<h5 id="76-二级缓存适用场景-194">7.6 二级缓存适用场景 194</h5>
+
+<h5 id="77-本章小结-194">7.7 本章小结 194</h5>
+
+<h4 id="第8章-mybatis插件开发-195">第8章 MyBatis插件开发 195</h4>
+
+<h5 id="81-拦截器接口介绍-196">8.1 拦截器接口介绍 196</h5>
+
+<h5 id="82-拦截器签名介绍-198">8.2 拦截器签名介绍 198</h5>
+
+<ul>
+  <li>
+    <p>8.2.1 Executor接口 198</p>
+  </li>
+  <li>
+    <p>8.2.2 ParameterHandler接口 200</p>
+  </li>
+  <li>
+    <p>8.2.3 ResultSetHandler接口 201</p>
+  </li>
+  <li>
+    <p>8.2.4 StatementHandler接口 202</p>
+  </li>
+</ul>
+
+<h5 id="83-下画线键值转小写驼峰形式插件-203">8.3 下画线键值转小写驼峰形式插件 203</h5>
+
+<h5 id="84-分页插件-206">8.4 分页插件 206</h5>
+
+<ul>
+  <li>
+    <p>8.4.1 PageInterceptor拦截器类 207</p>
+  </li>
+  <li>
+    <p>8.4.2 Dialect接口 212</p>
+  </li>
+  <li>
+    <p>8.4.3 MySqlDialect实现 216</p>
+  </li>
+</ul>
+
+<h5 id="85-本章小结-220">8.5 本章小结 220</h5>
+
+<h4 id="第9章-spring集成mybatis-221">第9章 Spring集成MyBatis 221</h4>
+
+<h5 id="91-创建基本的maven-web项目-222">9.1 创建基本的Maven Web项目 222</h5>
+
+<h5 id="92-集成spring和spring-mvc-227">9.2 集成Spring和Spring MVC 227</h5>
+
+<h5 id="93-集成mybatis-232">9.3 集成MyBatis 232</h5>
+
+<h5 id="94-几个简单实例-234">9.4 几个简单实例 234</h5>
+
+<ul>
+  <li>
+    <p>9.4.1 基本准备 235</p>
+  </li>
+  <li>
+    <p>9.4.2 开发Mapper层（Dao层） 235</p>
+  </li>
+  <li>
+    <p>9.4.3 开发业务层（Service层） 238</p>
+  </li>
+  <li>
+    <p>9.4.4 开发控制层（Controller层） 240</p>
+  </li>
+  <li>
+    <p>9.4.5 开发视图层（View层） 242</p>
+  </li>
+  <li>
+    <p>9.4.6 部署和运行应用 245</p>
+  </li>
+</ul>
+
+<h5 id="95-本章小结-246">9.5 本章小结 246</h5>
+
+<h4 id="第10章-spring-boot集成mybatis-247">第10章 Spring Boot集成MyBatis 247</h4>
+
+<h5 id="101-基本的spring-boot项目-248">10.1 基本的Spring Boot项目 248</h5>
+
+<h5 id="102-集成mybatis-251">10.2 集成MyBatis 251</h5>
+
+<h5 id="103-mybatis-starter配置介绍-253">10.3 MyBatis Starter配置介绍 253</h5>
+
+<h5 id="104-简单示例-255">10.4 简单示例 255</h5>
+
+<ul>
+  <li>
+    <p>10.4.1 引入simple依赖 255</p>
+  </li>
+  <li>
+    <p>10.4.2 开发业务（Service）层 258</p>
+  </li>
+  <li>
+    <p>10.4.3 开发控制（Controller）层 259</p>
+  </li>
+  <li>
+    <p>10.4.4 运行应用查看效果 259</p>
+  </li>
+</ul>
+
+<h5 id="105-本章小结-260">10.5 本章小结 260</h5>
+
+<h4 id="第11章-mybatis开源项目-261">第11章 MyBatis开源项目 261</h4>
+
+<h5 id="111-git入门-262">11.1 Git入门 262</h5>
+
+<ul>
+  <li>
+    <p>11.1.1 初次运行配置 262</p>
+  </li>
+  <li>
+    <p>11.1.2 初始化和克隆仓库 263</p>
+  </li>
+  <li>
+    <p>11.1.3 本地操作 265</p>
+  </li>
+  <li>
+    <p>11.1.4 远程操作 267</p>
+  </li>
+</ul>
+
+<h5 id="112-github入门-269">11.2 GitHub入门 269</h5>
+
+<ul>
+  <li>
+    <p>11.2.1 创建并提交到仓库 269</p>
+  </li>
+  <li>
+    <p>11.2.2 Fork仓库并克隆到本地 272</p>
+  </li>
+  <li>
+    <p>11.2.3 社交功能 275</p>
+  </li>
+</ul>
+
+<h5 id="113-mybatis源码讲解-278">11.3 MyBatis源码讲解 278</h5>
+
+<h5 id="114-mybatis测试用例-290">11.4 MyBatis测试用例 290</h5>
+
+<h5 id="115-本章小结-293">11.5 本章小结 293</h5>
+
+<h4 id="附录-类型处理器typehandler-295">附录 类型处理器（TypeHandler） 295</h4>
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2019/09/27/redis-basics/" data-toggle="tooltip" data-placement="top" title="学习Redis基础知识">
+                上一篇<br>
+                <span>学习Redis基础知识</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2019/09/29/core-java-interview-cracking/" data-toggle="tooltip" data-placement="top" title="Java核心技术及面试指南读书记录">
+                下一篇<br>
+                <span>Java核心技术及面试指南读书记录</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

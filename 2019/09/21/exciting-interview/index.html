@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>一次刺激的面试和笔试 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2019/09/21/exciting-interview/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/SCUT.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/SCUT.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#笔试面试" title="笔试面试">笔试面试</a>
+                        
+                    </div>
+                    <h1>一次刺激的面试和笔试</h1>
+                    
+                    
+                    <h2 class="subheading">继续总结经验教训</h2>
+                    
+                    <span class="meta">由招文桃在2019年9月21日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <h3 id="前言">前言</h3>
+
+<p>那是经历的第一次面试，绿米联创 HR 面，2019 年 9 月 20 日下午 3 点，在华南理工大学（大学城校区）的图书馆底下的 O’Clock Coffee 咖啡厅。本来此前一天（2019 年 9 月 19 日）晚上 7 点参加了绿米联创的宣讲会，紧接着是 8 点多左右进行线下笔试，笔试时间为一个小时。题目难度中等，其中有“关灯开灯”问题（同 TCL 第 21 题），然后又有经典的输入网站按下回车键到浏览器显示网页经过了什么过程。还有一题是两个人轮流取硬币，最先取完的为胜…… 这类型题目，以前在看 BBC 一个关于算法的纪录片（Algorithms - The Secret Rules of Modern Living - BBC documentary）时候有看到，但是没有记住其中道理，因为到时已经有人翻译制作了中文字幕，所以我就没有翻译了，结果就是印象不够深刻。<!--more--></p>
+
+<p>那晚宣讲会加线下笔试，错过了腾讯的在线笔试，在一个没什么灯光的路边阶梯坐下，抱着笔记本，摄像头监考，光线不好，操作不了，而且后台综合的试题全部是编程题，在剩余的不到 20 分钟内根本就不可能完成，直接提交了空白卷，连自信心被打击的机会都没有了，题目印象也没有，因为根本看不见什么，早知道找个光线好的教室坐着什么的，但是第一次去到华工校园，不熟悉环境。</p>
+
+<p>原本约的下午 3 点开始的面试，提前了十多分钟开始，持续了大概半小时。不过面试结束之后我赶紧拿出笔记本，坐到旁边的桌开始做网易的在线笔试题，这也是下午 3 点开始的。被面试占用了一些时间，后面就不够时间做在线笔试题了，最后十几分钟电池没电直接关机（因为调成高性能状态，且不设置电量少提示）。奇怪我也没有直接放弃，虽然知道最后也是么有办法做完和有机会通过笔试，但还是想办法继续完成考试。当时就走进咖啡厅里面询问是否有插座可以接电，还好有个位置可以充电接着完成考试。</p>
+
+<p>下午 5 点结束了网易笔试，为了节省时间就没去食堂吃饭，在咖啡厅吃个三明治算了，因为接下来 7 点还有商汤科技的在线笔试。商汤的笔试就比较针对 Java 了，有选择题、填空题和简答题。这次也是使用牛客网的考试系统，但是监考过程比腾讯和网易的多了一个手机小程序监控的步骤，还要录屏的。商汤试题刚开始的选择题涉及比较多数据结构的内容，二叉树什么的，填空题有涉及看代码写输出结果的。最后简答题好像有 9 个题，比较多 x 与 y 的区别之类的问题，例如 session 与 cookie 的区别，<code>ArrayList</code> 与 <code>LinkedList</code> 的区别，手写单例设计模式，常见的设计模式，Java 的原子类作用和原理， 还有关于 Java 虚拟机内存模型的， <code>volatile</code> 关键字的作用，后面的没时间，没有写完，中间网络出现点问题，中断一会。但也尽力做，开始有点感觉了，继续加油。</p>
+
+<h3 id="题目回顾">题目回顾</h3>
+
+<p>回顾一些错题，包括日常练习和在线笔试的。</p>
+
+<h4 id="日常练习">日常练习</h4>
+
+<ul>
+  <li>一个以”.java”为后缀的源文件：
+    <blockquote>
+      <p>只能有一个与文件名相同的 <code>public</code> 类，可以包含其他非 <code>public</code> 类（不考虑内部类）。</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p>基础概念要清晰。</p>
+
+<ul>
+  <li>关于 <code>equals()</code> 和 <code>hashcode()</code> 的，对象属性之类的东西。</li>
+</ul>
+
+<p>下面论述正确的是（）？</p>
+<blockquote>
+  <p>A. 如果两个对象的 hashcode 相同，那么它们作为同一个<code> HashMap</code> 的 key 时，必然返回同样的值</p>
+
+  <p>B. 如果 a, b 的 hashcode 相同，那么 <code>a.equals(b)</code> 必须返回 <code>true</code></p>
+
+  <p>C. 对于一个类，其所有对象的 hashcode 必须不同</p>
+
+  <p>D. 如果 <code>a.equals(b)</code> 返回 <code>true</code>，那么 <code>a,b</code> 两个对象的 hashcode 必须相同</p>
+</blockquote>
+
+<p>答案是 <strong>D</strong> 解释如下：</p>
+
+<p>如果两个对象的 hashcode 相同，那么它们作为同一个 <code>HashMap</code> 的 key 时，必然返回同样的值。如果 a, b 的 hashcode 相同，那么 <code>a.equals(b)</code> 必须返回 <code>true</code>，对于一个类，其所有对象的 hashcode 必须不同，如果 <code>a.equals(b)</code> 返回 <code>true</code>，那么 <code>a,b</code> 两个对象的 hashcode 必须相同。</p>
+
+<ul>
+  <li>关于计算机网络</li>
+</ul>
+
+<p>如果在一个建立了 TCP 连接的 socket 上调用 <code>recv</code> 函数，返回值为 0，则表示（）</p>
+
+<blockquote>
+  <p>A. 对端发送了一段长度为 0 的数据</p>
+
+  <p>B. 对端关闭了连接</p>
+
+  <p>C. 还没有收到对端数据</p>
+
+  <p>D. 连接发生错误</p>
+</blockquote>
+
+<p>基础，对于 <strong>TCP</strong> 协议的认识，解阻塞与非阻塞 <code>recv</code> 返回值没有区分，都是</p>
+<blockquote>
+  <p>&lt; 0 出错</p>
+
+  <p>= 0 连接关闭</p>
+
+  <p>&lt; 0 接收到数据太小</p>
+</blockquote>
+
+<ul>
+  <li>关于 JavaBean 的，还有一些 JSP，旧的技术还没有完全淘汰，有时候有必要了解一下。</li>
+</ul>
+
+<h4 id="笔试回顾">笔试回顾</h4>
+
+<p>题目原表述和空间要求等已经记不清，凭回忆和草稿恢复题目如下：</p>
+
+<p>输入 $T$ 组数，格式为第 1 行是组数 $T$ ，余下每行 1 个数 $x$ ，对每个 $x$ 求输出对应的 $n$ ，满足 $x \leq S(n)$  的最小值。其中 $S(n)$ 表示 $n$ 的十进制各位之和， $1 \leq T \leq 10$, $1 \leq x \leq 10^5$。</p>
+
+<p>示例输入</p>
+<blockquote>
+  <p>2</p>
+
+  <p>13</p>
+
+  <p>18</p>
+</blockquote>
+
+<p>示例输出</p>
+<blockquote>
+  <p>49</p>
+
+  <p>99</p>
+</blockquote>
+
+<h5 id="java实现">Java实现</h5>
+
+<pre><code class="language-java">import java.util.Scanner;
+
+public class Exam1 {
+
+    public static void main(String[] args) {
+
+        Scanner stdIn = new Scanner(System.in);
+        int T; // 组数
+
+        do {
+            System.out.print("请输入数据组数T(1 &lt;= T &lt;= 10)：");
+            T = stdIn.nextInt();
+        } while (T &lt; 1 || T &gt; 10);
+
+        int[] x = new int[T]; // 输入的x
+
+        for (int i = 0; i &lt; T; i++) {
+            do {
+                System.out.printf("请输入第%2d 组的 x(1 &lt;= x &lt;= 100000)：", (i + 1));
+                x[i] = stdIn.nextInt();
+            } while (x[i] &lt; 1 || x[i] &gt; 100000);
+        }
+
+        for (int number : x) {
+            System.out.print((number % 9 == 0) ? "" : (number % 9));
+            for (int i = 0; i &lt; number / 9; i++) {
+                System.out.print(9);
+            }
+            System.out.println();
+        }
+    }
+}
+</code></pre>
+
+<h5 id="思考过程">思考过程</h5>
+
+<p>考试的时候初步想法，输入数据组数 $T$ ，接下来每组的数保存在长度为 $T$ 的整型数组里面。 这只是输入数据的保存，接着就是核心算法部分，思考这个算法要做什么，要寻找什么规律，最终达到题目要求。</p>
+
+<p>我是这样想的，首先实现对于每个 $x$ 可以找到满足条件的 $n$ ，接着再考虑怎么知道这个 $n$ 是最小的，判断的依据是什么？功能实现完善了，再考虑优化时间复杂度或空间复杂度。</p>
+
+<p>初步来看，随着 $x$ 增大，符合条件的 $n$ 将会是一个很大的数，位数肯定超过 Java 支持的数据类型上限，这就是要考虑到的问题。 但可以先从小数入手，先实现在 $x$ 较小的情况下可以运行的程序，接着优化，添加可以处理大数的操作，使得在题目要求的数值范围内可以有效运行。最后才是细化优化。</p>
+
+<p>后来观察了一下这些数字，发现规律很明显，不用很复杂的算法就可以实现了。首先题目要求对于给定的 $x$ 要找到满足 $x \leq S(n)$ 的 $n$ 的最小值，所以最小就是 $x = S(n)$ 的情形。列出一些 $x$ 和 对应的 $n$ 如下：</p>
+
+<blockquote>
+  <p>1	…	8	9	10	11	12	…	28</p>
+
+  <p>1	…	8	9	19	29	39	…	1999</p>
+</blockquote>
+
+<p>发现满足要求的都是最高位是 1~8 其余位数全部是 9 的数字（不然不可能最小）。所以问题就转化成求 $n$ 的最高位是什么，余下位数共有多少个 9 ，即最高位是 $n$ % 9, 余下有 $n$ / 9 个 9。 因为 $x = 10^5$ 的时候，满足条件的 $n$ 长度是 “最高位的 1 ” + “ 后面11111 个 9 ”， 长度达到 11112 位。 因此用打印字符串作为结果输出。时间复杂度$O(n)$。</p>
+
+<h5 id="总结">总结</h5>
+
+<p>这题和轮流取硬币的那题都涉及到余数相关的性质，感觉有趣，平时解题思维锻炼得少，有时候会将简单问题复杂化，要多练习，希望有提高。</p>
+
+<h3 id="最后">最后</h3>
+
+<p>今天应该报名 Oracle 的 Oracle Certified Java Programmer（1Z0 - 808）, 然后预约 2019 年 10 月 25 日上午 9 点的考试。今天开始到 2019 年底，还有 100 天，开始百日刷题计划。</p>
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2019/09/18/bbk-test-review/" data-toggle="tooltip" data-placement="top" title="一次笔试总结">
+                上一篇<br>
+                <span>一次笔试总结</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2019/09/24/minimum-swap-times/" data-toggle="tooltip" data-placement="top" title="男女位置最小交换次数">
+                下一篇<br>
+                <span>男女位置最小交换次数</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/page2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/leimu.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>记录</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading" id="jinrishici-sentence">正在加载古诗词……</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+            
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程10
+        </h2>
+        
+        <h3 class="post-subtitle">
+            用Spring Profiles切换客户端&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年12月16日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-kotlin-rsocket-server/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一节，我们使用Spring Profiles让应用程序决定使用哪个客户端（使用服务端发送事件的 WebClient，或 RSocket）连接到Kotlin Spring Boot股票价格服务。</p>
+
+<p>现在我们有了一个RSocket客户端，可以让我们连接到我们的RSocket服务器，我们想在我们的JavaFX应用程序中使用它。</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程9
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Java RSocket客户端&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <blockquote>
+  <p>原文由 Trisha Gee 在2019年12月13日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-java-rsocket-client/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一节，我们添加一个RSocket客户端，用来连接上一节创建的RSocket服务器。</p>
+
+<p>现在，我们有了一个使用Spring WebClient的端到端应用程序。在上一节中，我们介绍了一个新的RSocket服务器，在这节，我们将看到如何创建一个客户端来连接它</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程8
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Kotlin RSocket服务器&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年12月9日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-kotlin-rsocket-server/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一节，我们将给Kotlin后端添加一个新的服务，这次是通过RSocket，一种为响应式数据流而生的协议，发送价格数据。</p>
+
+<p>目前为止，我们以及成功地创建了一个端到端的应用程序，从Kotlin Spring Boot后端发送价格数据，并且将它们展示到一个JavaFX折线图上。那用的是HTTP的服务器发送事件。 但是，既然我们这个是响应式应用程序，我们可能想要选择一种更加适合流式数据的协议。</p>
+
+<p>在这一步，我们要创建一个通过RSocket协议发送价格数据的服务</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程7
+        </h2>
+        
+        <h3 class="post-subtitle">
+            订阅多个消费者&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年12月2日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-subscribing-multiple-consumers/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一节，我们更新实时更新图表显示多于一种股票价格，也就意味着订阅多于一个消费者到我们的响应式价格数据流。</p>
+
+<p>在上一步，我们让JavaFX折线图订阅到来自响应式Spring Boot的服务，并实时显示它们。在这一步，我们要更新图表，让它能多次订阅并在同一个图表显示多组数据。</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程6
+        </h2>
+        
+        <h3 class="post-subtitle">
+            显示响应式数据&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年11月29日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-displaying-reactive-data/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一节，我们看一下如何连接JavaFX折线图到Kotlin Spring Boot服务以实时显示股票价格数据。</p>
+
+<p>在第四步，我们创建了一个JavaFX Spring Boot应用程序显示一个空的折线图。在上一步（第五步），我们整合了WebClientStockClient去连接到股票价格服务。在这一步我们要让折线图实时显示来自Kotlin Spring Boot服务的股票价格数据。</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程5
+        </h2>
+        
+        <h3 class="post-subtitle">
+            共享Bean的自动装配&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年11月25日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-auto-configuration-for-shared-beans/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>这一节我们看一下如何在一个模块中使用另一个不同的模块中的Spring Beans，通过使用自动装配。</p>
+
+<p>在上一节 ，我们创建了一个JavaFX Spring Boot应用程序显示一个空的折线图。在这篇文章，我们要看一下如何为 Spring Beans设置自动装配，以便我们可以在stock-ui模块里面使用在stock-client定义的Beans。</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程4
+        </h2>
+        
+        <h3 class="post-subtitle">
+            JavaFX折线图&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年11月18日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-a-javafx-line-chart/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一步，我们会看一下如何创建个一JavaFX应用程序显示一个折线图。这个应用程序会用到Spring的特性，类如<a href="https://en.wikipedia.org/wiki/Inversion_of_control">控制反转</a>。</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程3
+        </h2>
+        
+        <h3 class="post-subtitle">
+            JavaFX Spring Boot应用程序&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年11月11日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-a-javafx-spring-boot-application/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>这是第三步，演示如何创建一个 响应式应用程序，使用Spring Boot, Kotlin，Java和JavaFX。</p>
+
+<p>这个第三步演示如何创建一个由Spring Boot启动并管理的JavaFX应用程序，因此我们可以在JavaFX应用程序中使用Spring的特性，例如控制反转。本文也有配套的<a href="https://www.bilibili.com/video/av82672621">视频</a>。</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程2
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Java REST客户端&nbsp;&nbsp;2020年1月7日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年11月4日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-a-rest-client-for-reactive-streams/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>这是第二步，演示如何创建一个 Java 客户端连接到一个发送一系列服务端发送事件的流。我们将使用测试驱动开发来进行开发客户端并进行测试。<a href="https://www.bilibili.com/video/av81233693">视频在 B 站</a></p>
+
+<p>本教程是一系列视频，概述了构建完整的Spring Boot的许多步骤，具有 Kotlin 服务后端，Java 客户端和 JavaFX 用户界面的应用程序。</p>
+
+<p>第二个视频将展示如何创建。一个响应式Spring Java客户端，连接到每秒流式传输股票价格的REST服务。</p>
+
+ <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/06/reactivce-spring-boot-tutorial/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程
+        </h2>
+        
+        <h3 class="post-subtitle">
+            关于这个教程的介绍&nbsp;&nbsp;2020年1月6日
+        </h3>
+        
+    </a>
+        <div class="post-content-preview">
+            <blockquote>
+  <p>这篇文章起源于当时我看的一个 Spring 官方技术大会的演讲，也就是由 Trisha Gee 在 2019 年 10 月的 SpringOne Platform 分享的 <a href="https://youtu.be/Lse51SpfKHo">Fully Reactive: Spring, Kotlin &amp; JavaFX Playing Together</a>。这个演讲整合了 Spring、Kotlin 还有 JavaFX 等技术，感觉挺好玩的。当时就想搬运演讲的视频，并配上中文字幕。不过后来发现作者将内容分成了相对独立的步骤，配上文字版的文章描述和重新录制了精简版视频。因为她觉得这样分开会比较容易学习和吸收，所以我就翻译这些吧。</p>
+
+  <p>原版是在现场演示的，录播视频时长 1:08:28. 现场版就比较生动吧，有血有肉的，有开场白，也开玩笑活跃气氛。现场写代码，有时候出错，展示了调试的思路，与观众有互动。后面重新整理的录屏版就比较言简意赅，也不会有出错和调试的情节，节省读者时间。</p>
+</blockquote>
+ <a href="/2020/01/06/reactivce-spring-boot-tutorial/"><b>阅读更多📰</b></a>
+        </div>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/">&larr; 近期文章</a>
+    </li>
+    
+    
+    <li class="next">
+        <a href="/page3">早期文章 &rarr;</a>
+    </li>
+    
+</ul>
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/" >关于我</a></h5>
+                    <div class="short-about">
+                        
+                            <a href="/about">
+                                <img src="/img/large.png" style="cursor: pointer"/>
+                            </a>
+                        
+                        
+                            <p>堅持信念</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                        <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                            
+                            <li>
+                                <a target="_blank" href="https://space.bilibili.com/86621709">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">B</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            <!-- add jianshu add target = "_blank" to <a> by BY -->
+                            
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a href="https://twitter.com/gdouzwt">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="http://weibo.com/1889654893">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/gdouzwt">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                        
+                            <p>✉️ <a href="mailto:zhao@wen-tao.com">zhao@wen-tao.com</a></p>
+                        
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+
+                <hr>
+
+                <h5>资格认证</h5>
+                <div>
+
+                    <a target="_blank" href="https://www.youracclaim.com/badges/dee74bd5-6ec6-455a-b28b-c125291b7232/">
+                        <img src="/img/badge.png" style="cursor: pointer"/>
+                    </a>
+                    <!-- <div data-iframe-width="263" data-iframe-height="391.86" data-share-badge-id="dee74bd5-6ec6-455a-b28b-c125291b7232"> -->
+                    <!-- </div><script type="text/javascript" async src="//cdn.youracclaim.com/assets/utilities/embed.js"></script> -->
+                    <!-- <iframe name="acclaim-badge" allowtransparency="true" frameborder="0" id="embedded-badge-dee74bd5-6ec6-455a-b28b-c125291b7232" scrolling="no" src="//www.youracclaim.com/embedded_badge/dee74bd5-6ec6-455a-b28b-c125291b7232" style="width: 263px; height: 391.86px;" title="View my verified achievement on Acclaim."></iframe> -->
+                </div>
+    		</div>
+        
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,3681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>标签 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/tags/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/bg-tags.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading" id="tag-heading">
+                    <h1>标签</h1>
+                    <span class="subheading">本站热门主题标签</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- 标签云 -->
+			<div id='tag_cloud' class="tags">
+				
+				<a href="#微积分" title="微积分" rel="2">微积分</a>
+				
+				<a href="#编译器构造" title="编译器构造" rel="1">编译器构造</a>
+				
+				<a href="#测试" title="测试" rel="1">测试</a>
+				
+				<a href="#Java面试" title="Java面试" rel="1">Java面试</a>
+				
+				<a href="#Java" title="Java" rel="26">Java</a>
+				
+				<a href="#数据结构与算法" title="数据结构与算法" rel="1">数据结构与算法</a>
+				
+				<a href="#简历参考" title="简历参考" rel="1">简历参考</a>
+				
+				<a href="#数据结构" title="数据结构" rel="1">数据结构</a>
+				
+				<a href="#笔试面试" title="笔试面试" rel="6">笔试面试</a>
+				
+				<a href="#OCA" title="OCA" rel="7">OCA</a>
+				
+				<a href="#Redis" title="Redis" rel="1">Redis</a>
+				
+				<a href="#MyBatis" title="MyBatis" rel="1">MyBatis</a>
+				
+				<a href="#数据库" title="数据库" rel="1">数据库</a>
+				
+				<a href="#面试笔试" title="面试笔试" rel="1">面试笔试</a>
+				
+				<a href="#Errata" title="Errata" rel="1">Errata</a>
+				
+				<a href="#Algorithms" title="Algorithms" rel="1">Algorithms</a>
+				
+				<a href="#Misc" title="Misc" rel="1">Misc</a>
+				
+				<a href="#笔试" title="笔试" rel="2">笔试</a>
+				
+				<a href="#OCP" title="OCP" rel="3">OCP</a>
+				
+				<a href="#Kotlin" title="Kotlin" rel="4">Kotlin</a>
+				
+				<a href="#Tutorial" title="Tutorial" rel="6">Tutorial</a>
+				
+				<a href="#Spring Boot" title="Spring Boot" rel="13">Spring Boot</a>
+				
+				<a href="#Reactive" title="Reactive" rel="10">Reactive</a>
+				
+				<a href="#教程" title="教程" rel="5">教程</a>
+				
+				<a href="#翻译" title="翻译" rel="4">翻译</a>
+				
+				<a href="#Maven" title="Maven" rel="1">Maven</a>
+				
+				<a href="#Inheritance" title="Inheritance" rel="1">Inheritance</a>
+				
+				<a href="#Generics" title="Generics" rel="1">Generics</a>
+				
+				<a href="#Lambda" title="Lambda" rel="1">Lambda</a>
+				
+				<a href="#Multithreading" title="Multithreading" rel="1">Multithreading</a>
+				
+				<a href="#JDK 14" title="JDK 14" rel="1">JDK 14</a>
+				
+				<a href="#Spring Cloud" title="Spring Cloud" rel="1">Spring Cloud</a>
+				
+				<a href="#Java 11" title="Java 11" rel="2">Java 11</a>
+				
+				<a href="#Effective Java" title="Effective Java" rel="1">Effective Java</a>
+				
+				<a href="#Best Practices" title="Best Practices" rel="1">Best Practices</a>
+				
+				<a href="#Reactive Programming" title="Reactive Programming" rel="2">Reactive Programming</a>
+				
+				<a href="#响应式编程" title="响应式编程" rel="2">响应式编程</a>
+				
+				<a href="#Spring WebFlux" title="Spring WebFlux" rel="2">Spring WebFlux</a>
+				
+				<a href="#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">Spring Cloud Gateway</a>
+				
+				<a href="#RSocket" title="RSocket" rel="4">RSocket</a>
+				
+				<a href="#R2DBC" title="R2DBC" rel="2">R2DBC</a>
+				
+				<a href="#JHipster" title="JHipster" rel="1">JHipster</a>
+				
+				<a href="#Android" title="Android" rel="1">Android</a>
+				
+				<a href="#Calculus" title="Calculus" rel="3">Calculus</a>
+				
+				<a href="#Music" title="Music" rel="1">Music</a>
+				
+				<a href="#JavaFX" title="JavaFX" rel="7">JavaFX</a>
+				
+				<a href="#模式" title="模式" rel="1">模式</a>
+				
+				<a href="#微服务" title="微服务" rel="1">微服务</a>
+				
+				<a href="#Thread" title="Thread" rel="1">Thread</a>
+				
+				<a href="#Messaging" title="Messaging" rel="1">Messaging</a>
+				
+				<a href="#Notes" title="Notes" rel="1">Notes</a>
+				
+				<a href="#Design Pattern" title="Design Pattern" rel="1">Design Pattern</a>
+				
+				<a href="#设计模式" title="设计模式" rel="1">设计模式</a>
+				
+			</div>
+
+            <!--<blockquote class="tag-comments">
+                标签命名规范：
+                    <li>行业观察、职位、公司优先使用中文</li>
+                    <li>外国产品、术语优先使用英文</li>
+            </blockquote>-->
+
+            <!-- 标签列表 -->
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="微积分">
+                    <span class="tag-text">微积分</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-06-26">2019-06-26</time>
+				  <a href="/2019/06/26/log-notation/" title="不同领域的对数记法差异">不同领域的对数记法差异</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/06/26/log-notation/">
+				        <h2 class="post-title">
+                            不同领域的对数记法差异
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Log notation in various contexts
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-06-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-06-21">2019-06-21</time>
+				  <a href="/2019/06/21/the-calculus-lifesaver/" title="普林斯顿微积分读本">普林斯顿微积分读本</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/06/21/the-calculus-lifesaver/">
+				        <h2 class="post-title">
+                            普林斯顿微积分读本
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            微积分救生圈
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-06-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="编译器构造">
+                    <span class="tag-text">编译器构造</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-07-10">2019-07-10</time>
+				  <a href="/2019/07/10/compilation/" title="编译器构造—编译">编译器构造—编译</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/07/10/compilation/">
+				        <h2 class="post-title">
+                            编译器构造—编译
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            第一章
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-07-10</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="测试">
+                    <span class="tag-text">测试</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-04">2019-09-04</time>
+				  <a href="/2019/09/04/date-format/" title="日期格式">日期格式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/04/date-format/">
+				        <h2 class="post-title">
+                            日期格式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            测试
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-04</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Java面试">
+                    <span class="tag-text">Java面试</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-05">2019-09-05</time>
+				  <a href="/2019/09/05/java-interview-1/" title="Java经典面试题">Java经典面试题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/05/java-interview-1/">
+				        <h2 class="post-title">
+                            Java经典面试题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            基础篇
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-05</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Java">
+                    <span class="tag-text">Java</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-02-04">2020-02-04</time>
+				  <a href="/2020/02/04/inner-class/" title="Java 内部类">Java 内部类</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/02/04/inner-class/">
+				        <h2 class="post-title">
+                            Java 内部类
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Inner Class
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-02-04</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-30">2020-01-30</time>
+				  <a href="/2020/01/30/java-thread-communication/" title="Java线程间通信">Java线程间通信</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/30/java-thread-communication/">
+				        <h2 class="post-title">
+                            Java线程间通信
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            生产者与消费者例子
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-25">2020-01-25</time>
+				  <a href="/2020/01/25/java-streams-vs-reative-streams/" title="Java Streams vs. Reactive Streams">Java Streams vs. Reactive Streams</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/25/java-streams-vs-reative-streams/">
+				        <h2 class="post-title">
+                            Java Streams vs. Reactive Streams
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Which, When, How, and Why? 学习记录
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-25</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-24">2020-01-24</time>
+				  <a href="/2020/01/24/java-virtual-method-invocation/" title="Java虚方法调用">Java虚方法调用</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/24/java-virtual-method-invocation/">
+				        <h2 class="post-title">
+                            Java虚方法调用
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Java virtual method invocation
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-24</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-15">2019-11-15</time>
+				  <a href="/2019/11/15/concurrency/" title="Java 并发">Java 并发</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/15/concurrency/">
+				        <h2 class="post-title">
+                            Java 并发
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            基础内容
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-11">2019-11-11</time>
+				  <a href="/2019/11/11/deepexi-exam/" title="Java 中级试题">Java 中级试题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/11/deepexi-exam/">
+				        <h2 class="post-title">
+                            Java 中级试题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            记录过程
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-11</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-11">2019-11-11</time>
+				  <a href="/2019/11/11/jpackage-early-access/" title="JDK 的 jpackage 早期预览版">JDK 的 jpackage 早期预览版</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/11/jpackage-early-access/">
+				        <h2 class="post-title">
+                            JDK 的 jpackage 早期预览版
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Java 应用新的打包方式
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-11</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-07">2019-11-07</time>
+				  <a href="/2019/11/07/java-multithreading/" title="Java 多线程编程">Java 多线程编程</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/07/java-multithreading/">
+				        <h2 class="post-title">
+                            Java 多线程编程
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            回顾 Java 多线程编程的基础知识
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-06">2019-11-06</time>
+				  <a href="/2019/11/06/java-lambda-revisited/" title="Java Lambda 表达式">Java Lambda 表达式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/06/java-lambda-revisited/">
+				        <h2 class="post-title">
+                            Java Lambda 表达式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            深入理解 Lambda
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-04">2019-11-04</time>
+				  <a href="/2019/11/04/java-generic-revisited/" title="Java 泛型回顾">Java 泛型回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/04/java-generic-revisited/">
+				        <h2 class="post-title">
+                            Java 泛型回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            深入理解泛型
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-04</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-02">2019-11-02</time>
+				  <a href="/2019/11/02/java-protected-access-modifier-revisited/" title="回顾 protected 访问修饰符">回顾 protected 访问修饰符</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/02/java-protected-access-modifier-revisited/">
+				        <h2 class="post-title">
+                            回顾 protected 访问修饰符
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            重读一下 OCA Guide 访问控制符内容
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-31">2019-10-31</time>
+				  <a href="/2019/10/31/maven-basics-review/" title="回顾 Maven 的一些基本操作">回顾 Maven 的一些基本操作</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/31/maven-basics-review/">
+				        <h2 class="post-title">
+                            回顾 Maven 的一些基本操作
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            记录一下方便以后查看
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-31</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-30">2019-10-30</time>
+				  <a href="/2019/10/30/ocp-review-topics/" title="OCP 考试大纲">OCP 考试大纲</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/30/ocp-review-topics/">
+				        <h2 class="post-title">
+                            OCP 考试大纲
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            1Z0-809 官方考点
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-25">2019-10-25</time>
+				  <a href="/2019/10/25/oca-exam-prep-review/" title="OCA 回顾与评价">OCA 回顾与评价</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/25/oca-exam-prep-review/">
+				        <h2 class="post-title">
+                            OCA 回顾与评价
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            备考参考书籍、软件，还有考试体验
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-25</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-23">2019-10-23</time>
+				  <a href="/2019/10/23/ets-test2-review/" title="ETS Test 2 回顾">ETS Test 2 回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/23/ets-test2-review/">
+				        <h2 class="post-title">
+                            ETS Test 2 回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Test 2 76% (53/70) 正确率通过
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-23</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-22">2019-10-22</time>
+				  <a href="/2019/10/22/oca-study-guide-test-review/" title="OCA Study Guide 练习回顾">OCA Study Guide 练习回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/22/oca-study-guide-test-review/">
+				        <h2 class="post-title">
+                            OCA Study Guide 练习回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            全部章节的错题
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-22</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-17">2019-10-17</time>
+				  <a href="/2019/10/17/TT-test-review/" title="打印 99 乘法表">打印 99 乘法表</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/17/TT-test-review/">
+				        <h2 class="post-title">
+                            打印 99 乘法表
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            笔试编程题
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-14">2019-10-14</time>
+				  <a href="/2019/10/14/do1-cloud-test-review/" title="相反顺序输出一个整数">相反顺序输出一个整数</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/14/do1-cloud-test-review/">
+				        <h2 class="post-title">
+                            相反顺序输出一个整数
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            笔试编程题
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-14</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-13">2019-10-13</time>
+				  <a href="/2019/10/13/oca-guide-intro-test-review/" title="OCA 自测回顾">OCA 自测回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/13/oca-guide-intro-test-review/">
+				        <h2 class="post-title">
+                            OCA 自测回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Assessment Test
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-13</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-13">2019-10-13</time>
+				  <a href="/2019/10/13/get-int-array-from-console-input/" title="控制台输入数组">控制台输入数组</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/13/get-int-array-from-console-input/">
+				        <h2 class="post-title">
+                            控制台输入数组
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            编程题数据输入方式
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-13</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-12">2019-10-12</time>
+				  <a href="/2019/10/12/sorting-algorithms/" title="常见排序算法">常见排序算法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/12/sorting-algorithms/">
+				        <h2 class="post-title">
+                            常见排序算法
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            要掌握基本排序算法的实现
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-12">2019-10-12</time>
+				  <a href="/2019/10/12/errata/" title="OCA Study Guide Errata">OCA Study Guide Errata</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/12/errata/">
+				        <h2 class="post-title">
+                            OCA Study Guide Errata
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            OCA 学习指南的勘误
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-07">2019-10-07</time>
+				  <a href="/2019/10/07/ets-foundation-test-review/" title="EST 基础测试回顾">EST 基础测试回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/07/ets-foundation-test-review/">
+				        <h2 class="post-title">
+                            EST 基础测试回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            整理错题，查漏补缺
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-29">2019-09-29</time>
+				  <a href="/2019/09/29/core-java-interview-cracking/" title="Java核心技术及面试指南读书记录">Java核心技术及面试指南读书记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/29/core-java-interview-cracking/">
+				        <h2 class="post-title">
+                            Java核心技术及面试指南读书记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            学习笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-29</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-11">2019-09-11</time>
+				  <a href="/2019/09/11/java-static-netsted-class/" title="Java静态嵌套类">Java静态嵌套类</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/11/java-static-netsted-class/">
+				        <h2 class="post-title">
+                            Java静态嵌套类
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            面试常见问题
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-11</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-05">2019-09-05</time>
+				  <a href="/2019/09/05/java-is-pass-by-value/" title="Java是值传递">Java是值传递</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/05/java-is-pass-by-value/">
+				        <h2 class="post-title">
+                            Java是值传递
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            搞清楚Java是值传递还是引用传递
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-05</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="数据结构与算法">
+                    <span class="tag-text">数据结构与算法</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-10">2019-09-10</time>
+				  <a href="/2019/09/10/bubble-sort-revisited/" title="再回顾冒泡排序">再回顾冒泡排序</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/10/bubble-sort-revisited/">
+				        <h2 class="post-title">
+                            再回顾冒泡排序
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            讨论一下可以优化的情况
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-10</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="简历参考">
+                    <span class="tag-text">简历参考</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-14">2019-09-14</time>
+				  <a href="/2019/09/14/what-I-had-done/" title="作品链接">作品链接</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/14/what-I-had-done/">
+				        <h2 class="post-title">
+                            作品链接
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            我做过什么？
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-14</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="数据结构">
+                    <span class="tag-text">数据结构</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-17">2019-09-17</time>
+				  <a href="/2019/09/17/data-structure-001/" title="数据结构001">数据结构001</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/17/data-structure-001/">
+				        <h2 class="post-title">
+                            数据结构001
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            复习
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-17</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="笔试面试">
+                    <span class="tag-text">笔试面试</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-26">2019-09-26</time>
+				  <a href="/2019/09/26/exam-review/" title="笔试题目回顾">笔试题目回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/26/exam-review/">
+				        <h2 class="post-title">
+                            笔试题目回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            做过的题目值得总结下
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-25">2019-09-25</time>
+				  <a href="/2019/09/25/spring-keywords/" title="Spring及其周边关键词">Spring及其周边关键词</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/25/spring-keywords/">
+				        <h2 class="post-title">
+                            Spring及其周边关键词
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            作为知识串联复习的线索
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-25</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-25">2019-09-25</time>
+				  <a href="/2019/09/25/exercise/" title="在数组中找到众数">在数组中找到众数</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/25/exercise/">
+				        <h2 class="post-title">
+                            在数组中找到众数
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            在群里面别人发的题目
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-25</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-24">2019-09-24</time>
+				  <a href="/2019/09/24/minimum-swap-times/" title="男女位置最小交换次数">男女位置最小交换次数</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/24/minimum-swap-times/">
+				        <h2 class="post-title">
+                            男女位置最小交换次数
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            不要将简单问题想得太复杂
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-24</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-21">2019-09-21</time>
+				  <a href="/2019/09/21/exciting-interview/" title="一次刺激的面试和笔试">一次刺激的面试和笔试</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/21/exciting-interview/">
+				        <h2 class="post-title">
+                            一次刺激的面试和笔试
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            继续总结经验教训
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-21</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-18">2019-09-18</time>
+				  <a href="/2019/09/18/bbk-test-review/" title="一次笔试总结">一次笔试总结</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/18/bbk-test-review/">
+				        <h2 class="post-title">
+                            一次笔试总结
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            多总结经验教训
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-18</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="OCA">
+                    <span class="tag-text">OCA</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-25">2019-10-25</time>
+				  <a href="/2019/10/25/oca-exam-prep-review/" title="OCA 回顾与评价">OCA 回顾与评价</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/25/oca-exam-prep-review/">
+				        <h2 class="post-title">
+                            OCA 回顾与评价
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            备考参考书籍、软件，还有考试体验
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-25</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-23">2019-10-23</time>
+				  <a href="/2019/10/23/ets-test2-review/" title="ETS Test 2 回顾">ETS Test 2 回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/23/ets-test2-review/">
+				        <h2 class="post-title">
+                            ETS Test 2 回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Test 2 76% (53/70) 正确率通过
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-23</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-22">2019-10-22</time>
+				  <a href="/2019/10/22/oca-study-guide-test-review/" title="OCA Study Guide 练习回顾">OCA Study Guide 练习回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/22/oca-study-guide-test-review/">
+				        <h2 class="post-title">
+                            OCA Study Guide 练习回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            全部章节的错题
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-22</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-13">2019-10-13</time>
+				  <a href="/2019/10/13/oca-guide-intro-test-review/" title="OCA 自测回顾">OCA 自测回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/13/oca-guide-intro-test-review/">
+				        <h2 class="post-title">
+                            OCA 自测回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Assessment Test
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-13</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-12">2019-10-12</time>
+				  <a href="/2019/10/12/errata/" title="OCA Study Guide Errata">OCA Study Guide Errata</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/12/errata/">
+				        <h2 class="post-title">
+                            OCA Study Guide Errata
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            OCA 学习指南的勘误
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-07">2019-10-07</time>
+				  <a href="/2019/10/07/ets-foundation-test-review/" title="EST 基础测试回顾">EST 基础测试回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/07/ets-foundation-test-review/">
+				        <h2 class="post-title">
+                            EST 基础测试回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            整理错题，查漏补缺
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-25">2019-09-25</time>
+				  <a href="/2019/09/25/thoughts-on-oca/" title="关于OCA的一些想法">关于OCA的一些想法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/25/thoughts-on-oca/">
+				        <h2 class="post-title">
+                            关于OCA的一些想法
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            为什么要考OCA
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-25</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Redis">
+                    <span class="tag-text">Redis</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-27">2019-09-27</time>
+				  <a href="/2019/09/27/redis-basics/" title="学习Redis基础知识">学习Redis基础知识</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/27/redis-basics/">
+				        <h2 class="post-title">
+                            学习Redis基础知识
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            肯定会用到Redis的，至少要理解最基础的命令
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-27</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="MyBatis">
+                    <span class="tag-text">MyBatis</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-28">2019-09-28</time>
+				  <a href="/2019/09/28/mybatis-intro/" title="学习MyBatis基础知识">学习MyBatis基础知识</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/28/mybatis-intro/">
+				        <h2 class="post-title">
+                            学习MyBatis基础知识
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            学习笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-28</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="数据库">
+                    <span class="tag-text">数据库</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-28">2019-09-28</time>
+				  <a href="/2019/09/28/mybatis-intro/" title="学习MyBatis基础知识">学习MyBatis基础知识</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/28/mybatis-intro/">
+				        <h2 class="post-title">
+                            学习MyBatis基础知识
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            学习笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-28</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="面试笔试">
+                    <span class="tag-text">面试笔试</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-09-29">2019-09-29</time>
+				  <a href="/2019/09/29/core-java-interview-cracking/" title="Java核心技术及面试指南读书记录">Java核心技术及面试指南读书记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/09/29/core-java-interview-cracking/">
+				        <h2 class="post-title">
+                            Java核心技术及面试指南读书记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            学习笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-09-29</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Errata">
+                    <span class="tag-text">Errata</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-12">2019-10-12</time>
+				  <a href="/2019/10/12/errata/" title="OCA Study Guide Errata">OCA Study Guide Errata</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/12/errata/">
+				        <h2 class="post-title">
+                            OCA Study Guide Errata
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            OCA 学习指南的勘误
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-12</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Algorithms">
+                    <span class="tag-text">Algorithms</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-12">2019-10-12</time>
+				  <a href="/2019/10/12/sorting-algorithms/" title="常见排序算法">常见排序算法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/12/sorting-algorithms/">
+				        <h2 class="post-title">
+                            常见排序算法
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            要掌握基本排序算法的实现
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-12</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Misc">
+                    <span class="tag-text">Misc</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-13">2019-10-13</time>
+				  <a href="/2019/10/13/get-int-array-from-console-input/" title="控制台输入数组">控制台输入数组</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/13/get-int-array-from-console-input/">
+				        <h2 class="post-title">
+                            控制台输入数组
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            编程题数据输入方式
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-13</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="笔试">
+                    <span class="tag-text">笔试</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-17">2019-10-17</time>
+				  <a href="/2019/10/17/TT-test-review/" title="打印 99 乘法表">打印 99 乘法表</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/17/TT-test-review/">
+				        <h2 class="post-title">
+                            打印 99 乘法表
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            笔试编程题
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-14">2019-10-14</time>
+				  <a href="/2019/10/14/do1-cloud-test-review/" title="相反顺序输出一个整数">相反顺序输出一个整数</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/14/do1-cloud-test-review/">
+				        <h2 class="post-title">
+                            相反顺序输出一个整数
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            笔试编程题
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-14</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="OCP">
+                    <span class="tag-text">OCP</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-15">2019-11-15</time>
+				  <a href="/2019/11/15/concurrency/" title="Java 并发">Java 并发</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/15/concurrency/">
+				        <h2 class="post-title">
+                            Java 并发
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            基础内容
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-14">2019-11-14</time>
+				  <a href="/2019/11/14/upgrade-ocp-java-8-to-java-se-11-exam-review-topics/" title="升级到 Java SE 11 开发者考试大纲">升级到 Java SE 11 开发者考试大纲</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/14/upgrade-ocp-java-8-to-java-se-11-exam-review-topics/">
+				        <h2 class="post-title">
+                            升级到 Java SE 11 开发者考试大纲
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            考点准备
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-14</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-30">2019-10-30</time>
+				  <a href="/2019/10/30/ocp-review-topics/" title="OCP 考试大纲">OCP 考试大纲</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/30/ocp-review-topics/">
+				        <h2 class="post-title">
+                            OCP 考试大纲
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            1Z0-809 官方考点
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-30</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Kotlin">
+                    <span class="tag-text">Kotlin</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/" title="响应式Spring Boot系列教程8">响应式Spring Boot系列教程8</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程8
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Kotlin RSocket服务器
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-03">2019-12-03</time>
+				  <a href="/2019/12/03/reactive-evolution-part2/" title="响应式变革 Reactive Evolution 第 2 部分">响应式变革 Reactive Evolution 第 2 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/03/reactive-evolution-part2/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 2 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-21">2019-11-21</time>
+				  <a href="/2019/11/21/reactive-evolution-part1/" title="响应式变革 Reactive Evolution 第 1 部分">响应式变革 Reactive Evolution 第 1 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/21/reactive-evolution-part1/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 1 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-21</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-31">2019-10-31</time>
+				  <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/" title="响应式Spring Boot系列教程1">响应式Spring Boot系列教程1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Kotlin REST服务端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-31</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Tutorial">
+                    <span class="tag-text">Tutorial</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/" title="响应式Spring Boot系列教程7">响应式Spring Boot系列教程7</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程7
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            订阅多个消费者
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/" title="响应式Spring Boot系列教程6">响应式Spring Boot系列教程6</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程6
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            显示响应式数据
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/" title="响应式Spring Boot系列教程5">响应式Spring Boot系列教程5</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程5
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            共享Bean的自动装配
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/" title="响应式Spring Boot系列教程4">响应式Spring Boot系列教程4</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程4
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX折线图
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/" title="响应式Spring Boot系列教程3">响应式Spring Boot系列教程3</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程3
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX Spring Boot应用程序
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-31">2019-10-31</time>
+				  <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/" title="响应式Spring Boot系列教程1">响应式Spring Boot系列教程1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Kotlin REST服务端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-31</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Spring Boot">
+                    <span class="tag-text">Spring Boot</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-02-01">2020-02-01</time>
+				  <a href="/2020/02/01/spring-classes/" title="Spring Boot的类">Spring Boot的类</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/02/01/spring-classes/">
+				        <h2 class="post-title">
+                            Spring Boot的类
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            学习笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-02-01</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-02-01">2020-02-01</time>
+				  <a href="/2020/02/01/spring-boot-messaging/" title="Spring Boot 消息">Spring Boot 消息</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/02/01/spring-boot-messaging/">
+				        <h2 class="post-title">
+                            Spring Boot 消息
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Messaging简单笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-02-01</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/" title="响应式Spring Boot系列教程10">响应式Spring Boot系列教程10</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程10
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            用Spring Profiles切换客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/" title="响应式Spring Boot系列教程9">响应式Spring Boot系列教程9</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程9
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Java RSocket客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/" title="响应式Spring Boot系列教程8">响应式Spring Boot系列教程8</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程8
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Kotlin RSocket服务器
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/" title="响应式Spring Boot系列教程7">响应式Spring Boot系列教程7</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程7
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            订阅多个消费者
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/" title="响应式Spring Boot系列教程6">响应式Spring Boot系列教程6</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程6
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            显示响应式数据
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/" title="响应式Spring Boot系列教程5">响应式Spring Boot系列教程5</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程5
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            共享Bean的自动装配
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/" title="响应式Spring Boot系列教程4">响应式Spring Boot系列教程4</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程4
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX折线图
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/" title="响应式Spring Boot系列教程3">响应式Spring Boot系列教程3</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程3
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX Spring Boot应用程序
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-07">2020-01-07</time>
+				  <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/" title="响应式Spring Boot系列教程2">响应式Spring Boot系列教程2</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程2
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Java REST客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-06">2020-01-06</time>
+				  <a href="/2020/01/06/reactivce-spring-boot-tutorial/" title="响应式Spring Boot系列教程">响应式Spring Boot系列教程</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/06/reactivce-spring-boot-tutorial/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            关于这个教程的介绍
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-31">2019-10-31</time>
+				  <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/" title="响应式Spring Boot系列教程1">响应式Spring Boot系列教程1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Kotlin REST服务端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-31</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Reactive">
+                    <span class="tag-text">Reactive</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/" title="响应式Spring Boot系列教程10">响应式Spring Boot系列教程10</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程10
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            用Spring Profiles切换客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/" title="响应式Spring Boot系列教程8">响应式Spring Boot系列教程8</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程8
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Kotlin RSocket服务器
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/" title="响应式Spring Boot系列教程7">响应式Spring Boot系列教程7</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程7
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            订阅多个消费者
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/" title="响应式Spring Boot系列教程6">响应式Spring Boot系列教程6</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程6
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            显示响应式数据
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/" title="响应式Spring Boot系列教程5">响应式Spring Boot系列教程5</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程5
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            共享Bean的自动装配
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/" title="响应式Spring Boot系列教程4">响应式Spring Boot系列教程4</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程4
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX折线图
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/" title="响应式Spring Boot系列教程3">响应式Spring Boot系列教程3</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程3
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX Spring Boot应用程序
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-07">2020-01-07</time>
+				  <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/" title="响应式Spring Boot系列教程2">响应式Spring Boot系列教程2</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程2
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Java REST客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-06">2020-01-06</time>
+				  <a href="/2020/01/06/reactivce-spring-boot-tutorial/" title="响应式Spring Boot系列教程">响应式Spring Boot系列教程</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/06/reactivce-spring-boot-tutorial/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            关于这个教程的介绍
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-31">2019-10-31</time>
+				  <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/" title="响应式Spring Boot系列教程1">响应式Spring Boot系列教程1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Kotlin REST服务端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-31</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="教程">
+                    <span class="tag-text">教程</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/" title="响应式Spring Boot系列教程10">响应式Spring Boot系列教程10</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程10
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            用Spring Profiles切换客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/" title="响应式Spring Boot系列教程4">响应式Spring Boot系列教程4</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程4
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX折线图
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/" title="响应式Spring Boot系列教程3">响应式Spring Boot系列教程3</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程3
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX Spring Boot应用程序
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-07">2020-01-07</time>
+				  <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/" title="响应式Spring Boot系列教程2">响应式Spring Boot系列教程2</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程2
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Java REST客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-31">2019-10-31</time>
+				  <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/" title="响应式Spring Boot系列教程1">响应式Spring Boot系列教程1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Kotlin REST服务端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-31</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="翻译">
+                    <span class="tag-text">翻译</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/" title="响应式Spring Boot系列教程4">响应式Spring Boot系列教程4</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程4
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX折线图
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/" title="响应式Spring Boot系列教程3">响应式Spring Boot系列教程3</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程3
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX Spring Boot应用程序
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-07">2020-01-07</time>
+				  <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/" title="响应式Spring Boot系列教程2">响应式Spring Boot系列教程2</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程2
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Java REST客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-31">2019-10-31</time>
+				  <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/" title="响应式Spring Boot系列教程1">响应式Spring Boot系列教程1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Kotlin REST服务端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-31</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Maven">
+                    <span class="tag-text">Maven</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-10-31">2019-10-31</time>
+				  <a href="/2019/10/31/maven-basics-review/" title="回顾 Maven 的一些基本操作">回顾 Maven 的一些基本操作</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/10/31/maven-basics-review/">
+				        <h2 class="post-title">
+                            回顾 Maven 的一些基本操作
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            记录一下方便以后查看
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-10-31</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Inheritance">
+                    <span class="tag-text">Inheritance</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-02">2019-11-02</time>
+				  <a href="/2019/11/02/java-protected-access-modifier-revisited/" title="回顾 protected 访问修饰符">回顾 protected 访问修饰符</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/02/java-protected-access-modifier-revisited/">
+				        <h2 class="post-title">
+                            回顾 protected 访问修饰符
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            重读一下 OCA Guide 访问控制符内容
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-02</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Generics">
+                    <span class="tag-text">Generics</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-04">2019-11-04</time>
+				  <a href="/2019/11/04/java-generic-revisited/" title="Java 泛型回顾">Java 泛型回顾</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/04/java-generic-revisited/">
+				        <h2 class="post-title">
+                            Java 泛型回顾
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            深入理解泛型
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-04</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Lambda">
+                    <span class="tag-text">Lambda</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-06">2019-11-06</time>
+				  <a href="/2019/11/06/java-lambda-revisited/" title="Java Lambda 表达式">Java Lambda 表达式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/06/java-lambda-revisited/">
+				        <h2 class="post-title">
+                            Java Lambda 表达式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            深入理解 Lambda
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-06</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Multithreading">
+                    <span class="tag-text">Multithreading</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-07">2019-11-07</time>
+				  <a href="/2019/11/07/java-multithreading/" title="Java 多线程编程">Java 多线程编程</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/07/java-multithreading/">
+				        <h2 class="post-title">
+                            Java 多线程编程
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            回顾 Java 多线程编程的基础知识
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-07</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="JDK 14">
+                    <span class="tag-text">JDK 14</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-11">2019-11-11</time>
+				  <a href="/2019/11/11/jpackage-early-access/" title="JDK 的 jpackage 早期预览版">JDK 的 jpackage 早期预览版</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/11/jpackage-early-access/">
+				        <h2 class="post-title">
+                            JDK 的 jpackage 早期预览版
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Java 应用新的打包方式
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-11</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Spring Cloud">
+                    <span class="tag-text">Spring Cloud</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-11">2019-11-11</time>
+				  <a href="/2019/11/11/deepexi-exam/" title="Java 中级试题">Java 中级试题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/11/deepexi-exam/">
+				        <h2 class="post-title">
+                            Java 中级试题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            记录过程
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-11</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Java 11">
+                    <span class="tag-text">Java 11</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-22">2020-01-22</time>
+				  <a href="/2020/01/22/java-modules/" title="Java模块化">Java模块化</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/22/java-modules/">
+				        <h2 class="post-title">
+                            Java模块化
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            学习Java 11模块化特性
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-22</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-14">2019-11-14</time>
+				  <a href="/2019/11/14/upgrade-ocp-java-8-to-java-se-11-exam-review-topics/" title="升级到 Java SE 11 开发者考试大纲">升级到 Java SE 11 开发者考试大纲</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/14/upgrade-ocp-java-8-to-java-se-11-exam-review-topics/">
+				        <h2 class="post-title">
+                            升级到 Java SE 11 开发者考试大纲
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            考点准备
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-14</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Effective Java">
+                    <span class="tag-text">Effective Java</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-17">2019-11-17</time>
+				  <a href="/2019/11/17/effective-java-item1-notes/" title="Effective Java 条款1">Effective Java 条款1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/17/effective-java-item1-notes/">
+				        <h2 class="post-title">
+                            Effective Java 条款1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            读书笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-17</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Best Practices">
+                    <span class="tag-text">Best Practices</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-17">2019-11-17</time>
+				  <a href="/2019/11/17/effective-java-item1-notes/" title="Effective Java 条款1">Effective Java 条款1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/17/effective-java-item1-notes/">
+				        <h2 class="post-title">
+                            Effective Java 条款1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            读书笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-17</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Reactive Programming">
+                    <span class="tag-text">Reactive Programming</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-03">2019-12-03</time>
+				  <a href="/2019/12/03/reactive-evolution-part2/" title="响应式变革 Reactive Evolution 第 2 部分">响应式变革 Reactive Evolution 第 2 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/03/reactive-evolution-part2/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 2 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-21">2019-11-21</time>
+				  <a href="/2019/11/21/reactive-evolution-part1/" title="响应式变革 Reactive Evolution 第 1 部分">响应式变革 Reactive Evolution 第 1 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/21/reactive-evolution-part1/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 1 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="响应式编程">
+                    <span class="tag-text">响应式编程</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-03">2019-12-03</time>
+				  <a href="/2019/12/03/reactive-evolution-part2/" title="响应式变革 Reactive Evolution 第 2 部分">响应式变革 Reactive Evolution 第 2 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/03/reactive-evolution-part2/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 2 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-21">2019-11-21</time>
+				  <a href="/2019/11/21/reactive-evolution-part1/" title="响应式变革 Reactive Evolution 第 1 部分">响应式变革 Reactive Evolution 第 1 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/21/reactive-evolution-part1/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 1 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Spring WebFlux">
+                    <span class="tag-text">Spring WebFlux</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-03">2019-12-03</time>
+				  <a href="/2019/12/03/reactive-evolution-part2/" title="响应式变革 Reactive Evolution 第 2 部分">响应式变革 Reactive Evolution 第 2 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/03/reactive-evolution-part2/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 2 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-21">2019-11-21</time>
+				  <a href="/2019/11/21/reactive-evolution-part1/" title="响应式变革 Reactive Evolution 第 1 部分">响应式变革 Reactive Evolution 第 1 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/21/reactive-evolution-part1/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 1 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Spring Cloud Gateway">
+                    <span class="tag-text">Spring Cloud Gateway</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-03">2019-12-03</time>
+				  <a href="/2019/12/03/reactive-evolution-part2/" title="响应式变革 Reactive Evolution 第 2 部分">响应式变革 Reactive Evolution 第 2 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/03/reactive-evolution-part2/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 2 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-21">2019-11-21</time>
+				  <a href="/2019/11/21/reactive-evolution-part1/" title="响应式变革 Reactive Evolution 第 1 部分">响应式变革 Reactive Evolution 第 1 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/21/reactive-evolution-part1/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 1 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="RSocket">
+                    <span class="tag-text">RSocket</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/" title="响应式Spring Boot系列教程9">响应式Spring Boot系列教程9</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程9
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Java RSocket客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/" title="响应式Spring Boot系列教程8">响应式Spring Boot系列教程8</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程8
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Kotlin RSocket服务器
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-03">2019-12-03</time>
+				  <a href="/2019/12/03/reactive-evolution-part2/" title="响应式变革 Reactive Evolution 第 2 部分">响应式变革 Reactive Evolution 第 2 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/03/reactive-evolution-part2/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 2 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-21">2019-11-21</time>
+				  <a href="/2019/11/21/reactive-evolution-part1/" title="响应式变革 Reactive Evolution 第 1 部分">响应式变革 Reactive Evolution 第 1 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/21/reactive-evolution-part1/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 1 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="R2DBC">
+                    <span class="tag-text">R2DBC</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-03">2019-12-03</time>
+				  <a href="/2019/12/03/reactive-evolution-part2/" title="响应式变革 Reactive Evolution 第 2 部分">响应式变革 Reactive Evolution 第 2 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/03/reactive-evolution-part2/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 2 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-21">2019-11-21</time>
+				  <a href="/2019/11/21/reactive-evolution-part1/" title="响应式变革 Reactive Evolution 第 1 部分">响应式变革 Reactive Evolution 第 1 部分</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/21/reactive-evolution-part1/">
+				        <h2 class="post-title">
+                            响应式变革 Reactive Evolution 第 1 部分
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="JHipster">
+                    <span class="tag-text">JHipster</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-11-21">2019-11-21</time>
+				  <a href="/2019/11/21/jhipster-registry-notes/" title="JHipster Registry 使用过程">JHipster Registry 使用过程</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/11/21/jhipster-registry-notes/">
+				        <h2 class="post-title">
+                            JHipster Registry 使用过程
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JHipster 搭微服务
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-11-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Android">
+                    <span class="tag-text">Android</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-16">2019-12-16</time>
+				  <a href="/2019/12/16/cracking-android-device/" title="刷机过程记录">刷机过程记录</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/16/cracking-android-device/">
+				        <h2 class="post-title">
+                            刷机过程记录
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Redmi Note 4X（高通平台）
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-16</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Calculus">
+                    <span class="tag-text">Calculus</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-22">2019-12-22</time>
+				  <a href="/2019/12/22/calculus-2014-2015-1/" title="复习 2014-2015-1">复习 2014-2015-1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/22/calculus-2014-2015-1/">
+				        <h2 class="post-title">
+                            复习 2014-2015-1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            复习微积分
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-22</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-20">2019-12-20</time>
+				  <a href="/2019/12/20/calculus-2012-2013-1/" title="复习 2012-2013-1">复习 2012-2013-1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/20/calculus-2012-2013-1/">
+				        <h2 class="post-title">
+                            复习 2012-2013-1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            复习微积分
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-12-20">2019-12-20</time>
+				  <a href="/2019/12/20/calculus-2011-2012-1/" title="复习 2011-2012-1">复习 2011-2012-1</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/12/20/calculus-2011-2012-1/">
+				        <h2 class="post-title">
+                            复习 2011-2012-1
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            复习微积分
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-12-20</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Music">
+                    <span class="tag-text">Music</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-01">2020-01-01</time>
+				  <a href="/2020/01/01/moon-rising-in-the-rosy-clouds/" title="彩云追月">彩云追月</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/01/moon-rising-in-the-rosy-clouds/">
+				        <h2 class="post-title">
+                            彩云追月
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            最近听的音乐
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-01</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="JavaFX">
+                    <span class="tag-text">JavaFX</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/" title="响应式Spring Boot系列教程10">响应式Spring Boot系列教程10</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程10
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            用Spring Profiles切换客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/" title="响应式Spring Boot系列教程9">响应式Spring Boot系列教程9</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程9
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Java RSocket客户端
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/" title="响应式Spring Boot系列教程7">响应式Spring Boot系列教程7</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程7
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            订阅多个消费者
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/" title="响应式Spring Boot系列教程6">响应式Spring Boot系列教程6</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程6
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            显示响应式数据
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/" title="响应式Spring Boot系列教程5">响应式Spring Boot系列教程5</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程5
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            共享Bean的自动装配
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/" title="响应式Spring Boot系列教程4">响应式Spring Boot系列教程4</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part4-a-javafx-line-chart/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程4
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX折线图
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-09">2020-01-09</time>
+				  <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/" title="响应式Spring Boot系列教程3">响应式Spring Boot系列教程3</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/">
+				        <h2 class="post-title">
+                            响应式Spring Boot系列教程3
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            JavaFX Spring Boot应用程序
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-09</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="模式">
+                    <span class="tag-text">模式</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-29">2020-01-29</time>
+				  <a href="/2020/01/29/bulkhead-pattern/" title="水密舱壁模式">水密舱壁模式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/29/bulkhead-pattern/">
+				        <h2 class="post-title">
+                            水密舱壁模式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            云原生微服务模式系列
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-29</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="微服务">
+                    <span class="tag-text">微服务</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-29">2020-01-29</time>
+				  <a href="/2020/01/29/bulkhead-pattern/" title="水密舱壁模式">水密舱壁模式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/29/bulkhead-pattern/">
+				        <h2 class="post-title">
+                            水密舱壁模式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            云原生微服务模式系列
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-29</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Thread">
+                    <span class="tag-text">Thread</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-01-30">2020-01-30</time>
+				  <a href="/2020/01/30/java-thread-communication/" title="Java线程间通信">Java线程间通信</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/01/30/java-thread-communication/">
+				        <h2 class="post-title">
+                            Java线程间通信
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            生产者与消费者例子
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-01-30</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Messaging">
+                    <span class="tag-text">Messaging</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-02-01">2020-02-01</time>
+				  <a href="/2020/02/01/spring-boot-messaging/" title="Spring Boot 消息">Spring Boot 消息</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/02/01/spring-boot-messaging/">
+				        <h2 class="post-title">
+                            Spring Boot 消息
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Messaging简单笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-02-01</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Notes">
+                    <span class="tag-text">Notes</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-02-01">2020-02-01</time>
+				  <a href="/2020/02/01/spring-classes/" title="Spring Boot的类">Spring Boot的类</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/02/01/spring-classes/">
+				        <h2 class="post-title">
+                            Spring Boot的类
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            学习笔记
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-02-01</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Design Pattern">
+                    <span class="tag-text">Design Pattern</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-02-02">2020-02-02</time>
+				  <a href="/2020/02/02/builder-pattern-in-depth/" title="深入生成器设计模式">深入生成器设计模式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/02/02/builder-pattern-in-depth/">
+				        <h2 class="post-title">
+                            深入生成器设计模式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Builder Pattern in Depth
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-02-02</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="设计模式">
+                    <span class="tag-text">设计模式</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2020-02-02">2020-02-02</time>
+				  <a href="/2020/02/02/builder-pattern-in-depth/" title="深入生成器设计模式">深入生成器设计模式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2020/02/02/builder-pattern-in-depth/">
+				        <h2 class="post-title">
+                            深入生成器设计模式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Builder Pattern in Depth
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2020-02-02</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+
+		</div>
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

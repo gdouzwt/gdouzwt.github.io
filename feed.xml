@@ -1,0 +1,1263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>记录</title>
+    <description></description>
+    <link>https://zwt.io/</link>
+    <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Tue, 11 Feb 2020 15:01:30 +0000</pubDate>
+    <lastBuildDate>Tue, 11 Feb 2020 15:01:30 +0000</lastBuildDate>
+    <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>AsciiDoc is Writing Zen</title>
+        <description>&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Zen&lt;/em&gt; in the &lt;strong&gt;art&lt;/strong&gt; of writing &lt;code&gt;plain text&lt;/code&gt; with &lt;a href=&quot;http://asciidoc.org&quot;&gt;AsciiDoc&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+Use &lt;a href=&quot;http://asciidoctor.org&quot;&gt;Asciidoctor&lt;/a&gt; for the best AsciiDoc experience.
+&lt;sup class=&quot;footnote&quot;&gt;[&lt;a id=&quot;_footnoteref_1&quot; class=&quot;footnote&quot; href=&quot;#_footnotedef_1&quot; title=&quot;View footnote.&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;
+Then &lt;span class=&quot;icon aqua&quot;&gt;&lt;i class=&quot;fa fa-twitter&quot;&gt;&lt;/i&gt;&lt;/span&gt; about it!
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;sample_section&quot;&gt;Sample Section&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist square&quot;&gt;
+&lt;ul class=&quot;square&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;item 1&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;item 2&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;CodeRay highlight&quot;&gt;&lt;code data-lang=&quot;ruby&quot;&gt;puts &lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;Hello, World!&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;footnotes&quot;&gt;
+&lt;hr&gt;
+&lt;div class=&quot;footnote&quot; id=&quot;_footnotedef_1&quot;&gt;
+&lt;a href=&quot;#_footnoteref_1&quot;&gt;1&lt;/a&gt;. Not to mention the best looking output!
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/11/hello-asciidoctor/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/11/hello-asciidoctor/</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Java 内部类</title>
+        <description>&lt;h3 id=&quot;inner-class&quot;&gt;Inner Class&lt;/h3&gt;
+
+&lt;p&gt;A class can also be declared within another class. This type of class is called an &lt;em&gt;inner&lt;/em&gt; class. If the class declared within another class is explicitly or implicitly declared static, it is called a nested class, not an inner class. The class that contains the inner class is called an &lt;em&gt;enclosing&lt;/em&gt; class or an &lt;em&gt;outer&lt;/em&gt; class. Consider the following declaration of the &lt;code&gt;Outer&lt;/code&gt; and &lt;code&gt;Inner&lt;/code&gt; classes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// Outer.java
+pakcage com.jdojo.innerclasses;
+
+public class Outer {
+	public class Inner {
+		// Members of the Inner class go here
+	}
+	// Other members of the Outer class go here
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;An instance of an inner class can only exist within an instance of its enclosing class. That is, you must have an instance of the enclosing class before you can create an instance of an inner class. This is useful in enforcing the rule that one object cannot exist without the other.&lt;/p&gt;
+
+&lt;p&gt;An inner class has full access to all the members, including private members, of its enclosing class.&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;advantages-of-using-inner-classes&quot;&gt;Advantages of Using Inner Classes&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;They let you define classes near other classes that will use them. For example, a computer will use a processor, so it is better to define a &lt;code&gt;Processor&lt;/code&gt; class as an inner class of the &lt;code&gt;Computer&lt;/code&gt; class.&lt;/li&gt;
+  &lt;li&gt;They provide an additional namespace to manage class structures. For example, before the introduction of inner classes, a class can only be a member of a package. With the introduction of inner classes, top-level classes, which can contain inner classes, provide an additional namespace.&lt;/li&gt;
+  &lt;li&gt;Some design patterns are easier to implement using inner classes. For example, the adapter pattern, enumeration pattern, and state pattern can be easily implemented using inner classes.&lt;/li&gt;
+  &lt;li&gt;Implementing a callback mechanism is elegant and convenient using inner classes. Lambda expressions in Java 8 offer a better and more concise way of implementing callbacks in Java.&lt;/li&gt;
+  &lt;li&gt;It helps implement closures in Java.&lt;/li&gt;
+  &lt;li&gt;You can have a flavor of multiple inheritance of classes using inner classes. An inner class can inherit another class. Thus, the inner class has access to its enclosing class members as well as members of its superclass. Note that accessing members of two or more classes is one of the aims of multiple inheritance, which can be achieved using inner classes. However, just having access to members of two classes is not multiple inheritance in a true sense.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;types-of-inner-classes&quot;&gt;Types of Inner Classes&lt;/h3&gt;
+
+&lt;p&gt;You can define an inner class anywhere inside a class where you can write a Java statement. There are three types of inner classes. The type of an inner class depends on the location of its declaration and the way it is declared.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Member inner class&lt;/li&gt;
+  &lt;li&gt;Local inner class&lt;/li&gt;
+  &lt;li&gt;Anonymous inner class&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;member-inner-class&quot;&gt;Member inner class&lt;/h4&gt;
+
+&lt;p&gt;A member inner class is declared inside a class the same way a member field or a member method for the class is declared. It can be declared as &lt;code&gt;public&lt;/code&gt;, &lt;code&gt;private&lt;/code&gt;, &lt;code&gt;protected&lt;/code&gt;, or package-level. The instance of a member inner class may exist only within the instance of its enclosing class.&lt;/p&gt;
+
+&lt;h4 id=&quot;local-inner-class&quot;&gt;Local inner class&lt;/h4&gt;
+
+&lt;p&gt;A local inner class is declared inside a block. Its scope is limited to the block in which it is declared. Since it’s scope is always limited to its enclosing block, its declaration cannot use any access modifiers such as &lt;code&gt;public&lt;/code&gt;,   &lt;code&gt;private&lt;/code&gt;, or &lt;code&gt;protected&lt;/code&gt;. Typically, a local inner class is defined inside a method. However, it can also be defined in side static initializers, non-static initializers, and constructors. You would use a local inner class when you need to use the class only inside a block.&lt;/p&gt;
+
+&lt;p&gt;​	To use a local inner class outside its enclosing block, the local inner class must do one or both of the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Implement a public interface&lt;/li&gt;
+  &lt;li&gt;Inherit from another public class and override some of its superclass methods&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;anonymous-inner-class&quot;&gt;Anonymous Inner Class&lt;/h4&gt;
+
+&lt;p&gt;An anonymous inner class is the same as a local inner class with one difference: it does not have a name. Since it does not have a name, it cannot have a constructor.&lt;/p&gt;
+
+&lt;h3 id=&quot;a-static-member-class-is-not-an-inner-class&quot;&gt;A static Member Class Is Not an Inner Class&lt;/h3&gt;
+
+&lt;p&gt;A member class defined within the body of another class may be declared &lt;code&gt;static&lt;/code&gt;. The following snippet of code declares a top-level class &lt;code&gt;A&lt;/code&gt; and a static member class &lt;code&gt;B&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package com.jdojo.innnerclasses;
+public class A {
+	// A static member class
+	public static class B {
+		// The body of class B goes here
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;​	A static member class is not an inner class. It is considered a top-level class. It is also called a nested top-level class. Since it is a top-level class, you do not need an instance of its enclosing class to create its object. An instance of class A and an instance of class B can exist independently because both are top-level classes. A static member class can be declared &lt;code&gt;public&lt;/code&gt;, &lt;code&gt;protected&lt;/code&gt;, package-level, or &lt;code&gt;private&lt;/code&gt; to restrict its accessibility outside its enclosing class.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;closures-and-callbacks&quot;&gt;Closures and Callbacks&lt;/h3&gt;
+
+&lt;p&gt;In functional programming, a higher order function is an anonymous function that can be treated as a data object. That is, it can be stored in a variable and passed around from one context to another.&lt;/p&gt;
+
+&lt;p&gt;【to be continued】&lt;/p&gt;
+</description>
+        <pubDate>Tue, 04 Feb 2020 22:34:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/04/inner-class/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/04/inner-class/</guid>
+        
+        <category>Java</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>深入生成器设计模式</title>
+        <description>&lt;h3 id=&quot;gof-定义&quot;&gt;GoF 定义&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Separate the construction of a complex object from its representation so that the same construction processes can create different representations.&lt;/p&gt;
+
+  &lt;p&gt;将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同表示。（中文版书里的翻译）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Builder 在《设计模式》的中文版里边翻译为“生成器”，那我就按这个译法吧。生成器模式属于创建型模式（Creational patterns），它关注如何创建对象。当需要构建的对象比较复杂，由多个部分组成，也就说它的构造方法会有很多参数，就可以考虑使用这种模式。生成器模式认为对象的构建机制应该独立于它的组成部分（也就是属性），对象的&lt;strong&gt;构建过程&lt;/strong&gt;不关注对象的&lt;strong&gt;组成部分&lt;/strong&gt;。所以同一个构建过程可以构建出不同表示（属性）的对象（通过&lt;strong&gt;改变构建步骤&lt;/strong&gt;）。&lt;!--more--&gt;在 GoF 书中的生成器模式 UML 类图如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/builder-pattern.png&quot; alt=&quot;Builder&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上图中，Product 是所要创建的复杂对象，ConcreteBuilder 类表示具体的生成器，它实现了 Builder 接口，负责组装构成最终对象的各部分。ConcreteBuilder 定义了&lt;strong&gt;构建过程&lt;/strong&gt;和&lt;strong&gt;对象组装机制&lt;/strong&gt;，就是如何用各部分、按照怎样的步骤去构造一个 Product 对象。ConcreteBuilder 还定义了 getResult() 方法，用于返回构建好的 Product 对象。然后 Director 则是负责通过使用 Builder 接口去构建最终所需的 Product 对象，就是做指挥的。&lt;/p&gt;
+
+&lt;p&gt;以上是对经典的 GoF 生成器模式的解读，下面结合具体的例子加深理解。&lt;/p&gt;
+
+&lt;h3 id=&quot;具体简单例子&quot;&gt;具体简单例子&lt;/h3&gt;
+
+&lt;p&gt;在这个例子里会有这些参与者：Builder, Car, MotorCycle, Product, 以及 Director。其中，Car, MotorCycle 是实现了 Builder 接口的具体类。Builder 用于构建 Product 对象的各部分，Product 则是要被创建的复杂对象（小车或摩托车）。因为 Car 和 MotorCycle 都实现了 Builder 接口，所以需要实现接口中的方法，即 &lt;code&gt;startUpOperations()&lt;/code&gt;, &lt;code&gt;buildBody()&lt;/code&gt;, &lt;code&gt;insertWheels()&lt;/code&gt;, &lt;code&gt;addHeadLights()&lt;/code&gt;, &lt;code&gt;endOperations()&lt;/code&gt;, 和 &lt;code&gt;getVehicle()&lt;/code&gt; 方法。前五个方法好理解，对应载具的构建过程，开始，构建车身，装轮子，装头灯，收尾。而 &lt;code&gt;getVehicle()&lt;/code&gt; 方法，就是返回已构建好的载具。 然后还有 Director，它调用同一个 &lt;code&gt;construct()&lt;/code&gt; 方法去构建不同类型的载具。这个具体例子的类图如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/builder-pattern-vehicles.png&quot; alt=&quot;builder-pattern-vehicles&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;代码实现&quot;&gt;代码实现&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package jdp2e.builder.demo;
+
+import java.util.LinkedList;
+
+//The common interface
+// 公共接口
+interface Builder {
+	void startUpOperations();
+
+	void buildBody();
+
+	void insertWheels();
+
+	void addHeadlights();
+
+	void endOperations();
+
+	/* The following method is used to retrieve the object that is constructed. */
+	Product getVehicle();
+}
+
+//Car class
+class Car implements Builder {
+	private String brandName;
+	private Product product;
+
+	public Car(String brand) {
+		product = new Product();
+		this.brandName = brand;
+	}
+
+	public void startUpOperations() {
+		// Starting with brand name
+		product.add(String.format(&quot;Car model is :%s&quot;, this.brandName));
+	}
+
+	public void buildBody() {
+		product.add(&quot;This is a body of a Car&quot;);
+	}
+
+	public void insertWheels() {
+		product.add(&quot;4 wheels are added&quot;);
+	}
+
+	public void addHeadlights() {
+		product.add(&quot;2 Headlights are added&quot;);
+	}
+
+	public void endOperations() { // Nothing in this case
+	}
+
+	public Product getVehicle() {
+		return product;
+	}
+}
+
+//Motorcycle class
+class MotorCycle implements Builder {
+	private String brandName;
+	private Product product;
+
+	public MotorCycle(String brand) {
+		product = new Product();
+		this.brandName = brand;
+	}
+
+	public void startUpOperations() { // Nothing in this case
+	}
+
+	public void buildBody() {
+		product.add(&quot;This is a body of a Motorcycle&quot;);
+	}
+
+	public void insertWheels() {
+		product.add(&quot;2 wheels are added&quot;);
+	}
+
+	public void addHeadlights() {
+		product.add(&quot;1 Headlights are added&quot;);
+	}
+
+	public void endOperations() {
+		// Finishing up with brand name
+		product.add(String.format(&quot;Motorcycle model is :%s&quot;, this.brandName));
+	}
+
+	public Product getVehicle() {
+		return product;
+	}
+}
+
+// Product class 
+class Product {
+	/*
+	 * You can use any data structure that you prefer. I have used
+	 * LinkedList&amp;lt;String&amp;gt; in this case.
+	 */
+	private LinkedList&amp;lt;String&amp;gt; parts;
+
+	public Product() {
+		parts = new LinkedList&amp;lt;String&amp;gt;();
+	}
+
+	public void add(String part) {
+		// Adding parts
+		parts.addLast(part);
+	}
+
+	public void showProduct() {
+		System.out.println(&quot;\nProduct completed as below :&quot;);
+		for (String part : parts)
+			System.out.println(part);
+	}
+}
+
+// Director class 
+class Director {
+	Builder builder;
+
+	// Director knows how to use the builder and the sequence of steps.
+	public void construct(Builder builder) {
+		this.builder = builder;
+		builder.startUpOperations();
+		builder.buildBody();
+		builder.insertWheels();
+		builder.addHeadlights();
+		builder.endOperations();
+	}
+}
+
+public class BuilderPatternExample {
+
+	public static void main(String[] args) {
+		System.out.println(&quot;***Builder Pattern Demo***&quot;);
+		Director director = new Director();
+
+		Builder fordCar = new Car(&quot;Ford&quot;);
+		Builder hondaMotorycle = new MotorCycle(&quot;Honda&quot;);
+
+		// Making Car
+		director.construct(fordCar);
+		Product p1 = fordCar.getVehicle();
+		p1.showProduct();
+
+		// Making MotorCycle
+		director.construct(hondaMotorycle);
+		Product p2 = hondaMotorycle.getVehicle();
+		p2.showProduct();
+	}
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;输出结果：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-console&quot;&gt;***Builder Pattern Demo***
+
+Product completed as below :
+Car model is :Ford
+This is a body of a Car
+4 wheels are added
+2 Headlights are added
+
+Product completed as below :
+This is a body of a Motorcycle
+2 wheels are added
+1 Headlights are added
+Motorcycle model is :Honda
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;q--a&quot;&gt;Q &amp;amp; A&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用生成器模式有什么好处?&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;你可以用生成器模式逐步构建复杂对象，并且可以改变构建步骤。通过隐藏构建复杂对象的细节（构建每部分的细节），加强了封装性。 Director 可以从 Builder 获取最终构建完成的 Product，在表面看了就好像只有一个方法（construct()）用于构建最终产品，其他的内部方法只是涉及构建具体的部分。&lt;/li&gt;
+      &lt;li&gt;使用这种模式，同样的构建过程，可以产生不同的产品。&lt;/li&gt;
+      &lt;li&gt;因为你可以改变构造步骤，所以你可以改变产品的内部表示。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;生成器模式的坏处？&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;不适用于处理可变对象（mutable object），即创建后可被修改的对象。&lt;/li&gt;
+      &lt;li&gt;可能需要写些重复代码，例如不同的具体生成器有些代码类似或重复，某些情况下可能会有不好的影响，并可能成为&lt;em&gt;&lt;a href=&quot;https://blog.csdn.net/jiangpingjiangping/article/details/78067595&quot;&gt;反模式&lt;/a&gt;&lt;/em&gt;。&lt;/li&gt;
+      &lt;li&gt;一个具体的生成器专用于产生某类产品，所以要生产另一类产品，就需要编写一个用于该类产品的具体生成器。&lt;/li&gt;
+      &lt;li&gt;生成器模式只有在构建比较复杂的对象时用才有优势。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在上面例子中我可以使用抽象类而不是接口吗？&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;可以的。你可以使用抽象类，而不是用接口。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;如何确定应该使用抽象类还是接口？&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;如果你想要一些集中的或是默认的行为，那么抽象类是更好的选择，因为这种情况下你可以提供一些默认的实现。另一方面，使用接口则需要从零开始实现，接口定义了某些规则/契约，强调应该做什么，但不强调怎么做。还有就是如果要考虑实现多继承，接口就更合适。 如果你要给接口添加一个新的方法，那么这个接口的所有实现都需要实现这个新方法，有点麻烦。但如果在抽象类中添加一个新方法，并有默认实现，那么旧代码不受影响。在 Java 8 引入了 &lt;code&gt;default&lt;/code&gt; 关键字在接口的用法，可以在接口里提供默认方法。&lt;/li&gt;
+      &lt;li&gt;下面是抽象类更适用的场景：
+        &lt;ul&gt;
+          &lt;li&gt;想要在多个联系紧密的类之间共享代码&lt;/li&gt;
+          &lt;li&gt;被继承的抽象类有很多公共方法或字段，或者它们当中需要非公有访问修饰符。&lt;/li&gt;
+          &lt;li&gt;你想使用非静态或非 &lt;code&gt;final&lt;/code&gt; 字段，这样可以修改其所属对象的状态。&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;接下来是使用接口更合适的场景：
+        &lt;ul&gt;
+          &lt;li&gt;希望一些不相关的类实现你的接口。&lt;/li&gt;
+          &lt;li&gt;指定某种数据类型的行为，但是不关心如何实现。&lt;/li&gt;
+          &lt;li&gt;想要适用多继承。&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;上面例子中，在 Car 里，brand name 在第一步添加了，而在 MotorCycle 里， brand name 在最后一步添加，这是故意的吗？&lt;/p&gt;
+
+    &lt;p&gt;是的。这是为了说明，每种具体生成器可以自由决定如何产生最终产品。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;为什么使用单独一个类作为 Director？应该可以使用客户端代码（client code）充当 Director 的角色啊。&lt;/p&gt;
+
+    &lt;p&gt;这方面没有限制。上面的代码例子，将 Director 角色与客户端代码分离，但是接下来的例子会直接适用客户端代码做 Director。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;客户端代码（client code）是什么意思？&lt;/p&gt;
+
+    &lt;p&gt;包含 main() 方法的类就是客户端代码（client code）。在 &lt;em&gt;Effective Java&lt;/em&gt; 一书的第 4 页，有三段话讲了术语 &lt;em&gt;exported API&lt;/em&gt; 以及 a &lt;em&gt;client&lt;/em&gt; of the API. 引用如下：&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;This book uses a few technical terms that are not defined in &lt;em&gt;The Java Language Specification&lt;/em&gt;. The term &lt;em&gt;exported API&lt;/em&gt;, or simply &lt;em&gt;API&lt;/em&gt;, refers to the classes, interfaces, constructors, members, and serialized forms by which a programmer accesses a class, interface, or package. (The term &lt;em&gt;API&lt;/em&gt;, which is short for &lt;em&gt;application programming interface&lt;/em&gt;, is used in preference to the otherwise preferable term &lt;em&gt;interface&lt;/em&gt; to avoid confusion with the language construct of that name.) A programmer who writes a program that uses an API is referred to as a &lt;em&gt;user&lt;/em&gt; of the API. A class whose implementation uses an API is a &lt;em&gt;client&lt;/em&gt; of the API.&lt;/p&gt;
+
+      &lt;p&gt;Classes, interfaces, constructors, members, and serialized forms are collectively known as &lt;em&gt;API elements&lt;/em&gt;. An exported API consists of the API elements that are accessible outside of the package that defines the API. These are the API elements that any client can use and the author of the API commits to support. Not coincidentally, they are also the elements for which the Javadoc utility generates documentation in its default mode of operation. Loosely speaking, the exported API of a package consists of the public and protected members and constructors of every public class or interface in the package.&lt;/p&gt;
+
+      &lt;p&gt;In Java 9, a &lt;em&gt;module system&lt;/em&gt; was added to the platform. If a library makes use of the module system, its exported API is the union of the exported APIs of all the packages exported by the library’s module declaration.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;前面提到改变构建步骤。能否演示一下通过改变构建步骤产生不同的最终产品？&lt;/p&gt;
+
+    &lt;p&gt;下面的例子给出演示。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;改进版例子&quot;&gt;改进版例子&lt;/h3&gt;
+
+&lt;p&gt;改进版例子做了如下修改：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;这次只关注 Car 作为最终产品。&lt;/li&gt;
+  &lt;li&gt;定制 Car 的构建步骤包含这些：
+    &lt;ul&gt;
+      &lt;li&gt;开始的消息（startUpMessage)。&lt;/li&gt;
+      &lt;li&gt;处理结束消息（endOperationsMessage）&lt;/li&gt;
+      &lt;li&gt;确定车身材料（bodyType）&lt;/li&gt;
+      &lt;li&gt;车轮数量（noOfWheels）&lt;/li&gt;
+      &lt;li&gt;车头灯数量（noOfHeadLights）&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;客户端代码同时充当了 Director 的角色。&lt;/li&gt;
+  &lt;li&gt;生成器的接口被重命名为 ModifiedBuilder， 除 constructCar() 和 getConstructedCar() 方法外，接口中的其他方法的返回类型都是 ModifiedBuilder，这样可以实现方法链（method chaining）。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;代码实现-1&quot;&gt;代码实现&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package jdp2e.builder.demo;
+
+//The common interface
+interface ModifiedBuilder {
+	/*
+	 * All these methods return type is ModifiedBuilder. This will help us to apply
+	 * method chaining
+	 */
+	ModifiedBuilder startUpOperations(String startUpMessage);
+
+	ModifiedBuilder buildBody(String bodyType);
+
+	ModifiedBuilder insertWheels(int noOfWheels);
+
+	ModifiedBuilder addHeadlights(int noOfHeadLights);
+
+	ModifiedBuilder endOperations(String endOperationsMessage);
+
+	/* Combine the parts and make the final product. */
+	ProductClass constructCar();
+
+	// Optional method:To get the already constructed object
+	ProductClass getConstructedCar();
+}
+
+//Car class
+class CarBuilder implements ModifiedBuilder {
+	private String startUpMessage = &quot;Start building the product&quot;;// Default start-up message
+	private String bodyType = &quot;Steel&quot;;// Default body
+	private int noOfWheels = 4;// Default number of wheels
+	private int noOfHeadLights = 2;// Default number of head lights
+	private String endOperationsMessage = &quot;Product creation completed&quot;;// Default finish up message
+	ProductClass product;
+
+	@Override
+	public ModifiedBuilder startUpOperations(String startUpMessage) {
+		this.startUpMessage = startUpMessage;
+		return this;
+	}
+
+	@Override
+	public ModifiedBuilder buildBody(String bodyType) {
+		this.bodyType = bodyType;
+		return this;
+	}
+
+	@Override
+	public ModifiedBuilder insertWheels(int noOfWheels) {
+		this.noOfWheels = noOfWheels;
+		return this;
+	}
+
+	@Override
+	public ModifiedBuilder addHeadlights(int noOfHeadLights) {
+		this.noOfHeadLights = noOfHeadLights;
+		return this;
+	}
+
+	@Override
+	public ModifiedBuilder endOperations(String endOperationsMessage) {
+		this.endOperationsMessage = endOperationsMessage;
+		return this;
+	}
+
+	@Override
+	public ProductClass constructCar() {
+
+		product = new ProductClass(this.startUpMessage, this.bodyType, this.noOfWheels, this.noOfHeadLights,
+				this.endOperationsMessage);
+		return product;
+	}
+
+	@Override
+	public ProductClass getConstructedCar() {
+		return product;
+	}
+}
+
+//Product class 
+final class ProductClass {
+	private String startUpMessage;
+	private String bodyType;
+	private int noOfWheels;
+	private int noOfHeadLights;
+	private String endOperationsMessage;
+
+	public ProductClass(final String startUpMessage, String bodyType, int noOfWheels, int noOfHeadLights,
+			String endOperationsMessage) {
+		this.startUpMessage = startUpMessage;
+		this.bodyType = bodyType;
+		this.noOfWheels = noOfWheels;
+		this.noOfHeadLights = noOfHeadLights;
+		this.endOperationsMessage = endOperationsMessage;
+	}
+
+	/*
+	 * There is no setter methods used here to promote immutability. Since the
+	 * attributes are private and there is no setter methods, the keyword &quot;final&quot; is
+	 * not needed to attach with the attributes.
+	 */
+	@Override
+	public String toString() {
+		return &quot;Product Completed as:\n startUpMessage=&quot; + 
+            startUpMessage + &quot;\n bodyType=&quot; + 
+            bodyType + &quot;\n noOfWheels=&quot; + 
+            noOfWheels + &quot;\n noOfHeadLights=&quot; + 
+            noOfHeadLights + &quot;\n endOperationsMessage=&quot; + 
+            endOperationsMessage;
+	}
+
+}
+
+//Director class 
+public class BuilderPatternModifiedExample {
+
+	public static void main(String[] args) {
+		System.out.println(&quot;***Modified Builder Pattern Demo***&quot;);
+		/*
+		 * Making a custom car (through builder) Note the steps: 
+		 * Step1:Get a builder object with required parameters 
+		 * Step2:Setter like methods are used.They will set the optional fields also. 
+		 * Step3:Invoke the constructCar() method to get the final car.
+		 */
+		final ProductClass customCar1 = new CarBuilder()
+            .addHeadlights(5)
+            .insertWheels(5)
+            .buildBody(&quot;Plastic&quot;)
+			.constructCar();
+		System.out.println(customCar1);
+		System.out.println(&quot;--------------&quot;);
+		/*
+		 * Making another custom car (through builder) with a different sequence and
+		 * steps.
+		 */
+		ModifiedBuilder carBuilder2 = new CarBuilder();
+		final ProductClass customCar2 = carBuilder2
+            .insertWheels(7)
+            .addHeadlights(6)
+            .startUpOperations(&quot;I am making my own car&quot;)
+            .constructCar();
+		System.out.println(customCar2);
+		System.out.println(&quot;--------------&quot;);
+
+		/*
+		 * customCar2 = carBuilder2.insertWheels(70)//error because customCar2 is final
+		 * .addHeadlights(6) .startUpOperations(&quot;I am making my own car&quot;)
+		 * .constructCar(); System.out.println(customCar2);
+		 */
+		
+		// Verifying the getConstructedCar() method
+		final ProductClass customCar3 = carBuilder2.getConstructedCar();
+		System.out.println(customCar3);
+
+	}
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;输出结果：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-console&quot;&gt;***Modified Builder Pattern Demo***
+Product Completed as:
+startUpMessage=Start building the product
+bodyType=Plastic
+noOfWheels=5
+noOfHeadLights=5
+endOperationsMessage=Product creation completed
+--------------
+Product Completed as:
+startUpMessage=I am making my own car
+bodyType=Steel
+noOfWheels=7
+noOfHeadLights=6
+endOperationsMessage=Product creation completed
+--------------
+Product Completed as:
+startUpMessage=I am making my own car
+bodyType=Steel
+noOfWheels=7
+noOfHeadLights=6
+endOperationsMessage=Product creation completed
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在改进版例子中，第 124 行，构建 &lt;code&gt;customCar1&lt;/code&gt;，逐步调用了 &lt;code&gt;addHeadLights()&lt;/code&gt;, &lt;code&gt;insertWheels()&lt;/code&gt;, &lt;code&gt;buildBody()&lt;/code&gt; 方法。 然后当构建 &lt;code&gt;customCar2&lt;/code&gt; 时，方法的调用顺序不同了，而没调用的方法，会取默认值。&lt;/p&gt;
+
+&lt;h3 id=&quot;q--a-1&quot;&gt;Q &amp;amp; A&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;改进版例子中客户端代码用到 &lt;code&gt;final&lt;/code&gt; 关键字，但是 &lt;code&gt;ProductClass&lt;/code&gt; 的属性却没有用 &lt;code&gt;final&lt;/code&gt; 关键字，为什么？&lt;/p&gt;
+
+    &lt;p&gt;在客户端代码使用 &lt;code&gt;final&lt;/code&gt; 关键字是为了提高不可修改性（immutability），但是在 &lt;code&gt;ProductClass&lt;/code&gt; 属性已经是私有且那个类没有 setter 方法，所以已经是不可修改了，不需要使用 &lt;code&gt;final&lt;/code&gt; 关键字。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不可修改的对象有什么好处？&lt;/p&gt;
+
+    &lt;p&gt;这样的对象一旦构建完成，就可以安全地共享，更重要的是它们是线程安全的（thread-safe），所以在多线程环境中省去了很多同步操作。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;何时应该考虑使用生成器模式？&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;总结&quot;&gt;总结&lt;/h3&gt;
+
+&lt;h3 id=&quot;参考&quot;&gt;参考&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;[Gamma95] Gamma, Erich, Richard Helm, Ralph Johnson, and John Vlissides. 1995. &lt;em&gt;Design Patterns: Elements of Reusable Object-Oriented Software.&lt;/em&gt; Reading, MA: Addison-Wesley. ISBN: 0201633612&lt;/li&gt;
+  &lt;li&gt;Sarcar, Vaskaran. &lt;em&gt;Design Patterns in Java, Second Edition.&lt;/em&gt; Apress, 2019&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://springframework.guru/gang-of-four-design-patterns/builder-pattern/&quot;&gt;Springframework guru: Builder Pattern&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Joshua Block. &lt;em&gt;Effective Java, Third Edition.&lt;/em&gt; Addison-Wesley, 2018&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/jiangpingjiangping/article/details/78067595&quot;&gt;设计模式杂谈——模式与反模式之争&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sun, 02 Feb 2020 18:42:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/02/builder-pattern-in-depth/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/02/builder-pattern-in-depth/</guid>
+        
+        <category>Design Pattern</category>
+        
+        <category>设计模式</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Spring Boot的类</title>
+        <description>&lt;h2 id=&quot;常见类的用途&quot;&gt;常见类的用途&lt;/h2&gt;
+
+&lt;h3 id=&quot;springapplicationbuilder&quot;&gt;SpringApplicationBuilder&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;java.lang.Object&lt;/code&gt;&lt;br /&gt;
+​	&lt;code&gt;org.springframework.boot.builder.SpringApplicationBuilder&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Builder for &lt;code&gt;SpringApplication&lt;/code&gt; and &lt;code&gt;ApplicationContext&lt;/code&gt; instances with convenient fluent API and context hierarchy support. Simple example of a context hierarchy:&lt;br /&gt;
+&lt;code&gt;new SpringApplicationBuider(ParentConfig.class).child(ChildConfig.class).run(args);&lt;/code&gt;&lt;br /&gt;
+Another common use case is setting active profiles and default properties to set up the environment for an application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;new SpringApplicationBuilder(Application.class).profiles(&quot;server&quot;)
+    			.properties(&quot;transport=local&quot;).run(args);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If your needs are simpler, consider using the static convenience methods in SpringApplication instead.&lt;/p&gt;
+
+&lt;p&gt;(org.springframework.boot:spring-boot:2.2.4.RELEASE)&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;这里就是Builder模式，顺便记录一下，先上图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/builder-pattern.png&quot; alt=&quot;builder-pattern&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;GoF 对 &lt;strong&gt;Builder Pattern&lt;/strong&gt; 的定义如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Separate the construction of a complex object from its representation so that the same construction processes can create different representations.&lt;/p&gt;
+
+  &lt;p&gt;将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同表示。（中文版书里的翻译，另外注意，在书中 Builder 译作“生成器”）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;上图中，&lt;code&gt;Product&lt;/code&gt; 是我们想要构建的复杂对象，&lt;code&gt;ConcreteBuilder&lt;/code&gt; 通过实现抽象的 &lt;code&gt;Builder&lt;/code&gt; 接口去构造和组合一个 product 的部件。具体的构造者，&lt;code&gt;ConcreteBuilder&lt;/code&gt; 负责构建 product 的内部表现，和创造过程及组合机制。 &lt;code&gt;Builder&lt;/code&gt; 也可以提供方法使得被创建的对象可以被使用。 Director 负责使用 Builder 取创建最终的 Product，也就是说 Director 是 Builder 的使用者。 构造者(Builders) 可以保持对所构造的对象(products)的引用，以便可以再次使用。&lt;/p&gt;
+
+&lt;h3 id=&quot;springapplication&quot;&gt;SpringApplication&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;java.lang.Object&lt;/code&gt;&lt;br /&gt;
+​	&lt;code&gt;org.springframework.boot.SpringApplication&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Class that can be used to bootstrap and launch a Spring application from a Java main method. By default class will perform the following steps to bootstrap your application:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Create an appropriate &lt;code&gt;ApplicationContext&lt;/code&gt; instance (depending on your classpath)&lt;/li&gt;
+  &lt;li&gt;Register a &lt;code&gt;CommandLinePropertySource&lt;/code&gt; to expose command line arguments as Spring properties&lt;/li&gt;
+  &lt;li&gt;Refresh the application context, loading all singleton beans&lt;/li&gt;
+  &lt;li&gt;Trigger any &lt;code&gt;CommandLineRunner&lt;/code&gt; beans&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In most circumstances the static &lt;code&gt;run(Class, String[])&lt;/code&gt; method can be called directly from you main method to bootstrap your application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt; @Configuration
+ @EnableAutoConfiguration
+ public class MyApplication  {
+
+   // ... Bean definitions
+
+   public static void main(String[] args) {
+     SpringApplication.run(MyApplication.class, args);
+   }
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For more advanced configuration a &lt;code&gt;SpringApplication&lt;/code&gt; instance can be created and customized before being run:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public static void main(String[] args) {
+   SpringApplication application = new SpringApplication(MyApplication.class);
+   // ... customize application settings here
+   application.run(args)
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;SpringApplication&lt;/code&gt;s can read beans from a variety of different sources. It is generally recommended that a single &lt;code&gt;@Configuration&lt;/code&gt; class is used to bootstrap your application, however, you may also set sources from:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The fully qualified class name to be loaded by &lt;code&gt;AnnotatedBeanDefinitionReader&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;The location of an XML resource to be loaded by &lt;code&gt;XmlBeanDefinitionReader&lt;/code&gt;, or a groovy script to be loaded by &lt;code&gt;GroovyBeanDefinitionReader&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;The name of a package to be scanned by &lt;code&gt;ClassPathBeanDefinitionScanner&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Configuration properties are also bound to the SpringApplication. This makes it possible to set SpringApplication properties dynamically, like additional sources (“spring.main.sources” - a CSV list) the flag to indicate a web environment (“spring.main.web-application-type=none”) or the flag to switch off the banner (“spring.main.banner-mode=off”).&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;org.springframework.boot.SpringApplication&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public static org.springframework.context.ConfigurableApplicationContext run(Class &amp;lt;?&amp;gt; primarySource, String ... args)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Static helper that can be used to run a &lt;code&gt;SpringApplication&lt;/code&gt; from the specified source using default settings.&lt;br /&gt;
+Parameters:&lt;br /&gt;
+&lt;code&gt;primarySource&lt;/code&gt; - the primary source to load&lt;br /&gt;
+&lt;code&gt;args&lt;/code&gt; - the application arguments (usually passed from a Java main method)&lt;br /&gt;
+Returns:&lt;br /&gt;
+the running &lt;code&gt;ApplicationContext&lt;/code&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 01 Feb 2020 15:54:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/01/spring-classes/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/01/spring-classes/</guid>
+        
+        <category>Spring Boot</category>
+        
+        <category>Notes</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Spring Boot 消息</title>
+        <description>&lt;h2 id=&quot;消息通信&quot;&gt;消息通信&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/messaging.png&quot; alt=&quot;messaging&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最简单的消息机制，从A点到B点，通过某种信道传递消息，可以使一个简单的函数调用，一个socket连接，或者是一个HTTP请求。主要目的是发送端发送消息给接收端消费。&lt;/p&gt;
+
+&lt;h3 id=&quot;消息通信使用场景&quot;&gt;消息通信使用场景&lt;/h3&gt;
+
+&lt;p&gt;下面列出一些消息通信常见的使用场景：&lt;/p&gt;
+
+&lt;h4 id=&quot;可靠送达&quot;&gt;可靠送达&lt;/h4&gt;
+
+&lt;p&gt;通常需要一些消息确认机制，如果中间有个Broker，消息生产者要通过一些确认，了解Broker确实收到了消息。同理在消费者段也需要给Broker确认已经收到消息。通常支付、股票交易等系统会使用这种模式。&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;解耦&quot;&gt;解耦&lt;/h4&gt;
+
+&lt;p&gt;按照业务领域解耦，使用bounded context.&lt;/p&gt;
+
+&lt;h4 id=&quot;扩展和高可用&quot;&gt;扩展和高可用&lt;/h4&gt;
+
+&lt;p&gt;多个Broker扩展。&lt;/p&gt;
+
+&lt;h4 id=&quot;异步&quot;&gt;异步&lt;/h4&gt;
+
+&lt;p&gt;异步消息确保响应性，responsiveness&lt;/p&gt;
+
+&lt;h4 id=&quot;互操作性&quot;&gt;互操作性&lt;/h4&gt;
+
+&lt;p&gt;采用Broker架构，实现AMQP等协议。&lt;/p&gt;
+
+&lt;h3 id=&quot;消息模式和设计模式&quot;&gt;消息模式和设计模式&lt;/h3&gt;
+
+&lt;h4 id=&quot;点到点&quot;&gt;点到点&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/point-to-point.png&quot; alt=&quot;point-to-point&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;发布-订阅&quot;&gt;发布-订阅&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/pub-sub.png&quot; alt=&quot;pub-sub&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;设计模式&quot;&gt;设计模式&lt;/h4&gt;
+
+&lt;p&gt;A design patterns is a solution to a commonly known problem in the software design. By the same token, messaging patterns attempt to solve problems with messaging designs.&lt;/p&gt;
+
+&lt;p&gt;​	You will learn about the implementation of the following patterns during the course of this book, so I want to list them here with simple definitions to introduce them:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;em&gt;Message type patterns:&lt;/em&gt; Describe different forms of messaging, such as string(maybe plain text, JSON and/or XML), byte array, object, etc.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Message channel patterns:&lt;/em&gt; Determine what kind of a transport(channel) will be used to send a message and what kind of attributes it will have. The idea here is that the producer and consumer know how to connect to the transport(channel) and can send and receive the message. Possible attributes of this transport include a request-reply feature and a unidirectional channel, which you will learn about very soon. One example of this pattern is the point-to-point channel.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Routing patterns:&lt;/em&gt; Describe a way to send message between producer and consumers by providing a routing mechanism(filtering that’s dependent on a set of conditions) in an integrated solution. That can be accomplished by programming, or in some cases, the messaging system(the broker) can have these capabilities(as with RabbitMQ).&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Service consumer patterns:&lt;/em&gt; Describe how the consumers will behave when messages arrive, such as adding a transactional approach when processing the message. There are frameworks that allow you to initiate this kind of behavior(like the Spring Framework, which you do by adding the @Transactional, a transaction-base abstraction).&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Contract patterns:&lt;/em&gt; Contracts between the producer and consumer to have simple communications, such as when you do some REST calls, where you call a JSON or XML message with fields.&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Message construction patterns:&lt;/em&gt; Describe how a message is created so it can travel within the messaging system. For example, you can create an “envelope” that can have a body(the actual message) and some headers(with a correlation ID or a sequence or maybe a reply address). With a simple web request, you can add parameters or headers and the actual message becomes the body of the request, making the whole request part of the construction pattern. The HTTP protocol allows for that kind of communication (messaging).&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Transformation patterns:&lt;/em&gt; Describe how to change the content of the message within the messaging system. Think about a message that requires some processing and needs to be enhanced on the fly, such as a content enricher.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As you can see, these patterns not only describe the messaging process but some of them describe how to handle some of the common use cases you saw earlier. Of cause, there are a lot more messaging patterns.&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 01 Feb 2020 10:44:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/01/spring-boot-messaging/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/01/spring-boot-messaging/</guid>
+        
+        <category>Spring Boot</category>
+        
+        <category>Messaging</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Java线程间通信</title>
+        <description>&lt;h3 id=&quot;生产者与消费者&quot;&gt;生产者与消费者&lt;/h3&gt;
+
+&lt;p&gt;一种典型的线程间通信的例子是涉及到生产者线程与消费者线程之间的关系。生产者生产数据项被消费者消费，每个被生产出的数据项被存放在共享的变量中。&lt;/p&gt;
+
+&lt;p&gt;想象线程以不同的速度运行，消费者可能来不及处理掉生产者之前生产出来并放到共享变量中的数据项。还有可能就是消费者消费速度太快了，未等到生产者产生数据就去取了。&lt;/p&gt;
+
+&lt;p&gt;为了克服这类问题，生产者线程必须等到它被通知之前生产的数据项已经被消费掉了才继续生产，而消费者线程必须等到它被通知已经有新的数据项产生了才取消费。下面代码展示如何通过使用 &lt;code&gt;wait()&lt;/code&gt; 和 &lt;code&gt;notify()&lt;/code&gt; 完整这样的任务。&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package io.zwt;
+
+// PC stands for Producer and Consumer
+public class PC {
+    public static void main(String[] args) {
+        Shared s = new Shared(); // 共享变量
+        new Producer(s).start(); // 生产者线程
+        new Consumer(s).start(); // 消费者线程
+    }
+}
+
+// 表示共享数据的类
+class Shared {
+    private char c; // 字符
+    private volatile boolean writable = true; // 是否可写入状态
+
+    // 一个同步方法，设置共享变量所保存的字符 c，这个方法对应生产者的操作
+    synchronized void setSharedChar(char c) {
+        // 若不可写入，就在一个 while 循环中等待
+        while (!writable)
+            try {
+                wait();
+            } catch (InterruptedException ignored) {
+            }
+        this.c = c; // 写入数据
+        writable = false; // 改变状态
+        notify(); // 生产好了，通知消费者
+    }
+
+    // 对应消费者的操作
+    synchronized char getSharedChar() {
+        // 可写入状态则等待，说明在生产，所以要等待
+        while (writable)
+            try {
+                wait();
+            } catch (InterruptedException ignored) {
+            }
+        writable = true;
+        notify(); // 消费完了，通知生产者
+        return c; // 读取到的字符
+    }
+}
+
+// 生产者线程
+class Producer extends Thread {
+    private final Shared s;
+
+    Producer(Shared s) {
+        this.s = s;
+    }
+
+    @Override
+    public void run() {
+        for (char ch = 'A'; ch &amp;lt;= 'Z'; ch++) {
+            s.setSharedChar(ch);
+            System.out.println(ch + &quot; produced by producer.&quot;);
+        }
+    }
+}
+
+// 消费者线程
+class Consumer extends Thread {
+    private final Shared s;
+
+    Consumer(Shared s) {
+        this.s = s;
+    }
+
+    @Override
+    public void run() {
+        char ch;
+        do {
+            ch = s.getSharedChar();
+            System.out.println(ch + &quot; consumed by consumer.&quot;);
+        } while (ch != 'Z');
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+</description>
+        <pubDate>Thu, 30 Jan 2020 09:35:00 +0000</pubDate>
+        <link>https://zwt.io/2020/01/30/java-thread-communication/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/01/30/java-thread-communication/</guid>
+        
+        <category>Java</category>
+        
+        <category>Thread</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>水密舱壁模式</title>
+        <description>&lt;p&gt;水密舱壁模式是一类容错的应用程序设计。在水密舱壁模式架构中，应用程序的个组成元素被分隔到隔舱中，这样一旦其中一个出故障，其它部分仍能够运行。这是命名来自船体当中的分隔区域（水密舱壁）。如果一艘船的水密隔舱坏了，那么只是受损部位会进水（其它部分被隔开了），这样能够防止沉船。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/Compartments_and_watertight_subdivision_of_a_ship's_hull_(Seaman's_Pocket-Book,_1943).jpg&quot; alt=&quot;水密壁舱&quot; /&gt; &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;场景与问题&quot;&gt;场景与问题&lt;/h2&gt;
+
+&lt;p&gt;一个基于云的应用程序可能包括多个服务，每个服务可能有一个或者多个消费者。一个服务超负荷或者出故障会影响到这个服务的所有消费者。而且，一个消费者可能同时对多个服务发起请求，每个请求都占用着资源。当消费者向一个错误配置的服务或无反应的服务发起请求，那么客户端请求所占用的资源可能不能及时地释放。随着对服务的请求继续发起，此类资源可能会被耗尽。例如，客户端连接池可能会耗尽。在那情况下，消费者对于其它服务的请求会受到影响。最终导致消费者不仅没法再对原来无响应的服务发起请求，而且也不能对其它服务发起请求了。同样的资源耗尽问题也影响着有多个消费者的服务。来自一个客户端的大量请求可能会耗尽服务可用的资源。其它消费者就没有办法再消费服务，导致雪崩故障效应。&lt;/p&gt;
+
+&lt;h2 id=&quot;解决方案&quot;&gt;解决方案&lt;/h2&gt;
+
+&lt;p&gt;将服务实例按照消费者的负载和可用性要求分为不同的组。 这种设计有助于隔离故障，并允许你在即使是故障情况下仍能为部分消费者维持服务功能。&lt;/p&gt;
+
+&lt;p&gt;一个消费者同样也可以分区资源，服务调用间资源互不影响。（即调用某个服务的资源不会影响到用于调用另一个服务的资源。 ） 例如，一个需要调用多个服务的消费者可能会为每个服务指定一个连接池。如果一个服务开始出故障，那只会影响到指定给那个服务的连接池，而消费者仍然可以继续使用其它服务。&lt;/p&gt;
+
+&lt;p&gt;这种模式的好处有以下几点：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;将消费者和服务从雪崩故障中隔离开来。一个影响到一个消费者或服务的问题可以被隔离在它自己的水密舱壁里，防止解决方案整体失败。&lt;/li&gt;
+  &lt;li&gt;能让你在发生故障的情况下保留部分功能。其它服务和应用程序功能能够继续运行。&lt;/li&gt;
+  &lt;li&gt;可以让你部署能为消费者应用提供不同服务质量的服务。优先级高的消费者池可以配置使用高优先级的服务。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;下面的图展示围绕调用独立服务的连接池构造的水密舱壁。如果服务A（Service A）出故障或者其它毛病，它的连接池已经隔开了，所以只有使用了指派给服务A的线程池的工作负荷（workload）会受到影响。而使用服务B和C的工作负荷没受影响，能够继续不间断运行。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/bulkhead-1.png&quot; alt=&quot;First diagram of the Bulkhead pattern&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;下一个图展示了多个客户端调用一个服务。每个客户端分别被指派一个服务实例。 客户端 1（Client 1）发起太多请求了并且压垮了它的服务实例。因为每个服务实例都是分别隔离开的，其它的客户端可以继续发起请求。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/bulkhead-2.png&quot; alt=&quot;First diagram of the Bulkhead pattern&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;问题与思考&quot;&gt;问题与思考&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;根据业务以及应用程序的技术性需求定义分区。&lt;/li&gt;
+  &lt;li&gt;当将服务或消费者分区到水密舱壁，应考虑技术上能提供的隔离级别，也要考虑开销成本，性能以及可维护性。&lt;/li&gt;
+  &lt;li&gt;考虑将水密舱壁模式与重试、断路器还有节流模式结合起来实现更加周密的故障处理机制。&lt;/li&gt;
+  &lt;li&gt;当将消费者分区到水密舱壁，考虑使用进程，线程池以及信号量。像Netflix Hystrix还有Polly的项目提供了框架用于创建消费者水密舱壁。&lt;/li&gt;
+  &lt;li&gt;当将服务分区到水密舱壁，考虑将它们部署到独立的虚拟机，容器或进程。容器在资源隔离和相对低开销方面提供了一个好的平衡点。&lt;/li&gt;
+  &lt;li&gt;使用异步消息通信的服务可以通过不同的队列隔离开来。每个队列可以有一组专用的实例处理消息，或者一个单组实例，使用算法出队和分发处理。&lt;/li&gt;
+  &lt;li&gt;确定水密舱壁的粒度级别。例如，如果你想在分区上放租户，你可以将每个租户放到独立的分区，或者将几个租户放到一个分区。&lt;/li&gt;
+  &lt;li&gt;监控每个分区的性能和服务水平协议（Service Level Agreement）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;何时使用这种模式&quot;&gt;何时使用这种模式&lt;/h2&gt;
+
+&lt;p&gt;这种模式适用于：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;隔离用于消费一系列后端服务的资源，尤其是即使其中一个服务无响应，应用程序能够提供某些级别的功能的情况。&lt;/li&gt;
+  &lt;li&gt;将重要的消费者与普通消费者隔离开。&lt;/li&gt;
+  &lt;li&gt;防止应用程序发生雪崩故障。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这种模式不适用于：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;项目中不能接受对资源的低效利用。&lt;/li&gt;
+  &lt;li&gt;没有必要增加复杂度的情况。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;例子&quot;&gt;例子&lt;/h2&gt;
+
+&lt;p&gt;下面的Kubernetes配置文件创建了一个隔离的容器用于运行单个服务，定义了它自己的CPU和内存资源以及限额。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-yml&quot;&gt;apiVersion: v1
+kind: Pod
+metadata:
+  name: drone-management
+spec:
+  containers:
+  - name: drone-management-container
+    image: drone-service
+    resources:
+      requests:
+        memory: &quot;64Mi&quot;
+        cpu: &quot;250m&quot;
+      limits:
+        memory: &quot;128Mi&quot;
+        cpu: &quot;1&quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Wed, 29 Jan 2020 08:46:00 +0000</pubDate>
+        <link>https://zwt.io/2020/01/29/bulkhead-pattern/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/01/29/bulkhead-pattern/</guid>
+        
+        <category>模式</category>
+        
+        <category>微服务</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Java Streams vs. Reactive Streams</title>
+        <description>&lt;h3 id=&quot;java-imperative--object-oriented&quot;&gt;Java: imperative + object-oriented&lt;/h3&gt;
+
+&lt;p&gt;Michael Feather:&lt;/p&gt;
+
+&lt;p&gt;​	“In OPP we encapsulate the moving parts; in FP we eliminate the moving parts.”&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;List&amp;lt;Integer&amp;gt; numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+//double of even numbers
+List&amp;lt;Integer&amp;gt; doubled = new ArrayList&amp;lt;&amp;gt;();
+
+for (int i = 0; i &amp;lt; numbers.size(); i++) {
+	if (numbers.get(i) % 2 == 0) {
+		doubled.add(numbers.get(i) * 2);
+	}
+}
+System.out.println(doubled);
+
+System.out.println(
+	numbers.stream()	
+		.filter( e -&amp;gt; e % 2 == 0)
+		.map( e -&amp;gt; e * 2)
+		.collect(toList()));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!--more--&gt;
+
+&lt;h4 id=&quot;functional-programming--functional-composition--lazy-evaluation&quot;&gt;functional programming == functional composition + lazy evaluation&lt;/h4&gt;
+
+&lt;p&gt;Collection Pipeline Pattern&lt;/p&gt;
+
+&lt;p&gt;Stream is not a data structure it is an abstraction of functions&lt;/p&gt;
+
+&lt;p&gt;bucket   vs  pipeline&lt;/p&gt;
+
+&lt;p&gt;List/Set	    Stream&lt;/p&gt;
+
+&lt;p&gt;dataflow computing&lt;/p&gt;
+
+&lt;p&gt;Serverless&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/image-20200126043305570.png&quot; alt=&quot;image-20200126043305570&quot; /&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Sat, 25 Jan 2020 23:52:00 +0000</pubDate>
+        <link>https://zwt.io/2020/01/25/java-streams-vs-reative-streams/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/01/25/java-streams-vs-reative-streams/</guid>
+        
+        <category>Java</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Java虚方法调用</title>
+        <description>&lt;h3 id=&quot;先回顾基本概念-overloading-and-overriding&quot;&gt;先回顾基本概念 Overloading and Overriding&lt;/h3&gt;
+
+&lt;p&gt;主要需要总结的是:&lt;/p&gt;
+
+&lt;p&gt;​	When multiple overloaded methods are present, Java looks for the closest match first. It tries to find the following:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Exact match by type&lt;/li&gt;
+  &lt;li&gt;Matching a superclass type&lt;/li&gt;
+  &lt;li&gt;Converting to larger primitive type&lt;/li&gt;
+  &lt;li&gt;Converting to an autoboxed type&lt;/li&gt;
+  &lt;li&gt;Varargs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For overriding, the overridden method has a few rules:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The access modifier must be the same or more accessible.&lt;/li&gt;
+  &lt;li&gt;The return type must be the same or a more restrictive type, also known as &lt;em&gt;covariant return types&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;If any checked exceptions are thrown, only the same exceptions or subclasses of those exceptions are allowed to be thrown.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The method must not be static. (If they are, the method is hidden and not overridden.)&lt;/p&gt;
+
+&lt;h4 id=&quot;关于-instanceof-操作符null-的情况null-不是-object&quot;&gt;关于 instanceof 操作符，null 的情况，null 不是 Object.&lt;/h4&gt;
+
+&lt;p&gt;instanceof 不能比较没有任何继承关系的类。 而接口可以，因为接口可以被实现。&lt;/p&gt;
+
+&lt;p&gt;然后入正题:
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;understanding-virtual-method-invocation&quot;&gt;Understanding Virtual Method Invocation&lt;/h3&gt;
+
+&lt;p&gt;先看代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;abstract class Animal {
+	public abstract void feed();
+}
+
+class Cow extends Animal {
+	public void feed() { addHay(); }
+	private void addHay() { }
+}
+
+class Bird extends Animal {
+    public void feed() { addSeed(); }
+    private void addSeed() { }
+}
+
+class Lion extends Animal {
+    public void feed() { addMeat(); }
+    private void addMeat() { }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The Animal class is abstract, and it requires that any concrete Animal subclass have a feed() method. The three subclasses that we defined have a one-line feed() method that delegates to the class-specific method. A Bird still gets seed, a Cow still gets hay, and so forth. Now the method to feed the animals is really easy. We just call feed() and the proper subclass’s version is run.&lt;/p&gt;
+
+&lt;p&gt;​	This approach has a huge advantage. The feedAnimal() method doesn’t need to change when we add a new Animal subclass. We could have methods to feed the animals all over code. Maybe the animals get fed at different times on different days. No matter. feed() still gets called to do the work.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public void feedAnimal(Animal animal) {
+	animal.feed();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;​	We’ve just relied on virtual method invocation. We actually saw virtual methods on the OCA. They are just regular non-static methods. Java looks for an overridden method rather than necessarily using the one in the class that the compiler says we have. The only thing new about virtual methods on OCP is that Oracle now calls them virtual methods in the objectives. You can simply think of them as methods.&lt;/p&gt;
+
+&lt;p&gt;​	In the above example, we have an Animal instance, but Java didn’t call feed on the Animal class. Instead Java looked at the actual type of animal at runtime and called feed on that.&lt;/p&gt;
+
+&lt;p&gt;​	Notice how this technique is called virtual method invocation. &lt;strong&gt;Instance variables don’t work this way.&lt;/strong&gt; In this example, the Animal class refers to name. It uses the one in the superclass and not the subclass.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;abstract class Animal {
+    String name = &quot;???&quot;;
+    public void printName() {
+        System.out.println(name);
+    }
+}
+
+class Lion extends Animal {
+    String name = &quot;Leo&quot;;
+}
+
+public class PlayWithAnimal {
+    public static void main(String[] args) {
+        Animal animal = new Lion();
+        animal.printName();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;​	This outputs ???. The name declared in Lion would only be used if name was referred to from Lion (or a subclass of Lion.) But no matter how you call printName(), it will use the Animal’s name, not the Lion’s name.&lt;/p&gt;
+
+&lt;p&gt;​	Aside from the formal sounding name, there isn’t anything new here. Let’s try one more example to make sure that the exam can’t trick you. What does the following print?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;abstract class Animal {
+    public void careFor() {
+        play();
+    }
+    public void play() {
+        System.out.println(&quot;pet animal&quot;);
+    }}
+class Lion extends Animal {
+    public void play() {
+        System.out.println(&quot;toss in meat&quot;);
+    }}
+public class PalyWithAnimal {
+    public static void main(String[] args) {
+        Animal animal = new Lion();
+        animal.careFor();
+    }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;​	This correct answer is &lt;em&gt;toss in meat&lt;/em&gt;. The main method creates a new Lion and calls careFor. Since only the Animal superclass has a careFor method, it executes. That method calls play. Java looks for overridden methods, and it sees that Lion implements play. Even though the call is from the Animal class, Java still looks at subclasses, which is good because you don’t want to pet a Lion!&lt;/p&gt;
+</description>
+        <pubDate>Fri, 24 Jan 2020 20:04:00 +0000</pubDate>
+        <link>https://zwt.io/2020/01/24/java-virtual-method-invocation/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/01/24/java-virtual-method-invocation/</guid>
+        
+        <category>Java</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Java模块化</title>
+        <description>&lt;p&gt;为了准备 1Z0-816，所以要学习一下 Java 11 的基础部分。&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/image-20200122001604874.png&quot; alt=&quot;image-20200122001604874&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;module-info.java 是模块的信息。&lt;/p&gt;
+
+&lt;p&gt;一个新的关键词 &lt;code&gt;module&lt;/code&gt; ，最简单的一个模块如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;module io.zwt.common {
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+</description>
+        <pubDate>Wed, 22 Jan 2020 00:14:00 +0000</pubDate>
+        <link>https://zwt.io/2020/01/22/java-modules/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/01/22/java-modules/</guid>
+        
+        <category>Java 11</category>
+        
+        
+      </item>
+    
+  </channel>
+</rss>

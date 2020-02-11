@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords"  content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
+    <meta name="theme-color" content="#000000">
+    
+    <title>OCA 自测回顾 - 招文桃 | 记录</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://zwt.io/2019/10/13/oca-guide-intro-test-review/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/zwt.min.css">
+
+    <!-- <link rel="stylesheet" href="/css/prism.css"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+
+
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand logo" href="/" style="padding: 0; margin: 0">
+                <img src="/img/brand-logo.png"  style="cursor: pointer;padding: 6px" alt="logo">
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">关于</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">标签</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/leimu.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#OCA" title="OCA">OCA</a>
+                        
+                    </div>
+                    <h1>OCA 自测回顾</h1>
+                    
+                    
+                    <h2 class="subheading">Assessment Test</h2>
+                    
+                    <span class="meta">由招文桃在2019年10月13日发布</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+    <div class="
+        col-lg-8 col-lg-offset-2
+        col-md-10 col-md-offset-1
+        post-container line-numbers">
+
+        <h2 id="oca-自测题回顾">OCA 自测题回顾</h2>
+
+<ol>
+  <li>What is the output of the following code? (Choose all that apply)
+    <pre><code class="language-java">interface HasTail { int getTailLength(); } 
+abstract class Puma implements HasTail { 
+    protected int getTailLength() {return 4;} 
+} 
+public class Cougar extends Puma { 
+    public static void main(String[] args) { 
+        Puma puma = new Puma(); 
+        System.out.println(puma.getTailLength()); 
+ } 
+       
+    public int getTailLength(int length) {return 2;} 
+} 
+</code></pre>
+    <blockquote>
+      <p><strong>A.</strong> 2</p>
+
+      <p><strong>B.</strong> 4</p>
+
+      <p><strong>C.</strong> The code will not compile because of line 3.</p>
+
+      <p><strong>D.</strong> The code will not compile because of line 5.</p>
+
+      <p><strong>E.</strong> The code will not compile because of line 7.</p>
+
+      <p><strong>F.</strong> The output cannot be determined from the code provided. <!--more--></p>
+    </blockquote>
+
+    <p><strong>答案是：</strong> <strong>C</strong>, <strong>D</strong>, <strong>E</strong>. First, the method <code>getTailLength()</code> in the interface <code>HasTail</code> is assumed to be <code>public</code>, since it is part of an interface. The implementation of the method on line 3 is therefore an invalid override, as <code>protected</code> is a more restrictive access modifier than <code>public</code>, so option <strong>C</strong> is correct. Next, the class <code>Cougar</code> implements an overloaded version
+of <code>getTailLength()</code>, but since the declaration in the parent class <code>Puma</code> is invalid, it needs to implement a <code>public</code> version of the method. Since it does not, the declaration of <code>Cougar</code> is invalid, so option <strong>D</strong> is correct. Option <strong>E</strong> is correct, since <code>Puma</code> is marked <code>abstract</code> and cannot be instantiated. The overloaded method on line 11 is declared correctly, so option <strong>F</strong> is not correct. Finally, as the code has multiple compiler errors, options <strong>A</strong>, <strong>B</strong>, and <strong>G</strong> can be eliminated.</p>
+  </li>
+  <li>What is the result of the following program?
+    <pre><code class="language-java">public class MathFunctions { 
+    public static void addToInt(int x, int amountToAdd) { 
+        x = x + amountToAdd; 
+    } 
+    public static void main(String[] args) { 
+        int a = 15; 
+        int b = 10; 
+        MathFunctions.addToInt(a, b); 
+        System.out.println(a); } } 
+</code></pre>
+
+    <blockquote>
+      <p><strong>A.</strong> 10</p>
+
+      <p><strong>B.</strong> 15</p>
+
+      <p><strong>C.</strong> 25</p>
+
+      <p><strong>D.</strong> Compiler error on line 3.</p>
+
+      <p><strong>E.</strong> Compiler error on line 8.</p>
+
+      <p><strong>F.</strong> None of the above.</p>
+    </blockquote>
+
+    <p><strong>答案是：</strong> <strong>B.</strong> The code compiles successfully, so options <strong>D</strong> and <strong>E</strong> are incorrect. The value of a cannot be changed by the <code>addToInt</code> method, no matter what the method does, because only a copy of the variable is passed into the parameter <code>x</code>. Therefore, a does not change and the output on line 9 is 15.</p>
+  </li>
+  <li>
+    <p>What is the result of the following code?</p>
+
+    <pre><code class="language-java">int[] array = {6,9,8}; 
+List&lt;Integer&gt; list = new ArrayList&lt;&gt;(); 
+list.add(array[0]); 
+list.add(array[2]); 
+list.set(1, array[1]); 
+list.remove(0); 
+System.out.println(list); 
+</code></pre>
+
+    <blockquote>
+      <p><strong>A.</strong> [8]</p>
+
+      <p><strong>B.</strong> [9]</p>
+
+      <p><strong>C.</strong> Something like [Ljava.lang.String;@160bc7c0</p>
+
+      <p><strong>D.</strong> An exception is thrown.</p>
+
+      <p><strong>E.</strong> The code does not compile.</p>
+    </blockquote>
+
+    <p><strong>答案是： B.</strong> The array is allowed to use an anonymous initializer because it is in the same line as the declaration. The <code>ArrayList</code> uses the diamond operator allowed since Java 7. This specifies the type matches the one on the left without having to re-type it. After adding the two elements, list contains [6, 8]. We then replace the element at index 1 with 9, resulting in [6, 9]. Finally, we remove the element at index 0, leaving [9]. Option <strong>C</strong> is incorrect because arrays output something like that rather than an <code>ArrayList</code>.</p>
+  </li>
+  <li>
+    <p>What is the output of the following code?</p>
+
+    <pre><code class="language-java">public class Deer { 
+    public Deer() { System.out.print("Deer"); } 
+    public Deer(int age) { System.out.print("DeerAge"); } 
+    private boolean hasHorns() { return false; } 
+    public static void main(String[] args) { 
+        Deer deer = new Reindeer(5); 
+        System.out.println(","+deer.hasHorns()); 
+    } 
+} 
+class Reindeer extends Deer { 
+    public Reindeer(int age) { System.out.print("Reindeer"); } 
+    public boolean hasHorns() { return true; } 
+} 
+</code></pre>
+
+    <blockquote>
+      <p><strong>A.</strong> DeerReindeer,false</p>
+
+      <p><strong>B.</strong> DeerReindeer,true</p>
+
+      <p><strong>C.</strong> ReindeerDeer,false</p>
+
+      <p><strong>D.</strong> ReindeerDeer,true</p>
+
+      <p><strong>E.</strong> DeerAgeReindeer,false</p>
+
+      <p><strong>F.</strong> DeerAgeReindeer,true</p>
+
+      <p><strong>G.</strong> The code will not compile because of line 7.</p>
+
+      <p><strong>H.</strong> The code will not compile because of line 12.</p>
+    </blockquote>
+
+    <p><strong>答案是：A.</strong> The code compiles and runs without issue, so options <strong>G</strong> and <strong>H</strong> are incorrect. First, the <code>Reindeer</code> object is instantiated using the constructor that takes an <code>int</code> value. Since there is no explicit call to the parent constructor, the default no-argument <code>super()</code> is inserted as the first line of the constructor. The output is then <code>Deer</code>, followed by <code>Reindeer</code> in the child constructor, so only options <strong>A</strong> and <strong>B</strong> can be correct. Next, the method <code>hasHorns()</code> looks like an overridden method, but it is actually a <em>hidden method</em> since it is declared <code>private</code> in the parent class. Because the hidden method is referenced in the parent class, the parent version is used, so the code outputs <code>false</code>, and option <strong>A</strong> is the correct answer.</p>
+  </li>
+  <li>
+    <p>Which of the following statements are true? (Choose all that apply)</p>
+
+    <blockquote>
+      <p><strong>A.</strong> Checked exceptions are intended to be thrown by the JVM (and not the programmer).</p>
+
+      <p><strong>B.</strong> Checked exceptions are required to be caught or declared.</p>
+
+      <p><strong>C.</strong> Errors are intended to be thrown by the JVM (and not the programmer).</p>
+
+      <p><strong>D.</strong> Errors are required to be caught or declared.</p>
+
+      <p><strong>E.</strong> Runtime exceptions are intended to be thrown by the JVM (and not the programmer).</p>
+
+      <p><strong>F.</strong> Runtime exceptions are required to be caught or declared.</p>
+    </blockquote>
+
+    <p><strong>答案是：B, C.</strong> Only checked exceptions are required to be handled (caught) or declared. Runtime exceptions are commonly thrown by both the JVM and programmer code. Checked exceptions are usually thrown by programmer code. Errors are intended to be thrown by the JVM. While a programmer could throw one, this would be a <strong>horrible</strong> practice.</p>
+  </li>
+  <li>
+    <p>Which are true of the following code? (Choose all that apply)</p>
+
+    <pre><code class="language-java">import java.util.*; 
+public class Grasshopper { 
+    public Grasshopper(String n) { 
+    name = n; 
+} 
+public static void main(String[] args) { 
+    Grasshopper one = new Grasshopper("g1"); 
+    Grasshopper two = new Grasshopper("g2"); 
+    one = two; 
+    two = null; 
+    one = null; 
+} 
+private String name; } 
+</code></pre>
+
+    <blockquote>
+      <p><strong>A.</strong> Immediately after line 9, no grasshopper objects are eligible for garbage collection.</p>
+
+      <p><strong>B.</strong> Immediately after line 10, no grasshopper objects are eligible for garbage collection.</p>
+
+      <p><strong>C.</strong> Immediately after line 9, only one grasshopper object is eligible for garbage collection.</p>
+
+      <p><strong>D.</strong> Immediately after line 10, only one grasshopper object is eligible for garbage collection.</p>
+
+      <p><strong>E.</strong> Immediately after line 11, only one grasshopper object is eligible for garbage collection.</p>
+
+      <p><strong>F.</strong> The code compiles.</p>
+
+      <p><strong>G.</strong> The code does not compile.</p>
+    </blockquote>
+
+    <p><strong>答案是：C, D, F.</strong> Immediately after line 9, only <code>Grasshopper</code> <code>g1</code> is eligible for garbage collection since both <code>one</code> and <code>two</code> point to <code>Grasshopper</code> <code>g2</code>. Immediately after line 10, we still only have <code>Grasshopper</code> <code>g1</code> eligible for garbage collection. Reference <code>two</code> points to <code>g2</code> and reference <code>two</code> is <code>null</code>. Immediately after line 11, both <code>Grasshopper</code> objects are eligible for garbage collection since both <code>one</code> and <code>two</code> point to <code>null</code>. The code does compile. Although it is traditional to declare instance variables early in the class, you don’t have to.</p>
+  </li>
+  <li>
+    <p>What is the output of the following program?</p>
+
+    <pre><code class="language-java">public class FeedingSchedule { 
+public static void main(String[] args) { 
+	int x = 5, j = 0; 
+	OUTER: for(int i=0; i&lt;3; ) 
+		INNER: do { 
+            i++; x++; 
+            if(x &gt; 10) break INNER; 
+            x += 4; 
+            j++; 
+         } while(j &lt;= 2); 
+ 		System.out.println(x); 
+} } 
+</code></pre>
+
+    <blockquote>
+      <p><strong>A.</strong> 10</p>
+
+      <p><strong>B.</strong> 12</p>
+
+      <p><strong>C.</strong> 13</p>
+
+      <p><strong>D.</strong> 17</p>
+
+      <p><strong>E.</strong> The code will not compile because of line 4.</p>
+
+      <p><strong>F.</strong> The code will not compile because of line 6.</p>
+    </blockquote>
+
+    <p><strong>答案是：B.</strong> The code compiles and runs without issue; therefore, options <strong>E</strong> and <strong>F</strong> are incorrect. This type of problem is best examined one loop iteration at a time:</p>
+
+    <ul>
+      <li>On the first iteration of the outer loop <code>i</code> is 0, so the loop continues.</li>
+      <li>On the first iteration of the inner loop, <code>i</code> is updated to 1 and <code>x</code> to 6. The <code>if-then</code> statement branch is not executed, and <code>x</code> is increased to 10 and <code>j</code> to 1.</li>
+      <li>On the second iteration of the inner loop (since <code>j = 1</code> and <code>1 &lt;= 2</code>), <code>i</code> is updated to 2 and <code>x</code> to 11. At this point, the <code>if-then</code> branch will evaluate to <code>true</code> for the remainder of the program run, which causes the flow to break out of the inner loop each time it is reached.</li>
+      <li>On the second iteration of the outer loop (since <code>i = 2</code>), <code>i</code> is updated to 3 and <code>x</code> to 12. As before, the inner loop is broken since <code>x</code> is still greater than 10.</li>
+      <li>On the third iteration of the outer loop, the outer loop is broken, as <code>i</code> is already not less than 3. The most recent value of <code>x</code>, 12, is output, so the answer is option <strong>B</strong>.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Assuming we have a valid, non-null <code>HenHouse</code> object whose value is initialized by the blank line shown here, which of the following are possible outputs of this application?(Choose all that apply)</p>
+
+    <pre><code class="language-java">class Chicken {} 
+interface HenHouse { public java.util.List&lt;Chicken&gt; getChickens(); } 
+public class ChickenSong { 
+public static void main(String[] args) { 
+HenHouse house = ______________ 
+    Chicken chicken = house.getChickens().get(0); 
+    for(int i=0; i&lt;house.getChickens().size(); 
+        chicken = house.getChickens().get(i++)) { 
+        System.out.println("Cluck"); 
+} } } 
+</code></pre>
+
+    <blockquote>
+      <p><strong>A.</strong> The code will not compile because of line 6.</p>
+
+      <p><strong>B.</strong> The code will not compile because of lines 7–8.</p>
+
+      <p><strong>C.</strong> The application will compile but not produce any output.</p>
+
+      <p><strong>D.</strong> The application will output Cluck exactly once.</p>
+
+      <p><strong>E.</strong> The application will output Cluck more than once.</p>
+
+      <p><strong>F.</strong> The application will compile but produce an exception at runtime.</p>
+    </blockquote>
+
+    <p><strong>答案是：D, E, F.</strong> The code compiles without issue, so options <strong>A</strong> and <strong>B</strong> are incorrect. If <code>house.getChickens()</code> returns an array of one element, the code will output Cluck once, so option <strong>D</strong> is correct. If <code>house.getChickens()</code> returns an array of multiple elements, the code will output Cluck once for each element in the array, so option <strong>E</strong> is correct. Alternatively, if <code>house.getChickens()</code> returns an array of zero elements, then the code will throw an <code>IndexOutOfBoundsException</code> on the call to <code>house.getChickens().get(0);</code> therefore, option <strong>C</strong> is not possible and option <strong>F</strong> is correct. The code will also throw an exception if the array returned by <code>house.getChickens()</code> is <code>null</code>, so option <strong>F</strong> is possible under multiple circumstances.</p>
+  </li>
+  <li>
+    <p>What individual changes, if any, would allow the following code to compile? (Choose all that apply)</p>
+
+    <pre><code class="language-java"> public interface Animal { public default String getName() { return null; } }
+ interface Mammal { public default String getName() { return null; } }
+ abstract class Otter implements Mammal, Animal {}
+</code></pre>
+
+    <blockquote>
+      <p><strong>A.</strong> The code compiles without issue.</p>
+
+      <p><strong>B.</strong> Remove the <code>default</code> method modifier and method implementation on line 1.</p>
+
+      <p><strong>C.</strong> Remove the <code>default</code> method modifier and method implementation on line 2.</p>
+
+      <p><strong>D.</strong> Remove the <code>default</code> method modifier and method implementation on lines 1 and 2.</p>
+
+      <p><strong>E.</strong> Change the return value on line 1 from <code>null</code> to <code>"Animal"</code>.</p>
+
+      <p><strong>F.</strong> Override the <code>getName()</code> method with an abstract method in the Otter class.</p>
+
+      <p><strong>G.</strong> Override the <code>getName()</code> method with a concrete method in the Otter class.</p>
+    </blockquote>
+
+    <p><strong>答案是：D, F, G.</strong> The code does not compile, since a class cannot inherit two interfaces that both define default methods with the same signature, unless the class implementing the interfaces overrides it with an abstract or concrete method. Therefore, option <strong>A</strong> is incorrect and options <strong>F</strong> and <strong>G</strong> are correct. The alternate approach is to make the <code>getName()</code> method <code>abstract</code> in the interfaces, because a class may inherit two abstract methods with the same signature. The change must be made to both interfaces, though, so options <strong>B</strong> and <strong>C</strong> are incorrect if taken individually, and option <strong>D</strong> is correct since the changes are taken together.</p>
+  </li>
+  <li>
+    <p>Which of the following lines can be inserted at line 11 to print true? (Choose all that apply)</p>
+
+    <pre><code class="language-java">public static void main(String[] args) {
+    // INSERT CODE HERE
+}
+private static boolean test(Predicate&lt;Integer&gt; p) {
+    return p.test(5);
+}
+</code></pre>
+
+    <blockquote>
+      <p>A. System.out.println(test(i -&gt; i == 5));</p>
+
+      <p>B. System.out.println(test(i -&gt; {i == 5;}));</p>
+
+      <p>C. System.out.println(test((i) -&gt; i == 5));</p>
+
+      <p>D. System.out.println(test((int i) -&gt; i == 5);</p>
+
+      <p>E. System.out.println(test((int i) -&gt; {return i == 5;}));</p>
+
+      <p>F. System.out.println(test((i) -&gt; {return i == 5;}));</p>
+    </blockquote>
+
+    <p><strong>答案是：A, C, F.</strong> The only functional programming interface you need to memorize for the exam is <code>Predicate</code>. It takes a single parameter and returns a <code>boolean</code>. Lambda expressions with one parameter are allowed to omit the parentheses around the parameter list, making options <strong>A</strong> and <strong>C</strong> correct. The return statement is optional when a single statement is in the body, making option <strong>F</strong> correct. Option <strong>B</strong> is incorrect because a return statement must be used if braces are included around the body. Options <strong>D</strong> and <strong>E</strong> are incorrect because the type is <code>Integer</code> in the predicate and <code>int</code> in the lambda. <strong>Autoboxing works for collections not inferring predicates.</strong> If these two were changed to <code>Integer</code>, they would be correct.</p>
+  </li>
+  <li>
+    <p>Which of the following are checked exceptions? (Choose all that apply)</p>
+
+    <blockquote>
+      <p><strong>A.</strong> <code>Exception</code></p>
+
+      <p><strong>B.</strong> <code>IllegalArgumentException</code></p>
+
+      <p><strong>C.</strong> <code>IOException</code></p>
+
+      <p><strong>D.</strong> <code>NullPointerException</code></p>
+
+      <p><strong>E.</strong> <code>NumberFormatException</code></p>
+
+      <p><strong>F.</strong> <code>StackOverflowError</code></p>
+    </blockquote>
+
+    <p><strong>答案是：A, C.</strong> Option <strong>A</strong> is the exception base class, which is a checked exception. Options <strong>B, D</strong>, and <strong>E</strong> extend <code>RuntimeException</code> directly or indirectly and therefore are unchecked exceptions. Option <strong>F</strong> is a <code>throwable</code> and not an exception, and so should not be caught or declared.</p>
+  </li>
+</ol>
+
+
+
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC80MTE2My8xNzcxMQ==">
+            <script type="text/javascript">
+            (function(d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+            
+                if (typeof LivereTower === 'function') { return; }
+            
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+            
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+            </script>
+            <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->
+
+        <hr style="visibility: hidden;">
+
+        <ul class="pager">
+            
+            <li class="previous">
+                <a href="/2019/10/13/get-int-array-from-console-input/" data-toggle="tooltip" data-placement="top" title="控制台输入数组">
+                上一篇<br>
+                <span>控制台输入数组</span>
+                </a>
+            </li>
+            
+            
+            <li class="next">
+                <a href="/2019/10/14/do1-cloud-test-review/" data-toggle="tooltip" data-placement="top" title="相反顺序输出一个整数">
+                下一篇<br>
+                <span>相反顺序输出一个整数</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">目录</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">主题标签</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#微积分" title="微积分" rel="2">
+                                    微积分
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java" title="Java" rel="26">
+                                    Java
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                    笔试面试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCA" title="OCA" rel="7">
+                                    OCA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#笔试" title="笔试" rel="2">
+                                    笔试
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#OCP" title="OCP" rel="3">
+                                    OCP
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Kotlin" title="Kotlin" rel="4">
+                                    Kotlin
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Tutorial" title="Tutorial" rel="6">
+                                    Tutorial
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                    Spring Boot
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Reactive" title="Reactive" rel="10">
+                                    Reactive
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#教程" title="教程" rel="5">
+                                    教程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#翻译" title="翻译" rel="4">
+                                    翻译
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Java 11" title="Java 11" rel="2">
+                                    Java 11
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Reactive Programming" title="Reactive Programming" rel="2">
+                                    Reactive Programming
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#响应式编程" title="响应式编程" rel="2">
+                                    响应式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring WebFlux" title="Spring WebFlux" rel="2">
+                                    Spring WebFlux
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Spring Cloud Gateway" title="Spring Cloud Gateway" rel="2">
+                                    Spring Cloud Gateway
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#RSocket" title="RSocket" rel="4">
+                                    RSocket
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#R2DBC" title="R2DBC" rel="2">
+                                    R2DBC
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#Calculus" title="Calculus" rel="3">
+                                    Calculus
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
+                                    JavaFX
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>友情链接</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://yingiul.com/">LY Blog</a></li>
+                    
+                        <li><a href="https://www.jianshu.com/u/4f528075fae8/">简书·招文桃</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add bilibili add target = "_blank" to <a> by Tao -->
+                    
+                    <li>
+                        <a target="_blank" href="https://space.bilibili.com/86621709">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">B</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                            <li>
+                                <a target="_blank" href="https://www.jianshu.com/u/4f528075fae8">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">简</i>
+                                    </span>
+                                </a>
+                            </li>
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1889654893">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/gdouzwt">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted" style="text-align: center">
+                    Copyright &copy; 招文桃 2020
+                    <br>
+                    <a href="https://github.com/gdouzwt/gdouzwt.github.io.git">主题</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" >
+                    </iframe>
+                    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=gdouzwt&repo=gdouzwt.github.io&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px">
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- highlight -->
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/zwt.min.js "></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- 数学公式 -->
+<!--https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML-->
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    config: ["MMLorHTML.js"],
+    jax: ["input/TeX","input/MathML","input/AsciiMath","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
+    extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+    TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+    },
+    tex2jax: {
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      inlineMath: [ ['$','$'] ],
+      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      processEnvironments: true
+    }
+  });
+</script>
+
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+
+<!-- <script id="MathJax-script" async -->
+  <!-- src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-AMS-MML_HTMLorMML"> -->
+<!-- </script> -->
+
+<!--古诗词-->
+<script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+<!--  -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e37b3c459855d395042e0ead932247db";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+    
+<script>
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+</script>
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+<script src="/js/prism.js "></script>
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
