@@ -5,46 +5,9 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 11 Feb 2020 17:34:53 +0000</pubDate>
-    <lastBuildDate>Tue, 11 Feb 2020 17:34:53 +0000</lastBuildDate>
+    <pubDate>Tue, 11 Feb 2020 21:55:53 +0000</pubDate>
+    <lastBuildDate>Tue, 11 Feb 2020 21:55:53 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
-    
-      <item>
-        <title>Sample Page</title>
-        <description>&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This is a sample page composed in &lt;em&gt;AsciiDoc&lt;/em&gt;.
-Jekyll converts it to HTML using &lt;a href=&quot;http://asciidoctor.org&quot;&gt;Asciidoctor&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;public class Hello {
-  public static void main(String[] args) {
-    System.out.println(&quot;Hello&quot;);
-  }
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock tip&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-and what now
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;span class=&quot;icon aqua&quot;&gt;&lt;i class=&quot;fa fa-twitter&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/div&gt;</description>
-        <pubDate>Tue, 11 Feb 2020 00:00:00 +0000</pubDate>
-        <link>https://zwt.io/2020/02/11/hello-asciidoctor/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/02/11/hello-asciidoctor/</guid>
-        
-        
-      </item>
     
       <item>
         <title>Java 内部类</title>
@@ -1236,6 +1199,167 @@ public class PalyWithAnimal {
         <guid isPermaLink="true">https://zwt.io/2020/01/22/java-modules/</guid>
         
         <category>Java 11</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>响应式Spring Boot系列教程10</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;原文由 Trisha Gee 在当地时间2019年12月16日发布在 &lt;a href=&quot;https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-kotlin-rsocket-server/&quot;&gt;INTELLIJ IDEA BLOG&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在这一节，我们使用Spring Profiles让应用程序决定使用哪个客户端（使用服务端发送事件的 WebClient，或 RSocket）连接到Kotlin Spring Boot股票价格服务。&lt;/p&gt;
+
+&lt;p&gt;现在我们有了一个RSocket客户端，可以让我们连接到我们的RSocket服务器，我们想在我们的JavaFX应用程序中使用它。&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h3 id=&quot;创建-rsocketstockclient-bean&quot;&gt;创建 RSocketStockClient Bean&lt;/h3&gt;
+
+&lt;p&gt;我们特意创建两种&lt;code&gt;StockClient&lt;/code&gt;实现，一个通过RSocket连接，然后另一个是用WebClient。我们的&lt;code&gt;ClientConfiguration&lt;/code&gt;仅将其中一个Bean暴露，即&lt;code&gt;WebClientStockClient&lt;/code&gt;，如果我们希望应用程序能够使用RSocket客户端，则也需要添加一个&lt;code&gt;RSocketClient&lt;/code&gt; Bean。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在stock-client模块的&lt;code&gt;ClientConfiguration&lt;/code&gt;创建一个新的&lt;code&gt;@Bean&lt;/code&gt;方法，命名为&lt;code&gt;rSocketStockClient&lt;/code&gt;，其返回值类型为&lt;code&gt;StockClient&lt;/code&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;这个方法体需要返回一个新的&lt;code&gt;RSocketStockClient&lt;/code&gt;，所以需要一个&lt;code&gt;rSocketRequester&lt;/code&gt;作为构造函数参数。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;给&lt;code&gt;rSocketStockClient&lt;/code&gt;方法添加一个&lt;code&gt;RSocketRequester&lt;/code&gt;作为参数。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;（提示：我们可以让IntelliJ IDEA添加适当的方法参数，如果我们传入一个未知变量&lt;code&gt;rSocketRequester&lt;/code&gt;到&lt;code&gt;RSocketStockClient&lt;/code&gt;的构造器，在未知变量按下Alt+Enter并选择“Create parameter”）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;（提示：IntelliJ IDEA Ultimate会警告你说这个参数不能自动注入，因为没有类型匹配的Beans）&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;创建另一个名为&lt;code&gt;rSocketRequester&lt;/code&gt;的&lt;code&gt;@Bean&lt;/code&gt;方法，返回&lt;code&gt;RSocketRequester&lt;/code&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;给方法声明一个类型为&lt;code&gt;RSocketRequester.Builder&lt;/code&gt;的参数&lt;code&gt;builder&lt;/code&gt; 这应该会被Spring自动注入。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用&lt;code&gt;builder&lt;/code&gt;的&lt;code&gt;connectTcp&lt;/code&gt;方法，并给它 “localhost” 和端口 7000(这是Spring Boot的RSocket运行地址)。调用&lt;code&gt;block()&lt;/code&gt;方法完成这次连接。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@Configuration
+public class ClientConfiguration {
+    // WebClientStockClient bean 方法...
+ 
+    @Bean
+    public StockClient rSocketStockClient(RSocketRequester rSocketRequester) {
+        return new RSocketStockClient(rSocketRequester);
+    }
+ 
+    @Bean
+    public RSocketRequester rSocketRequester(RSocketRequester.Builder builder) {
+        return builder.connectTcp(&quot;localhost&quot;, 7000).block();
+    }
+ 
+    // WebClient bean 方法...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;选择使用哪个-bean&quot;&gt;选择使用哪个 Bean&lt;/h3&gt;
+
+&lt;p&gt;如果我们回到JavaFX的&lt;code&gt;ChartController&lt;/code&gt;（在stock-ui 模块），这个类就是用了&lt;code&gt;StockClient&lt;/code&gt;去连接到价格服务，并在图表上显示价格的。IntelliJ IDEA 旗舰版在这个类显示警告，说这里边有多于一个Bean符合 StockClient 类型，也就是我们的&lt;code&gt;rSocketStockClient&lt;/code&gt;和&lt;code&gt;webClientStockClient&lt;/code&gt;。我们需要配置一种方式，指定我们实际想要使用哪个客户端。一种做法是使用Spring profiles。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;添加一个&lt;code&gt;@Profile&lt;/code&gt;注解到&lt;code&gt;webClientStockClient&lt;/code&gt;方法，传入一个值 &lt;code&gt;sse&lt;/code&gt;（表示 Server-Sent Events)。&lt;/li&gt;
+  &lt;li&gt;给&lt;code&gt;rSocketStockClient&lt;/code&gt;添加一个&lt;code&gt;@Profile&lt;/code&gt;注解，值为&lt;code&gt;rsocket&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@Bean
+@Profile(&quot;sse&quot;)
+public StockClient webClientStockClient(WebClient webClient) {
+    return new WebClientStockClient(webClient);
+}
+ 
+@Bean
+@Profile(&quot;rsocket&quot;)
+public StockClient rSocketStockClient(RSocketRequester rSocketRequester) {
+    return new RSocketStockClient(rSocketRequester);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;选择激活的配置&quot;&gt;选择激活的配置&lt;/h3&gt;
+
+&lt;p&gt;如果我们使用的是IntelliJ IDEA旗舰版，当我们在&lt;code&gt;ChartController&lt;/code&gt;里面，我们可以看到错误已经消失了。但我们还是需要指定想要使用哪个配置(profile)。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;去到stock-ui模块的application.properties文件&lt;/li&gt;
+  &lt;li&gt;设置 spring.profiles.active属性的值为&lt;code&gt;sse&lt;/code&gt;这应该会给我们同样的Bean和之前同样的功能。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-properties&quot;&gt;# web-application and application title properties here...
+spring.profiles.active=sse
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;重新运行应用程序，程序应该按预期启动，并像之前那样显示两组价格数据。&lt;/li&gt;
+  &lt;li&gt;注意到在运行窗口，JavaFX应用程序已经以&lt;em&gt;sse&lt;/em&gt;配置启动。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;调试日志&quot;&gt;调试日志&lt;/h3&gt;
+
+&lt;p&gt;如果我们想更加确认我们所使用的Bean，我们可以回到客户端并添加一些日志功能。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;在&lt;code&gt;WebClientStockClient&lt;/code&gt;里面的&lt;code&gt;pricesFor&lt;/code&gt;方法添加一个info等级的日志信息表示当前使用的是 WebClient stock client。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public Flux&amp;lt;StockPrice&amp;gt; pricesFor(String symbol) {
+    log.info(&quot;WebClient stock client&quot;);
+    return // 在这里创建Flux
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;在&lt;code&gt;RSocketStockClient&lt;/code&gt;也做类似的操作&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public Flux&amp;lt;StockPrice&amp;gt; pricesFor(String symbol) {
+    log.info(&quot;RSocket stock client&quot;);
+    return // 在这里创建Flux
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;重新运行应用程序，我们应该看到两个日志消息，表示我们当前使用的是WebClient stock client。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;通过-rsocket-获取价格&quot;&gt;通过 RSocket 获取价格&lt;/h3&gt;
+
+&lt;p&gt;最后让我们使用RSocket去获取股票价格并显示到JavaFX的折线图上吧。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;回到stock-ui的application.properties文件，并将活动的配置改为&lt;code&gt;rsocket&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;重新运行应用程序，所有东西应该按预期运行。这次我们使用的是&lt;em&gt;rsocket&lt;/em&gt;配置，并通过&lt;code&gt;RSocketStockClient&lt;/code&gt;连接到RSocket价格服务器。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-properties&quot;&gt;#这里是 web-application 和 application title 的属性...
+spring.profiles.active=rsocket
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;所以就是这样子。一个完整的带有JavaFX折线图，并订阅到一个Kotlin Spring Boot应用程序的响应式数据流的价格数据的端到端应用程序。而且我们能够配置通过服务端发送事件或新的RSocket协议获取这些股票价格。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/zwt-io/rsb/&quot;&gt;全部代码在 GitHub&lt;/a&gt;：https://github.com/zwt-io/rsb/&lt;/p&gt;
+</description>
+        <pubDate>Thu, 09 Jan 2020 11:12:00 +0000</pubDate>
+        <link>https://zwt.io/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/01/09/reactive-spring-boot-part10-spring-profiles-to-switch-clients/</guid>
+        
+        <category>JavaFX</category>
+        
+        <category>Spring Boot</category>
+        
+        <category>Reactive</category>
+        
+        <category>教程</category>
         
         
       </item>
