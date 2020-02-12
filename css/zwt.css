@@ -1,3 +1,8 @@
+/*!
+ * TAO v1.7.0 (https://zwt.io)
+ * Copyright 2020 Tao <zhao@wen-tao.com>
+ */
+
 @charset "UTF-8";
 @import url(../css/prism.css);
 .sidebar-container {
@@ -16,13 +21,13 @@
   color: #bfbfbf !important;
 }
 .sidebar-container a:hover, .sidebar-container a:active {
-  color: #0085A1 !important;
+  color: #ee18a7 !important;
 }
 .sidebar-container .tags a {
   border-color: #bfbfbf;
 }
 .sidebar-container .tags a:hover, .sidebar-container .tags a:active {
-  border-color: #0085A1;
+  border-color: #ee18a7;
 }
 .sidebar-container .short-about img {
   width: 240px;
@@ -155,7 +160,7 @@ a {
   color: #404040;
 }
 a:hover, a:focus {
-  color: #0085A1;
+  color: #ee18a7;
 }
 
 a img:hover, a img:focus {
@@ -256,7 +261,7 @@ code {
   word-break: break-all;
 }
 .post-container a:hover, .post-container a:focus {
-  color: #0085A1;
+  color: #ee18a7;
 }
 .post-container h1,
 .post-container h2,
@@ -486,13 +491,13 @@ code {
     color: #404040;
   }
   .navbar-custom.is-fixed .navbar-brand:hover, .navbar-custom.is-fixed .navbar-brand:focus {
-    color: #0085A1;
+    color: #ee18a7;
   }
   .navbar-custom.is-fixed .nav li a {
     color: #404040;
   }
   .navbar-custom.is-fixed .nav li a:hover, .navbar-custom.is-fixed .nav li a:focus {
-    color: #0085A1;
+    color: #ee18a7;
   }
   .navbar-custom.is-visible {
     /* if the user changes the scrolling direction, we show the header */
@@ -619,7 +624,7 @@ code {
 }
 .post-preview > a:hover, .post-preview > a:focus {
   text-decoration: none;
-  color: #0085A1;
+  color: #ee18a7;
 }
 .post-preview > a > .post-title {
   font-size: 21px;
@@ -646,7 +651,7 @@ code {
   color: #404040;
 }
 .post-preview > .post-meta > a:hover, .post-preview > .post-meta > a:focus {
-  color: #0085A1;
+  color: #ee18a7;
   text-decoration: underline;
 }
 @media only screen and (min-width: 768px) {
@@ -674,7 +679,7 @@ code {
   }
 }
 .post-content-preview a {
-  color: #0085A1;
+  color: #ee18a7;
 }
 
 .section-heading {
@@ -711,7 +716,7 @@ footer .copyright a {
   color: #337ab7;
 }
 footer .copyright a:hover, footer .copyright a:focus {
-  color: #0085A1;
+  color: #ee18a7;
 }
 
 .floating-label-form-group {
@@ -761,7 +766,7 @@ footer .copyright a:hover, footer .copyright a:focus {
 }
 
 .floating-label-form-group-with-focus label {
-  color: #0085A1;
+  color: #ee18a7;
 }
 
 form .row:first-child .floating-label-form-group {
@@ -789,8 +794,8 @@ form .row:first-child .floating-label-form-group {
 }
 
 .btn-default:hover, .btn-default:focus {
-  background-color: #0085A1;
-  border: 1px solid #0085A1;
+  background-color: #ee18a7;
+  border: 1px solid #ee18a7;
   color: white;
 }
 
@@ -827,8 +832,8 @@ form .row:first-child .floating-label-form-group {
 .pager li > a:hover,
 .pager li > a:focus {
   color: white;
-  background-color: #0085A1;
-  border: 1px solid #0085A1;
+  background-color: #ee18a7;
+  border: 1px solid #ee18a7;
 }
 .pager li > a:hover > span,
 .pager li > a:focus > span {
@@ -846,13 +851,13 @@ form .row:first-child .floating-label-form-group {
 ::-moz-selection {
   color: white;
   text-shadow: none;
-  background: #0085A1;
+  background: #ee18a7;
 }
 
 ::selection {
   color: white;
   text-shadow: none;
-  background: #0085A1;
+  background: #ee18a7;
 }
 
 img::selection {
