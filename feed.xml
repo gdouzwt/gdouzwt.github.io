@@ -5,9 +5,198 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 15 Feb 2020 12:22:52 +0000</pubDate>
-    <lastBuildDate>Sat, 15 Feb 2020 12:22:52 +0000</lastBuildDate>
+    <pubDate>Sat, 15 Feb 2020 14:14:30 +0000</pubDate>
+    <lastBuildDate>Sat, 15 Feb 2020 14:14:30 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>816 基准测试回顾</title>
+        <description>&lt;p&gt;The following are the details of the interface &lt;code&gt;ScheduledExecutorService&lt;/code&gt;:
+All Superinterfaces:
+ &lt;code&gt;Executor&lt;/code&gt;, &lt;code&gt;ExecutorService&lt;/code&gt;
+All Known Implementing Classes:
+ &lt;code&gt;ScheduledThreadPoolExecutor&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;An &lt;code&gt;ExecutorService&lt;/code&gt; that can schedule commands to run after a given delay, or to execute periodically.
+The schedule     methods create tasks with various delays and return a task object that can     be used to cancel or check execution. The &lt;code&gt;scheduleAtFixedRate&lt;/code&gt; and  &lt;code&gt;scheduleWithFixedDelay&lt;/code&gt; methods create and execute tasks that run periodically until cancelled.&lt;/p&gt;
+
+&lt;p&gt;Commands submitted using the &lt;code&gt;Executor.execute(java.lang.Runnable)&lt;/code&gt; and &lt;code&gt;ExecutorService.submit&lt;/code&gt; methods are scheduled with a requested delay of zero. Zero and negative delays (but not periods) are also allowed in schedule methods, and are treated as     requests for immediate execution.&lt;/p&gt;
+
+&lt;p&gt;All schedule methods accept relative delays and periods as arguments, not absolute times or dates. It is a simple matter to transform an absolute time represented as a Date to the required form. For example, to schedule at a certain future date, you can use: &lt;code&gt;schedule(task, date.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS)&lt;/code&gt;. Beware however that expiration of a relative delay need not coincide with the current Date at which the task is enabled due to network time synchronization protocols, clock drift, or other factors. The Executors class provides convenient factory methods for the &lt;code&gt;ScheduledExecutorService&lt;/code&gt; implementations provided in this package.&lt;/p&gt;
+
+&lt;p&gt;Following is a usage example that sets up a &lt;code&gt;ScheduledExecutorService&lt;/code&gt; to beep every ten seconds for an hour:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.util.concurrent.*;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
+public class BeeperControl {
+    private final ScheduledExecutorService scheduler =
+            Executors.newScheduledThreadPool(1);
+
+    public void beepForAnHour() {
+        final ScheduledFuture&amp;lt;?&amp;gt; beeperHandle =
+                scheduler.scheduleAtFixedRate(() -&amp;gt;
+                        System.out.println(&quot;beep&quot;), 0, 3, SECONDS);
+    }
+
+    public static void main(String[] args) {
+        new BeeperControl().beepForAnHour();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;which-of-the-following-statements-are-correct&quot;&gt;Which of the following statements are correct?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;A List stores elements in a Sorted Order.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;List just keeps elements in the order in which they are added. For sorting, you’ll need some other interface such as a SortedSet.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;A Set keeps the elements sorted and a List keeps the elements in the order they were added.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;A Set keeps unique objects without any order or sorting.&lt;/p&gt;
+
+      &lt;p&gt;A List keeps the elements in the order they were added. A List may have non-unique elements.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;A SortedSet keeps the elements in the order they were added.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;A SortedSet keeps unique elements in their natural order.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;An OrderedSet keeps the elements sorted.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;There is no interface like OrderedSet&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;An OrderedList keeps the elements ordered.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;There is no such interface. The List interface itself is meant for keeping the elements in the order they were added.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;A NavigableSet keeps the elements sorted.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;A NavigableSet is a Sorted extended with navigation methods reporting closest matches for given search targets. Methods lower, floor, ceiling, and higher return elements respectively less than, or equal, greater than or equal, and greater than a given element, returning null if there is no such element.&lt;/p&gt;
+
+      &lt;p&gt;Since NavigableSet is a SortedSet, it keeps the elements sorted.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;how-many-methods-have-to-be-provided-by-a-class-that-is-not-abstract-and-that-implements-serializable-interface&quot;&gt;How many methods have to be provided by a class that is not abstract and that implements Serializable interface?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;0&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Serializable interface does not declare any methods. That is why is also called as a “marker” interface.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;1&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;2&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;3&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Simple rule to determine sorting order: spaces &amp;lt; numbers &amp;lt; uppercase &amp;lt; lowercase&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;given-that-a-code-fragment-has-just-created-a-jdbc-connection-and-has-executed-an-update-statement-which-of-the-following-statements-is-correct&quot;&gt;Given that a code fragment has just created a JDBC Connection and has executed an update statement, which of the following statements is correct?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Changes to the database are pending a commit call on the connection.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Changes to the database will be rolled back if another update is executed without committing the previous update.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Changes to the database will be committed right after the update statement has completed execution.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;A Connection is always in auto-commit mode when it is created. As per the problem statement, an update was fired without explicitly disabling the auto-commit mode, the changes will be committed right after the update statement has finished execution.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Changes to the database will be committed when another query (update or select) is fired using the connection.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When a connection is created, it is in auto-commit mode. i.e. auto-commit is enabled. This means that each individual SQL statement is treated as a transaction and is automatically committed right after it is completed. (A statement is completed when all of its result sets and update counts have been retrieved. In almost all cases, however, a statement is completed, and therefore committed, right after it is executed.)&lt;/p&gt;
+
+&lt;p&gt;The way to allow two or more statements to be grouped into a transaction is to disable the auto-commit mode. Since it is enabled by default, you have to explicitly disable it after creating a connection by calling &lt;code&gt;con.setAutoCommit(false);&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;JDBC 默认开启了自动提交。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;which-statements-concerning-the-relation-between-a-non-static-inner-class-and-its-outer-class-instances-are-true&quot;&gt;Which statements concerning the relation between a non-static inner class and its outer class instances are true?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Member variables of the outer instance are always accessible to inner instances, regardless of their accessibility modifiers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Member variables of the outer instance can always be referred to using only the variable name within the inner instance.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;This is possible only if that variable is not shadowed by another variable in inner class.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;More than one inner instance can be associated with the same outer instance.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;An inner class can extend its outer classes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;A final outer class cannot have any inner classes.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;There is no such rule.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Sat, 15 Feb 2020 22:10:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/15/foundation-test-review/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/15/foundation-test-review/</guid>
+        
+        <category>Java 11</category>
+        
+        <category>OCP 11</category>
+        
+        
+      </item>
     
       <item>
         <title>Exercises for Inner class</title>
@@ -35,7 +224,7 @@ public class A {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-    &lt;p&gt;That will be :  io.zwt.innerclasses.exercises.A.B&lt;/p&gt;
+    &lt;p&gt;That will be :  &lt;code&gt;io.zwt.innerclasses.exercises.A.B&lt;/code&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Consider the following declaration for top-level class named Cup and a member inner class named Handle:&lt;/p&gt;
@@ -2108,61 +2297,6 @@ spec:
         <category>模式</category>
         
         <category>微服务</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Java Streams vs. Reactive Streams</title>
-        <description>&lt;h3 id=&quot;java-imperative--object-oriented&quot;&gt;Java: imperative + object-oriented&lt;/h3&gt;
-
-&lt;p&gt;Michael Feather:&lt;/p&gt;
-
-&lt;p&gt;​	“In OPP we encapsulate the moving parts; in FP we eliminate the moving parts.”&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;List&amp;lt;Integer&amp;gt; numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-
-//double of even numbers
-List&amp;lt;Integer&amp;gt; doubled = new ArrayList&amp;lt;&amp;gt;();
-
-for (int i = 0; i &amp;lt; numbers.size(); i++) {
-	if (numbers.get(i) % 2 == 0) {
-		doubled.add(numbers.get(i) * 2);
-	}
-}
-System.out.println(doubled);
-
-System.out.println(
-	numbers.stream()	
-		.filter( e -&amp;gt; e % 2 == 0)
-		.map( e -&amp;gt; e * 2)
-		.collect(toList()));
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;!--more--&gt;
-
-&lt;h4 id=&quot;functional-programming--functional-composition--lazy-evaluation&quot;&gt;functional programming == functional composition + lazy evaluation&lt;/h4&gt;
-
-&lt;p&gt;Collection Pipeline Pattern&lt;/p&gt;
-
-&lt;p&gt;Stream is not a data structure it is an abstraction of functions&lt;/p&gt;
-
-&lt;p&gt;bucket   vs  pipeline&lt;/p&gt;
-
-&lt;p&gt;List/Set	    Stream&lt;/p&gt;
-
-&lt;p&gt;dataflow computing&lt;/p&gt;
-
-&lt;p&gt;Serverless&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/image-20200126043305570.png&quot; alt=&quot;image-20200126043305570&quot; /&gt;&lt;/p&gt;
-
-</description>
-        <pubDate>Sat, 25 Jan 2020 23:52:00 +0000</pubDate>
-        <link>https://zwt.io/2020/01/25/java-streams-vs-reative-streams/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/01/25/java-streams-vs-reative-streams/</guid>
-        
-        <category>Java</category>
         
         
       </item>

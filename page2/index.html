@@ -176,6 +176,48 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/01/25/java-streams-vs-reative-streams/">
+        <h2 class="post-title">
+            Java Streams vs. Reactive Streams
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Which, When, How, and Why? 学习记录&nbsp;&nbsp;2020年1月25日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="java-imperative--object-oriented">Java: imperative + object-oriented</h3>
+
+<p>Michael Feather:</p>
+
+<p>​	“In OPP we encapsulate the moving parts; in FP we eliminate the moving parts.”</p>
+
+<pre><code class="language-java">List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+//double of even numbers
+List&lt;Integer&gt; doubled = new ArrayList&lt;&gt;();
+
+for (int i = 0; i &lt; numbers.size(); i++) {
+	if (numbers.get(i) % 2 == 0) {
+		doubled.add(numbers.get(i) * 2);
+	}
+}
+System.out.println(doubled);
+
+System.out.println(
+	numbers.stream()	
+		.filter( e -&gt; e % 2 == 0)
+		.map( e -&gt; e * 2)
+		.collect(toList()));
+</code></pre>
+
+ <a href="/2020/01/25/java-streams-vs-reative-streams/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/01/24/java-virtual-method-invocation/">
         <h2 class="post-title">
             Java虚方法调用
@@ -415,31 +457,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程3
-        </h2>
-        
-        <h3 class="post-subtitle">
-            JavaFX Spring Boot应用程序&nbsp;&nbsp;2020年1月9日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在当地时间2019年11月11日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-a-javafx-spring-boot-application/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>这是第三步，演示如何创建一个 响应式应用程序，使用Spring Boot, Kotlin，Java和JavaFX。</p>
-
-<p>这个第三步演示如何创建一个由Spring Boot启动并管理的JavaFX应用程序，因此我们可以在JavaFX应用程序中使用Spring的特性，例如控制反转。本文也有配套的<a href="https://www.bilibili.com/video/av82672621">视频</a>。</p>
-
- <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -586,7 +603,7 @@
                             
                         
                             
-                                <a href="/tags/#Java 11" title="Java 11" rel="2">
+                                <a href="/tags/#Java 11" title="Java 11" rel="3">
                                     Java 11
                                 </a>
                             
@@ -661,6 +678,8 @@
                                 <a href="/tags/#Notes" title="Notes" rel="2">
                                     Notes
                                 </a>
+                            
+                        
                             
                         
                             
