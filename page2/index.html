@@ -176,6 +176,52 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/01/24/java-virtual-method-invocation/">
+        <h2 class="post-title">
+            Java虚方法调用
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Java virtual method invocation&nbsp;&nbsp;2020年1月24日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="先回顾基本概念-overloading-and-overriding">先回顾基本概念 Overloading and Overriding</h3>
+
+<p>主要需要总结的是:</p>
+
+<p>​	When multiple overloaded methods are present, Java looks for the closest match first. It tries to find the following:</p>
+
+<ul>
+  <li>Exact match by type</li>
+  <li>Matching a superclass type</li>
+  <li>Converting to larger primitive type</li>
+  <li>Converting to an autoboxed type</li>
+  <li>Varargs</li>
+</ul>
+
+<p>For overriding, the overridden method has a few rules:</p>
+
+<ul>
+  <li>The access modifier must be the same or more accessible.</li>
+  <li>The return type must be the same or a more restrictive type, also known as <em>covariant return types</em>.</li>
+  <li>If any checked exceptions are thrown, only the same exceptions or subclasses of those exceptions are allowed to be thrown.</li>
+</ul>
+
+<p>The method must not be static. (If they are, the method is hidden and not overridden.)</p>
+
+<h4 id="关于-instanceof-操作符null-的情况null-不是-object">关于 instanceof 操作符，null 的情况，null 不是 Object.</h4>
+
+<p>instanceof 不能比较没有任何继承关系的类。 而接口可以，因为接口可以被实现。</p>
+
+<p>然后入正题:</p>
+ <a href="/2020/01/24/java-virtual-method-invocation/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/01/22/java-modules/">
         <h2 class="post-title">
             Java模块化
@@ -394,33 +440,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程2
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Java REST客户端&nbsp;&nbsp;2020年1月7日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在当地时间2019年11月4日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-a-rest-client-for-reactive-streams/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>这是第二步，演示如何创建一个 Java 客户端连接到一个发送一系列服务端发送事件的流。我们将使用测试驱动开发来进行开发客户端并进行测试。<a href="https://www.bilibili.com/video/av81233693">视频在 B 站</a></p>
-
-<p>本教程是一系列视频，概述了构建完整的Spring Boot的许多步骤，具有 Kotlin 服务后端，Java 客户端和 JavaFX 用户界面的应用程序。</p>
-
-<p>第二个视频将展示如何创建。一个响应式Spring Java客户端，连接到每秒流式传输股票价格的REST服务。</p>
-
- <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -467,7 +486,7 @@
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="26">
+                                <a href="/tags/#Java" title="Java" rel="27">
                                     Java
                                 </a>
                             
@@ -642,6 +661,8 @@
                                 <a href="/tags/#Notes" title="Notes" rel="2">
                                     Notes
                                 </a>
+                            
+                        
                             
                         
                             

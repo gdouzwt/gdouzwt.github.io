@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, zhaowentao, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>Travis CI上手 - 招文桃 | 记录</title>
+    <title>Exercises for Inner class - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io/2020/02/12/intro-to-travis/">
+    <link rel="canonical" href="https://zwt.io/2020/02/15/inner-class-exercises/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -166,15 +166,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#持续集成" title="持续集成">持续集成</a>
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
                         
                     </div>
-                    <h1>Travis CI上手</h1>
+                    <h1>Exercises for Inner class</h1>
                     
                     
-                    <h2 class="subheading">玩下持续构建、持续集成</h2>
+                    <h2 class="subheading">内部类章节的练习</h2>
                     
-                    <span class="meta">由招文桃在2020年2月12日发布</span>
+                    <span class="meta">由招文桃在2020年2月15日发布</span>
                 </div>
             </div>
         </div>
@@ -192,34 +192,237 @@
         col-md-10 col-md-offset-1
         post-container line-numbers">
 
-        <h3 id="配置文件">配置文件</h3>
+        <h3 id="questions-and-exercises">QUESTIONS AND EXERCISES</h3>
 
-<p>我用于博客自动构建的<code>.travis.yml</code>脚本：</p>
-<pre><code class="language-yaml">language: ruby
-rvm:
-  - 2.6.3
-env:
-  global:
-  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-  - secure: D0RrVHHBEEJMyJK9OUUPM6Wms+D+zifJhHFl4BcmC0leSR0vANoQ6357Bl4miZL2flmnBU/1Z9WNzcDVM0JwQpF8ZVeEdMvgBY5+73Xjp8cIwYfWx8MAUB8J1Hug2aEiXw6KoSxjFOnUpSRnhCcWpviFNCZOa5XavMfe7+OHbNQT1U1xu+ZOmDG6Hrm3CMhfzu2cRPIfziAAgnWVfgtqA0STXnY9D0HvfsKPl6khy6VWkeF09Chqo/XVO/SV5LSgplkgXh1OzS6ITwT99UWDRqIeXYAvMJFyrHkzdxNgtAddYVxmx8WQqfqUFQ6A3HSnJy2Fq04H3gLszQxrVPzw8fNeOzBe7hIviaZdgRsglc26NO13EX//e4DA1ImiYKciFGvDNDBrqtv8u3XAG+8jVe/dLwKbBXnvi64udh2/H/lTBfWQ3eV08/R6m0m4aF8jbv0oBuXReyXuEy9D6xNm+yceekWzKAmTYPFb9W5XLveIgt8SIQO9P6tGuMWV6w7KRhgbpgI886ZeSVS3WcAGIr11SvSNa+x5WapOd/mizHrA8VvW4v8GjmYYwTOsmiLuYl2t1fWY76yYOOdSDLC9XhJN/mS3qxxX7WR4KCJgpstyzTVXj+uyuzi23sV1SdUvO35r3VkZk11ad9Qmp9WLXpdSQfMAKbu/lC7C9HfrGuM=
-cache:
-  bundler: true
-  directories:
-    - /home/travis/.rvm/
-install:
-- gem install bundler
-- bundle install
-script:
-- bundle exec rake deploy
-after_success:
-- bash &lt;(curl -s https://codecov.io/bash)
+<ol>
+  <li>
+    <p>What is an inner class? Differentiate between member, local, and anonymous inner classes.</p>
+
+    <p>An inner class declares inside a top-level class without a static modifier. Inner classes that declared at member level are called member inner classes, local to the method, or instance initialization block are local inner class. And local inner classes that have no name are anonymous inner classes.</p>
+
+    <blockquote>
+      <p>An inner class is a class declared inside the  body of another class. A member inner class is declared inside a class. It can be declared as public, private, protected, or package-level. A local inner class is declared inside a block. Its scope is limited to the block in which it is declared. An anonymous inner class is the same as  local inner class, but has no name. It is declared and an object of the class is created at the same time.</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>What is the fully qualified name of the inner class B, which is declared as follows?</p>
+
+    <pre><code class="language-java">// A.java
+package io.zwt.innerclasses.exercises;
+   
+public class A {
+	public class B {
+	}
+}
 </code></pre>
 
-<p>发现启用了 cache 之后，快很多了。搞到动图凑内容：</p>
+    <p>That will be :  io.zwt.innerclasses.exercises.A.B</p>
+  </li>
+  <li>
+    <p>Consider the following declaration for top-level class named Cup and a member inner class named Handle:</p>
 
-<p><img src="/img/cache_1581461859_5053.gif" alt="cache_1581461859_5053" /></p>
+    <pre><code class="language-java">// Cup.java
+package io.zwt.innerclasses.exercises;
+   
+public class Cup {
+	public class Handle {
+		public Handle() {
+			System.out.println("Created a handle for the cup");
+		}
+	}
+   	
+	public Cup() {
+		System.out.println("Created a cup");
+	}
+}
+</code></pre>
 
-<p>用来测试构建时长，哈哈哈哈！</p>
+    <p>Compile the in the main() method for the following CupTest class that will create an instance of the Cup.Handle inner class:</p>
+
+    <pre><code class="language-java">// CupTest.java
+package io.zwt.innerclasses.exercises;
+public class CupTest {
+    public static void main(String[] args) {
+        // Create a Cup
+        Cup c = new Cup();
+           
+        // Create a Handle
+        // Cup.Handle h = / * You code goes here */;
+        Cup.Handle h = c.new Handle();
+    }
+}
+</code></pre>
+  </li>
+  <li>
+    <p>What will be the output when the following Outer class is run?</p>
+
+    <pre><code class="language-java">// Outer.java
+package io.zwt.innerclasses.exercises;
+   
+public class Outer {
+    private final int value = 19680112;
+       
+    public class Inner {
+        private final int value = 19690919;
+        public void print() {
+            System.out.println("Inner: value = " + value);
+            System.out.println("Inner: this.value = " + this.value);
+            System.out.println("Inner: Inner.this.value = " + 
+                              Inner.this.value);
+            System.out.println("Inner: Outer.this.value = " + 
+                              Outer.this.vlaue);
+        }
+    }
+       
+    public void print() {
+        System.out.println("Outer: value = " + value);
+        System.out.println("Outer: this.value = " + this.value);
+        System.out.println("Outer: Outer.this.value = " + 
+                          Outer.this.value);
+    }
+       
+    public static void main(String[] args) {
+        Outer out = new Outer();
+        Inner in = out.new Inner();
+        out.print();
+        in.print();
+    }
+}
+</code></pre>
+  </li>
+  <li>
+    <p>The following declaration of an AnonymousTest class does not compile. Describe the reasons and steps you might take to fix the error.</p>
+
+    <pre><code class="language-java">// AnonymousTest
+package io.zwt.innerclasses.exercises;
+   
+public class AnonymousTest {
+    public static void main(String[] args) {
+        int x = 100;
+           
+        Object obj = new Object() {
+            {
+                System.out.println("Inside.x = " + x);
+            }
+        };
+        x = 300;
+        System.out.println("Outside.x = " + x);
+    }
+}
+</code></pre>
+  </li>
+  <li>
+    <p>Consider the following declaration for a top-level class A and a member inner class B:</p>
+
+    <pre><code class="language-java">package io.zwt.innerclasses.exercises;
+   
+public class A {
+    public class B {
+        public B() {
+            System.out.println("B is created.");
+        }
+    }
+    public A() {
+        System.out.println("A is created.");
+    }
+}
+</code></pre>
+
+    <p>Consider the following incomplete declaration of class C, which inherits from the inner class A.B:</p>
+
+    <pre><code class="language-java">// C.java
+package io.zwt.innerclasses.exercises;
+   
+public class C extends A.B {
+    /* Define a constructor for class C here */
+       
+    public static void main(String[] args) {
+        C c = /* Your code goes here */;
+    }
+}
+</code></pre>
+
+    <p>Add an appropriate constructor for class C and complete the statement in the main() method. When class C is run, it should print the following to the standard output:</p>
+
+    <pre><code>A is created.
+B is created.
+C is created.
+</code></pre>
+  </li>
+  <li>
+    <p>Which of the following is true about an anonymous inner class?</p>
+
+    <p>a. It can inherit from one class and implement one interface.</p>
+
+    <p>b. It can inherit from one class and implement multiple interfaces.</p>
+
+    <p>c. It can inherit from one class or implement one interface.</p>
+
+    <p>d. It can implement multiple interfaces, but inherits from only one class.</p>
+  </li>
+  <li>
+    <p>How many class files will be generated when the following declaration of the Computer class is compiled? List the names of all generated class files.</p>
+
+    <pre><code class="language-java">// Computer.java
+package io.zwt.innerclasses.exercises;
+   
+public class Computer {
+    public class Mouse {
+        public class Button {
+        }
+    }
+       
+    public static void main(String[] args) {
+        Object obj = new Object() {
+        };
+           
+        System.out.println(obj.hasCode());
+    }
+}
+</code></pre>
+  </li>
+  <li>
+    <p>The following declaration of class H does not compile. Point out the problem and suggest a solution.</p>
+
+    <pre><code class="language-java">// H.java
+package io.zwt.innerclasses.exercises;
+   
+public class H {
+    private int x = 100;
+       
+    public static class J {
+        private int y = x * 2;
+    }
+}
+</code></pre>
+  </li>
+  <li>
+    <p>Consider the following declaration of a top-level class P and a nested static class Q:</p>
+
+    <pre><code class="language-java">// P.java
+package io.zwt.innerclasses.exercises;
+    
+public class P {
+    public static class Q {
+        System.out.println("Hello from Q.");
+    }
+}
+</code></pre>
+
+    <p>Complete the main() method of the following PTest class that will create an object of the nested static class Q. When class PTest is run, it should print a message “Hello from Q.” to the standard output.</p>
+
+    <pre><code class="language-java">// PTest.java
+package io.zwt.innerclasses.exercises;
+    
+public class PTest {
+    public static void main(String[] args) {
+        P.Q q = /* Your code goes here */ ;
+    }
+}
+</code></pre>
+  </li>
+</ol>
+
 
 
         <!-- 来必力City版安装代码 -->
@@ -246,19 +449,12 @@ after_success:
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2020/02/12/hello-asciidoctor/" data-toggle="tooltip" data-placement="top" title="AsciiDoc语法参考">
+                <a href="/2020/02/12/intro-to-travis/" data-toggle="tooltip" data-placement="top" title="Travis CI上手">
                 上一篇<br>
-                <span>AsciiDoc语法参考</span>
+                <span>Travis CI上手</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2020/02/15/inner-class-exercises/" data-toggle="tooltip" data-placement="top" title="Exercises for Inner class">
-                下一篇<br>
-                <span>Exercises for Inner class</span>
-                </a>
-            </li>
             
         </ul>
     </div>  

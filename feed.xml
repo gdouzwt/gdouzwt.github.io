@@ -5,9 +5,252 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 14 Feb 2020 08:27:57 +0000</pubDate>
-    <lastBuildDate>Fri, 14 Feb 2020 08:27:57 +0000</lastBuildDate>
+    <pubDate>Sat, 15 Feb 2020 12:08:34 +0000</pubDate>
+    <lastBuildDate>Sat, 15 Feb 2020 12:08:34 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Exercises for Inner class</title>
+        <description>&lt;h3 id=&quot;questions-and-exercises&quot;&gt;QUESTIONS AND EXERCISES&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;What is an inner class? Differentiate between member, local, and anonymous inner classes.&lt;/p&gt;
+
+    &lt;p&gt;An inner class declares inside a top-level class without a static modifier. Inner classes that declared at member level are called member inner classes, local to the method, or instance initialization block are local inner class. And local inner classes that have no name are anonymous inner classes.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;An inner class is a class declared inside the  body of another class. A member inner class is declared inside a class. It can be declared as public, private, protected, or package-level. A local inner class is declared inside a block. Its scope is limited to the block in which it is declared. An anonymous inner class is the same as  local inner class, but has no name. It is declared and an object of the class is created at the same time.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What is the fully qualified name of the inner class B, which is declared as follows?&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// A.java
+package io.zwt.innerclasses.exercises;
+   
+public class A {
+	public class B {
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;That will be :  io.zwt.innerclasses.exercises.A.B&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider the following declaration for top-level class named Cup and a member inner class named Handle:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// Cup.java
+package io.zwt.innerclasses.exercises;
+   
+public class Cup {
+	public class Handle {
+		public Handle() {
+			System.out.println(&quot;Created a handle for the cup&quot;);
+		}
+	}
+   	
+	public Cup() {
+		System.out.println(&quot;Created a cup&quot;);
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;Compile the in the main() method for the following CupTest class that will create an instance of the Cup.Handle inner class:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// CupTest.java
+package io.zwt.innerclasses.exercises;
+public class CupTest {
+    public static void main(String[] args) {
+        // Create a Cup
+        Cup c = new Cup();
+           
+        // Create a Handle
+        // Cup.Handle h = / * You code goes here */;
+        Cup.Handle h = c.new Handle();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;What will be the output when the following Outer class is run?&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// Outer.java
+package io.zwt.innerclasses.exercises;
+   
+public class Outer {
+    private final int value = 19680112;
+       
+    public class Inner {
+        private final int value = 19690919;
+        public void print() {
+            System.out.println(&quot;Inner: value = &quot; + value);
+            System.out.println(&quot;Inner: this.value = &quot; + this.value);
+            System.out.println(&quot;Inner: Inner.this.value = &quot; + 
+                              Inner.this.value);
+            System.out.println(&quot;Inner: Outer.this.value = &quot; + 
+                              Outer.this.vlaue);
+        }
+    }
+       
+    public void print() {
+        System.out.println(&quot;Outer: value = &quot; + value);
+        System.out.println(&quot;Outer: this.value = &quot; + this.value);
+        System.out.println(&quot;Outer: Outer.this.value = &quot; + 
+                          Outer.this.value);
+    }
+       
+    public static void main(String[] args) {
+        Outer out = new Outer();
+        Inner in = out.new Inner();
+        out.print();
+        in.print();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The following declaration of an AnonymousTest class does not compile. Describe the reasons and steps you might take to fix the error.&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// AnonymousTest
+package io.zwt.innerclasses.exercises;
+   
+public class AnonymousTest {
+    public static void main(String[] args) {
+        int x = 100;
+           
+        Object obj = new Object() {
+            {
+                System.out.println(&quot;Inside.x = &quot; + x);
+            }
+        };
+        x = 300;
+        System.out.println(&quot;Outside.x = &quot; + x);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider the following declaration for a top-level class A and a member inner class B:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package io.zwt.innerclasses.exercises;
+   
+public class A {
+    public class B {
+        public B() {
+            System.out.println(&quot;B is created.&quot;);
+        }
+    }
+    public A() {
+        System.out.println(&quot;A is created.&quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;Consider the following incomplete declaration of class C, which inherits from the inner class A.B:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// C.java
+package io.zwt.innerclasses.exercises;
+   
+public class C extends A.B {
+    /* Define a constructor for class C here */
+       
+    public static void main(String[] args) {
+        C c = /* Your code goes here */;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;Add an appropriate constructor for class C and complete the statement in the main() method. When class C is run, it should print the following to the standard output:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;A is created.
+B is created.
+C is created.
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Which of the following is true about an anonymous inner class?&lt;/p&gt;
+
+    &lt;p&gt;a. It can inherit from one class and implement one interface.&lt;/p&gt;
+
+    &lt;p&gt;b. It can inherit from one class and implement multiple interfaces.&lt;/p&gt;
+
+    &lt;p&gt;c. It can inherit from one class or implement one interface.&lt;/p&gt;
+
+    &lt;p&gt;d. It can implement multiple interfaces, but inherits from only one class.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;How many class files will be generated when the following declaration of the Computer class is compiled? List the names of all generated class files.&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// Computer.java
+package io.zwt.innerclasses.exercises;
+   
+public class Computer {
+    public class Mouse {
+        public class Button {
+        }
+    }
+       
+    public static void main(String[] args) {
+        Object obj = new Object() {
+        };
+           
+        System.out.println(obj.hasCode());
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The following declaration of class H does not compile. Point out the problem and suggest a solution.&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// H.java
+package io.zwt.innerclasses.exercises;
+   
+public class H {
+    private int x = 100;
+       
+    public static class J {
+        private int y = x * 2;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Consider the following declaration of a top-level class P and a nested static class Q:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// P.java
+package io.zwt.innerclasses.exercises;
+    
+public class P {
+    public static class Q {
+        System.out.println(&quot;Hello from Q.&quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;Complete the main() method of the following PTest class that will create an object of the nested static class Q. When class PTest is run, it should print a message “Hello from Q.” to the standard output.&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// PTest.java
+package io.zwt.innerclasses.exercises;
+    
+public class PTest {
+    public static void main(String[] args) {
+        P.Q q = /* Your code goes here */ ;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+        <pubDate>Sat, 15 Feb 2020 16:55:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/15/inner-class-exercises/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/15/inner-class-exercises/</guid>
+        
+        <category>Java</category>
+        
+        
+      </item>
     
       <item>
         <title>Travis CI上手</title>
@@ -774,12 +1017,50 @@ line of code  &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&g
     
       <item>
         <title>Java 内部类</title>
-        <description>&lt;h3 id=&quot;inner-class&quot;&gt;Inner Class&lt;/h3&gt;
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;在这一篇文章，你将会学习到：&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;内部类是什么&lt;/li&gt;
+    &lt;li&gt;如何声明内部类&lt;/li&gt;
+    &lt;li&gt;如何声明成员、局部，以及匿名内部类&lt;/li&gt;
+    &lt;li&gt;如何创建内部类的对象&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;什么是内部类&quot;&gt;什么是内部类？&lt;/h3&gt;
+
+&lt;p&gt;我们知道类（class）是包（package）的成员（member）。即顶层类，直接放在包下面的类。例如以下这段代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// TopLevel.java
+package io.zwt.innerclasses;
+
+public class TopLevel {
+    private int value = 101;
+    
+    public int getValue() {
+        return value;
+    }
+    
+    public void setValue(int value) {
+        this.value = value;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面的 &lt;code&gt;TopLevel&lt;/code&gt; 类是 &lt;code&gt;io.zwt.innerclasses&lt;/code&gt; 包的成员。 这个里有三个成员：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个实例变量（instance variable）：&lt;code&gt;value&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;两个方法（method）：&lt;code&gt;getValue()&lt;/code&gt; and &lt;code&gt;setValue()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;A class can also be declared within another class. This type of class is called an &lt;em&gt;inner&lt;/em&gt; class. If the class declared within another class is explicitly or implicitly declared static, it is called a nested class, not an inner class. The class that contains the inner class is called an &lt;em&gt;enclosing&lt;/em&gt; class or an &lt;em&gt;outer&lt;/em&gt; class. Consider the following declaration of the &lt;code&gt;Outer&lt;/code&gt; and &lt;code&gt;Inner&lt;/code&gt; classes:&lt;/p&gt;
 
+&lt;p&gt;一个类也可以声明在另一个类里面。这种类称为&lt;em&gt;内部类&lt;/em&gt;。如果定义在另一个类中的类显式或隐式被声明为static，则它被称为嵌套类，而不是内部类。&lt;/p&gt;
+
 &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// Outer.java
-pakcage com.jdojo.innerclasses;
+pakcage io.zwt.innerclasses;
 
 public class Outer {
 	public class Inner {
@@ -837,7 +1118,7 @@ public class Outer {
 
 &lt;p&gt;A member class defined within the body of another class may be declared &lt;code&gt;static&lt;/code&gt;. The following snippet of code declares a top-level class &lt;code&gt;A&lt;/code&gt; and a static member class &lt;code&gt;B&lt;/code&gt;:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package com.jdojo.innnerclasses;
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package io.zwt.innnerclasses;
 public class A {
 	// A static member class
 	public static class B {
@@ -848,19 +1129,93 @@ public class A {
 
 &lt;p&gt;​	A static member class is not an inner class. It is considered a top-level class. It is also called a nested top-level class. Since it is a top-level class, you do not need an instance of its enclosing class to create its object. An instance of class A and an instance of class B can exist independently because both are top-level classes. A static member class can be declared &lt;code&gt;public&lt;/code&gt;, &lt;code&gt;protected&lt;/code&gt;, package-level, or &lt;code&gt;private&lt;/code&gt; to restrict its accessibility outside its enclosing class.&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;h3 id=&quot;create-objects-of-inner-classes&quot;&gt;Create Objects of Inner Classes&lt;/h3&gt;
+
+&lt;p&gt;Creating objects of a local inner class, an anonymous class, and a static member class is straightforward. Objects of a local inner class are created using the new operator inside the block, which declares the class. An object of an anonymous class is created at the same time the class is declared. A static member class is another type of top-level class. You create objects of a static member class the same way you create objects of a top-level class.&lt;/p&gt;
+
+&lt;p&gt;Note that to have an object of a member inner class, a local inner class, and an anonymous class, you must have an object of the enclosing class. In the previous examples of local inner classes and anonymous inner classes, you placed these classes inside instance methods. You had an instance of the enclosing class on which you called those instance methods. Therefore, instances of those local inner classes and anonymous inner classes had the instance of their enclosing classes on which those methods were called. For example, in Listing 2-5, first you created an instance of &lt;code&gt;TitleList&lt;/code&gt; class and you stored its reference in t1 as shown:&lt;/p&gt;
+
+&lt;h3 id=&quot;accessing-enclosing-class-members&quot;&gt;Accessing Enclosing Class Members&lt;/h3&gt;
+
+&lt;h3 id=&quot;restrictions-on-accessing-local-variables&quot;&gt;Restrictions on Accessing Local Variables&lt;/h3&gt;
+
+&lt;p&gt;A local inner class is declared inside a block—typically inside a method of a class. A local inner class can access the instance variables of its enclosing class as well as the local variables, which are in scope. The instance of an inner class exists within an instance of its enclosing class. Therefore, accessing the instance variables of the enclosing class inside a local inner class is not a problem because they exist throughout the lifecycle of the instance of the local inner class. However, the local variables in a method exist only during the execution of that method. All local variables become inaccessible when method execution is over. Java makes a copy of the local variables that are used inside a local inner class and stores that copy along with the inner class object. However, to guarantee that the values of the local variables can be reproduced when accessed inside the local inner class code after the method call is over, Java puts a restriction that the local variables must be effectively final. An effectively final variable is a variable whose value does not change after it is initialized. One way to have an effectively final variable is to declare the variable final. Another way is not to change its value after it is initialized. Therefore, a local variable or an argument to a method must be effectively final if it is used inside a local inner class. This restriction also applies to an anonymous inner class declared inside a method.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;提示&lt;/strong&gt; 在 Java 8 以前，如果一个局部变量是被局部内部类，或者匿名内部类访问的，它必须被声明为 &lt;code&gt;final&lt;/code&gt;。 Java 8 更改了这个规则：局部变量不需要被声明为 &lt;code&gt;final&lt;/code&gt;， 但它应该是 effectively final 的。 什么意思呢？就是说，在变量声明前面添加个 &lt;code&gt;final&lt;/code&gt; 修饰符，仍然能够通过编译，相当于 &lt;code&gt;final&lt;/code&gt;，就是所谓的 “effective final” ，就等效于 &lt;code&gt;final&lt;/code&gt; 嘛。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;inner-class-and-inheritance&quot;&gt;Inner Class and Inheritance&lt;/h3&gt;
+
+&lt;p&gt;An inner class can inherit from another inner class, a top-level class, or its enclosing class. For example, in the following snippet of code, inner class C inherits from inner class B; inner class D inherits from its enclosing top-level class A, and inner class F inherits from inner class A.B:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class A {
+    public class B {
+    }
+    public class C extends B {
+    }
+    public class D extends A {
+    }
+}
+
+public class E extends A {
+    public class F extends B {
+        
+    }
+}
+
+public class G extends A.B {
+    // This code won't compile
+    // 这段代码不能通过编译！
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;no-static-members-in-a-inner-class&quot;&gt;No static Members in a Inner Class&lt;/h3&gt;
+
+&lt;p&gt;The keyword static in Java makes a construct a top-level construct. Therefore, you cannot declare any static members (fields, methods, or initializers) for an inner class. The following code will not compile because inner class B declares a static field DAYS_IN_A_WEEK:&lt;/p&gt;
+
+&lt;p&gt;Java 里面的 &lt;code&gt;static&lt;/code&gt; 关键字使得一个结构变成顶层结构。因此，你不能在一个内部类里边定义任何静态成员（字段、方法或者是初始化语句块）。以下代码不能通过编译，因为内部类 B 声明了一个静态字段 DAYS_IN_A_WEEK:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class A {
+    public class B {
+        // Cannot have the following declaration
+        public static int DAYS_IN_A_WEEK = 7; // A compile-time error
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;然而，内部类里面可以有性质为编译时常量的静态字段。什么意思？请看以下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class A {
+    public class B {
+        // Can have a compile-time static constant field
+        public final static int DAYS_IN_A_WEEK = 7; // OK
+        // a compile-time constant, even though it is final
+        // 上面一句不对，str 不能用 new String(&quot;Hello&quot;);
+        // 可以用 public final static String str = &quot;Hello&quot;;
+        public final static String str = new String(&quot;Hello&quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;inner-classes-and-the-compiler-magic&quot;&gt;Inner Classes and the Compiler Magic&lt;/h3&gt;
 
 &lt;h3 id=&quot;closures-and-callbacks&quot;&gt;Closures and Callbacks&lt;/h3&gt;
 
-&lt;p&gt;In functional programming, a higher order function is an anonymous function that can be treated as a data object. That is, it can be stored in a variable and passed around from one context to another.&lt;/p&gt;
+&lt;p&gt;In functional programming, a higher order function is an anonymous function that can be treated as a data object. That is, it can be stored in a variable and passed around from one context to another.  It might be invoked in a context that did not necessarily define it. Note that a higher order function is an anonymous function, so the invoking context does not have to know its name. A closure is a higher order function packaged with its defining environment. A closure carries with it the variables in scope when it was defined, and it can access those variables even when it is invoked in a context other than the context in which it was defined.&lt;/p&gt;
 
-&lt;p&gt;【to be continued】&lt;/p&gt;
+&lt;h3 id=&quot;defining-inner-classes-in-static-contexts&quot;&gt;Defining Inner Classes in static Contexts&lt;/h3&gt;
+
+&lt;h3 id=&quot;summary&quot;&gt;Summary&lt;/h3&gt;
 </description>
         <pubDate>Tue, 04 Feb 2020 22:34:00 +0000</pubDate>
         <link>https://zwt.io/2020/02/04/inner-class/</link>
         <guid isPermaLink="true">https://zwt.io/2020/02/04/inner-class/</guid>
         
         <category>Java</category>
+        
+        <category>语言特性</category>
         
         
       </item>
@@ -1809,130 +2164,6 @@ System.out.println(
         <pubDate>Sat, 25 Jan 2020 23:52:00 +0000</pubDate>
         <link>https://zwt.io/2020/01/25/java-streams-vs-reative-streams/</link>
         <guid isPermaLink="true">https://zwt.io/2020/01/25/java-streams-vs-reative-streams/</guid>
-        
-        <category>Java</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Java虚方法调用</title>
-        <description>&lt;h3 id=&quot;先回顾基本概念-overloading-and-overriding&quot;&gt;先回顾基本概念 Overloading and Overriding&lt;/h3&gt;
-
-&lt;p&gt;主要需要总结的是:&lt;/p&gt;
-
-&lt;p&gt;​	When multiple overloaded methods are present, Java looks for the closest match first. It tries to find the following:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Exact match by type&lt;/li&gt;
-  &lt;li&gt;Matching a superclass type&lt;/li&gt;
-  &lt;li&gt;Converting to larger primitive type&lt;/li&gt;
-  &lt;li&gt;Converting to an autoboxed type&lt;/li&gt;
-  &lt;li&gt;Varargs&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;For overriding, the overridden method has a few rules:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The access modifier must be the same or more accessible.&lt;/li&gt;
-  &lt;li&gt;The return type must be the same or a more restrictive type, also known as &lt;em&gt;covariant return types&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;If any checked exceptions are thrown, only the same exceptions or subclasses of those exceptions are allowed to be thrown.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The method must not be static. (If they are, the method is hidden and not overridden.)&lt;/p&gt;
-
-&lt;h4 id=&quot;关于-instanceof-操作符null-的情况null-不是-object&quot;&gt;关于 instanceof 操作符，null 的情况，null 不是 Object.&lt;/h4&gt;
-
-&lt;p&gt;instanceof 不能比较没有任何继承关系的类。 而接口可以，因为接口可以被实现。&lt;/p&gt;
-
-&lt;p&gt;然后入正题:
-&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;understanding-virtual-method-invocation&quot;&gt;Understanding Virtual Method Invocation&lt;/h3&gt;
-
-&lt;p&gt;先看代码：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;abstract class Animal {
-	public abstract void feed();
-}
-
-class Cow extends Animal {
-	public void feed() { addHay(); }
-	private void addHay() { }
-}
-
-class Bird extends Animal {
-    public void feed() { addSeed(); }
-    private void addSeed() { }
-}
-
-class Lion extends Animal {
-    public void feed() { addMeat(); }
-    private void addMeat() { }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The Animal class is abstract, and it requires that any concrete Animal subclass have a feed() method. The three subclasses that we defined have a one-line feed() method that delegates to the class-specific method. A Bird still gets seed, a Cow still gets hay, and so forth. Now the method to feed the animals is really easy. We just call feed() and the proper subclass’s version is run.&lt;/p&gt;
-
-&lt;p&gt;​	This approach has a huge advantage. The feedAnimal() method doesn’t need to change when we add a new Animal subclass. We could have methods to feed the animals all over code. Maybe the animals get fed at different times on different days. No matter. feed() still gets called to do the work.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public void feedAnimal(Animal animal) {
-	animal.feed();
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;​	We’ve just relied on virtual method invocation. We actually saw virtual methods on the OCA. They are just regular non-static methods. Java looks for an overridden method rather than necessarily using the one in the class that the compiler says we have. The only thing new about virtual methods on OCP is that Oracle now calls them virtual methods in the objectives. You can simply think of them as methods.&lt;/p&gt;
-
-&lt;p&gt;​	In the above example, we have an Animal instance, but Java didn’t call feed on the Animal class. Instead Java looked at the actual type of animal at runtime and called feed on that.&lt;/p&gt;
-
-&lt;p&gt;​	Notice how this technique is called virtual method invocation. &lt;strong&gt;Instance variables don’t work this way.&lt;/strong&gt; In this example, the Animal class refers to name. It uses the one in the superclass and not the subclass.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;abstract class Animal {
-    String name = &quot;???&quot;;
-    public void printName() {
-        System.out.println(name);
-    }
-}
-
-class Lion extends Animal {
-    String name = &quot;Leo&quot;;
-}
-
-public class PlayWithAnimal {
-    public static void main(String[] args) {
-        Animal animal = new Lion();
-        animal.printName();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;​	This outputs ???. The name declared in Lion would only be used if name was referred to from Lion (or a subclass of Lion.) But no matter how you call printName(), it will use the Animal’s name, not the Lion’s name.&lt;/p&gt;
-
-&lt;p&gt;​	Aside from the formal sounding name, there isn’t anything new here. Let’s try one more example to make sure that the exam can’t trick you. What does the following print?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;abstract class Animal {
-    public void careFor() {
-        play();
-    }
-    public void play() {
-        System.out.println(&quot;pet animal&quot;);
-    }}
-class Lion extends Animal {
-    public void play() {
-        System.out.println(&quot;toss in meat&quot;);
-    }}
-public class PalyWithAnimal {
-    public static void main(String[] args) {
-        Animal animal = new Lion();
-        animal.careFor();
-    }}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;​	This correct answer is &lt;em&gt;toss in meat&lt;/em&gt;. The main method creates a new Lion and calls careFor. Since only the Animal superclass has a careFor method, it executes. That method calls play. Java looks for overridden methods, and it sees that Lion implements play. Even though the call is from the Animal class, Java still looks at subclasses, which is good because you don’t want to pet a Lion!&lt;/p&gt;
-</description>
-        <pubDate>Fri, 24 Jan 2020 20:04:00 +0000</pubDate>
-        <link>https://zwt.io/2020/01/24/java-virtual-method-invocation/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/01/24/java-virtual-method-invocation/</guid>
         
         <category>Java</category>
         
