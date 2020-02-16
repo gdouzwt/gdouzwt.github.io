@@ -176,198 +176,6 @@
             ">
             
 <div class="post-preview">
-    <a href="/2020/02/15/foundation-test-review/">
-        <h2 class="post-title">
-            816 基准测试回顾
-        </h2>
-        
-        <h3 class="post-subtitle">
-            OCP 816&nbsp;&nbsp;2020年2月15日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <p>The following are the details of the interface <code>ScheduledExecutorService</code>:
-All Superinterfaces:
- <code>Executor</code>, <code>ExecutorService</code>
-All Known Implementing Classes:
- <code>ScheduledThreadPoolExecutor</code></p>
-
-<p>An <code>ExecutorService</code> that can schedule commands to run after a given delay, or to execute periodically.
-The schedule     methods create tasks with various delays and return a task object that can     be used to cancel or check execution. The <code>scheduleAtFixedRate</code> and  <code>scheduleWithFixedDelay</code> methods create and execute tasks that run periodically until cancelled.</p>
-
-<p>Commands submitted using the <code>Executor.execute(java.lang.Runnable)</code> and <code>ExecutorService.submit</code> methods are scheduled with a requested delay of zero. Zero and negative delays (but not periods) are also allowed in schedule methods, and are treated as     requests for immediate execution.</p>
-
-<p>All schedule methods accept relative delays and periods as arguments, not absolute times or dates. It is a simple matter to transform an absolute time represented as a Date to the required form. For example, to schedule at a certain future date, you can use: <code>schedule(task, date.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS)</code>. Beware however that expiration of a relative delay need not coincide with the current Date at which the task is enabled due to network time synchronization protocols, clock drift, or other factors. The Executors class provides convenient factory methods for the <code>ScheduledExecutorService</code> implementations provided in this package.</p>
-
-<p>Following is a usage example that sets up a <code>ScheduledExecutorService</code> to beep every ten seconds for an hour:</p>
-
-<pre><code class="language-java">import java.util.concurrent.*;
-import static java.util.concurrent.TimeUnit.SECONDS;
-
-public class BeeperControl {
-    private final ScheduledExecutorService scheduler =
-            Executors.newScheduledThreadPool(1);
-
-    public void beepForAnHour() {
-        final ScheduledFuture&lt;?&gt; beeperHandle =
-                scheduler.scheduleAtFixedRate(() -&gt;
-                        System.out.println("beep"), 0, 3, SECONDS);
-    }
-
-    public static void main(String[] args) {
-        new BeeperControl().beepForAnHour();
-    }
-}
-</code></pre>
-
-<hr />
-
-<h5 id="which-of-the-following-statements-are-correct">Which of the following statements are correct?</h5>
-
-<ul class="task-list">
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A List stores elements in a Sorted Order.</p>
-
-    <blockquote>
-      <p>List just keeps elements in the order in which they are added. For sorting, you’ll need some other interface such as a SortedSet.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A Set keeps the elements sorted and a List keeps the elements in the order they were added.</p>
-
-    <blockquote>
-      <p>A Set keeps unique objects without any order or sorting.</p>
-
-      <p>A List keeps the elements in the order they were added. A List may have non-unique elements.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A SortedSet keeps the elements in the order they were added.</p>
-
-    <blockquote>
-      <p>A SortedSet keeps unique elements in their natural order.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An OrderedSet keeps the elements sorted.</p>
-
-    <blockquote>
-      <p>There is no interface like OrderedSet</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An OrderedList keeps the elements ordered.</p>
-
-    <blockquote>
-      <p>There is no such interface. The List interface itself is meant for keeping the elements in the order they were added.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />A NavigableSet keeps the elements sorted.</p>
-
-    <blockquote>
-      <p>A NavigableSet is a Sorted extended with navigation methods reporting closest matches for given search targets. Methods lower, floor, ceiling, and higher return elements respectively less than, or equal, greater than or equal, and greater than a given element, returning null if there is no such element.</p>
-
-      <p>Since NavigableSet is a SortedSet, it keeps the elements sorted.</p>
-    </blockquote>
-  </li>
-</ul>
-
-<hr />
-
-<h5 id="how-many-methods-have-to-be-provided-by-a-class-that-is-not-abstract-and-that-implements-serializable-interface">How many methods have to be provided by a class that is not abstract and that implements Serializable interface?</h5>
-
-<ul class="task-list">
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />0</p>
-
-    <blockquote>
-      <p>Serializable interface does not declare any methods. That is why is also called as a “marker” interface.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />1</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />2</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />3</p>
-  </li>
-</ul>
-
-<hr />
-
-<p>Simple rule to determine sorting order: spaces &lt; numbers &lt; uppercase &lt; lowercase</p>
-
-<hr />
-
-<h5 id="given-that-a-code-fragment-has-just-created-a-jdbc-connection-and-has-executed-an-update-statement-which-of-the-following-statements-is-correct">Given that a code fragment has just created a JDBC Connection and has executed an update statement, which of the following statements is correct?</h5>
-
-<ul class="task-list">
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database are pending a commit call on the connection.</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database will be rolled back if another update is executed without committing the previous update.</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Changes to the database will be committed right after the update statement has completed execution.</p>
-
-    <blockquote>
-      <p>A Connection is always in auto-commit mode when it is created. As per the problem statement, an update was fired without explicitly disabling the auto-commit mode, the changes will be committed right after the update statement has finished execution.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database will be committed when another query (update or select) is fired using the connection.</p>
-  </li>
-</ul>
-
-<p><strong>Explanation</strong></p>
-
-<p>When a connection is created, it is in auto-commit mode. i.e. auto-commit is enabled. This means that each individual SQL statement is treated as a transaction and is automatically committed right after it is completed. (A statement is completed when all of its result sets and update counts have been retrieved. In almost all cases, however, a statement is completed, and therefore committed, right after it is executed.)</p>
-
-<p>The way to allow two or more statements to be grouped into a transaction is to disable the auto-commit mode. Since it is enabled by default, you have to explicitly disable it after creating a connection by calling <code>con.setAutoCommit(false);</code></p>
-
-<p>JDBC 默认开启了自动提交。</p>
-
-<hr />
-
-<h5 id="which-statements-concerning-the-relation-between-a-non-static-inner-class-and-its-outer-class-instances-are-true">Which statements concerning the relation between a non-static inner class and its outer class instances are true?</h5>
-
-<ul class="task-list">
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Member variables of the outer instance are always accessible to inner instances, regardless of their accessibility modifiers.</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Member variables of the outer instance can always be referred to using only the variable name within the inner instance.</p>
-
-    <blockquote>
-      <p>This is possible only if that variable is not shadowed by another variable in inner class.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />More than one inner instance can be associated with the same outer instance.</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />An inner class can extend its outer classes.</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A final outer class cannot have any inner classes.</p>
-
-    <blockquote>
-      <p>There is no such rule.</p>
-    </blockquote>
-  </li>
-</ul>
-
- <a href="/2020/02/15/foundation-test-review/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2020/02/15/inner-class-exercises/">
         <h2 class="post-title">
             Exercises for Inner class
@@ -611,6 +419,19 @@ public class PTest {
 </ol>
 
  <a href="/2020/02/15/inner-class-exercises/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/02/16/2020-02-15-foundation-test-review/">
+        <h2 class="post-title">
+            
+        </h2>
+        
+    </a>
+    <div class="post-content-preview">
+         <a href="/2020/02/16/2020-02-15-foundation-test-review/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
@@ -1074,8 +895,6 @@ Another common use case is setting active profiles and default properties to set
                                 <a href="/tags/#JavaFX" title="JavaFX" rel="7">
                                     JavaFX
                                 </a>
-                            
-                        
                             
                         
                             

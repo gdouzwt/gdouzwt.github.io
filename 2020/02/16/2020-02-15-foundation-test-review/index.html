@@ -1,0 +1,584 @@
+<p>The following are the details of the interface <code>ScheduledExecutorService</code>:
+All Superinterfaces:
+ <code>Executor</code>, <code>ExecutorService</code>
+All Known Implementing Classes:
+ <code>ScheduledThreadPoolExecutor</code></p>
+
+<p>An <code>ExecutorService</code> that can schedule commands to run after a given delay, or to execute periodically.
+The schedule     methods create tasks with various delays and return a task object that can     be used to cancel or check execution. The <code>scheduleAtFixedRate</code> and  <code>scheduleWithFixedDelay</code> methods create and execute tasks that run periodically until cancelled.</p>
+
+<p>Commands submitted using the <code>Executor.execute(java.lang.Runnable)</code> and <code>ExecutorService.submit</code> methods are scheduled with a requested delay of zero. Zero and negative delays (but not periods) are also allowed in schedule methods, and are treated as     requests for immediate execution.</p>
+
+<p>All schedule methods accept relative delays and periods as arguments, not absolute times or dates. It is a simple matter to transform an absolute time represented as a Date to the required form. For example, to schedule at a certain future date, you can use: <code>schedule(task, date.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS)</code>. Beware however that expiration of a relative delay need not coincide with the current Date at which the task is enabled due to network time synchronization protocols, clock drift, or other factors. The Executors class provides convenient factory methods for the <code>ScheduledExecutorService</code> implementations provided in this package.</p>
+
+<p>Following is a usage example that sets up a <code>ScheduledExecutorService</code> to beep every ten seconds for an hour:</p>
+
+<pre><code class="language-java">import java.util.concurrent.*;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
+public class BeeperControl {
+    private final ScheduledExecutorService scheduler =
+            Executors.newScheduledThreadPool(1);
+
+    public void beepForAnHour() {
+        final ScheduledFuture&lt;?&gt; beeperHandle =
+                scheduler.scheduleAtFixedRate(() -&gt;
+                        System.out.println("beep"), 0, 3, SECONDS);
+    }
+
+    public static void main(String[] args) {
+        new BeeperControl().beepForAnHour();
+    }
+}
+</code></pre>
+
+<hr />
+
+<h5 id="which-of-the-following-statements-are-correct">Which of the following statements are correct?</h5>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A List stores elements in a Sorted Order.</p>
+
+    <blockquote>
+      <p>List just keeps elements in the order in which they are added. For sorting, you’ll need some other interface such as a SortedSet.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A Set keeps the elements sorted and a List keeps the elements in the order they were added.</p>
+
+    <blockquote>
+      <p>A Set keeps unique objects without any order or sorting.</p>
+
+      <p>A List keeps the elements in the order they were added. A List may have non-unique elements.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A SortedSet keeps the elements in the order they were added.</p>
+
+    <blockquote>
+      <p>A SortedSet keeps unique elements in their natural order.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An OrderedSet keeps the elements sorted.</p>
+
+    <blockquote>
+      <p>There is no interface like OrderedSet</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An OrderedList keeps the elements ordered.</p>
+
+    <blockquote>
+      <p>There is no such interface. The List interface itself is meant for keeping the elements in the order they were added.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />A NavigableSet keeps the elements sorted.</p>
+
+    <blockquote>
+      <p>A NavigableSet is a Sorted extended with navigation methods reporting closest matches for given search targets. Methods lower, floor, ceiling, and higher return elements respectively less than, or equal, greater than or equal, and greater than a given element, returning null if there is no such element.</p>
+
+      <p>Since NavigableSet is a SortedSet, it keeps the elements sorted.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<hr />
+
+<h5 id="how-many-methods-have-to-be-provided-by-a-class-that-is-not-abstract-and-that-implements-serializable-interface">How many methods have to be provided by a class that is not abstract and that implements Serializable interface?</h5>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />0</p>
+
+    <blockquote>
+      <p>Serializable interface does not declare any methods. That is why is also called as a “marker” interface.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />1</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />2</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />3</p>
+  </li>
+</ul>
+
+<hr />
+
+<p>Simple rule to determine sorting order: spaces &lt; numbers &lt; uppercase &lt; lowercase</p>
+
+<hr />
+
+<h5 id="given-that-a-code-fragment-has-just-created-a-jdbc-connection-and-has-executed-an-update-statement-which-of-the-following-statements-is-correct">Given that a code fragment has just created a JDBC Connection and has executed an update statement, which of the following statements is correct?</h5>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database are pending a commit call on the connection.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database will be rolled back if another update is executed without committing the previous update.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Changes to the database will be committed right after the update statement has completed execution.</p>
+
+    <blockquote>
+      <p>A Connection is always in auto-commit mode when it is created. As per the problem statement, an update was fired without explicitly disabling the auto-commit mode, the changes will be committed right after the update statement has finished execution.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database will be committed when another query (update or select) is fired using the connection.</p>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>When a connection is created, it is in auto-commit mode. i.e. auto-commit is enabled. This means that each individual SQL statement is treated as a transaction and is automatically committed right after it is completed. (A statement is completed when all of its result sets and update counts have been retrieved. In almost all cases, however, a statement is completed, and therefore committed, right after it is executed.)</p>
+
+<p>The way to allow two or more statements to be grouped into a transaction is to disable the auto-commit mode. Since it is enabled by default, you have to explicitly disable it after creating a connection by calling <code>con.setAutoCommit(false);</code></p>
+
+<p>JDBC 默认开启了自动提交。</p>
+
+<hr />
+
+<h5 id="which-statements-concerning-the-relation-between-a-non-static-inner-class-and-its-outer-class-instances-are-true">Which statements concerning the relation between a non-static inner class and its outer class instances are true?</h5>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Member variables of the outer instance are always accessible to inner instances, regardless of their accessibility modifiers.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Member variables of the outer instance can always be referred to using only the variable name within the inner instance.</p>
+
+    <blockquote>
+      <p>This is possible only if that variable is not shadowed by another variable in inner class.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />More than one inner instance can be associated with the same outer instance.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />An inner class can extend its outer classes.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />A final outer class cannot have any inner classes.</p>
+
+    <blockquote>
+      <p>There is no such rule.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<hr />
+
+<h5 id="which-interfaces-does-javautilnavigablemap-extend-directly-or-indirectly">Which interfaces does java.util.NavigableMap extend directly or indirectly?</h5>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.util.SortedSet</code></p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>java.util.Map</code></p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>java.util.SortedMap</code></p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.util.TreeMap</code></p>
+
+    <p><code>TreeMap</code> is a class that implements <code>NavigableMap</code> interface. <code>ConcurrentSkipListMap</code> is the other such class.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.util.List</code></p>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>A <code>NavigableMap</code> is a <code>SortedMap</code> (which in turn extends Map) extended with navigation methods returning the closest matches for given search targets. Methods <code>lowerEntry</code>, <code>floorEntry</code>, <code>ceilingEntry</code>, and <code>higherEntry</code> return Map. Entry objects associated with keys respectively less than, less than or equal, greater than or equal, and greater than a give key, returning null if there is no such key. Similarly, methods <code>lowerKey</code>, <code>ceilingKey</code>, and <code>higherKey</code> return only the associated keys.</p>
+
+<p>All of these methods are designed for locating, not traversing entries.</p>
+
+<p>A <code>NavigableMap</code> may be accessed and traversed in either ascending or descending key order. The <code>descendingMap</code> method returns a view of the map with the senses of all relational and directional methods inverted. The performance of ascending operations and views is likely to be faster than that of descending ones. Methods <code>subMap</code>, <code>headMap</code>, and <code>tailMap</code> differ from the like-named <code>SortedMap</code> methods in accepting additional arguments describing whether lower and upper bounds are inclusive versus exclusive. Submaps of any NavigableMap must implement the NavigableMap interface.</p>
+
+<p>This interface additionally defines methods <code>firstEntry</code>, <code>pollFirstEntry</code>, <code>lastEntry</code>, and <code>pollLastEntry</code> that return and/or remove the least and greatest mapping, if any exist, else returning null.</p>
+
+<p>Implementations of entry-returning methods are expected to return <code>Map.Entry</code> pairs representing snapshots of mappings at the time they were produced, and thus generally do not support the optional <code>Entry.setValue</code> method. Note however that it is possible to change mappings in the associated map using method put.</p>
+
+<p>Methods <code>subMap(K, K)</code>, <code>headMap(K)</code>, and <code>tailMap(K)</code> are specified to return <code>SortedMap</code> to allow existing implementations of <code>SortedMap</code> to be compatibly retrofitted to implement <code>NavigableMap</code>, but extensions and implementations of this interface are encouraged to override these methods to return <code>NavigableMap</code>. Similarly, <code>SortedMap.keySet()</code> can be overridden to return <code>NavigableSet</code>.</p>
+
+<hr />
+
+<h5 id="which-of-the-following-standard-functional-interfaces-is-most-suitable-to-process-a-large-collection-of-int-primitives-and-return-processed-data-for-each-of-them">Which of the following standard functional interfaces is most suitable to process a large collection of int primitives and return processed data for each of them?</h5>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Function&lt;Integer&gt;</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>IntFunction</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Consumer&lt;Integer&gt;</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>IntConsumer</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Predicate&lt;Integer&gt;</code></li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>Using the regular functional interfaces by parameterizing them to Integer is inefficient as compared to using specially designed interfaces for primitives because they avoid the cost of boxing and unboxing the primitives.</p>
+
+<p>Now, since the problem statement requires something to be returned after processing each int, you need to use a Function instead of a Consumer or a Predicate.</p>
+
+<p>Therefor, <strong><code>IntFunction</code></strong> is most appropriate in this case.</p>
+
+<hr />
+
+<h5 id="in-which-of-the-following-cases-can-the-console-object-be-acquired">In which of the following cases can the Console object be acquired?</h5>
+
+<p>You had to select 1 option</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When the JVM is started from an interactive command line with explicitly redirecting the standard input and output streams to Console.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />When the JVM is started from an interactive command line without redirecting the standard input and output streams.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When the JVM is started in the background with the standard input and output streams directed to Console.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When the JVM is started in the background without redirecting the standard input and output streams.</li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>Whether a virtual machine has a console is dependent upon the underlying platform and also upon the manner in which the virtual machine is invoked. If the virtual machine is started from an interactive command line without redirecting the standard input and output streams then its console will exist and will typically be connected to the keyboard and display from which the virtual machine was launched. If the virtual machine is started automatically, for example by a background job scheduler, then it will typically not have a console.</p>
+
+<p>If this virtual machine has a console then it is represented by a unique instance of this class which can be obtained by invoking the <code>System.console()</code> method. If no console device is available then an invocation of that method will return null.</p>
+
+<hr />
+
+<p>Which of the following are wrapper classes for primitive types?</p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.lang.String</code></p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.lang.Void</code></p>
+
+    <blockquote>
+      <p>There is Void class but it does not wrap any primitive type.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.lang.Null</code></p>
+
+    <blockquote>
+      <p>There is no Null class in java.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.lang.Object</code></p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />None of the above</p>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>Frequently it is necessary to represent a value of primitive type as if it were an object. There are following wrapper classes for this purpose:</p>
+
+<p>Byte, Char, Character, Short, Integer, Long, Float, and Double.</p>
+
+<p>Note that Byte, Short, Integer, Long, Float and Double extend from Number which is an abstract class. An object of type Double, for example, contains a field whose type is double, representing that value in such a way that a reference to it can be stored in a variable of reference type. These classes also provide a number of methods for converting among primitive values, as well as supporting such standard methods as <code>equals</code> and <code>hasCode</code>.</p>
+
+<p><strong>It is important to understand that objects of wrapper classes are immutable.</strong></p>
+
+<hr />
+
+<p>Complete the following code so that it will print dick, harry, and tom in that order.</p>
+
+<pre><code class="language-java">public class TestClass {
+    public static void main(String[] args) {
+        
+        Set&lt;String&gt; holder = new TreeSet&lt;&gt;();
+        holder.add("tom");
+        holder.add("dick");
+        holder.add("harry");
+        holder.add("tom");
+        printIt(holder);
+    }
+    public static void printIt(Collection&lt;String&gt; list) {
+        for(String s : list) System.out.println(s);
+    }
+}
+</code></pre>
+
+<p><strong>Explanation</strong></p>
+
+<p>The output is expected to contain unique items. This implies that you need to use a <code>Set</code>. The output is also expected to be sorted. Thus, <code>TreeSet</code> is the only option.</p>
+
+<p>The <code>printIt()</code> method expects a Collection of Strings. Therefore, the reference type of holder can be <code>Collection&lt;String&gt;</code> or any subclass of <code>Collection&lt;String&gt;</code> such as <code>Set&lt;String&gt;</code>. It cannot be <code>List</code> or <code>ArrayList</code> because the object on the right hand side is <code>TreeSet</code>.</p>
+
+<hr />
+
+<h5 id="which-of-the-following-standard-functional-interface-returns-void">Which of the following standard functional interface returns void?</h5>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Supplier</code></p>
+
+    <p>It takes no argument and returns an object.</p>
+
+    <p><code>T get()</code></p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Function</code></p>
+
+    <p>Represents a function that accepts one argument and produces a result.</p>
+
+    <p><code>R apply(T t)</code></p>
+
+    <p>Applies this function to the given argument.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Predicate</code></p>
+
+    <p>It takes and argument and returns a boolean:</p>
+
+    <p><code>boolean test(T t)</code></p>
+
+    <p>Evaluates this predicate on the given argument.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>Consumer</code></p>
+
+    <p>Its functional method is:</p>
+
+    <p><code>void accept(T t)</code></p>
+
+    <p>Performs this operation on the given argument.</p>
+
+    <p>It also has the following default method:</p>
+
+    <p><code>default Consumer&lt;T&gt; andThen(Consumer&lt;? super T&gt; after)</code></p>
+
+    <p>Returns a composed <code>Consumer</code> that performs, in sequence, this operation followed by the after operation.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>UnaryOperator</code></p>
+
+    <p>Represents an operation on a single operand that produces a result of the same type as its operand. This is a specialization of <code>Function</code> for the case where the operand and result are of the same type.</p>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>You should go through the description of all the functional interfaces given here:</p>
+
+<p>https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html</p>
+
+<hr />
+
+<p>Which of the following switches is/are used for controlling the execution of assertions at run time?</p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>-ua</code></p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>-da</code></p>
+
+    <p>It is a short form for ‘disable assertions’.</p>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>-enableassertions</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>-assert</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>-keepassertions</code></li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>Although not explicitly mentioned in the exam objectives, OCP Java 11 Part 2 Exam requires you to know about the switches used to enable and disable assertions. Here are a few important points that you should know:</p>
+
+<p>Assertions can be enabled or disabled for specific classes and/or packages. To specify a class, use the class name. To specify a package, use the package name followed by “…“(three dots also known as ellipses):</p>
+
+<p><code>java -ea:&lt;class&gt; myPackage.myProgram</code></p>
+
+<p><code>java -da:&lt;package&gt;... myPackage.myProgram</code></p>
+
+<p>You can have multiple <code>-ea/-da</code> flags on the command line. For example, multiple flags allow you to enable assertions in general, but disable them in a particular package.</p>
+
+<p><code>java -ea -da:com.xyz... myPackage.myProgram</code></p>
+
+<p>The above command enables assertions for all classes  in all packages, but then the subsequent <code>-da</code> switch disables them for the <code>com.xyz</code> package and its subpackages.</p>
+
+<p>To enable assertion for one package and disable for other you can use:</p>
+
+<p><code>java -ea:&lt;package1&gt;... -da:&lt;package2&gt;... myPackage.myProgram</code></p>
+
+<p>You can enable or disable assertions in the unnamed root package (i.e. the default package) using the following commands:</p>
+
+<p><code>java -ea:... myPackage.myProgram</code></p>
+
+<p><code>java -da:... myPackage.myProgram</code></p>
+
+<p>Note that when you use a package name in the <code>ea</code> or <code>da</code> flag, the flag applies to that package as well as its subpackages. For example,</p>
+
+<p><code>java -ea:com... -da:com.enthuware... com.enthuware.Main</code></p>
+
+<p>The above command first enables assertions for all the classes in <code>com</code> as well as for the classes in the subpackages of <code>com</code>. It then disables assertions for classes in package <code>com.enthuware</code> and its subpackages.</p>
+
+<p>Another thing is that -ea/-da do not apply to system classes. For system classes (i.e. the classes that com bundled with the JDK/JRE), you need to use <code>-enablesystemassertions/-esa</code> or <code>-disablesystemassertions/-dsa</code></p>
+
+<p>Note that * and ** are not valid wildcards for including subpackages.</p>
+
+<hr />
+
+<p>Which of these statements concerning the use of standard collection interfaces are true?</p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />None of the standard collection classes are thread safe.</p>
+
+    <blockquote>
+      <p>Vector and Hashtable are.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />class HashSet implements SortedSet.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Collection classes implementing List cannot have duplicate elements.</p>
+
+    <p>List is meant for ordering of elements. Duplicates are allowed.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />ArrayList can only accommodate a fixed number of elements.</p>
+
+    <p>It grows as more elements are added.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Some operations may throw an UnsupportedOperationException.</p>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>Some operations may throw an UnsupportedOperationException. This exception type is unchecked, and code calling these operations is not required to explicitly handle exceptions of this type.</p>
+
+<hr />
+
+<p>Identify correct statements about the Java module system.</p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />If a request is made to load a type whose package is not defined in any known module system will attempt to load it from the class path.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />The unnamed module can only access types present in the unnamed module.</p>
+
+    <p>The unnamed module reads every other module. In other words, a class in an unnamed module can access all exported types of all modules.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Code from a named module can access classes that are on the classpath.</p>
+
+    <p>A named module cannot access any random class from the classpath. If your named module requires access to a non-modular class, you must put the non-modular class/jar on module-path and load it as an automatic module. Further, you must also put an appropriate “requires” clause in your module-info.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />If a package is defined in both a named module and the unnamed module then the package in the unnamed module is ignored.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An automatic module cannot access classes from the unnamed module.</p>
+
+    <p>Remember that named modules cannot access classes from the unnamed module because it is not possible for named module to declare dependency on the unnamed module.</p>
+
+    <p>But what if a named module needs to access a class from a non-modular jar? Well, you can put the non-modular jar on the module-path, thereby making it an automatic module. A named module can declare dependency on an automatic module using the requires clause.</p>
+
+    <p>Now, what if that jar in turn requires access to some other class from another third party non-modular jar? Here, the original modular jar doesn’t directly access the non-modular jar, so it may not be wise to create an automatic module out of all such third party jars. This is where the -classpath options is helpful.</p>
+
+    <p>In addition to reading every other named module, an automatic module is also made to read the unnamed module. Thus, while running a modular application, the classpath option can be used to enable automatic modules to access third party non-modular jars.</p>
+
+    <p><strong>Explanation</strong></p>
+
+    <p><strong>Bottom Up Approach for modularizing an application</strong></p>
+
+    <p>While modularizing an app using the bottom-up approach, you basically need to convert lower level libraries into modular jars before you can convert the higher level libraries. For example, if a class in <strong>A.jar</strong> directly uses a class from <strong>B.jar</strong>, and a class in <strong>B.jar</strong> directly uses a class from <strong>C.jar</strong>, you need to first modularize <strong>C.jar</strong> and then <strong>B.jar</strong> before you can modularize <strong>A.jar</strong>.</p>
+
+    <p>Thus, bottom up approach is possible only when the dependent libraries are modularized already.</p>
+
+    <p><strong>Top Down Approach for modularzing an application</strong></p>
+
+    <p>While modularizing an app in a top-down approach, you need to remember the following points -</p>
+
+    <ol>
+      <li>
+        <p>Any jar file can be converted into an automatic module by simply putting that jar on the <em>module-path</em> instead of the <em>classpath</em>. Java automatically derives the name of this module from the jar file.</p>
+      </li>
+      <li>
+        <p>Any jar that is put on classpath(instead of <em>module-path</em>) is loaded as part of the “unnamed” module.</p>
+      </li>
+      <li>
+        <p>An explicitly named module (which means, a module that has an explicitly defined name in its <em>module-info.java</em> file) can specify dependency on an automatic module just like it does for any other module i.e. by adding a <code>requires &lt;module-name&gt;;</code> clause in its module info but it cannot do so for the unnamed module because there is no way to write a <code>requires</code> clause without a name. In other words, named module can access classes present in an automatic module but not in the unnamed module.</p>
+      </li>
+      <li>
+        <p>Automatic modules are given access to classes in the unnamed module (even though there is no explicitly defined module-info and requires clause in an automatic module). In other words, a class from an automatic module will be able to read a class in the unnamed module without doing anything special.</p>
+      </li>
+      <li>
+        <p>An automatic module exports all its packages and is allowed to read all packages exported by other modules. Thus, an automatic module can access: all packages of all other automatic modules + all packages exported by all explicitly named modules + all packages of the unnamed module (i.e. classes loaded from the classpath).</p>
+
+        <p>Thus, if your application jar <strong>A</strong> directly uses a class from another jar <strong>B</strong>, then you would have to convert <strong>B</strong> into a module (either named or automatic). If <strong>B</strong> uses another jar <strong>C</strong>, then you can leave <strong>C</strong> on the class path if <strong>B</strong> hasn’t yet been migrated into a named module. Otherwise, you would have to convert <strong>C</strong> into an automatic module as well.</p>
+
+        <p><strong>Note:</strong></p>
+
+        <p>There are two possible ways for an automatic module to get its name:</p>
+
+        <ol>
+          <li>When an Automatic-Module-Name entry is available in the manifest, its value is the name of the automatic module.</li>
+          <li>Otherwise, a name is derived from the JAR filename (see the ModuleFinder JavaDoc for the derivation algorithm) - Basically, hyphens are converted into dots and the version number part is ignored. So, for example, if you put <code>mysql-connector-java-8.0.11.jar</code> on module path, its module name would be <code>mysql.connector.java</code></li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<hr />
+
+<p>Using a <code>Callable</code> would be more appropriate than using a <code>Runnable</code> in which of the following situations?</p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When you want to execute a task directly in a separate thread.</p>
+
+    <p>A Callable cannot be passed to Thread for Thread creation but a Runnable can be. i.e. <code>new Thread(aRunnable);</code> is valid. But <code>new Thread(aCallable);</code> is not. Therefore, if you want to execute a task directly in a Thread, a <code>Callable</code> is not suitable. You will need to use a <code>Runnable</code>. You can achieve the same by using an <code>ExecutorService.submit(aCallable)</code> , but in this case, you are not controlling the Thread directly.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When your task might throw a checked exception and you want to execute it in a separate Thread.</p>
+
+    <p><code>Callable.call()</code> allows you to declare checked exceptions while <code>Runnable.run()</code> does not. So if your task throws a checked exception, it would be more appropriate to use a <code>Callable</code>.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When your task does not return any result but you want to execute the task asynchronously.</p>
+
+    <p>Both <code>Callable</code> and <code>Runnable</code> can be used to execute a task asynchronously. If the task does not return any result, neither is more appropriate than the other. However, if the task returns a result, which you want to collect asynchronously later, <code>Callable</code> is more appropriate.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When you want to use <code>ExecutorService</code> to submit multiple instance of a task.</p>
+
+    <p>Both can be used with an <code>ExecutorService</code> because has overloaded submit methods:</p>
+
+    <p><code>&lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task)</code></p>
+
+    <p>and</p>
+
+    <p><code>Future&lt;?&gt; submit(Runnable task)</code> Observe that even though a Runnable’s <code>run()</code> method cannot return a value, the <code>ExecutorService.submit(Runnable)</code> returns a <code>Future</code>. The Future’s get method will return <code>null</code> upon successful completion.</p>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p><code>public interface Callable&lt;V&gt;</code></p>
+
+<p>A task that returns a result and may throw an exception. Implementers define a single method with no arguments called call -</p>
+
+<p>V call() throws Exception</p>
+
+<p>The <code>Callable</code> interface is similar to <code>Runnable</code>, in that both are designed for classes whose instances are potentially executed by another thread. A <code>Runnable</code>, however, does not return a result and cannot throw a checked exception.</p>
+
+<p>65</p>
+
