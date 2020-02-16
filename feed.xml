@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 16 Feb 2020 16:20:06 +0000</pubDate>
-    <lastBuildDate>Sun, 16 Feb 2020 16:20:06 +0000</lastBuildDate>
+    <pubDate>Sun, 16 Feb 2020 20:53:02 +0000</pubDate>
+    <lastBuildDate>Sun, 16 Feb 2020 20:53:02 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -880,6 +880,434 @@ new ComplexClass() implements SimpleInterface { }
 &lt;hr /&gt;
 
 &lt;h5 id=&quot;how-will-you-initialize-a-simpledateformat-object-to-that-the-following-code-will-print-the-full-name-of-the-month-of-the-given-date&quot;&gt;How will you initialize a &lt;code&gt;SimpleDateFormat&lt;/code&gt; object to that the following code will print the full name of the month of the given date?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;SimpleDateFormat sdf = new SimpleDateFormat(&quot;MMMM&quot;, Locale.FRANCE);&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Upper case M is for Month. For example, for February and December, the following will be printed:&lt;/p&gt;
+
+      &lt;p&gt;M =&amp;gt; 2, 12&lt;br /&gt;
+MM =&amp;gt; 02, 12&lt;br /&gt;
+MMM =&amp;gt; févr., déc.&lt;br /&gt;
+MMMM =&amp;gt; février, décembre&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;SimpleDateFormat sdf = new SimpleDateFormat(&quot;M*&quot;, Locale.FRANCE);&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;M* will print the month number (i.e. 2 for Feb and 12 for Dec), followed by *. For example, 2* or 12*&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;SimpleDateFormat sdf = new SimpleDateFormat(&quot;mmmm&quot;, Locale.FRANCE);&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Lower case m is for minutes. So mmmm will print the current minute, where the first two digits will always be zero. For example, 0032 or 0002.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;SimpleDateFormat sdf = new SimpleDateFormat(&quot;mmm&quot;, Locale.FRANCE);&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;SimpleDateFormat sdf = new SimpleDateFormat(&quot;MM&quot;, Locale.FRANCE);&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For the purpose of the exam, you need to know the basic codes for printing out a date. The important ones are m, M, d, D, e, y, s, S, h, H, and z.&lt;br /&gt;
+You should check the complete details of these patterns here:&lt;br /&gt;
+https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/DateTimeFormatter.html&lt;/p&gt;
+
+&lt;p&gt;The important point to understand is how the length of the pattern determines the output of text and numbers.&lt;/p&gt;
+
+&lt;p&gt;Text: The text style is determined based on the number of pattern letters used. Less than 4 pattern letters will use the short form. Exactly 4 pattern letters will use the full form. Exactly 5 pattern letters will use the narrow form. Pattern letters ‘L’, ‘c’, and ‘q’ specify the stand-alone from of the text styles.&lt;/p&gt;
+
+&lt;p&gt;Number: If the count of letters is one, then the value is output using the minimum number of digits and without padding. Otherwise, the count of digits is used as the width of the output field, with the value zero-padded as necessary. The following pattern letters have constrains on the count of letters. Only one letter of ‘c’ and ‘F’ can be specified. Up to two letters of ‘d’, ‘H’, ‘h’, ‘K’, ‘k’, ‘m’, and ‘s’ can be specified. Up to three letters of ‘D’ can be specified.&lt;/p&gt;
+
+&lt;p&gt;Number/Text: If the count of pattern letters is 3 or greater, use the Text rules above. Otherwise use the Number rules above.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;code-that-uses-generic-collection-classes-can-interoperate-with-code-that-uses-raw-collections-classes-because-of&quot;&gt;Code that uses generic collection classes can interoperate with code that uses raw collections classes because of?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;type erasure&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Type erasure means that a compiled java class does not contain any of the generic information that is present in the java file. In other words, the compiler removes the generic information from a java class when it compile it into byte code. For example, &lt;code&gt;List&amp;lt;String&amp;gt; list;&lt;/code&gt; and &lt;code&gt;List list;&lt;/code&gt; are compiled to the same byte code. Therefore, at run time, it does not matter whether you’ve used generic classes or not and this kinds of classes to interoperate because they are essentially the same class to the JVM.&lt;/p&gt;
+
+      &lt;p&gt;Type erasure ensure that no new classes are created for parameterized types; consequently, generics incur no runtime overhead.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;reification&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;This is just the opposite of type erasure. Here, all the type information is preserved in the byte code. In Java, arrays are reified. For example,&lt;/p&gt;
+
+      &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;ArrayList[] alArray = new ArrayList[1];
+Collection[] cArray = alArray;
+cArray[0] = new HashSet();
+&lt;/code&gt;&lt;/pre&gt;
+
+      &lt;p&gt;The above code will compile fine. But it will throw an &lt;code&gt;java.lang.ArrayStoreException&lt;/code&gt; at run time because the byte code contains the information that &lt;code&gt;cArray&lt;/code&gt; actually points to an array of &lt;code&gt;ArrayList&lt;/code&gt;s and not of &lt;code&gt;HasSet&lt;/code&gt;s.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;just in time compilation&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;byte code instrumentation&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;字节码操作好像有点意思。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Which variables declared in the encapsulating class or in the method, can an inner class access if the inner class is defined in a static method of encapsulating class?&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;All static variables&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;All final instance variables&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;All instance variables&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;All automatic variables&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;All final or effectively final static or automatic variables&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;An effectively final variable means even though it is not declared final, it is never assigned a value again throughout the code after being assigned a value at the time of declaration.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Consider the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class TestClass
+{
+    static int si = 10; int ii = 20;
+    public static void inner()
+    {
+        int ai = 30; // automatic variable
+        ai = 31; // ai is not effectively final anymore.
+        final int fai = 40; // automatic final variable
+        class Inner
+        {
+            public Inner() { System.out.println(si+&quot;    &quot;+fai);  }
+        }
+        new Inner();
+    }
+    public static void main(String[] args) { TestClass.inner(); }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since method &lt;code&gt;inner()&lt;/code&gt; is a static method, only &lt;code&gt;si&lt;/code&gt; and &lt;code&gt;fai&lt;/code&gt; are accessible in class Inner. Note that &lt;code&gt;ai&lt;/code&gt; and &lt;code&gt;ii&lt;/code&gt; are not accessible. If method &lt;code&gt;inner()&lt;/code&gt; were a non-static, &lt;code&gt;ii&lt;/code&gt; would have been accessible. If the line &lt;code&gt;ai = 31;&lt;/code&gt; did not exist, &lt;code&gt;ai&lt;/code&gt; would have been accessible.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Which of the following command line switches is required for the assert statements to be executed while running a Java class?&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;ea&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;ua&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;a&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;No switch is needed, they are on by default.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;No, assertions are turned off by default.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;source&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Although not explicitly mentioned in the exam objectives, OCP Java 11 Part 2 Exam requires you to know about the switches used to enable and disable assertions. Here are a few important points that you should know:&lt;/p&gt;
+
+&lt;p&gt;Assertions can be enabled or disabled for specific classes and/or packages. To specify a class, use the class name. To specify a package, use the package name followed by “…“(three dots also known as ellipses):&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;java -ea:&amp;lt;class&amp;gt; myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;java -da:&amp;lt;package&amp;gt;... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You can have multiple &lt;code&gt;-ea/-da&lt;/code&gt; flags on the command line. For example, multiple flags allow you to enable assertions in general, but disable them in a particular package.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;java -ea -da:com.xyz... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The above command enables assertions for all classes  in all packages, but then the subsequent &lt;code&gt;-da&lt;/code&gt; switch disables them for the &lt;code&gt;com.xyz&lt;/code&gt; package and its subpackages.&lt;/p&gt;
+
+&lt;p&gt;To enable assertion for one package and disable for other you can use:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;java -ea:&amp;lt;package1&amp;gt;... -da:&amp;lt;package2&amp;gt;... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You can enable or disable assertions in the unnamed root package (i.e. the default package) using the following commands:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;java -ea:... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;java -da:... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that when you use a package name in the &lt;code&gt;ea&lt;/code&gt; or &lt;code&gt;da&lt;/code&gt; flag, the flag applies to that package as well as its subpackages. For example,&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;java -ea:com... -da:com.enthuware... com.enthuware.Main&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The above command first enables assertions for all the classes in &lt;code&gt;com&lt;/code&gt; as well as for the classes in the subpackages of &lt;code&gt;com&lt;/code&gt;. It then disables assertions for classes in package &lt;code&gt;com.enthuware&lt;/code&gt; and its subpackages.&lt;/p&gt;
+
+&lt;p&gt;Another thing is that -ea/-da do not apply to system classes. For system classes (i.e. the classes that com bundled with the JDK/JRE), you need to use &lt;code&gt;-enablesystemassertions/-esa&lt;/code&gt; or &lt;code&gt;-disablesystemassertions/-dsa&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that * and ** are not valid wildcards for including subpackages.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;which-of-the-following-isare-valid-functional-interface&quot;&gt;Which of the following is/are valid functional interface?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
+interface F {
+    default void m() {}
+}
+&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;It is not a valid functional interface because it does not have an abstract method.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
+interface F {
+    default void m() {}
+    static void n() {}
+}
+&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;It is not a valid functional interface because it does not have an abstract method.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
+interface F {
+    void m();
+    void n();
+}
+&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;It is not a valid functional interface because it has more than one abstract methods.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;java
+interface F {
+    default void m() { }
+    abstract void n();
+}
+&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;The use of abstract keyword is redundant here, but it legal.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
+interface F {
+    void m() {}
+}
+&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;This will not compile because the method has a body but it lacks the keyword default.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;
+A functional interface is an interface that contains exactly one abstract method. It may contain zero or more default methods and/or static methods in addition to the abstract method. Because a functional interface contains exactly one abstract method, you can omit the name of that method when you implement it using a lambda expression. For example, consider the following interface -&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;interface Predicate&amp;lt;T&amp;gt; {
+    boolean test(T t);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The purpose of this interface is to provide a method that operates on an object of class T and return a boolean.&lt;/p&gt;
+
+&lt;p&gt;You could have a method that takes an instance of class that  implements this interface defined like this -&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public void printImportantData(ArrayList&amp;lt;Data&amp;gt; dataList, Predicate&amp;lt;Data&amp;gt; p) {
+    for (Data d: dataList) {
+        if (p.test(d)) System.out.println(d);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;where Data class could be as simple as &lt;code&gt;public class Data { public int value; }&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, you can call the above method as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;printImportantData(al, (Data d) -&amp;gt; { return d.value &amp;gt; 1; } );&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Notice the lack of method name here. This is possible because the interface has only one abstract method so the compiler can figure out the name. This can be shortened to:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;printImportantData(al, d -&amp;gt; d.value &amp;gt; 1);&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Notice that there is no declaration of d! The compiler can figure out all information it needs because the interface has only one abstract method and that method has only one parameter. So you don’t need to write all those things in your code.&lt;/p&gt;
+
+&lt;p&gt;Compare the above approach to the old style using an inner class that does the same thing -&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;printImportantData(al, new Predicate&amp;lt;Data&amp;gt;() {
+    public boolean test(Data d) {
+        return d.value &amp;gt; 1;
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;Predicate&lt;/code&gt; interface described above can be used anywhere there is a need to “do something with an object and return a boolean” and is actually provided by the standard java library in &lt;code&gt;java.util.function&lt;/code&gt; package. This package provides a few other useful functional interfaces.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Predicate&amp;lt;T&amp;gt;&lt;/code&gt; Represents a predicate (boolean-valued function) of one argument of type T.&lt;br /&gt;
+&lt;code&gt;Consumer&amp;lt;T&amp;gt;&lt;/code&gt; Represents an operation that accepts a single input argument of type T and returns no result.  &lt;br /&gt;
+&lt;code&gt;Function&amp;lt;T, R&amp;gt;&lt;/code&gt; Represents a function that accepts one argument of type T and produces a result of type R&lt;br /&gt;
+&lt;code&gt;Supplier&amp;lt;T&amp;gt;&lt;/code&gt; Represents a supplier of results of type T.&lt;/p&gt;
+
+&lt;p&gt;Please see http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html for learning Lambda expressions in Java.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;看段代码，判断输出：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.util.HashSet;
+
+enum SIZE {
+    TALL, GRANDE, JUMBO;
+}
+
+public class CoffeeMug {
+    public static void main(String[] args) {
+        HashSet&amp;lt;SIZE&amp;gt; hs = new HashSet&amp;lt;&amp;gt;();
+        hs.add(SIZE.TALL); hs.add(SIZE.JUMBO); hs.add(SIZE.GRANDE); 
+        hs.add(SIZE.TALL); hs.add(SIZE.TALL); hs.add(SIZE.JUMBO); 
+
+        for(SIZE s: hs) System.out.println(s);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are two concepts involved in this question:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;A &lt;code&gt;Set&lt;/code&gt; (such as a &lt;code&gt;HashSet&lt;/code&gt;) does not allow duplicate elements. If you add a duplicate element, it is ignored. Thus, only three unique &lt;code&gt;SIZE&lt;/code&gt; elements are stored.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;It is important to understand how the &lt;code&gt;add()&lt;/code&gt; method of a Set works :
+&lt;code&gt;boolean add(E o)&lt;/code&gt;
+	Adds the specified element to this set if it is not already present (optional operation). More formally, adds the specified element, o, to this set if this set contains no element e such that &lt;code&gt;(o==null ? e==null : o.equals(e))&lt;/code&gt;. If this set already contains the specified element, the call leaves this set unchanged and returns false. In combination with the restriction on constructors, this ensures that sets never contain duplicate elements.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The order of elements is not defined in &lt;code&gt;HashSet&lt;/code&gt;. So while retrieving elements, it can return them in any order.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Remember that, &lt;code&gt;TreeSet&lt;/code&gt; does store elements in their &lt;strong&gt;natural sorted order&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Also remember that the order of Enums is the order in which they are defined. It is not necessarily same as alphabetical order of their names.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Which of these statements concerning nested classes and interfaces are true?&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;An instance of a static nested class has an inherent outer instance.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Because static nested class is a static class.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;A static nested class can contain non-static member variables.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;It is like any other normal class.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;A static nested interface can contain static member variables.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Static nested interface is similar to top level interface.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;A static nested interface has an inherent outer instance associated with it.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;A static nested interface is a static interface and so does not have an associated outer instance.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;For each instance of the outer class, there can exist many instances of a non-static inner class.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;
+Note the difference between an Inner class and a static nested class. Inner class means a NON STATIC class defined inside a class. Remember: A nested class is any class whose declaration occurs within the body of another class or interface. A top level class is a class that is not a nested class. An inner class is a nested class that is not explicitly or implicitly declared static. A class defined inside an interface is implicitly static. For example,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class A  // outer class
+{
+   static public class B //Static Nested class . It can be used in other places: A.B b = new A.B(); There is no outer instance.
+   {
+   }
+   class C //Inner class. It can only be used like this: A.C c = new A().new C(); Outer instance is needed.
+   {
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;One can define a class as a static member of any top-level class. Now consider the following contents of a file named I1.java …&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public interface I1
+{
+    public void mA();
+    public interface InnerI1
+    {
+        int k = 10;
+        public void innerA();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here, interface &lt;code&gt;InnerI1&lt;/code&gt; is implicitly &lt;strong&gt;STATIC&lt;/strong&gt; and so is called as static nested interface. ‘k’ is a &lt;code&gt;static&lt;/code&gt; (&amp;amp; &lt;code&gt;final&lt;/code&gt;) member of this interface. If you do &lt;code&gt;'javap'&lt;/code&gt; on I1 it prints: Compiled from I1.java&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public interface I1
+    /* ACC_SUPER bit NOT set */
+{
+    public abstract void mA();
+    public static interface I1. InnerI1
+    /* ACC_SUPER bit NOT set */
+    {
+        public static final int k;
+        public abstract void innerA();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This interface can be referred to in other places like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;class MyClass implements I1.InnerI1
+{
+...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is similar to referring a Top Level class.&lt;/p&gt;
+
+&lt;hr /&gt;
 
 </description>
         <pubDate>Sat, 15 Feb 2020 22:10:00 +0000</pubDate>
