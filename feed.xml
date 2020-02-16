@@ -5,12 +5,12 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 16 Feb 2020 14:07:58 +0000</pubDate>
-    <lastBuildDate>Sun, 16 Feb 2020 14:07:58 +0000</lastBuildDate>
+    <pubDate>Sun, 16 Feb 2020 14:19:35 +0000</pubDate>
+    <lastBuildDate>Sun, 16 Feb 2020 14:19:35 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
-        <title></title>
+        <title>816 基准测试回顾</title>
         <description>&lt;p&gt;The following are the details of the interface &lt;code&gt;ScheduledExecutorService&lt;/code&gt;:
 All Superinterfaces:
  &lt;code&gt;Executor&lt;/code&gt;, &lt;code&gt;ExecutorService&lt;/code&gt;
@@ -18,7 +18,7 @@ All Known Implementing Classes:
  &lt;code&gt;ScheduledThreadPoolExecutor&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;An &lt;code&gt;ExecutorService&lt;/code&gt; that can schedule commands to run after a given delay, or to execute periodically.
-The schedule     methods create tasks with various delays and return a task object that can     be used to cancel or check execution. The &lt;code&gt;scheduleAtFixedRate&lt;/code&gt; and  &lt;code&gt;scheduleWithFixedDelay&lt;/code&gt; methods create and execute tasks that run periodically until cancelled.&lt;/p&gt;
+The schedule     methods create tasks with various delays and return a task object that can     be used to cancel or check execution. The &lt;code&gt;scheduleAtFixedRate&lt;/code&gt; and  &lt;code&gt;scheduleWithFixedDelay&lt;/code&gt; methods create and execute tasks that run periodically until cancelled.&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;Commands submitted using the &lt;code&gt;Executor.execute(java.lang.Runnable)&lt;/code&gt; and &lt;code&gt;ExecutorService.submit&lt;/code&gt; methods are scheduled with a requested delay of zero. Zero and negative delays (but not periods) are also allowed in schedule methods, and are treated as     requests for immediate execution.&lt;/p&gt;
 
@@ -467,7 +467,7 @@ public class BeeperControl {
     &lt;p&gt;It grows as more elements are added.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
-    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Some operations may throw an UnsupportedOperationException.&lt;/p&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Some operations may throw an UnsupportedOperationException.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -596,9 +596,13 @@ public class BeeperControl {
 &lt;p&gt;65&lt;/p&gt;
 
 </description>
-        <pubDate>Sun, 16 Feb 2020 14:07:58 +0000</pubDate>
-        <link>https://zwt.io/2020/02/16/2020-02-15-foundation-test-review/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/02/16/2020-02-15-foundation-test-review/</guid>
+        <pubDate>Sat, 15 Feb 2020 22:10:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/15/foundation-test-review/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/15/foundation-test-review/</guid>
+        
+        <category>Java 11</category>
+        
+        <category>OCP 11</category>
         
         
       </item>
@@ -611,7 +615,7 @@ public class BeeperControl {
   &lt;li&gt;
     &lt;p&gt;What is an inner class? Differentiate between member, local, and anonymous inner classes.&lt;/p&gt;
 
-    &lt;p&gt;An inner class declares inside a top-level class without a static modifier. Inner classes that declared at member level are called member inner classes, local to the method, or instance initialization block are local inner class. And local inner classes that have no name are anonymous inner classes.&lt;/p&gt;
+    &lt;p&gt;An inner class declares inside a top-level class without a static modifier. Inner classes that declared at member level are called member inner classes, local to the method, or instance initialization block are local inner class. And local inner classes that have no name are anonymous inner classes.&lt;!--more--&gt;&lt;/p&gt;
 
     &lt;blockquote&gt;
       &lt;p&gt;An inner class is a class declared inside the  body of another class. A member inner class is declared inside a class. It can be declared as public, private, protected, or package-level. A local inner class is declared inside a block. Its scope is limited to the block in which it is declared. An anonymous inner class is the same as  local inner class, but has no name. It is declared and an object of the class is created at the same time.&lt;/p&gt;
