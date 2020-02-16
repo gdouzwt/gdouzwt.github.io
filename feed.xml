@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 16 Feb 2020 14:19:35 +0000</pubDate>
-    <lastBuildDate>Sun, 16 Feb 2020 14:19:35 +0000</lastBuildDate>
+    <pubDate>Sun, 16 Feb 2020 16:20:06 +0000</pubDate>
+    <lastBuildDate>Sun, 16 Feb 2020 16:20:06 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -593,7 +593,293 @@ public class BeeperControl {
 
 &lt;p&gt;The &lt;code&gt;Callable&lt;/code&gt; interface is similar to &lt;code&gt;Runnable&lt;/code&gt;, in that both are designed for classes whose instances are potentially executed by another thread. A &lt;code&gt;Runnable&lt;/code&gt;, however, does not return a result and cannot throw a checked exception.&lt;/p&gt;
 
-&lt;p&gt;65&lt;/p&gt;
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;65-which-of-the-following-collection-implementations-are-thread-safe&quot;&gt;65 Which of the following collection implementations are thread-safe?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;ArrayList&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;HashSet&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;HashMap&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;TreeSet&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;None of the above&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Of all the collection classes of the &lt;code&gt;java.util&lt;/code&gt; package, only &lt;code&gt;Vector&lt;/code&gt; and &lt;code&gt;Hashtable&lt;/code&gt; are Thread-safe. &lt;code&gt;java.util.Collection&lt;/code&gt; class contains a &lt;code&gt;synchronizedCollection&lt;/code&gt; method that creates thread-safe instances based on collections which are not.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Set s = Collections.synchronizedSet(new HashSet());&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;From Java 1.5 onwards, you can also use a new Concurrent library available in &lt;code&gt;java.util.concurrent&lt;/code&gt; package, which contains interfaces/classes such as ConcurrentMap/ConcurrentHashMap. Classes in this package offer better performance than objects returned from &lt;code&gt;Collections.synchronizedXXX&lt;/code&gt; methods.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;complete-the-code-so-that-a-portfolio-object-can-be-serialized-and-deserialized-properly&quot;&gt;Complete the code so that a Portfolio object can be serialized and deserialized properly.&lt;/h5&gt;
+
+&lt;p&gt;这题主要考察序列化与反序列化，正确答案如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Bond {
+    String ticker = &quot;bac&quot;;
+    double coupon = 8.3;
+}
+
+class Portfolio implements Serializable {
+    String accountName;
+    transient Bond bond = new Bond();
+
+    private void writeObject(ObjectOutputStream os) throws Exception {
+        os.defaultWriteObject();
+        os.writeObject(bond.ticker);
+        os.writeDouble(bond.coupon);
+    }
+
+    private void readObject(ObjectInputStream os) throws Exception {
+        os.defaultReadObject();
+        this.bond = new Bond();
+        bond.ticker = (String) os.readObject();
+        bond.coupon = os.readDouble();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Bond class does not implement Serializable. Therefore, for Portfolio to be serialized, ‘bond’ must be transient.&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;writeObject&lt;/code&gt; method takes &lt;code&gt;ObjectOutputStream&lt;/code&gt; as the only parameter, while &lt;code&gt;readObject&lt;/code&gt; method takes &lt;code&gt;ObjectInputStream&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;To serialize the object using the default behavior, you must call &lt;code&gt;objectOutputStream.defaultWriteObject();&lt;/code&gt; or &lt;code&gt;objectOutputStream.writeFields();&lt;/code&gt;. This will ensure that instance field of Portfolio object are serialized.&lt;/li&gt;
+  &lt;li&gt;To deserialize the object using the default behavior, you must call &lt;code&gt;objectInputStream.defaultReadObject();&lt;/code&gt; or &lt;code&gt;objectInputStream.readFields();&lt;/code&gt;. This will ensure that instance fields of Portfolio object are deserialized.&lt;/li&gt;
+  &lt;li&gt;The order of values to be read explicitly in &lt;code&gt;readObject&lt;/code&gt; must be exactly the same as the order they were written in &lt;code&gt;writeObject&lt;/code&gt;. Here, ticker was written before coupon and so ticker must be read before coupon.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;which-of-the-following-are-standard-annotations-used-to-suppress-various-warnings-generated-by-the-compiler&quot;&gt;Which of the following are standard annotations used to suppress various warnings generated by the compiler?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@SuppressWarning(&quot;rawtypes&quot;)&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@SupressWarning( {&quot;deprecation&quot;, &quot;unchecked&quot;} )&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@SupressWarning(&quot;deprecation&quot;, &quot;unchecked&quot;)&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Syntax is incorrect because this annotation takes only one value type String array. So, if you want to pass multiple string values, you must pass an array containing those values.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@SafeVarargs&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;This can be used on a constructor or a method. If a constructor or a method tries to perform unsafe operations involving a var args parameter and a parameterized collection, a warning is generated. This annotation suppresses that warning. Example:&lt;/p&gt;
+
+      &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@SafeVarargs // Not actually safe but still suppresses the warning
+static void m(List&amp;lt;String&amp;gt;... stringList) {
+    Object[] array = stringLists;
+    List&amp;lt;Integer&amp;gt; temList = Arrays.asList(42);
+    array[0] = temList; // Semantically invalid, but compiles without warnings because of the annotation
+    String s = stringLists[0].get(0);  // Oh no, ClassCastException at runtime!
+}
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@Override&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;This annotation is used only on methods. It causes a warning to be generated if a method does not actually override any method from the base class. It does not suppress any warning.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@Deprecated&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;This annotation causes a warning to be generated. It does not suppress any warning.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As per JLS 11 section 9.6.4.5, &lt;code&gt;@SuppressWarning&lt;/code&gt; must support three values: &lt;code&gt;unchecked&lt;/code&gt;, &lt;code&gt;deprecation&lt;/code&gt;, and &lt;code&gt;removal&lt;/code&gt;. However, it is not an error if you use a value that is not supported by the compiler. A compiler simply ignores it.&lt;/p&gt;
+
+&lt;p&gt;Different compilers may support more values. For example, Oracle’s javac compiler supports a large number of values (https://docs.oracle.com/en/java/javase/11/tools/javac.html). The ones that you should be aware of for the exam are: &lt;code&gt;none&lt;/code&gt;, &lt;code&gt;rawtypes&lt;/code&gt;, &lt;code&gt;serial&lt;/code&gt;, and &lt;code&gt;varargs&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This annotation is not repeatable. Therefore, you cannot use it twice on the same type. However, you can specify multiple values like this: &lt;code&gt;@SupressWarning({ &quot;deprecation&quot;, &quot;unchecked&quot;} )&lt;/code&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;you-are-implementing-a-special-sorting-algorithm-that-can-sort-objects-of-different-classes-which-of-the-following-class-declarations-will-you-use&quot;&gt;You are implementing a special sorting algorithm that can sort objects of different classes. Which of the following class declarations will you use?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
+public class SpecialSorter&amp;lt;&amp;gt; {
+    ...
+}
+&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;java
+public class SpecialSorter&amp;lt;K&amp;gt; {
+    ...
+}
+&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;This is the correct way to define a generic class. Within the class, you can use K as a type, for example:&lt;/p&gt;
+
+      &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class SpecialSorter&amp;lt;K&amp;gt; {
+    public void sort(ArrayList&amp;lt;K&amp;gt; items) {
+        K item = items.get(0);
+        // ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
+public class &amp;lt;SpecialSorter&amp;gt; {
+    ...
+}
+&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
+public class SpecialSorter(K) {
+    ...
+}
+&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;which-of-the-following-statements-are-true&quot;&gt;Which of the following statements are true?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;A nested class may be declared static.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;FYI, JLS defines the following terminology in Chapter 8:&lt;/p&gt;
+
+      &lt;p&gt;A top level class is a class that is not a nested class.&lt;/p&gt;
+
+      &lt;p&gt;A nested class is any class whose declaration occurs within the body of another class or interface.&lt;/p&gt;
+
+      &lt;p&gt;An inner class is a class that is not explicitly or implicitly declared static.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Anonymous inner class may be declared public.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Anonymous inner class may be declared private.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Anonymous inner class may be declared protected.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Anonymous inner class may extend an abstract class.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;abstract class SomeClass { public abstract void ml(); }
+public class TestClass
+{
+    public static class StaticInnetClass { } //option1
+    public SomeClass getSomeClass()
+    {
+        return new SomeClass()
+        {
+            public void ml() {}
+        };
+	}
+}
+//Here, the anonymous class created inside the method extends the abstract class SomeClass.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Which of the following options can be a part of a correct inner class declaration or a combined declaration and instance initialization? (Assume that &lt;code&gt;SimpleInterface&lt;/code&gt; and &lt;code&gt;ComplexInterface&lt;/code&gt; are interfaces.)&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;java
+private class C { }
+&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;java
+new SimpleInterface() {
+    // valid code
+}
+&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
+new ComplexInterface(x) {
+    // valid code
+}
+&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;You cannot pass parameters when you implement an interface by anonymous class.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
+private final abstract class C { }
+&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;A final class can never be abstract.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
+new ComplexClass() implements SimpleInterface { }
+&lt;/code&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;‘implements’ part comes only in class definition not in instantiation.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;which-of-the-following-statements-are-true-1&quot;&gt;Which of the following statements are true?&lt;/h5&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Package member classes can be declared static.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Classes declared as members of top-level classes can be declared static.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Local classes can be declared static.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Anonymous classes cannot be declared static.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;No type of class can be declared static.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The modifier static pertains only to member classes, not to top level or local or anonymous classes. That is, only classes declared as member of top-level classes can be declared static. Package member classes, local classes (i.e. classes declared in methods) and anonymous classes cannot be declared static.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id=&quot;how-will-you-initialize-a-simpledateformat-object-to-that-the-following-code-will-print-the-full-name-of-the-month-of-the-given-date&quot;&gt;How will you initialize a &lt;code&gt;SimpleDateFormat&lt;/code&gt; object to that the following code will print the full name of the month of the given date?&lt;/h5&gt;
 
 </description>
         <pubDate>Sat, 15 Feb 2020 22:10:00 +0000</pubDate>
