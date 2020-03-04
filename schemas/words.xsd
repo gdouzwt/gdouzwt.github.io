@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="DeletedFlag" type="xs:boolean"/>
+    <xs:element name="IsReadOnly" type="xs:boolean"/>
+    <xs:element name="GUID" type="xs:string"/>
+    <xs:element name="DisplayName" type="xs:string"/>
+    <xs:element name="CreateTime" type="xs:time"/>
+    <xs:element name="LastModifiedTime" type="xs:dateTime"/>
+    <xs:element name="BookStatus" type="xs:string"/>
+    <xs:element name="StudiedCount" type="xs:int"/>
+    <xs:element name="RemainCount" type="xs:int"/>
+    <xs:element name="StrTotalCounts" type="xs:int"/>
+    <xs:element name="StrAssignNew" type="xs:boolean"/>
+    <xs:element name="StrChallengeRank" type="xs:int"/>
+    <xs:element name="WordCount" type="xs:int"/>
+    <xs:element name="NoteBookGuid" type="xs:string" />
+    <xs:element name="HeadWord" type="xs:string"/>
+    <xs:element name="Phonetic" type="xs:string"/>
+    <xs:element name="QuickDefinition" type="xs:string"/>
+    <xs:element name="AddTime" type="xs:string"/>
+    <xs:element name="CorrectCount" type="xs:string"/>
+    <xs:element name="IncorrectCount" type="xs:string"/>
+    <xs:element name="NotebookUnit">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="DeletedFlag"/>
+                <xs:element ref="IsReadOnly"/>
+                <xs:element ref="GUID"/>
+                <xs:element ref="DisplayName"/>
+                <xs:element ref="CreateTime"/>
+                <xs:element ref="LastModifiedTime"/>
+                <xs:element ref="BookStatus"/>
+                <xs:element ref="StudiedCount"/>
+                <xs:element ref="RemainCount"/>
+                <xs:element ref="StrTotalCounts"/>
+                <xs:element ref="StrAssignNew"/>
+                <xs:element ref="StrChallengeRank"/>
+                <xs:element ref="WordCount"/>
+                <xs:element ref="Words"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Words">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="WordUnit"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="WordUnit">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="HeadWord"/>
+                <xs:element ref="NoteBookGuid"/>
+                <xs:element ref="Phonetic"/>
+                <xs:element ref="QuickDefinition"/>
+                <xs:element ref="AddTime"/>
+                <xs:element ref="LastModifiedTime"/>
+                <xs:element ref="DeletedFlag"/>
+                <xs:element ref="CorrectCount"/>
+                <xs:element ref="IncorrectCount"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
