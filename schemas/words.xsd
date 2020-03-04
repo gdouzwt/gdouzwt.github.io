@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema targetNamespace="https://zwt.io/"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:element name="DeletedFlag" type="xs:boolean"/>
     <xs:element name="IsReadOnly" type="xs:boolean"/>
     <xs:element name="GUID" type="xs:string"/>
