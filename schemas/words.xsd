@@ -12,11 +12,11 @@
             <xs:element type="xs:string" name="NoteBookGuid"/>
             <xs:element type="xs:string" name="Phonetic" minOccurs="0"/>
             <xs:element type="xs:string" name="QuickDefinition"/>
-            <xs:element type="xs:string" name="AddTime"/>
-            <xs:element type="xs:string" name="LastModifiedTime"/>
-            <xs:element type="xs:string" name="DeletedFlag"/>
-            <xs:element type="xs:string" name="CorrectCount"/>
-            <xs:element type="xs:string" name="IncorrectCount"/>
+            <xs:element type="xs:dateTime" name="AddTime"/>
+            <xs:element type="xs:dateTime" name="LastModifiedTime"/>
+            <xs:element type="xs:boolean" name="DeletedFlag"/>
+            <xs:element type="xs:int" name="CorrectCount"/>
+            <xs:element type="xs:int" name="IncorrectCount"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -29,19 +29,19 @@
 
     <xs:complexType name="NotebookUnitType">
         <xs:sequence>
-            <xs:element type="xs:string" name="DeletedFlag"/>
-            <xs:element type="xs:string" name="IsReadOnly"/>
+            <xs:element type="xs:boolean" name="DeletedFlag"/>
+            <xs:element type="xs:boolean" name="IsReadOnly"/>
             <xs:element type="xs:string" name="GUID"/>
             <xs:element type="xs:string" name="DisplayName"/>
-            <xs:element type="xs:string" name="CreateTime"/>
-            <xs:element type="xs:string" name="LastModifiedTime"/>
+            <xs:element type="xs:dateTime" name="CreateTime"/>
+            <xs:element type="xs:dateTime" name="LastModifiedTime"/>
             <xs:element type="xs:string" name="BookStatus"/>
-            <xs:element type="xs:string" name="StudiedCount"/>
-            <xs:element type="xs:string" name="RemainCount"/>
-            <xs:element type="xs:string" name="StrTotalCounts"/>
+            <xs:element type="xs:int" name="StudiedCount"/>
+            <xs:element type="xs:int" name="RemainCount"/>
+            <xs:element type="xs:int" name="StrTotalCounts" default="0"/>
             <xs:element type="xs:string" name="StrAssignNew"/>
             <xs:element type="xs:string" name="StrChallengeRank"/>
-            <xs:element type="xs:string" name="WordCount"/>
+            <xs:element type="xs:int" name="WordCount"/>
             <xs:element type="wor:WordsType" name="Words" xmlns:wor="https://zwt.io/schemas/words.xsd"/>
         </xs:sequence>
     </xs:complexType>
