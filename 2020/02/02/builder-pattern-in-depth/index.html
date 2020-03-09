@@ -689,10 +689,177 @@ endOperationsMessage=Product creation completed
   </li>
   <li>
     <p>何时应该考虑使用生成器模式？</p>
+
+    <p>当你需要创建一个复杂的对象，涉及到很多步骤，而且被创建的对象需要是不可修改的对象，可以考虑使用生成器模式。</p>
   </li>
 </ol>
 
+<h3 id="补充">补充</h3>
+
+<h4 id="静态嵌套类链式调用">静态嵌套类，链式调用</h4>
+
+<p>这里补充 Effective Java 第三版里边 Item 2 所讲的 <strong>Consider a builder when faced with many constructor parameters</strong> 的代码例子，因为觉得这里面的例子稍微高级一点，应用到静态嵌套类（不知道这样翻译准不准确，英文是 Static nested class）。 在吐槽完 Telescoping constructor pattern (does not scale well!) 和 JavaBeans Pattern (allows inconsistency, mandates mutability) 之后，Josh Bloch 给出了一种 Builder Pattern，代码如下：</p>
+
+<pre><code class="language-java">// Builder Pattern
+public class NutritionFacts {
+    private final int servingSize;
+    private final int servings;
+    private final int calories;
+    private final int fat;
+    private final int sodium; // 钠
+    private final int carbohydrate; // 碳水化合物
+    
+    // 用 Static nested class 作为 Builder
+    // 放在这里面可以 convey 一种 ownership，
+    // 说明这个 Builder 用于生成 NutritionFacts
+    public static class Builder {
+        // Required parameters 必须的参数
+        private final int servingSize;
+        private final int servings;
+        
+        // Optional parameters - initialized to default values
+        // 可选参数，初始化为默认值
+        private int calories     = 0;
+        private int fat          = 0;
+        private int sodium       = 0;
+        private int carbohydrate = 0;
+        
+        public Builder(int servingSize, int servings) {
+            this.servingSize = servingSize;
+            this.servings    = servings;
+        }
+        
+        // 表示各个构造步骤，返回 Builder 自身引用，形成 fluent API 链式调用
+        public Builder calories(int val)
+        	{ calories = val;  return this; }
+        public Builder fat(int val)
+        	{ fat = val;  return this; }
+        public Builder sodium(int val)
+        	{ sodium = val;  return this; }        
+        public Builder carbohydrate(int val)
+        	{ carbohydrate = val;  return this; }
+        
+        
+        // 返回最终产品
+        public NutritionFacts build() {
+            return new NutritionFacts(this);
+        }
+    }
+    
+    // 私有构造函数
+    private NutritionFacts(Builder builder) {
+        servingSize  = builder.servingSize;
+        servings     = builder.servings;
+        calories     = builder.calories;
+        fat          = builder.fat;
+        sodium       = builder.sodium;
+        carbohydrate = builder.carbohydrate;
+    }
+        
+}
+</code></pre>
+
+<p>按上面的 Builder 实现，客户端代码可以这样写：</p>
+
+<pre><code class="language-java">NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8).
+    calories(100).sodium(35).carbohydrate(27).build();
+</code></pre>
+
+<p>这样的链式调用，易写、易读，模仿了像 Python 或 Scala 中的命名参数（named optional parameters).</p>
+
+<h4 id="生成器模式适用于类继承体系结构">生成器模式适用于类继承体系结构</h4>
+
+<p>即抽象类有抽象 builder，具体类有具体的 builder，例如以下代码是一个抽象类，代表各种披萨：</p>
+
+<pre><code class="language-java">// Builder pattern for class hierarchies
+public abstract class Pizza {
+    public enum Topping { HAM, MUSHROOM, ONION, PEPPER, SAUSAGE }
+    final Set&lt;Topping&gt; toppings;
+    
+    abstract static class Builder&lt;T extends Builder&lt;T&gt;&gt; {
+        EnumSet&lt;Topping&gt; toppings = EnumSet.noneOf(Topping.class);
+        public T addTopping(Topping topping) {
+            toppings.add(Objects.requireNonNull(topping));
+            return self();
+        }
+        abstract Pizza build();
+        
+        // Subclasses must override this method to return "this"
+        protected abstract T self();
+    }
+    Pizza(Builder&lt;?&gt; builder) {
+        toppings = builder.toppings.clone();  // See Item 50
+    }
+}
+</code></pre>
+
+<p>上面的 <code>Pizza.Builder</code> 是带有<em>递归类型参数</em>的泛型，加上抽象的 <code>self</code> 方法，可以允许子类实现方法链式调用。因为 Java 没有 self 类型，这种做法是模仿 self 类型的习惯。(This workaround for the fat that Java lacks a self type is known as the <strong>simulated self-type idiom</strong>.)</p>
+
+<p>然后接下来是两个具体的 <code>Pizza</code> 子类：</p>
+
+<p>纽约披萨：</p>
+
+<pre><code class="language-java">public class NyPizza extends Pizza {
+    public enum Size { SMALL, MEDIUM, LARGE }
+    private final Size size;
+    
+    public static class Builder extends Pizza.Builder&lt;Builder&gt; {
+        private final Size size;
+        
+        // covariant return typing
+        public Builder(Size size) {
+            this.size = Objects.requiresNonNull(size);
+        }
+        @Override public NyPizza build() {
+            return new NyPizza(this);
+        }
+        @Override protected Builder self() {
+            return this;
+        }
+    }
+    private NyPizza(Builder builder) {
+        super(builder);
+        size = builder.size;
+    }
+}
+</code></pre>
+
+<p>意式披萨：</p>
+
+<pre><code class="language-java">public class Calzone extends Pizza {
+    private final boolean sauceInside;
+    
+    public static class Builder extends Pizza.Builder&lt;Builder&gt; {
+        private final boolean sanceInside = false; // Default
+        
+        // covariant return typing
+        public Builder sauceInside() {
+            sauceInside = true;
+            return this;
+        }
+        @Override public Calzone build() {
+            return new Calzone(this);
+        }
+        @Override protected Builder self() { return this; }
+    }
+    private Calzone(Builder builder) {
+        super(builder);
+        sauceInside = builder.sauceInside;
+    }
+}
+</code></pre>
+
+<p>然后客户端代码看起来是这样的：</p>
+
+<pre><code class="language-java">NyPizza pizza = new NyPizza.Builder(SAMLL)
+    .addTopping(SAUSAGE).addTopping(ONION).buid();
+Calzone calzone = new Calzone.Builder()
+    .addTopping(HAM).sauceInside().build();
+</code></pre>
+
 <h3 id="总结">总结</h3>
+
+<p>总的来说，当一个类的构造函数或者静态工厂有较多的参数时，生成器模式是一种好的选择，特别是有些参数是可选的，或者类型是相同的。【完结】</p>
 
 <h3 id="参考">参考</h3>
 
