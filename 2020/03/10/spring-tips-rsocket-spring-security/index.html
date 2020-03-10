@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>数据结构001 - 招文桃 | 记录</title>
+    <title>RSocket与Spring Security简单整合 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io/2019/09/17/data-structure-001/">
+    <link rel="canonical" href="https://zwt.io/2020/03/10/spring-tips-rsocket-spring-security/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,13 +147,13 @@
 
 <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-desk.jpg" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/post-bg-desk.jpg')
+        background-image: url('/img/leimu.jpg')
     }
 
     
@@ -166,15 +166,19 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#数据结构" title="数据结构">数据结构</a>
+                        <a class="tag" href="/tags/#RSocket" title="RSocket">RSocket</a>
+                        
+                        <a class="tag" href="/tags/#Spring Security" title="Spring Security">Spring Security</a>
+                        
+                        <a class="tag" href="/tags/#Authentication" title="Authentication">Authentication</a>
                         
                     </div>
-                    <h1>数据结构001</h1>
+                    <h1>RSocket与Spring Security简单整合</h1>
                     
                     
-                    <h2 class="subheading">复习</h2>
+                    <h2 class="subheading">Spring Tips 学习记录</h2>
                     
-                    <span class="meta">由招文桃在2019年9月17日发布</span>
+                    <span class="meta">由招文桃在2020年3月10日发布</span>
                 </div>
             </div>
         </div>
@@ -192,42 +196,182 @@
         col-md-10 col-md-offset-1
         post-container line-numbers">
 
-        <h2 id="编程遇到的实际问题">编程遇到的实际问题</h2>
+        <h3 id="创建工程">创建工程</h3>
 
-<h3 id="字符串替换问题">字符串替换问题</h3>
+<ul>
+  <li>
+    <p>greetings-service</p>
 
-<h3 id="五子棋问题">五子棋问题</h3>
+    <blockquote>
+      <p>在 start.spring.io 选择 2.3.0 M2 版本 Spring Boot，依赖项如下</p>
 
-<pre><code>- 二维数组
-- 稀疏数组
+      <p>Lombok</p>
+
+      <p>RSocket</p>
+
+      <p>Spring Security</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>greetings-client</p>
+
+    <blockquote>
+      <p>客户端的依赖项也是</p>
+
+      <p>Lombok</p>
+
+      <p>RSocket</p>
+
+      <p>Spring Security</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="服务端应用">服务端应用</h4>
+
+<p>GreetingsServiceApplication.java</p>
+
+<pre><code class="language-java">// 省略导入
+// 一个简单的，基于用户名和密码的“问候”应用
+// 简单起见，所有类都写在一个文件里
+@SpringBootApplication
+public class GreetingsServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(GreetingsServiceApplication.class, args);
+    }
+}
+
+@Configuration
+@EnableRSocketSecurity
+class RSocketSecurityConfiguration {
+
+    @Bean
+    RSocketMessageHandler messageHandler(RSocketStrategies strategies) {
+        RSocketMessageHandler mh = new RSocketMessageHandler();
+        mh.getArgumentResolverConfigurer().addCustomResolver(new AuthenticationPrincipalArgumentResolver());
+        mh.setRSocketStrategies(strategies);
+        return mh;
+    }
+
+    // 授权
+    @Bean
+    PayloadSocketAcceptorInterceptor authorization(RSocketSecurity security) {
+        return security
+                .authorizePayload(spec -&gt; spec
+                        .route("greetings")
+                        .authenticated()
+                        .anyExchange()
+                        .permitAll())
+                .simpleAuthentication(Customizer.withDefaults())
+                .build();
+    }
+
+    // 用户认证 Authentication
+    @Bean
+    MapReactiveUserDetailsService authentication() {
+        UserDetails jlong = User.withDefaultPasswordEncoder().username("jlong")
+            .password("pw").roles("USER").build();
+        UserDetails rwinch = User.withDefaultPasswordEncoder().username("rwinch")
+            .password("pw").roles("ADMIN", "USER").build();
+        return new MapReactiveUserDetailsService(jlong, rwinch);
+    }
+}
+
+// DTO
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class GreetingResponse {
+    private String message;
+}
+
+@Controller
+class GreetingController {
+
+    @MessageMapping("greetings")
+    Flux&lt;GreetingResponse&gt; greet(@AuthenticationPrincipal Mono&lt;UserDetails&gt; user) {
+        return user
+                .map(UserDetails::getUsername)
+                .flatMapMany(GreetingController::greet);
+    }
+
+    private static Flux&lt;GreetingResponse&gt; greet(String name) {
+        return Flux.fromStream(
+                Stream.generate(() -&gt; 
+                new GreetingResponse("Hello " + name + " @ " + 
+                Instant.now().toString())))
+                .delayElements(Duration.ofSeconds(1));
+    }
+}
 </code></pre>
 
-<h3 id="约瑟夫问题丢手帕问题-单项环形链表">约瑟夫问题（丢手帕问题） 单项环形链表</h3>
+<p><strong>服务端的配置文件</strong>：application.properties</p>
 
-<p>修路问题 树（加权值） + 普里姆算法</p>
+<pre><code class="language-properties">spring.rsocket.server.port=8888
+</code></pre>
 
-<p>最短路径问题 图 + 弗洛伊德算法</p>
+<hr />
 
-<p>汉诺塔 分治算法</p>
+<h4 id="客户端应用">客户端应用</h4>
 
-<p>八皇后 回溯法<!--more--></p>
+<p>GreetingsClientApplication.java</p>
 
-<h3 id="线性结构与非线性结构">线性结构与非线性结构</h3>
+<pre><code class="language-java">@SpringBootApplication
+@Log4j2
+public class GreetingsClientApplication {
 
-<p>顺序存储和链式存储</p>
+    @SneakyThrows
+    public static void main(String[] args) {
+        SpringApplication.run(GreetingsClientApplication.class, args);
+        System.in.read(); // 让程序不要结束
+    }
 
-<p>线性结构常见的有： 数组、队列、链表和栈。</p>
+    private final MimeType mimeType =
+            MimeTypeUtils.parseMimeType(WellKnownMimeType.MESSAGE_RSOCKET_AUTHENTICATION.getString());
+    private final UsernamePasswordMetadata credentials = new UsernamePasswordMetadata("jlong", "pw");
 
-<p>非线性结构包括： 二维数组，多维数组，广义表，树结构，图结构</p>
+    // 配置所用编码器
+    @Bean
+    RSocketStrategiesCustomizer rSocketStrategiesCustomizer() {
+        return strategies -&gt; strategies.encoder(new SimpleAuthenticationEncoder());
+    }
 
-<p>稀疏数组，当一个数组中大部分元素为0，或者为同一个值的数组是，可以使用稀疏数组来保存这个数组。</p>
+    // 相当于客户端
+    @Bean
+    RSocketRequester rSocketRequester(RSocketRequester.Builder builder) {
+        return builder
+                //.setupMetadata(this.credentials, this.mimeType)
+                .connectTcp("localhost", 8888)
+                .block();
+    }
 
-<ol>
-  <li>记录数组一共有几行几列，有多少个不同的值</li>
-  <li>把具有不同值的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模。</li>
-</ol>
+    // 应用就绪时通过RSocket向localhost:8888/greetings发起请求
+    // 并将响应消息通过日志输出到控制台
+    @Bean
+    ApplicationListener&lt;ApplicationReadyEvent&gt; ready(RSocketRequester greetings) {
+        return event -&gt; greetings
+                .route("greetings")
+                .metadata(this.credentials, this.mimeType)
+                .data(Mono.empty())
+                .retrieveFlux(GreetingResponse.class)
+                .subscribe(gr -&gt; log.info("secured response: " + gr.toString()));
+    }
+}
 
-<p>二维数组 转 稀疏数组的思路， 之后稀疏数组还要恢复到二维数组。</p>
+// DTO
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class GreetingResponse {
+    private String message;
+}
+</code></pre>
+
+<h3 id="结束">结束</h3>
+
+<p>感觉直接看代码也挺好理解的，就不勉强添加太多文字说明了。有什么不明白的，可以看视频讲解。</p>
+
 
 
         <!-- 来必力City版安装代码 -->
@@ -254,19 +398,12 @@
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2019/09/14/what-I-had-done/" data-toggle="tooltip" data-placement="top" title="作品链接">
+                <a href="/2020/02/15/foundation-test-review/" data-toggle="tooltip" data-placement="top" title="816 基准测试回顾">
                 上一篇<br>
-                <span>作品链接</span>
+                <span>816 基准测试回顾</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2019/09/18/bbk-test-review/" data-toggle="tooltip" data-placement="top" title="一次笔试总结">
-                下一篇<br>
-                <span>一次笔试总结</span>
-                </a>
-            </li>
             
         </ul>
     </div>  

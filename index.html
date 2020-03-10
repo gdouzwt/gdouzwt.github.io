@@ -176,6 +176,199 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/03/10/spring-tips-rsocket-spring-security/">
+        <h2 class="post-title">
+            RSocket与Spring Security简单整合
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Spring Tips 学习记录&nbsp;&nbsp;2020年3月10日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="创建工程">创建工程</h3>
+
+<ul>
+  <li>
+    <p>greetings-service</p>
+
+    <blockquote>
+      <p>在 start.spring.io 选择 2.3.0 M2 版本 Spring Boot，依赖项如下</p>
+
+      <p>Lombok</p>
+
+      <p>RSocket</p>
+
+      <p>Spring Security</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>greetings-client</p>
+
+    <blockquote>
+      <p>客户端的依赖项也是</p>
+
+      <p>Lombok</p>
+
+      <p>RSocket</p>
+
+      <p>Spring Security</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="服务端应用">服务端应用</h4>
+
+<p>GreetingsServiceApplication.java</p>
+
+<pre><code class="language-java">// 省略导入
+// 一个简单的，基于用户名和密码的“问候”应用
+// 简单起见，所有类都写在一个文件里
+@SpringBootApplication
+public class GreetingsServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(GreetingsServiceApplication.class, args);
+    }
+}
+
+@Configuration
+@EnableRSocketSecurity
+class RSocketSecurityConfiguration {
+
+    @Bean
+    RSocketMessageHandler messageHandler(RSocketStrategies strategies) {
+        RSocketMessageHandler mh = new RSocketMessageHandler();
+        mh.getArgumentResolverConfigurer().addCustomResolver(new AuthenticationPrincipalArgumentResolver());
+        mh.setRSocketStrategies(strategies);
+        return mh;
+    }
+
+    // 授权
+    @Bean
+    PayloadSocketAcceptorInterceptor authorization(RSocketSecurity security) {
+        return security
+                .authorizePayload(spec -&gt; spec
+                        .route("greetings")
+                        .authenticated()
+                        .anyExchange()
+                        .permitAll())
+                .simpleAuthentication(Customizer.withDefaults())
+                .build();
+    }
+
+    // 用户认证 Authentication
+    @Bean
+    MapReactiveUserDetailsService authentication() {
+        UserDetails jlong = User.withDefaultPasswordEncoder().username("jlong")
+            .password("pw").roles("USER").build();
+        UserDetails rwinch = User.withDefaultPasswordEncoder().username("rwinch")
+            .password("pw").roles("ADMIN", "USER").build();
+        return new MapReactiveUserDetailsService(jlong, rwinch);
+    }
+}
+
+// DTO
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class GreetingResponse {
+    private String message;
+}
+
+@Controller
+class GreetingController {
+
+    @MessageMapping("greetings")
+    Flux&lt;GreetingResponse&gt; greet(@AuthenticationPrincipal Mono&lt;UserDetails&gt; user) {
+        return user
+                .map(UserDetails::getUsername)
+                .flatMapMany(GreetingController::greet);
+    }
+
+    private static Flux&lt;GreetingResponse&gt; greet(String name) {
+        return Flux.fromStream(
+                Stream.generate(() -&gt; 
+                new GreetingResponse("Hello " + name + " @ " + 
+                Instant.now().toString())))
+                .delayElements(Duration.ofSeconds(1));
+    }
+}
+</code></pre>
+
+<p><strong>服务端的配置文件</strong>：application.properties</p>
+
+<pre><code class="language-properties">spring.rsocket.server.port=8888
+</code></pre>
+
+<hr />
+
+<h4 id="客户端应用">客户端应用</h4>
+
+<p>GreetingsClientApplication.java</p>
+
+<pre><code class="language-java">@SpringBootApplication
+@Log4j2
+public class GreetingsClientApplication {
+
+    @SneakyThrows
+    public static void main(String[] args) {
+        SpringApplication.run(GreetingsClientApplication.class, args);
+        System.in.read(); // 让程序不要结束
+    }
+
+    private final MimeType mimeType =
+            MimeTypeUtils.parseMimeType(WellKnownMimeType.MESSAGE_RSOCKET_AUTHENTICATION.getString());
+    private final UsernamePasswordMetadata credentials = new UsernamePasswordMetadata("jlong", "pw");
+
+    // 配置所用编码器
+    @Bean
+    RSocketStrategiesCustomizer rSocketStrategiesCustomizer() {
+        return strategies -&gt; strategies.encoder(new SimpleAuthenticationEncoder());
+    }
+
+    // 相当于客户端
+    @Bean
+    RSocketRequester rSocketRequester(RSocketRequester.Builder builder) {
+        return builder
+                //.setupMetadata(this.credentials, this.mimeType)
+                .connectTcp("localhost", 8888)
+                .block();
+    }
+
+    // 应用就绪时通过RSocket向localhost:8888/greetings发起请求
+    // 并将响应消息通过日志输出到控制台
+    @Bean
+    ApplicationListener&lt;ApplicationReadyEvent&gt; ready(RSocketRequester greetings) {
+        return event -&gt; greetings
+                .route("greetings")
+                .metadata(this.credentials, this.mimeType)
+                .data(Mono.empty())
+                .retrieveFlux(GreetingResponse.class)
+                .subscribe(gr -&gt; log.info("secured response: " + gr.toString()));
+    }
+}
+
+// DTO
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class GreetingResponse {
+    private String message;
+}
+</code></pre>
+
+<h3 id="结束">结束</h3>
+
+<p>感觉直接看代码也挺好理解的，就不勉强添加太多文字说明了。有什么不明白的，可以看视频讲解。</p>
+
+ <a href="/2020/03/10/spring-tips-rsocket-spring-security/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/02/15/foundation-test-review/">
         <h2 class="post-title">
             816 基准测试回顾
@@ -502,26 +695,6 @@ Another common use case is setting active profiles and default properties to set
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/01/29/bulkhead-pattern/">
-        <h2 class="post-title">
-            水密舱壁模式
-        </h2>
-        
-        <h3 class="post-subtitle">
-            云原生微服务模式系列&nbsp;&nbsp;2020年1月29日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <p>水密舱壁模式是一类容错的应用程序设计。在水密舱壁模式架构中，应用程序的个组成元素被分隔到隔舱中，这样一旦其中一个出故障，其它部分仍能够运行。这是命名来自船体当中的分隔区域（水密舱壁）。如果一艘船的水密隔舱坏了，那么只是受损部位会进水（其它部分被隔开了），这样能够防止沉船。</p>
-
-<p><img src="/img/Compartments_and_watertight_subdivision_of_a_ship's_hull_(Seaman's_Pocket-Book,_1943).jpg" alt="水密壁舱" /></p>
- <a href="/2020/01/29/bulkhead-pattern/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -666,7 +839,7 @@ Another common use case is setting active profiles and default properties to set
                             
                         
                             
-                                <a href="/tags/#RSocket" title="RSocket" rel="4">
+                                <a href="/tags/#RSocket" title="RSocket" rel="5">
                                     RSocket
                                 </a>
                             
@@ -685,6 +858,10 @@ Another common use case is setting active profiles and default properties to set
                                 <a href="/tags/#JavaFX" title="JavaFX" rel="7">
                                     JavaFX
                                 </a>
+                            
+                        
+                            
+                        
                             
                         
                             

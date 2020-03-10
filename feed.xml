@@ -5,9 +5,201 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 09 Mar 2020 23:47:11 +0000</pubDate>
-    <lastBuildDate>Mon, 09 Mar 2020 23:47:11 +0000</lastBuildDate>
+    <pubDate>Tue, 10 Mar 2020 13:32:52 +0000</pubDate>
+    <lastBuildDate>Tue, 10 Mar 2020 13:32:52 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>RSocket与Spring Security简单整合</title>
+        <description>&lt;h3 id=&quot;创建工程&quot;&gt;创建工程&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;greetings-service&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;在 start.spring.io 选择 2.3.0 M2 版本 Spring Boot，依赖项如下&lt;/p&gt;
+
+      &lt;p&gt;Lombok&lt;/p&gt;
+
+      &lt;p&gt;RSocket&lt;/p&gt;
+
+      &lt;p&gt;Spring Security&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;greetings-client&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;客户端的依赖项也是&lt;/p&gt;
+
+      &lt;p&gt;Lombok&lt;/p&gt;
+
+      &lt;p&gt;RSocket&lt;/p&gt;
+
+      &lt;p&gt;Spring Security&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;服务端应用&quot;&gt;服务端应用&lt;/h4&gt;
+
+&lt;p&gt;GreetingsServiceApplication.java&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// 省略导入
+// 一个简单的，基于用户名和密码的“问候”应用
+// 简单起见，所有类都写在一个文件里
+@SpringBootApplication
+public class GreetingsServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(GreetingsServiceApplication.class, args);
+    }
+}
+
+@Configuration
+@EnableRSocketSecurity
+class RSocketSecurityConfiguration {
+
+    @Bean
+    RSocketMessageHandler messageHandler(RSocketStrategies strategies) {
+        RSocketMessageHandler mh = new RSocketMessageHandler();
+        mh.getArgumentResolverConfigurer().addCustomResolver(new AuthenticationPrincipalArgumentResolver());
+        mh.setRSocketStrategies(strategies);
+        return mh;
+    }
+
+    // 授权
+    @Bean
+    PayloadSocketAcceptorInterceptor authorization(RSocketSecurity security) {
+        return security
+                .authorizePayload(spec -&amp;gt; spec
+                        .route(&quot;greetings&quot;)
+                        .authenticated()
+                        .anyExchange()
+                        .permitAll())
+                .simpleAuthentication(Customizer.withDefaults())
+                .build();
+    }
+
+    // 用户认证 Authentication
+    @Bean
+    MapReactiveUserDetailsService authentication() {
+        UserDetails jlong = User.withDefaultPasswordEncoder().username(&quot;jlong&quot;)
+            .password(&quot;pw&quot;).roles(&quot;USER&quot;).build();
+        UserDetails rwinch = User.withDefaultPasswordEncoder().username(&quot;rwinch&quot;)
+            .password(&quot;pw&quot;).roles(&quot;ADMIN&quot;, &quot;USER&quot;).build();
+        return new MapReactiveUserDetailsService(jlong, rwinch);
+    }
+}
+
+// DTO
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class GreetingResponse {
+    private String message;
+}
+
+@Controller
+class GreetingController {
+
+    @MessageMapping(&quot;greetings&quot;)
+    Flux&amp;lt;GreetingResponse&amp;gt; greet(@AuthenticationPrincipal Mono&amp;lt;UserDetails&amp;gt; user) {
+        return user
+                .map(UserDetails::getUsername)
+                .flatMapMany(GreetingController::greet);
+    }
+
+    private static Flux&amp;lt;GreetingResponse&amp;gt; greet(String name) {
+        return Flux.fromStream(
+                Stream.generate(() -&amp;gt; 
+                new GreetingResponse(&quot;Hello &quot; + name + &quot; @ &quot; + 
+                Instant.now().toString())))
+                .delayElements(Duration.ofSeconds(1));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;服务端的配置文件&lt;/strong&gt;：application.properties&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-properties&quot;&gt;spring.rsocket.server.port=8888
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h4 id=&quot;客户端应用&quot;&gt;客户端应用&lt;/h4&gt;
+
+&lt;p&gt;GreetingsClientApplication.java&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@SpringBootApplication
+@Log4j2
+public class GreetingsClientApplication {
+
+    @SneakyThrows
+    public static void main(String[] args) {
+        SpringApplication.run(GreetingsClientApplication.class, args);
+        System.in.read(); // 让程序不要结束
+    }
+
+    private final MimeType mimeType =
+            MimeTypeUtils.parseMimeType(WellKnownMimeType.MESSAGE_RSOCKET_AUTHENTICATION.getString());
+    private final UsernamePasswordMetadata credentials = new UsernamePasswordMetadata(&quot;jlong&quot;, &quot;pw&quot;);
+
+    // 配置所用编码器
+    @Bean
+    RSocketStrategiesCustomizer rSocketStrategiesCustomizer() {
+        return strategies -&amp;gt; strategies.encoder(new SimpleAuthenticationEncoder());
+    }
+
+    // 相当于客户端
+    @Bean
+    RSocketRequester rSocketRequester(RSocketRequester.Builder builder) {
+        return builder
+                //.setupMetadata(this.credentials, this.mimeType)
+                .connectTcp(&quot;localhost&quot;, 8888)
+                .block();
+    }
+
+    // 应用就绪时通过RSocket向localhost:8888/greetings发起请求
+    // 并将响应消息通过日志输出到控制台
+    @Bean
+    ApplicationListener&amp;lt;ApplicationReadyEvent&amp;gt; ready(RSocketRequester greetings) {
+        return event -&amp;gt; greetings
+                .route(&quot;greetings&quot;)
+                .metadata(this.credentials, this.mimeType)
+                .data(Mono.empty())
+                .retrieveFlux(GreetingResponse.class)
+                .subscribe(gr -&amp;gt; log.info(&quot;secured response: &quot; + gr.toString()));
+    }
+}
+
+// DTO
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+class GreetingResponse {
+    private String message;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;结束&quot;&gt;结束&lt;/h3&gt;
+
+&lt;p&gt;感觉直接看代码也挺好理解的，就不勉强添加太多文字说明了。有什么不明白的，可以看视频讲解。&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 10 Mar 2020 21:00:00 +0000</pubDate>
+        <link>https://zwt.io/2020/03/10/spring-tips-rsocket-spring-security/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/03/10/spring-tips-rsocket-spring-security/</guid>
+        
+        <category>RSocket</category>
+        
+        <category>Spring Security</category>
+        
+        <category>Authentication</category>
+        
+        
+      </item>
     
       <item>
         <title>816 基准测试回顾</title>
@@ -3535,100 +3727,6 @@ class Consumer extends Thread {
         <category>Java</category>
         
         <category>Thread</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>水密舱壁模式</title>
-        <description>&lt;p&gt;水密舱壁模式是一类容错的应用程序设计。在水密舱壁模式架构中，应用程序的个组成元素被分隔到隔舱中，这样一旦其中一个出故障，其它部分仍能够运行。这是命名来自船体当中的分隔区域（水密舱壁）。如果一艘船的水密隔舱坏了，那么只是受损部位会进水（其它部分被隔开了），这样能够防止沉船。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/Compartments_and_watertight_subdivision_of_a_ship's_hull_(Seaman's_Pocket-Book,_1943).jpg&quot; alt=&quot;水密壁舱&quot; /&gt; &lt;!--more--&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;场景与问题&quot;&gt;场景与问题&lt;/h2&gt;
-
-&lt;p&gt;一个基于云的应用程序可能包括多个服务，每个服务可能有一个或者多个消费者。一个服务超负荷或者出故障会影响到这个服务的所有消费者。而且，一个消费者可能同时对多个服务发起请求，每个请求都占用着资源。当消费者向一个错误配置的服务或无反应的服务发起请求，那么客户端请求所占用的资源可能不能及时地释放。随着对服务的请求继续发起，此类资源可能会被耗尽。例如，客户端连接池可能会耗尽。在那情况下，消费者对于其它服务的请求会受到影响。最终导致消费者不仅没法再对原来无响应的服务发起请求，而且也不能对其它服务发起请求了。同样的资源耗尽问题也影响着有多个消费者的服务。来自一个客户端的大量请求可能会耗尽服务可用的资源。其它消费者就没有办法再消费服务，导致雪崩故障效应。&lt;/p&gt;
-
-&lt;h2 id=&quot;解决方案&quot;&gt;解决方案&lt;/h2&gt;
-
-&lt;p&gt;将服务实例按照消费者的负载和可用性要求分为不同的组。 这种设计有助于隔离故障，并允许你在即使是故障情况下仍能为部分消费者维持服务功能。&lt;/p&gt;
-
-&lt;p&gt;一个消费者同样也可以分区资源，服务调用间资源互不影响。（即调用某个服务的资源不会影响到用于调用另一个服务的资源。 ） 例如，一个需要调用多个服务的消费者可能会为每个服务指定一个连接池。如果一个服务开始出故障，那只会影响到指定给那个服务的连接池，而消费者仍然可以继续使用其它服务。&lt;/p&gt;
-
-&lt;p&gt;这种模式的好处有以下几点：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;将消费者和服务从雪崩故障中隔离开来。一个影响到一个消费者或服务的问题可以被隔离在它自己的水密舱壁里，防止解决方案整体失败。&lt;/li&gt;
-  &lt;li&gt;能让你在发生故障的情况下保留部分功能。其它服务和应用程序功能能够继续运行。&lt;/li&gt;
-  &lt;li&gt;可以让你部署能为消费者应用提供不同服务质量的服务。优先级高的消费者池可以配置使用高优先级的服务。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;下面的图展示围绕调用独立服务的连接池构造的水密舱壁。如果服务A（Service A）出故障或者其它毛病，它的连接池已经隔开了，所以只有使用了指派给服务A的线程池的工作负荷（workload）会受到影响。而使用服务B和C的工作负荷没受影响，能够继续不间断运行。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/bulkhead-1.png&quot; alt=&quot;First diagram of the Bulkhead pattern&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;下一个图展示了多个客户端调用一个服务。每个客户端分别被指派一个服务实例。 客户端 1（Client 1）发起太多请求了并且压垮了它的服务实例。因为每个服务实例都是分别隔离开的，其它的客户端可以继续发起请求。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/bulkhead-2.png&quot; alt=&quot;First diagram of the Bulkhead pattern&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;问题与思考&quot;&gt;问题与思考&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;根据业务以及应用程序的技术性需求定义分区。&lt;/li&gt;
-  &lt;li&gt;当将服务或消费者分区到水密舱壁，应考虑技术上能提供的隔离级别，也要考虑开销成本，性能以及可维护性。&lt;/li&gt;
-  &lt;li&gt;考虑将水密舱壁模式与重试、断路器还有节流模式结合起来实现更加周密的故障处理机制。&lt;/li&gt;
-  &lt;li&gt;当将消费者分区到水密舱壁，考虑使用进程，线程池以及信号量。像Netflix Hystrix还有Polly的项目提供了框架用于创建消费者水密舱壁。&lt;/li&gt;
-  &lt;li&gt;当将服务分区到水密舱壁，考虑将它们部署到独立的虚拟机，容器或进程。容器在资源隔离和相对低开销方面提供了一个好的平衡点。&lt;/li&gt;
-  &lt;li&gt;使用异步消息通信的服务可以通过不同的队列隔离开来。每个队列可以有一组专用的实例处理消息，或者一个单组实例，使用算法出队和分发处理。&lt;/li&gt;
-  &lt;li&gt;确定水密舱壁的粒度级别。例如，如果你想在分区上放租户，你可以将每个租户放到独立的分区，或者将几个租户放到一个分区。&lt;/li&gt;
-  &lt;li&gt;监控每个分区的性能和服务水平协议（Service Level Agreement）&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;何时使用这种模式&quot;&gt;何时使用这种模式&lt;/h2&gt;
-
-&lt;p&gt;这种模式适用于：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;隔离用于消费一系列后端服务的资源，尤其是即使其中一个服务无响应，应用程序能够提供某些级别的功能的情况。&lt;/li&gt;
-  &lt;li&gt;将重要的消费者与普通消费者隔离开。&lt;/li&gt;
-  &lt;li&gt;防止应用程序发生雪崩故障。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;这种模式不适用于：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;项目中不能接受对资源的低效利用。&lt;/li&gt;
-  &lt;li&gt;没有必要增加复杂度的情况。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;例子&quot;&gt;例子&lt;/h2&gt;
-
-&lt;p&gt;下面的Kubernetes配置文件创建了一个隔离的容器用于运行单个服务，定义了它自己的CPU和内存资源以及限额。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-yml&quot;&gt;apiVersion: v1
-kind: Pod
-metadata:
-  name: drone-management
-spec:
-  containers:
-  - name: drone-management-container
-    image: drone-service
-    resources:
-      requests:
-        memory: &quot;64Mi&quot;
-        cpu: &quot;250m&quot;
-      limits:
-        memory: &quot;128Mi&quot;
-        cpu: &quot;1&quot;
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-        <pubDate>Wed, 29 Jan 2020 08:46:00 +0000</pubDate>
-        <link>https://zwt.io/2020/01/29/bulkhead-pattern/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/01/29/bulkhead-pattern/</guid>
-        
-        <category>模式</category>
-        
-        <category>微服务</category>
         
         
       </item>
