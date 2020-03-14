@@ -176,6 +176,69 @@
             ">
             
 <div class="post-preview">
+    <a href="/2019/11/06/java-lambda-revisited/">
+        <h2 class="post-title">
+            Java Lambda 表达式
+        </h2>
+        
+        <h3 class="post-subtitle">
+            深入理解 Lambda&nbsp;&nbsp;2019年11月6日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="lambda-expressions">Lambda Expressions</h2>
+
+<h4 id="introducing-lambda-expressions">Introducing Lambda Expressions</h4>
+
+<h5 id="lambda-expression-基础">Lambda Expression 基础</h5>
+
+<h5 id="函数式接口">函数式接口</h5>
+
+<h5 id="一些函数表达式例子">一些函数表达式例子</h5>
+<p>演示一个简单的 Lambda 表达式</p>
+
+<pre><code class="language-java">// Demonstrate a simple lambda expression. 
+ 
+// A functional interface. 
+interface MyNumber { 
+  double getValue();  
+}
+</code></pre>
+
+<p>使用 Lambda 表达式</p>
+ <a href="/2019/11/06/java-lambda-revisited/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/11/04/java-generic-revisited/">
+        <h2 class="post-title">
+            Java 泛型回顾
+        </h2>
+        
+        <h3 class="post-subtitle">
+            深入理解泛型&nbsp;&nbsp;2019年11月4日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h1 id="generics">Generics</h1>
+
+<p>JDK 1.5 版本开始引入，加强了<strong>类型安全（Type safety）</strong>，强化了语言本身，更加强化了集合框架（Collections Framework）。Java 8 开始加入 Lambda、Stream 更加进一步增强了语言的表达能力。</p>
+
+<h3 id="什么是泛型">什么是泛型？</h3>
+
+<p>泛型（Generics）意思是参数化类型（Parameterized types）。泛型允许在创建类、接口和方法的时候，以提供参数的形式指定其能操作的数据类型。它的对象是类、接口、方法。这三者都可以泛型化。</p>
+
+<p>在没有泛型特性之前，可以通过 Object 类实现泛型编程，但是不能保证类型安全。</p>
+ <a href="/2019/11/04/java-generic-revisited/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2019/11/02/java-protected-access-modifier-revisited/">
         <h2 class="post-title">
             回顾 protected 访问修饰符
@@ -242,9 +305,7 @@
 
 <p>这是第一步：使用 Kotlin 创建一个响应式 Spring Boot 服务。</p>
 
-<p>这篇博文包含一个视频演示一步步操作过程和一个文字版的操作过程（从视频的讲稿演变而来）给那些更偏好文字版的人。</p>
-
-<p>这个教程是我们构建一个完整的使用 <a href="https://kotlinlang.org/">Kotlin</a> 写的 Spring Boot 应用作后端， <a href="https://jdk.java.net/13/">Java</a> 写客户端以及一个  JavaFX 写的用户界面的其中一些步骤。</p>
+<p>这篇博文包含一个视频演示一步步操作过程和一个文字版的操作过程（从视频的讲稿演变而来）给那些更偏好文字版的人。这个教程是我们构建一个完整的使用 <a href="https://kotlinlang.org/">Kotlin</a> 写的 Spring Boot 应用作后端， <a href="https://jdk.java.net/13/">Java</a> 写客户端以及一个  JavaFX 写的用户界面的其中一些步骤。</p>
 
 <p>教程的第一步是创建一个 <a href="https://spring.io/guides/tutorials/spring-boot-kotlin/">Kotlin 版的 Spring Boot 应用</a>，作为应用程序的后端。我们将会创建一个 <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> 服务，可在后面的教程中接入。</p>
 
@@ -298,7 +359,7 @@
     <div class="post-content-preview">
         <h2 id="背景">背景</h2>
 
-<p>背景，大学学的是软件工程专业。语言学习路径，大一专业课先学C语言，接着是C语言的数据结构。大二分方向，C++ 和 Java两个方向。C++ 作为我入门面向对象编程的语言，学完大学的C++ 课程，主要实践就是用Qt 写了个简单的数据库课程设计，之后就没有怎么用了，荒废掉了。 C 语言还因为学习微机原理（51 单片机）重新拾起来了一段时间。之后因为那段时间喜欢折腾一些硬件所以也开始玩树莓派，树莓派用 Python 比较多，所以又稍微接触了一下 Python 的基础。到后来因为组队参加比赛，开始接触Android 编程，那时候 Android 还未开始用 Kotlin, 就开始学习，边学边开发。后来学校的课程也有 Java Web，和 Android 。在做课程设计的过程就开始使用Spring Boot + AngularJS(那时候用的是 1.x)，写一下后端 REST API，之后觉得 Java Web 后端开发是我想做的方向。可以因为之前学得比较杂，还因为 C/C++ 硬件背景，让我在情感上有点不重视 Java，所以学习投入程度不够。后果就是有时候看代码，写代码的时候觉得很吃力，一种似懂非懂的状态，模糊不清晰，好像大概知道这是做什么功能，但是要清晰地表达出来就有困难了。 要摆脱这种状况，所以多看书，多写代码。参加 Oracle Java 认证考试的作用就是可以驱动学习，有了这个目标，就会认真深入学习。这才是考试的意义。</p>
+<p>大学是软件工程专业，大一专业课先学 C 语言，接着是C语言的数据结构。大二分方向，C++ 和  Java 两个方向。C++ 作为我入门面向对象编程的语言，学完大学的 C++ 课程，主要实践就是用 Qt 写了个简单的数据库课程设计，之后就没有怎么用了，荒废掉了。 C 语言还因为学习微机原理（51 单片机）重新拾起来了一段时间。之后因为那段时间喜欢折腾一些硬件所以也开始玩树莓派，树莓派用 Python 比较多，所以又稍微接触了一下 Python 的基础。到后来因为组队参加比赛，开始接触 Android 编程，那时候 Android 还未开始用 Kotlin, 就开始学习，边学边开发。后来学校的课程也有 Java Web，和 Android 。在做课程设计的过程就开始使用 Spring Boot + AngularJS (那时候用的是 1.x)，写一下后端 REST API，之后觉得 Java Web 后端开发是我想做的方向。可以因为之前学得比较杂，还因为 C/C++ 硬件背景，让我在情感上有点不重视 Java，所以学习投入程度不够。后果就是有时候看代码，写代码的时候觉得很吃力，一种似懂非懂的状态，模糊不清晰，好像大概知道这是做什么功能，但是要清晰地表达出来就有困难了。 要摆脱这种状况，所以多看书，多写代码。参加 Oracle Java 认证考试的作用就是可以驱动学习，有了这个目标，就会认真深入学习，这就是考试的意义。</p>
  <a href="/2019/10/25/oca-exam-prep-review/"><b>阅读更多📰</b></a>
     </div>
 </div>
@@ -400,95 +461,6 @@ public class JustLooping {
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2019/10/14/do1-cloud-test-review/">
-        <h2 class="post-title">
-            相反顺序输出一个整数
-        </h2>
-        
-        <h3 class="post-subtitle">
-            笔试编程题&nbsp;&nbsp;2019年10月14日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h5 id="起初">起初</h5>
-
-<p>编写程序，对输入的一个整数，按相反顺序输出该数。</p>
-
-<pre><code class="language-java">// ReverseInt.java
-import java.util.Scanner;
-public class ReverseInt {
-	public static void main(String[] args) {
-		System.out.println("请输入一个整数：");
-		Scanner input = new Scanner(System.in);
-		String value = "" + input.nextBigInteger();
-		input.close();
-		String reversed = "";
-		for (int i = value.length() - 1; i &gt;= 0; i--) {
-			reversed = reversed + value.charAt(i);
-		}
-		System.out.println(reversed);
-	}
-}
-</code></pre>
-<p>当时手写代码，<code>for</code> 循环的控制条件边界写错了，当时写成了 <code>for (int i = value.length(); i &gt; 0; i--)</code>  结果数组越界了。应该是 <code>for (int i = value.length() - 1; i &gt;= 0; i--)</code> 的。</p>
-
-<p>换成 <code>input.nextBigInteger();</code> 好一点。</p>
- <a href="/2019/10/14/do1-cloud-test-review/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/10/13/oca-guide-intro-test-review/">
-        <h2 class="post-title">
-            OCA 自测回顾
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Assessment Test&nbsp;&nbsp;2019年10月13日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="oca-自测题回顾">OCA 自测题回顾</h2>
-
-<ol>
-  <li>What is the output of the following code? (Choose all that apply)
-    <pre><code class="language-java">interface HasTail { int getTailLength(); } 
-abstract class Puma implements HasTail { 
-    protected int getTailLength() {return 4;} 
-} 
-public class Cougar extends Puma { 
-    public static void main(String[] args) { 
-        Puma puma = new Puma(); 
-        System.out.println(puma.getTailLength()); 
- } 
-       
-    public int getTailLength(int length) {return 2;} 
-} 
-</code></pre>
-    <blockquote>
-      <p><strong>A.</strong> 2</p>
-
-      <p><strong>B.</strong> 4</p>
-
-      <p><strong>C.</strong> The code will not compile because of line 3.</p>
-
-      <p><strong>D.</strong> The code will not compile because of line 5.</p>
-
-      <p><strong>E.</strong> The code will not compile because of line 7.</p>
-
-      <p><strong>F.</strong> The output cannot be determined from the code provided.</p>
-    </blockquote>
-  </li>
-</ol>
- <a href="/2019/10/13/oca-guide-intro-test-review/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -527,11 +499,7 @@ public class Cougar extends Puma {
                             
                         
                             
-                        
-                            
-                        
-                            
-                                <a href="/tags/#Java" title="Java" rel="27">
+                                <a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
@@ -651,11 +619,17 @@ public class Cougar extends Puma {
                             
                         
                             
-                        
-                            
                                 <a href="/tags/#JavaFX" title="JavaFX" rel="7">
                                     JavaFX
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             

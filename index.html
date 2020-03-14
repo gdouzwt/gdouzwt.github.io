@@ -240,7 +240,8 @@ class RSocketSecurityConfiguration {
     @Bean
     RSocketMessageHandler messageHandler(RSocketStrategies strategies) {
         RSocketMessageHandler mh = new RSocketMessageHandler();
-        mh.getArgumentResolverConfigurer().addCustomResolver(new AuthenticationPrincipalArgumentResolver());
+        mh.getArgumentResolverConfigurer()
+            .addCustomResolver(new AuthenticationPrincipalArgumentResolver());
         mh.setRSocketStrategies(strategies);
         return mh;
     }
@@ -361,9 +362,128 @@ class GreetingResponse {
 
 <h3 id="结束">结束</h3>
 
-<p>感觉直接看代码也挺好理解的，就不勉强添加太多文字说明了。有什么不明白的，可以看视频讲解。</p>
+<p>感觉直接看代码也挺好理解的，就不勉强添加太多文字说明了。有什么不明白的，可以看<a href="https://www.bilibili.com/video/av95256090">视频讲解</a>。</p>
 
  <a href="/2020/03/10/spring-tips-rsocket-spring-security/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/03/02/web-scraping-notes/">
+        <h2 class="post-title">
+            网络爬虫学习笔记
+        </h2>
+        
+        <h3 class="post-subtitle">
+            scraping the web for fun and for profit&nbsp;&nbsp;2020年3月2日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="课程计划">课程计划</h3>
+
+<ul>
+  <li>
+    <p>入门</p>
+  </li>
+  <li>
+    <p>HttpClient</p>
+  </li>
+  <li>
+    <p>Jsoup</p>
+  </li>
+  <li>
+    <p>案例</p>
+
+    <pre><code class="language-java">dependencies {
+    implementation('org.jsoup:jsoup:1.12.2')
+    implementation('org.apache.httpcomponents:httpclient:4.5.2')
+  
+    testImplementation('org.slf4j:slf4j-log4j12:1.7.25')
+    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+}
+</code></pre>
+  </li>
+</ul>
+
+<h3 id="爬虫功能">爬虫功能</h3>
+
+<p>从功能上来讲，爬虫一般分为数据采集，处理，存储三个部分。爬虫从一个或若干个初始页面的URL开始，获得初始页面上的URL，在抓取页面的过程中，不断从当前页面抽取新的URL放入队列，直到满足系统的一定停止条件。</p>
+
+<ul>
+  <li>数据采集</li>
+  <li>处理</li>
+  <li>存储</li>
+</ul>
+
+<p>从初始页面开始，爬取这个页面里面的详细页面连接，接着是下一页，等等。</p>
+ <a href="/2020/03/02/web-scraping-notes/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/02/26/ocp-mock-test1-review/">
+        <h2 class="post-title">
+            OCP-1Z0-816 模拟测试1回顾
+        </h2>
+        
+        <h3 class="post-subtitle">
+            记录部分&nbsp;&nbsp;2020年2月26日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="nio-2-files-class">NIO 2 Files class</h3>
+
+<p>文件操作， <code>Files.copy</code>方法</p>
+
+<p>However, <code>Files.isSameFile</code> method doesn’t check the contents of the file. It is meant to check if the two path objects resolve to the same file or not. In this case, they are not, and so, it will return false.</p>
+
+<pre><code class="language-java">public static Path copy(Path source, Path target, CopyOption... options) throws IOException
+</code></pre>
+
+<p>选项参数（options parameter)可以包括以下：</p>
+
+<p><strong>REPLACE_EXISTING</strong></p>
+
+<p>​      If the target file exists, then the target file is replaced if it is not a non-empty directory. If the target file exists and is a symbolic link, then the symbolic link itself, not the target of the link, is replaced.</p>
+
+<p><strong>COPY_ATTRIBUTES</strong></p>
+
+<p>​      Attempts to copy the file attributes associated with this file to the target file. The exact file attributes that are copied is platform and file system dependent and therefore unspecified. Minimally, the last-modified-time is copied to the target file if supported by both the source and target file store. Copying of file timestamps may result in precision loss.</p>
+
+<p><strong>NOFOLLOW_LINKS</strong></p>
+
+<p>​      Symbolic links are not followed. If the file is a symbolic link, then the symbolic link itself, not the target of the link, is copied. It is implementation specific if file attributes can be copied to the new link.  In other words, the COPY_ATTRIBUTES option may be ignored when copying a symbolic link.<br />
+An implementation of this interface may support additional implementation specific options.
+Coping a file is not an atomic operation. If an <code>IOException</code> is thrown then it’s possible that the target file is incomplete or some of its file attributes have not been copied from the source file. When the REPLACE_EXISTING option is specified and the target file exists, then the target file is replaced. The check for the existence of the creation of the new file may not be atomic with respect to other file system activities.</p>
+ <a href="/2020/02/26/ocp-mock-test1-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/02/26/ocp-816-learning-points/">
+        <h2 class="post-title">
+            OCP 816 考点速记
+        </h2>
+        
+        <h3 class="post-subtitle">
+            记录部分&nbsp;&nbsp;2020年2月26日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <p><strong>Unmodifiable collections using of/copyOf and Collections.unmodifiableXXX methods</strong></p>
+
+<p><code>java.util.List</code> and <code>java.util.Set</code> have <code>of</code> and <code>copyOf</code> static factory methods that provide a convenient way to create unmodifiable lists/sets.</p>
+
+<p>The of methods accept either an array or multiple individual parameters. If you pass it a collection, it will be treated as a regular object i.e. it will return a list/set containing the same collection object instead of returning a list/set containing the objects that the passed collection contains.</p>
+
+<p>The <code>copyOf</code>, on the other hand, accepts only a <code>Collection</code>. It iterates through the passed <code>Collection</code> and adds all the elements of that <code>Collection</code> in the returned list/set.</p>
+ <a href="/2020/02/26/ocp-816-learning-points/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
@@ -606,95 +726,6 @@ public class Outer {
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/02/01/spring-classes/">
-        <h2 class="post-title">
-            Spring Boot的类
-        </h2>
-        
-        <h3 class="post-subtitle">
-            学习笔记&nbsp;&nbsp;2020年2月1日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="常见类的用途">常见类的用途</h2>
-
-<h3 id="springapplicationbuilder">SpringApplicationBuilder</h3>
-
-<p><code>java.lang.Object</code><br />
-​	<code>org.springframework.boot.builder.SpringApplicationBuilder</code></p>
-
-<p>Builder for <code>SpringApplication</code> and <code>ApplicationContext</code> instances with convenient fluent API and context hierarchy support. Simple example of a context hierarchy:<br />
-<code>new SpringApplicationBuider(ParentConfig.class).child(ChildConfig.class).run(args);</code><br />
-Another common use case is setting active profiles and default properties to set up the environment for an application:</p>
-
-<pre><code class="language-java">new SpringApplicationBuilder(Application.class).profiles("server")
-    			.properties("transport=local").run(args);
-</code></pre>
-
-<p>If your needs are simpler, consider using the static convenience methods in SpringApplication instead.</p>
-
-<p>(org.springframework.boot:spring-boot:2.2.4.RELEASE)</p>
- <a href="/2020/02/01/spring-classes/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/02/01/spring-boot-messaging/">
-        <h2 class="post-title">
-            Spring Boot 消息
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Messaging简单笔记&nbsp;&nbsp;2020年2月1日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="消息通信">消息通信</h2>
-
-<p><img src="/img/messaging.png" alt="messaging" /></p>
-
-<p>最简单的消息机制，从A点到B点，通过某种信道传递消息，可以使一个简单的函数调用，一个socket连接，或者是一个HTTP请求。主要目的是发送端发送消息给接收端消费。</p>
-
-<h3 id="消息通信使用场景">消息通信使用场景</h3>
-
-<p>下面列出一些消息通信常见的使用场景：</p>
-
-<h4 id="可靠送达">可靠送达</h4>
-
-<p>通常需要一些消息确认机制，如果中间有个Broker，消息生产者要通过一些确认，了解Broker确实收到了消息。同理在消费者段也需要给Broker确认已经收到消息。通常支付、股票交易等系统会使用这种模式。</p>
- <a href="/2020/02/01/spring-boot-messaging/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/01/30/java-thread-communication/">
-        <h2 class="post-title">
-            Java线程间通信
-        </h2>
-        
-        <h3 class="post-subtitle">
-            生产者与消费者例子&nbsp;&nbsp;2020年1月30日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="生产者与消费者">生产者与消费者</h3>
-
-<p>一种典型的线程间通信的例子是涉及到生产者线程与消费者线程之间的关系。生产者生产数据项被消费者消费，每个被生产出的数据项被存放在共享的变量中。</p>
-
-<p>想象线程以不同的速度运行，消费者可能来不及处理掉生产者之前生产出来并放到共享变量中的数据项。还有可能就是消费者消费速度太快了，未等到生产者产生数据就去取了。</p>
-
-<p>为了克服这类问题，生产者线程必须等到它被通知之前生产的数据项已经被消费掉了才继续生产，而消费者线程必须等到它被通知已经有新的数据项产生了才取消费。下面代码展示如何通过使用 <code>wait()</code> 和 <code>notify()</code> 完整这样的任务。</p>
- <a href="/2020/01/30/java-thread-communication/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -729,11 +760,7 @@ Another common use case is setting active profiles and default properties to set
                             
                         
                             
-                        
-                            
-                        
-                            
-                                <a href="/tags/#Java" title="Java" rel="27">
+                                <a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
@@ -853,11 +880,17 @@ Another common use case is setting active profiles and default properties to set
                             
                         
                             
-                        
-                            
                                 <a href="/tags/#JavaFX" title="JavaFX" rel="7">
                                     JavaFX
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             

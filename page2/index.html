@@ -176,6 +176,95 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/02/01/spring-classes/">
+        <h2 class="post-title">
+            Spring Boot的类
+        </h2>
+        
+        <h3 class="post-subtitle">
+            学习笔记&nbsp;&nbsp;2020年2月1日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="常见类的用途">常见类的用途</h2>
+
+<h3 id="springapplicationbuilder">SpringApplicationBuilder</h3>
+
+<p><code>java.lang.Object</code><br />
+​	<code>org.springframework.boot.builder.SpringApplicationBuilder</code></p>
+
+<p>Builder for <code>SpringApplication</code> and <code>ApplicationContext</code> instances with convenient fluent API and context hierarchy support. Simple example of a context hierarchy:<br />
+<code>new SpringApplicationBuider(ParentConfig.class).child(ChildConfig.class).run(args);</code><br />
+Another common use case is setting active profiles and default properties to set up the environment for an application:</p>
+
+<pre><code class="language-java">new SpringApplicationBuilder(Application.class).profiles("server")
+    			.properties("transport=local").run(args);
+</code></pre>
+
+<p>If your needs are simpler, consider using the static convenience methods in SpringApplication instead.</p>
+
+<p>(org.springframework.boot:spring-boot:2.2.4.RELEASE)</p>
+ <a href="/2020/02/01/spring-classes/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/02/01/spring-boot-messaging/">
+        <h2 class="post-title">
+            Spring Boot 消息
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Messaging简单笔记&nbsp;&nbsp;2020年2月1日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="消息通信">消息通信</h2>
+
+<p><img src="/img/messaging.png" alt="messaging" /></p>
+
+<p>最简单的消息机制，从A点到B点，通过某种信道传递消息，可以使一个简单的函数调用，一个socket连接，或者是一个HTTP请求。主要目的是发送端发送消息给接收端消费。</p>
+
+<h3 id="消息通信使用场景">消息通信使用场景</h3>
+
+<p>下面列出一些消息通信常见的使用场景：</p>
+
+<h4 id="可靠送达">可靠送达</h4>
+
+<p>通常需要一些消息确认机制，如果中间有个Broker，消息生产者要通过一些确认，了解Broker确实收到了消息。同理在消费者段也需要给Broker确认已经收到消息。通常支付、股票交易等系统会使用这种模式。</p>
+ <a href="/2020/02/01/spring-boot-messaging/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/30/java-thread-communication/">
+        <h2 class="post-title">
+            Java线程间通信
+        </h2>
+        
+        <h3 class="post-subtitle">
+            生产者与消费者例子&nbsp;&nbsp;2020年1月30日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="生产者与消费者">生产者与消费者</h3>
+
+<p>一种典型的线程间通信的例子是涉及到生产者线程与消费者线程之间的关系。生产者生产数据项被消费者消费，每个被生产出的数据项被存放在共享的变量中。</p>
+
+<p>想象线程以不同的速度运行，消费者可能来不及处理掉生产者之前生产出来并放到共享变量中的数据项。还有可能就是消费者消费速度太快了，未等到生产者产生数据就去取了。</p>
+
+<p>为了克服这类问题，生产者线程必须等到它被通知之前生产的数据项已经被消费掉了才继续生产，而消费者线程必须等到它被通知已经有新的数据项产生了才取消费。下面代码展示如何通过使用 <code>wait()</code> 和 <code>notify()</code> 完整这样的任务。</p>
+ <a href="/2020/01/30/java-thread-communication/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/01/29/bulkhead-pattern/">
         <h2 class="post-title">
             水密舱壁模式
@@ -379,81 +468,6 @@ System.out.println(
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程7
-        </h2>
-        
-        <h3 class="post-subtitle">
-            订阅多个消费者&nbsp;&nbsp;2020年1月9日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在当地时间2019年12月2日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-subscribing-multiple-consumers/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>在这一节，我们更新实时更新图表显示多于一种股票价格，也就意味着订阅多于一个消费者到我们的响应式价格数据流。</p>
-
-<p>在上一步，我们让JavaFX折线图订阅到来自响应式Spring Boot的服务，并实时显示它们。在这一步，我们要更新图表，让它能多次订阅并在同一个图表显示多组数据。</p>
-
- <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程6
-        </h2>
-        
-        <h3 class="post-subtitle">
-            显示响应式数据&nbsp;&nbsp;2020年1月9日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在当地时间2019年11月29日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-displaying-reactive-data/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>在这一节，我们看一下如何连接JavaFX折线图到Kotlin Spring Boot服务以实时显示股票价格数据。</p>
-
-<p>在第四步，我们创建了一个JavaFX Spring Boot应用程序显示一个空的折线图。在上一步（第五步），我们整合了WebClientStockClient去连接到股票价格服务。在这一步我们要让折线图实时显示来自Kotlin Spring Boot服务的股票价格数据。</p>
-
- <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程5
-        </h2>
-        
-        <h3 class="post-subtitle">
-            共享Bean的自动装配&nbsp;&nbsp;2020年1月9日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在当地时间2019年11月25日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-auto-configuration-for-shared-beans/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>这一节我们看一下如何在一个模块中使用另一个不同的模块中的Spring Beans，通过使用自动装配。</p>
-
-<p>在上一节 ，我们创建了一个JavaFX Spring Boot应用程序显示一个空的折线图。在这篇文章，我们要看一下如何为 Spring Beans设置自动装配，以便我们可以在stock-ui模块里面使用在stock-client定义的Beans。</p>
-
- <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -492,11 +506,7 @@ System.out.println(
                             
                         
                             
-                        
-                            
-                        
-                            
-                                <a href="/tags/#Java" title="Java" rel="27">
+                                <a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
@@ -616,11 +626,17 @@ System.out.println(
                             
                         
                             
-                        
-                            
                                 <a href="/tags/#JavaFX" title="JavaFX" rel="7">
                                     JavaFX
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             

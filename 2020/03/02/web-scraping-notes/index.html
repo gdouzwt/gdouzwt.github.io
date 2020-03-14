@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>彩云追月 - 招文桃 | 记录</title>
+    <title>网络爬虫学习笔记 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io/2020/01/01/moon-rising-in-the-rosy-clouds/">
+    <link rel="canonical" href="https://zwt.io/2020/03/02/web-scraping-notes/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -166,15 +166,19 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Music" title="Music">Music</a>
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#爬虫" title="爬虫">爬虫</a>
+                        
+                        <a class="tag" href="/tags/#scraping" title="scraping">scraping</a>
                         
                     </div>
-                    <h1>彩云追月</h1>
+                    <h1>网络爬虫学习笔记</h1>
                     
                     
-                    <h2 class="subheading">最近听的音乐</h2>
+                    <h2 class="subheading">scraping the web for fun and for profit</h2>
                     
-                    <span class="meta">由招文桃在2020年1月1日发布</span>
+                    <span class="meta">由招文桃在2020年3月2日发布</span>
                 </div>
             </div>
         </div>
@@ -192,9 +196,82 @@
         col-md-10 col-md-offset-1
         post-container line-numbers">
 
-        <p>据报告，我上一年听了很多摇滚乐。</p>
+        <h3 id="课程计划">课程计划</h3>
 
-<p>但是摇滚乐的情绪张力比较大，比较长时间内都处于一种应激状态，焦虑、有压力要释放的感觉。</p>
+<ul>
+  <li>
+    <p>入门</p>
+  </li>
+  <li>
+    <p>HttpClient</p>
+  </li>
+  <li>
+    <p>Jsoup</p>
+  </li>
+  <li>
+    <p>案例</p>
+
+    <pre><code class="language-java">dependencies {
+    implementation('org.jsoup:jsoup:1.12.2')
+    implementation('org.apache.httpcomponents:httpclient:4.5.2')
+  
+    testImplementation('org.slf4j:slf4j-log4j12:1.7.25')
+    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+}
+</code></pre>
+  </li>
+</ul>
+
+<h3 id="爬虫功能">爬虫功能</h3>
+
+<p>从功能上来讲，爬虫一般分为数据采集，处理，存储三个部分。爬虫从一个或若干个初始页面的URL开始，获得初始页面上的URL，在抓取页面的过程中，不断从当前页面抽取新的URL放入队列，直到满足系统的一定停止条件。</p>
+
+<ul>
+  <li>数据采集</li>
+  <li>处理</li>
+  <li>存储</li>
+</ul>
+
+<p>从初始页面开始，爬取这个页面里面的详细页面连接，接着是下一页，等等。<!--more--></p>
+
+<h4 id="为什么学习网络爬虫">为什么学习网络爬虫</h4>
+
+<ol>
+  <li>
+    <p>可以实现搜索引擎</p>
+
+    <p>搜集，自己感兴趣的数据。做好玩的事情。</p>
+  </li>
+  <li>
+    <p>大数据时代，获取更多数据源，人工智能</p>
+
+    <ul>
+      <li>数据分析</li>
+      <li>数据挖掘</li>
+    </ul>
+  </li>
+  <li>
+    <p>搜索引擎优化，网站推广，研究规则</p>
+  </li>
+  <li>
+    <p>就业，数据工程师，爬虫工程师， Microsoft Health,  Data mining</p>
+  </li>
+</ol>
+
+<h3 id="带参数的-get-请求">带参数的 GET 请求</h3>
+
+<ul>
+  <li>HttpGet</li>
+</ul>
+
+<h3 id="post-请求">POST 请求</h3>
+
+<ul>
+  <li>HttpPost 不带参数</li>
+  <li>带参数</li>
+</ul>
+
+<p>[To be continued!]</p>
 
 
 
@@ -222,17 +299,17 @@
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2019/12/22/calculus-2014-2015-1/" data-toggle="tooltip" data-placement="top" title="复习 2014-2015-1">
+                <a href="/2020/02/26/ocp-mock-test1-review/" data-toggle="tooltip" data-placement="top" title="OCP-1Z0-816 模拟测试1回顾">
                 上一篇<br>
-                <span>复习 2014-2015-1</span>
+                <span>OCP-1Z0-816 模拟测试1回顾</span>
                 </a>
             </li>
             
             
             <li class="next">
-                <a href="/2020/01/06/reactivce-spring-boot-tutorial/" data-toggle="tooltip" data-placement="top" title="响应式Spring Boot系列教程">
+                <a href="/2020/03/10/spring-tips-rsocket-spring-security/" data-toggle="tooltip" data-placement="top" title="RSocket与Spring Security简单整合">
                 下一篇<br>
-                <span>响应式Spring Boot系列教程</span>
+                <span>RSocket与Spring Security简单整合</span>
                 </a>
             </li>
             
@@ -274,11 +351,7 @@
                             
         				
                             
-        				
-                            
-        				
-                            
-                				<a href="/tags/#Java" title="Java" rel="27">
+                				<a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
@@ -398,11 +471,17 @@
                             
         				
                             
-        				
-                            
                 				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
                                     JavaFX
                                 </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
                             
         				
                             

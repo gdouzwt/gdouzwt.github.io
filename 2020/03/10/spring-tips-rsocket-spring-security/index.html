@@ -249,7 +249,8 @@ class RSocketSecurityConfiguration {
     @Bean
     RSocketMessageHandler messageHandler(RSocketStrategies strategies) {
         RSocketMessageHandler mh = new RSocketMessageHandler();
-        mh.getArgumentResolverConfigurer().addCustomResolver(new AuthenticationPrincipalArgumentResolver());
+        mh.getArgumentResolverConfigurer()
+            .addCustomResolver(new AuthenticationPrincipalArgumentResolver());
         mh.setRSocketStrategies(strategies);
         return mh;
     }
@@ -370,7 +371,7 @@ class GreetingResponse {
 
 <h3 id="结束">结束</h3>
 
-<p>感觉直接看代码也挺好理解的，就不勉强添加太多文字说明了。有什么不明白的，可以看视频讲解。</p>
+<p>感觉直接看代码也挺好理解的，就不勉强添加太多文字说明了。有什么不明白的，可以看<a href="https://www.bilibili.com/video/av95256090">视频讲解</a>。</p>
 
 
 
@@ -398,9 +399,9 @@ class GreetingResponse {
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2020/02/15/foundation-test-review/" data-toggle="tooltip" data-placement="top" title="816 基准测试回顾">
+                <a href="/2020/03/02/web-scraping-notes/" data-toggle="tooltip" data-placement="top" title="网络爬虫学习笔记">
                 上一篇<br>
-                <span>816 基准测试回顾</span>
+                <span>网络爬虫学习笔记</span>
                 </a>
             </li>
             
@@ -443,11 +444,7 @@ class GreetingResponse {
                             
         				
                             
-        				
-                            
-        				
-                            
-                				<a href="/tags/#Java" title="Java" rel="27">
+                				<a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
@@ -567,11 +564,17 @@ class GreetingResponse {
                             
         				
                             
-        				
-                            
                 				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
                                     JavaFX
                                 </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
                             
         				
                             

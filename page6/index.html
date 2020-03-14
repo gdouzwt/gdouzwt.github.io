@@ -176,6 +176,95 @@
             ">
             
 <div class="post-preview">
+    <a href="/2019/10/14/do1-cloud-test-review/">
+        <h2 class="post-title">
+            相反顺序输出一个整数
+        </h2>
+        
+        <h3 class="post-subtitle">
+            笔试编程题&nbsp;&nbsp;2019年10月14日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h5 id="起初">起初</h5>
+
+<p>编写程序，对输入的一个整数，按相反顺序输出该数。</p>
+
+<pre><code class="language-java">// ReverseInt.java
+import java.util.Scanner;
+public class ReverseInt {
+	public static void main(String[] args) {
+		System.out.println("请输入一个整数：");
+		Scanner input = new Scanner(System.in);
+		String value = "" + input.nextBigInteger();
+		input.close();
+		String reversed = "";
+		for (int i = value.length() - 1; i &gt;= 0; i--) {
+			reversed = reversed + value.charAt(i);
+		}
+		System.out.println(reversed);
+	}
+}
+</code></pre>
+<p>当时手写代码，<code>for</code> 循环的控制条件边界写错了，当时写成了 <code>for (int i = value.length(); i &gt; 0; i--)</code>  结果数组越界了。应该是 <code>for (int i = value.length() - 1; i &gt;= 0; i--)</code> 的。</p>
+
+<p>换成 <code>input.nextBigInteger();</code> 好一点。</p>
+ <a href="/2019/10/14/do1-cloud-test-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/10/13/oca-guide-intro-test-review/">
+        <h2 class="post-title">
+            OCA 自测回顾
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Assessment Test&nbsp;&nbsp;2019年10月13日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="oca-自测题回顾">OCA 自测题回顾</h2>
+
+<ol>
+  <li>What is the output of the following code? (Choose all that apply)
+    <pre><code class="language-java">interface HasTail { int getTailLength(); } 
+abstract class Puma implements HasTail { 
+    protected int getTailLength() {return 4;} 
+} 
+public class Cougar extends Puma { 
+    public static void main(String[] args) { 
+        Puma puma = new Puma(); 
+        System.out.println(puma.getTailLength()); 
+ } 
+       
+    public int getTailLength(int length) {return 2;} 
+} 
+</code></pre>
+    <blockquote>
+      <p><strong>A.</strong> 2</p>
+
+      <p><strong>B.</strong> 4</p>
+
+      <p><strong>C.</strong> The code will not compile because of line 3.</p>
+
+      <p><strong>D.</strong> The code will not compile because of line 5.</p>
+
+      <p><strong>E.</strong> The code will not compile because of line 7.</p>
+
+      <p><strong>F.</strong> The output cannot be determined from the code provided.</p>
+    </blockquote>
+  </li>
+</ol>
+ <a href="/2019/10/13/oca-guide-intro-test-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2019/10/13/get-int-array-from-console-input/">
         <h2 class="post-title">
             控制台输入数组
@@ -386,63 +475,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2019/09/25/thoughts-on-oca/">
-        <h2 class="post-title">
-            关于OCA的一些想法
-        </h2>
-        
-        <h3 class="post-subtitle">
-            为什么要考OCA&nbsp;&nbsp;2019年9月25日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="为什么考oca">为什么考OCA</h3>
-
-<p>简单地说就是通过考试驱动学习，这样目的性强，学起来比较专注，高效。 
-针对考试的学习，有时候也是很有用的。引用下面的话：</p>
-
-<blockquote>
-  <p>That’s not to say that preparing for the exam won’t help you become a better Java programmer!</p>
-
-  <p>On the contrary, even the most experienced Java developers often claim that having to prepare for the certification exam made them for more knowledgeable and well-rounded programmers than they would have been without the exam-driven studying.</p>
-</blockquote>
-
-<p>不管怎么说，已经预约好考试了，一个月之后拿下考试，目标是 100% 的正确率。</p>
- <a href="/2019/09/25/thoughts-on-oca/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/09/25/spring-keywords/">
-        <h2 class="post-title">
-            Spring及其周边关键词
-        </h2>
-        
-        <h3 class="post-subtitle">
-            作为知识串联复习的线索&nbsp;&nbsp;2019年9月25日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="全部">全部</h3>
-
-<ol>
-  <li>SpEL Spring 表达式语言</li>
-  <li>Framework open for extension close for modification.</li>
-  <li>Portable Service Abstraction.</li>
-  <li>Rest Template Rest 客户端</li>
-  <li>@PathVariable</li>
-  <li>AOP AspectJ Pointcut</li>
-  <li>@Aspect LoggingAspect</li>
-</ol>
- <a href="/2019/09/25/spring-keywords/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -481,11 +513,7 @@
                             
                         
                             
-                        
-                            
-                        
-                            
-                                <a href="/tags/#Java" title="Java" rel="27">
+                                <a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
@@ -605,11 +633,17 @@
                             
                         
                             
-                        
-                            
                                 <a href="/tags/#JavaFX" title="JavaFX" rel="7">
                                     JavaFX
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             

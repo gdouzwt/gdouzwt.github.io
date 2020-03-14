@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 13 Mar 2020 07:17:17 +0000</pubDate>
-    <lastBuildDate>Fri, 13 Mar 2020 07:17:17 +0000</lastBuildDate>
+    <pubDate>Sat, 14 Mar 2020 03:17:55 +0000</pubDate>
+    <lastBuildDate>Sat, 14 Mar 2020 03:17:55 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -64,7 +64,8 @@ class RSocketSecurityConfiguration {
     @Bean
     RSocketMessageHandler messageHandler(RSocketStrategies strategies) {
         RSocketMessageHandler mh = new RSocketMessageHandler();
-        mh.getArgumentResolverConfigurer().addCustomResolver(new AuthenticationPrincipalArgumentResolver());
+        mh.getArgumentResolverConfigurer()
+            .addCustomResolver(new AuthenticationPrincipalArgumentResolver());
         mh.setRSocketStrategies(strategies);
         return mh;
     }
@@ -185,7 +186,7 @@ class GreetingResponse {
 
 &lt;h3 id=&quot;结束&quot;&gt;结束&lt;/h3&gt;
 
-&lt;p&gt;感觉直接看代码也挺好理解的，就不勉强添加太多文字说明了。有什么不明白的，可以看视频讲解。&lt;/p&gt;
+&lt;p&gt;感觉直接看代码也挺好理解的，就不勉强添加太多文字说明了。有什么不明白的，可以看&lt;a href=&quot;https://www.bilibili.com/video/av95256090&quot;&gt;视频讲解&lt;/a&gt;。&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 10 Mar 2020 21:00:00 +0000</pubDate>
@@ -197,6 +198,475 @@ class GreetingResponse {
         <category>Spring Security</category>
         
         <category>Authentication</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>网络爬虫学习笔记</title>
+        <description>&lt;h3 id=&quot;课程计划&quot;&gt;课程计划&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;入门&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;HttpClient&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Jsoup&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;案例&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;dependencies {
+    implementation('org.jsoup:jsoup:1.12.2')
+    implementation('org.apache.httpcomponents:httpclient:4.5.2')
+  
+    testImplementation('org.slf4j:slf4j-log4j12:1.7.25')
+    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;爬虫功能&quot;&gt;爬虫功能&lt;/h3&gt;
+
+&lt;p&gt;从功能上来讲，爬虫一般分为数据采集，处理，存储三个部分。爬虫从一个或若干个初始页面的URL开始，获得初始页面上的URL，在抓取页面的过程中，不断从当前页面抽取新的URL放入队列，直到满足系统的一定停止条件。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数据采集&lt;/li&gt;
+  &lt;li&gt;处理&lt;/li&gt;
+  &lt;li&gt;存储&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;从初始页面开始，爬取这个页面里面的详细页面连接，接着是下一页，等等。&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;为什么学习网络爬虫&quot;&gt;为什么学习网络爬虫&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;可以实现搜索引擎&lt;/p&gt;
+
+    &lt;p&gt;搜集，自己感兴趣的数据。做好玩的事情。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;大数据时代，获取更多数据源，人工智能&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;数据分析&lt;/li&gt;
+      &lt;li&gt;数据挖掘&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;搜索引擎优化，网站推广，研究规则&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;就业，数据工程师，爬虫工程师， Microsoft Health,  Data mining&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;带参数的-get-请求&quot;&gt;带参数的 GET 请求&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HttpGet&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;post-请求&quot;&gt;POST 请求&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;HttpPost 不带参数&lt;/li&gt;
+  &lt;li&gt;带参数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;[To be continued!]&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 02 Mar 2020 19:30:00 +0000</pubDate>
+        <link>https://zwt.io/2020/03/02/web-scraping-notes/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/03/02/web-scraping-notes/</guid>
+        
+        <category>Java</category>
+        
+        <category>爬虫</category>
+        
+        <category>scraping</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>OCP-1Z0-816 模拟测试1回顾</title>
+        <description>&lt;h3 id=&quot;nio-2-files-class&quot;&gt;NIO 2 Files class&lt;/h3&gt;
+
+&lt;p&gt;文件操作， &lt;code&gt;Files.copy&lt;/code&gt;方法&lt;/p&gt;
+
+&lt;p&gt;However, &lt;code&gt;Files.isSameFile&lt;/code&gt; method doesn’t check the contents of the file. It is meant to check if the two path objects resolve to the same file or not. In this case, they are not, and so, it will return false.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public static Path copy(Path source, Path target, CopyOption... options) throws IOException
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;选项参数（options parameter)可以包括以下：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;REPLACE_EXISTING&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​      If the target file exists, then the target file is replaced if it is not a non-empty directory. If the target file exists and is a symbolic link, then the symbolic link itself, not the target of the link, is replaced.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;COPY_ATTRIBUTES&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​      Attempts to copy the file attributes associated with this file to the target file. The exact file attributes that are copied is platform and file system dependent and therefore unspecified. Minimally, the last-modified-time is copied to the target file if supported by both the source and target file store. Copying of file timestamps may result in precision loss.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;NOFOLLOW_LINKS&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​      Symbolic links are not followed. If the file is a symbolic link, then the symbolic link itself, not the target of the link, is copied. It is implementation specific if file attributes can be copied to the new link.  In other words, the COPY_ATTRIBUTES option may be ignored when copying a symbolic link.&lt;br /&gt;
+An implementation of this interface may support additional implementation specific options.
+Coping a file is not an atomic operation. If an &lt;code&gt;IOException&lt;/code&gt; is thrown then it’s possible that the target file is incomplete or some of its file attributes have not been copied from the source file. When the REPLACE_EXISTING option is specified and the target file exists, then the target file is replaced. The check for the existence of the creation of the new file may not be atomic with respect to other file system activities. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public static Path move(Path source, Path target, CopyOption... options) throws IOException
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Move or rename a file to a target file.
+By default, this method attempts to move the file to the target file, failing if the target file exists except if the source and target are the same file, in which case this method has no effect. If the file is a symbolic link then the symbolic link itself, not the target of the link, is moved. This method may be invoked to move an empty directory. In some implementations a directory has entries for special files or links that are created when the directory is created. In such implementations a directory is considered empty when only the special entries exist. When invoked to move a directory that is not empty then the directory is moved if it does not require moving the entries in the directory. For example, renaming a directory on the same FileStore will usually not required moving the entries in the directory. When moving a directory requires that its entries be moved then this method fails (by throwing an &lt;code&gt;IOException&lt;/code&gt;). To move a file tree may involve copying rather than moving directories and this can be done using the copy method in conjunction with the &lt;code&gt;Files.walkFileTree&lt;/code&gt; utility method.&lt;/p&gt;
+
+&lt;p&gt;The options parameter may include any of the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;REPLACE_EXISTING&lt;/strong&gt; If the target file exists, then the target file is replaced if it is not a non-empty directory. If the target file exists and is a symbolic link, then the symbolic link itself, not the target of the link, is replaced.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ATOMIC_MOVE&lt;/strong&gt; The move is performed as an atomic file system operation and all other options are ignored. If the target file exists then it is implementation specific if the existing file is replaced or this method fails by throwing an &lt;code&gt;IOException&lt;/code&gt;. If the move cannot be performed as an atomic file system operation then &lt;code&gt;AtomicMoveNotSupportedException&lt;/code&gt; is thrown. This can arise, for example, when the target location is on a different FileStore and would require that the file be copied, or target location is associated with a different provider to this object. An implementation of this interface may support additional implementation specific options.&lt;/p&gt;
+
+&lt;p&gt;Where the move requires that the file be copied then the last-modified-time is copied to the new file. An implementation may also attempt to copy other file attributes but is not required to fail if the file attributes cannot be copied. When the move is performed as a non-atomic operation, and an &lt;code&gt;IOException&lt;/code&gt; is thrown, then the state of the files is not defined. The original file and the target file may both exist, the target file may be incomplete or some of its file attributes may not been copied from the original file.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Consider the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;class LowBalanceException extends ____ {  // 1
+    public LowBalanceException(String msg) { super(msg); }
+}
+
+class WithdrawalException extends ____ { // 2 
+    public WithdrawalException(String msg) { super(msg); }
+}
+
+class Account {
+    double balance;
+    public void withdraw(double amount) throws WithdrawalException {
+        try {
+            throw new RuntimeException(&quot;Not Implemented&quot;);
+        } catch (Exception e) {
+            throw new LowBalanceException( e.getMessage());
+        }
+    }
+    public static void main(String[] args) {
+        try {
+            Account a = new Account();
+            a.withdraw(100.0);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What can be inserted at // 1 and // 2 so that the above code will prints Not Implemented?&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Exception
+Exception&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Exception
+LowBalanceException&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;WithdrawalException
+Exception&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;WithdrawalException
+RuntimeException&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The withdraw method declares that it throws WithdrawalException. This means that the only exceptions that can come out of this method are WithdrawalExceptions  (which means WithdrawalException or its subclasses) or RuntimeExceptions.&lt;/li&gt;
+  &lt;li&gt;The try block in withdraw method throws a RuntimeException. It will be caught by the catch(Exception) block because RuntimeException is-a Exception. The code in the catch block throws a LowBalanceException, which is not caught. Thus, it will be thrown out of this method, which means LowBalanceException must either be a RuntimeException or be a WithdrawalException (i.e. must extend WithdrawalException) to satisfy the throws clause of the withdraw method.&lt;/li&gt;
+  &lt;li&gt;The main() method does not have a throws clause but the call to withdraw() is enclosed within a try block with catch(Exception). Thus, WithdrawalException can extend either Exception or RuntimeException.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;[To be continued!]&lt;/p&gt;
+</description>
+        <pubDate>Wed, 26 Feb 2020 15:15:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/26/ocp-mock-test1-review/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/26/ocp-mock-test1-review/</guid>
+        
+        <category>Java</category>
+        
+        <category>1Z0-816</category>
+        
+        <category>认证考试</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>OCP 816 考点速记</title>
+        <description>&lt;p&gt;&lt;strong&gt;Unmodifiable collections using of/copyOf and Collections.unmodifiableXXX methods&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;java.util.List&lt;/code&gt; and &lt;code&gt;java.util.Set&lt;/code&gt; have &lt;code&gt;of&lt;/code&gt; and &lt;code&gt;copyOf&lt;/code&gt; static factory methods that provide a convenient way to create unmodifiable lists/sets.&lt;/p&gt;
+
+&lt;p&gt;The of methods accept either an array or multiple individual parameters. If you pass it a collection, it will be treated as a regular object i.e. it will return a list/set containing the same collection object instead of returning a list/set containing the objects that the passed collection contains.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;copyOf&lt;/code&gt;, on the other hand, accepts only a &lt;code&gt;Collection&lt;/code&gt;. It iterates through the passed &lt;code&gt;Collection&lt;/code&gt; and adds all the elements of that &lt;code&gt;Collection&lt;/code&gt; in the returned list/set. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;Here are a few important points about these methods:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;They return unmodifiable copies of the original List/Set. Thus, any operation that tries to modify the returned list throws an &lt;code&gt;java.lang.UnsupportedOperationException&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;The list/set returned by the &lt;code&gt;of/copyOf&lt;/code&gt; methods is completely independent of the original collection. Thus, if you modify the original collection after passing it to &lt;code&gt;of/copyOf&lt;/code&gt; methods, those changes will not be reflected in the list returned by the &lt;code&gt;of/copyOf&lt;/code&gt; methods.&lt;/li&gt;
+  &lt;li&gt;They do not support &lt;code&gt;null&lt;/code&gt; elements. Thus, if your array contains a &lt;code&gt;null&lt;/code&gt; and if you try to create a &lt;code&gt;List&lt;/code&gt; using &lt;code&gt;List.of&lt;/code&gt;, it will throw a &lt;code&gt;NullPointerException&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;Collections.unmodifiableXXX&lt;/code&gt; methods&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;java.utils.Collections&lt;/code&gt; class also has several variations of &lt;code&gt;unmodifiableXXX&lt;/code&gt; static methods (such as &lt;code&gt;unmodifiableList(List )&lt;/code&gt;, &lt;code&gt;unmodifiableSet(Set )&lt;/code&gt;, and &lt;code&gt;unmodifiableMap(Map )&lt;/code&gt; ). These method return an unmodifiable view of the underlying collection. The fundamental difference between &lt;code&gt;Collections.unmodifiableXXX&lt;/code&gt; and &lt;code&gt;List.of/copyOf&lt;/code&gt; methods is that &lt;code&gt;Collections.unmodifiableList&lt;/code&gt; returns a view (instead of a copy) into the underlying list. Which means, if you make any changes to the underlying list after creating the view, those changes will be visible in the view. Further, &lt;code&gt;Collections.unmodifiableList&lt;/code&gt; has no problem with nulls.&lt;/p&gt;
+
+&lt;p&gt;The word unmodifiable in &lt;code&gt;unmodifiableXXX&lt;/code&gt; method name refers to the fact that you cannot modify the view using a reference to view.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Top Down Approach for modularzing an application&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;While modularizing an app in a top-down approach, you need to remember the following points -&lt;/p&gt;
+
+&lt;p&gt;\1. Any jar file can be converted into an automatic module by simply putting that jar on the module-path instead of the classpath. Java automatically derives the name of this module from the name of the jar file.&lt;/p&gt;
+
+&lt;p&gt;\2. Any jar that is put on classpath (instead of module-path) is loaded as a part of the “unnamed” module.&lt;/p&gt;
+
+&lt;p&gt;\3. An explicitly named module (which means, a module that has an explicitly defined name in its module-info.java file) can specify dependency on an automatic module just like it does for any other module i.e. by adding a requires &lt;code&gt;&amp;lt;module-name&amp;gt;;&lt;/code&gt; clause in its module info but it cannot do so for the unnamed module because there is no way to write a requires clause without a name. In other words, a named module can access classes present in an automatic module but not in the unnamed module.&lt;/p&gt;
+
+&lt;p&gt;\4. Automatic modules are given access to classes in the unnamed module (even though there is no explicitly defined module-info and requires clause in an automatic module). In other words, a class from an automatic module will be able to read a class in the unnamed module without doing anything special.&lt;/p&gt;
+
+&lt;p&gt;\5. An automatic module exports all its packages and is allowed to read all packages exported by other modules. Thus, an automatic module can access: all packages of all other automatic modules + all packages exported by all explicitly named modules + all packages of the unnamed module (i.e. classes loaded from the classpath).&lt;/p&gt;
+
+&lt;p&gt;Thus, if your application jar &lt;strong&gt;A&lt;/strong&gt; directly uses a class from another jar &lt;strong&gt;B&lt;/strong&gt;, then you would have to convert &lt;strong&gt;B&lt;/strong&gt; into a module (either named or automatic). If &lt;strong&gt;B&lt;/strong&gt; uses another jar &lt;strong&gt;C&lt;/strong&gt;, then you can leave &lt;strong&gt;C&lt;/strong&gt; on the class path if &lt;strong&gt;B&lt;/strong&gt; hasn’t yet been migrated into a named module. Otherwise, you would have to convert &lt;strong&gt;C&lt;/strong&gt; into an automatic module as well.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;
+There are two possible ways for an automatic module to get its name:
+\1. When an Automatic-Module-Name entry is available in the manifest, its value is the name of the automatic module.
+\2. Otherwise, a name is derived from the JAR filename (see the ModuleFinder JavaDoc for the derivation algorithm) - Basically, hyphens are converted into dots and the version number part is ignored. So, for example, if you put mysql-connector-java-8.0.11.jar on module path, its module name would be mysql.connector.java&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Bottom Up Approach for modularzing an application&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;While modularizing an app using the bottom-up approach, you basically need to convert lower level libraries into modular jars before you can convert the higher level libraries. For example, if a class in &lt;strong&gt;A.jar&lt;/strong&gt; directly uses a class from &lt;strong&gt;B.jar&lt;/strong&gt;, and a class in &lt;strong&gt;B.jar&lt;/strong&gt; directly uses a class from &lt;strong&gt;C.jar&lt;/strong&gt;, you need to first modularize &lt;strong&gt;C.jar&lt;/strong&gt; and then &lt;strong&gt;B.jar&lt;/strong&gt; before you can modularize &lt;strong&gt;A.jar&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Thus, bottom up approach is possible only when the dependent libraries are modularized already.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Java_Module_Execution_Options&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You need to know about three command line options for running a class that is contained in a module:&lt;/p&gt;
+
+&lt;p&gt;\1. &lt;strong&gt;–module-path&lt;/strong&gt; or -p: This option specifies the location(s) of the module(s) that are required for execution. This option is very versatile. You can specify exploded module directories, directories containing modular jars, or even specific modular or non-modular jars here. The path can be absolute or relative to the current directory. For example, –module-path c:/javatest/output/mathutils.jar or –module-path mathutils.jar&lt;/p&gt;
+
+&lt;p&gt;You can also specify the location where the module’s files are located. For example, if your module is named abc.math.utils and this module is stored in c:\javatest\output, then you can use: –module-path c:/javatest/output. Remember that c:\javatest\output directory must contain abc.math.utils directory and the module files (including module-info.class) must be present in their appropriate directory structure under abc.math.utils directory.&lt;/p&gt;
+
+&lt;p&gt;You can specify as many jar files or module locations separated by path separator (; on windows and : on *nix) as required.&lt;/p&gt;
+
+&lt;p&gt;NOTE: -p is the short form for –module-path.(Observe the single and double dashes).&lt;/p&gt;
+
+&lt;p&gt;\2. &lt;strong&gt;–module&lt;/strong&gt; or &lt;strong&gt;-m&lt;/strong&gt;: This option specifies the module that you want to run. For example, if you want to run abc.utils.Main class of abc.math.utils module, you should write –module abc.math.utils/abc.utils.Main
+If a module jar specifies the Main-Class property its MANIFEST.MF file, you can omit the main class name from –module option. For example, you can write, –module abc.math.utils instead of –module abc.math.utils/abc.utils.Main.&lt;/p&gt;
+
+&lt;p&gt;NOTE: -m is the short form for –module.(Observe the single and double dashes).&lt;/p&gt;
+
+&lt;p&gt;Thus,
+java –module-path mathutils.jar –module abc.math.utils/abc.utils.Main is same as
+java -p mathutils.jar -m abc.math.utils/abc.utils.Main&lt;/p&gt;
+
+&lt;p&gt;NOTE: It is possible to treat modular code as non-modular by ignoring module options altogether. For example, if you want to run the same class using the older classpath option, you can do it like this:
+java -classpath mathutils.jar abc.utils.Main&lt;/p&gt;
+
+&lt;p&gt;\3. &lt;strong&gt;-classpath&lt;/strong&gt;: Remember that modular code cannot access code present on the -classpath but “automatic modules” are an exception to this rule. When a non-modular jar is put on –module-path, it becomes an “automatic module” but it can still access all the modular as well as non-modular code. In other words, a class from an automatic module can access classes present on –module-path as well as on -classpath without having any “requires” clause (remember that there is no module-info in automatic modules).
+Thus, if your modular jar A depends on a non-modular jar B, you have to put that non-modular jar B on –module-path. You must also add appropriate requires clause in your module A’s module-info otherwise compilation of your module will not succeed. Further, if the non-modular jar B depends on another non-modular jar C, then the non-modular jar C may be put on the classpath or module-path.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Java_Module_Compilation_Options&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For compiling a Java class that is part of a module, you need to remember the following five command line options:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;–module-source-path: This option is used to specify the location of the module source files. It should point to the parent directory of the directory where module-info.java of the module is stored. For example, if your module name is moduleA, then the module-info.java for this module would be in moduleA directory and if moduleA directory exists in src directory, then –module-source-path should contain the src directory i.e. –module-source-path src&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If moduleA depends on another module named moduleB, and if moduleB directory exists in src2 directory, you can add this directory in –module-source-path as well i.e. –module-source-path src;src2. javac will compile the required files of src2 as well if the source code of moduleB is organized under src2 correctly.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;-d: This option is required when you use the –module-source-path option. It is used to specify the output directory. This is the directory where javac will generate the module’s package driven directory structure and the class files for the sources. For example, if you specify out as the output directory, javac will create a directory under out with the same name as the name of the module and will create class files with appropriate package driven directory structure under that directory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;–module or -m: This option is used when you want to compile all the source files of a particular module. This option is helpful when you want to compile all the files at once without listing any of the source files of a module individually in the command.
+For example, if you have two java files in moduleA, stored under moduleA\a\A1.java and moduleA\a\A2.java, you can compile both of them at the same time using the command: java –module-source-path src -d out –module moduleA
+Javac will find out all the java source files under moduleA and compile all of them. It will create the class files under the output directory specified in -d option i.e. out. Thus, the out directory will now have two class files - moduleA/a/A1.class and moduleA/a/A2.class.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;–module-path or -p: This option specifies the location(s) of any other module upon which the module to be compiled depends and is very versatile. You can specify the exploded module directories, directories containing modular jars, or specific modular jars here. For example, if you want to compile moduleA and it depends on another module named abc.util packaged as utils.jar located in thirdpartymodules directory then your module-path can be thirdpartymodules or thirdpartymodules/utils.jar. That both the following two commands will work:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;javac –module-source-path src –module-path thirdpartymodules -d out –module moduleA
+and
+javac –module-source-path src –module-path thirdpartymodules\utils.jar -d out –module moduleA&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;If your module depends on a non-modular third party jar, you need to do two things -Put that third party jar in –module-path.
+Putting a non-modular jar in –module-path causes that jar to be loaded as an “automatic module”. The name of this module is assumed to be same as the name of the jar minus any version numbers. For example, if you put mysql-driver-6.0.jar in –module-path, it will be loaded as an automatic module with name mysql.driver. Name derivation is explained in detail in java.lang.module.ModuleFinder JavaDoc but for the exam, just remember that hyphens are converted into dots and the version number and extension part is removed.
+It is also possible for a non-modular jar to specify its module name using Automatic-Module-Name: &lt;code&gt;&amp;lt;module name&amp;gt;&lt;/code&gt; entry to the jar’s MANIFEST.MF.Add a requires &lt;code&gt;&amp;lt;module-name&amp;gt;;&lt;/code&gt; clause in module-info of your module.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;-classpath&lt;/strong&gt;: This option is used for compilation of non-modular code. If you are compiling regular non-modular code but that code depends on some classes, then you can put those classes or jars on the classpath using -classpath option.
+&lt;strong&gt;Note:&lt;/strong&gt; This option is not helpful for compilation of modular code because classes of a modular cannot see classes on classpath. Modular code can only see other modular code. That is why, non-modular classes have to be converted into “automatic modules” and put on –module-path as explained above.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;enum points&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You need to know the following facts about enums:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Enum constructor is always private. You cannot make it public or protected. If an enum type has no constructor declarations, then a private constructor that takes no parameters is automatically provided.&lt;/li&gt;
+  &lt;li&gt;An enum is implicitly final, which means you cannot extend it.&lt;/li&gt;
+  &lt;li&gt;You cannot extend an enum from another enum or class because an enum implicitly extends java.lang.Enum. But an enum can implement interfaces.&lt;/li&gt;
+  &lt;li&gt;Since enum maintains exactly one instance of its constants, you cannot clone it. You cannot even override the clone method in an enum because java.lang.Enum makes it final.&lt;/li&gt;
+  &lt;li&gt;Compiler provides an enum with two public static methods automatically - values() and valueOf(String). The values() method returns an array of its constants and valueOf() method tries to match the String argument exactly (i.e. case sensitive) with an enum constant and returns that constant if successful otherwise it throws java.lang.IllegalArgumentException.&lt;/li&gt;
+  &lt;li&gt;By default, an enum’s toString() prints the enum name but you can override it to print anything you want.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The following are a few more important facts about java.lang.Enum which you should know:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;It implements java.lang.Comparable (thus, an enum can be added to sorted collections such as SortedSet, TreeSet, and TreeMap).&lt;/li&gt;
+  &lt;li&gt;It has a method ordinal(), which returns the index (starting with 0) of that constant i.e. the position of that constant in its enum declaration.&lt;/li&gt;
+  &lt;li&gt;It has a method name(), which returns the name of this enum constant, exactly as declared in its enum declaration.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;AutoCloseable_points&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You need to know the following points regarding try-with-resources statement for the exam:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;The resource class must implement java.lang.AutoCloseable interface. Many standard JDK classes such as implement java.io.Closeable interface, which extends java.lang.AutoCloseable.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;AutoCloseable has only one method - public void close() throws Exception.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Resources are closed at the end of the try block and before any catch or finally block.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Resources are not even accessible in the catch or finally block. For example:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;try(Device d = new Device())
+{
+   d.read();
+}finally{
+   d.close(); //This will not compile because d is not accessible here.
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+    &lt;p&gt;Note that the try-with-resource was enhanced in Java 9 and it now allows you to use a variable declared before the try statement in the try-with-resource block. In this case, of course, the variable is accessible after the try block but the object referred to by it has been closed. For example, the following is valid since Java 9:&lt;/p&gt;
+
+    &lt;pre&gt;&lt;code&gt;Device d = new Device();
+try(d){ //valid since Java 9
+  ...
+}finally{
+   d.close(); //this will compile but may not work correctly because the object referred to by d has already been closed.
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Resources are closed in the reverse order of their creation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Resources are closed even if the code in the try block throws an exception.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;java.lang.AutoCloseable’s close() throws Exception but java.io.Closeable’s close() throws IOException.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If code in try block throws exception and an exception also thrown while closing is resource, the exception thrown while closing the resource is suppressed. The caller gets the exception thrown in the try block.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;JDBC URL&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The format of a JDBC URL is : &lt;code&gt;jdbc:&amp;lt;subprotocol&amp;gt;:&amp;lt;subname&amp;gt;&lt;/code&gt;
+where subprotocol defines the kind of database connectivity mechanism that may be supported by one or more drivers. The contents and syntax of the subname will depend on the subprotocol.&lt;/p&gt;
+
+&lt;p&gt;Here are a few examples of commonly used urls for connecting to derby db (the Java database that comes bundled with various IDEs such as Netbeans) and Mysql:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;jdbc:derby:sample
+jdbc:derby://localhost:1527/sample
+jdbc:mysql://localhost:1527/sample
+jdbc:mysql://192.168.0.100:3306/testdb&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Observe that a JDBC url always starts with jdbc: and has at least three components separated by a two colons.&lt;/p&gt;
+
+&lt;p&gt;It also usually includes the hostname or address and the port number on which the database is listening for the requests but that is not necessary.&lt;/p&gt;
+
+&lt;p&gt;Most drivers allow adding more options to the URL in the subname part, for example the following JDBC url for Oracle DB specifies the type of the jdbc driver : &lt;br /&gt;
+jdbc:oracle:thin:@localhost:1521:testdb&lt;/p&gt;
+
+&lt;p&gt;Userid and password are usually supplied separately from the URL but some drivers allow them to be specified in the URL itself. For example: &lt;br /&gt;
+jdbc:oracle:thin:scott/mypassword@//myhost:1521/orcl&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Command Line Switches for Assertions&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Although not explicitly mentioned in the exam objectives, OCP Java 11 Part 2 Exam requires you to know about the switches used to enable and disable assertions. Here are a few important points that you should know:&lt;/p&gt;
+
+&lt;p&gt;Assertions can be enabled or disabled for specific classes and/or packages. To specify a class, use the class name. To specify a package, use the package name followed by “…” (three dots also known as ellipses):&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;java -ea:&amp;lt;class&amp;gt; myPackage.myProgram&lt;/code&gt;
+&lt;code&gt;java -da:&amp;lt;package&amp;gt;... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You can have multiple -ea/-da flags on the command line. For example, multiple flags allow you to enable assertions in general, but disable them in a particular package.
+&lt;code&gt;java -ea -da:com.xyz... myPackage.myProgram&lt;/code&gt;
+The above command enables assertions for all classes in all packages, but then the subsequent -da switch disables them for the com.xyz package and its subpackages.&lt;/p&gt;
+
+&lt;p&gt;To enable assertion for one package and disable for other you can use:
+&lt;code&gt;java -ea:&amp;lt;package1&amp;gt;... -da:&amp;lt;package2&amp;gt;... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You can enable or disable assertions in the unnamed root package (i.e. the default package) using the following commands:
+&lt;code&gt;java -ea:... myPackage.myProgram&lt;/code&gt;
+&lt;code&gt;java -da:... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that when you use a package name in the ea or da flag, the flag applies to that package as well as its subpackages. For example,
+&lt;code&gt;java -ea:com... -da:com.enthuware... com.enthuware.Main&lt;/code&gt;
+The above command first enables assertions for all the classes in com as well as for the classes in the subpackages of com. It then disables assertions for classes in package com.enthuware and its subpackages.&lt;/p&gt;
+
+&lt;p&gt;Another thing is that &lt;code&gt;-ea/-da&lt;/code&gt; do not apply to system classes. For system classes (i.e. the classes that come bundled with the JDK/JRE), you need to use &lt;code&gt;-enablesystemassertions/-esa&lt;/code&gt; or &lt;code&gt;-disablesystemassertions/-dsa&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that &lt;strong&gt;*** and ****&lt;/strong&gt; are not valid wildcards for including subpackages.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 26 Feb 2020 01:15:00 +0000</pubDate>
+        <link>https://zwt.io/2020/02/26/ocp-816-learning-points/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/26/ocp-816-learning-points/</guid>
+        
+        <category>Java</category>
+        
+        <category>1Z0-816</category>
+        
+        <category>认证考试</category>
         
         
       </item>
@@ -239,7 +709,7 @@ public class BeeperControl {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;which-of-the-following-statements-are-correct&quot;&gt;Which of the following statements are correct?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Which of the following statements are correct?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -292,7 +762,7 @@ public class BeeperControl {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;how-many-methods-have-to-be-provided-by-a-class-that-is-not-abstract-and-that-implements-serializable-interface&quot;&gt;How many methods have to be provided by a class that is not abstract and that implements Serializable interface?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;How many methods have to be provided by a class that is not abstract and that implements Serializable interface?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -319,7 +789,7 @@ public class BeeperControl {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;given-that-a-code-fragment-has-just-created-a-jdbc-connection-and-has-executed-an-update-statement-which-of-the-following-statements-is-correct&quot;&gt;Given that a code fragment has just created a JDBC Connection and has executed an update statement, which of the following statements is correct?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Given that a code fragment has just created a JDBC Connection and has executed an update statement, which of the following statements is correct?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -350,7 +820,7 @@ public class BeeperControl {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;which-statements-concerning-the-relation-between-a-non-static-inner-class-and-its-outer-class-instances-are-true&quot;&gt;Which statements concerning the relation between a non-static inner class and its outer class instances are true?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Which statements concerning the relation between a non-static inner class and its outer class instances are true?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -380,7 +850,7 @@ public class BeeperControl {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;which-interfaces-does-javautilnavigablemap-extend-directly-or-indirectly&quot;&gt;Which interfaces does java.util.NavigableMap extend directly or indirectly?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Which interfaces does java.util.NavigableMap extend directly or indirectly?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -418,7 +888,7 @@ public class BeeperControl {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;which-of-the-following-standard-functional-interfaces-is-most-suitable-to-process-a-large-collection-of-int-primitives-and-return-processed-data-for-each-of-them&quot;&gt;Which of the following standard functional interfaces is most suitable to process a large collection of int primitives and return processed data for each of them?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Which of the following standard functional interfaces is most suitable to process a large collection of int primitives and return processed data for each of them?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;Function&amp;lt;Integer&amp;gt;&lt;/code&gt;&lt;/li&gt;
@@ -438,7 +908,7 @@ public class BeeperControl {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;in-which-of-the-following-cases-can-the-console-object-be-acquired&quot;&gt;In which of the following cases can the Console object be acquired?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;In which of the following cases can the Console object be acquired?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;You had to select 1 option&lt;/p&gt;
 
@@ -523,7 +993,7 @@ public class BeeperControl {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;which-of-the-following-standard-functional-interface-returns-void&quot;&gt;Which of the following standard functional interface returns void?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Which of the following standard functional interface returns void?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -698,49 +1168,49 @@ public class BeeperControl {
     &lt;p&gt;Now, what if that jar in turn requires access to some other class from another third party non-modular jar? Here, the original modular jar doesn’t directly access the non-modular jar, so it may not be wise to create an automatic module out of all such third party jars. This is where the -classpath options is helpful.&lt;/p&gt;
 
     &lt;p&gt;In addition to reading every other named module, an automatic module is also made to read the unnamed module. Thus, while running a modular application, the classpath option can be used to enable automatic modules to access third party non-modular jars.&lt;/p&gt;
-
-    &lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;&lt;strong&gt;Bottom Up Approach for modularizing an application&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;While modularizing an app using the bottom-up approach, you basically need to convert lower level libraries into modular jars before you can convert the higher level libraries. For example, if a class in &lt;strong&gt;A.jar&lt;/strong&gt; directly uses a class from &lt;strong&gt;B.jar&lt;/strong&gt;, and a class in &lt;strong&gt;B.jar&lt;/strong&gt; directly uses a class from &lt;strong&gt;C.jar&lt;/strong&gt;, you need to first modularize &lt;strong&gt;C.jar&lt;/strong&gt; and then &lt;strong&gt;B.jar&lt;/strong&gt; before you can modularize &lt;strong&gt;A.jar&lt;/strong&gt;.&lt;/p&gt;
-
-    &lt;p&gt;Thus, bottom up approach is possible only when the dependent libraries are modularized already.&lt;/p&gt;
-
-    &lt;p&gt;&lt;strong&gt;Top Down Approach for modularzing an application&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;While modularizing an app in a top-down approach, you need to remember the following points -&lt;/p&gt;
-
-    &lt;ol&gt;
-      &lt;li&gt;
-        &lt;p&gt;Any jar file can be converted into an automatic module by simply putting that jar on the &lt;em&gt;module-path&lt;/em&gt; instead of the &lt;em&gt;classpath&lt;/em&gt;. Java automatically derives the name of this module from the jar file.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Any jar that is put on classpath(instead of &lt;em&gt;module-path&lt;/em&gt;) is loaded as part of the “unnamed” module.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;An explicitly named module (which means, a module that has an explicitly defined name in its &lt;em&gt;module-info.java&lt;/em&gt; file) can specify dependency on an automatic module just like it does for any other module i.e. by adding a &lt;code&gt;requires &amp;lt;module-name&amp;gt;;&lt;/code&gt; clause in its module info but it cannot do so for the unnamed module because there is no way to write a &lt;code&gt;requires&lt;/code&gt; clause without a name. In other words, named module can access classes present in an automatic module but not in the unnamed module.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;Automatic modules are given access to classes in the unnamed module (even though there is no explicitly defined module-info and requires clause in an automatic module). In other words, a class from an automatic module will be able to read a class in the unnamed module without doing anything special.&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;An automatic module exports all its packages and is allowed to read all packages exported by other modules. Thus, an automatic module can access: all packages of all other automatic modules + all packages exported by all explicitly named modules + all packages of the unnamed module (i.e. classes loaded from the classpath).&lt;/p&gt;
-
-        &lt;p&gt;Thus, if your application jar &lt;strong&gt;A&lt;/strong&gt; directly uses a class from another jar &lt;strong&gt;B&lt;/strong&gt;, then you would have to convert &lt;strong&gt;B&lt;/strong&gt; into a module (either named or automatic). If &lt;strong&gt;B&lt;/strong&gt; uses another jar &lt;strong&gt;C&lt;/strong&gt;, then you can leave &lt;strong&gt;C&lt;/strong&gt; on the class path if &lt;strong&gt;B&lt;/strong&gt; hasn’t yet been migrated into a named module. Otherwise, you would have to convert &lt;strong&gt;C&lt;/strong&gt; into an automatic module as well.&lt;/p&gt;
-
-        &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;&lt;/p&gt;
-
-        &lt;p&gt;There are two possible ways for an automatic module to get its name:&lt;/p&gt;
-
-        &lt;ol&gt;
-          &lt;li&gt;When an Automatic-Module-Name entry is available in the manifest, its value is the name of the automatic module.&lt;/li&gt;
-          &lt;li&gt;Otherwise, a name is derived from the JAR filename (see the ModuleFinder JavaDoc for the derivation algorithm) - Basically, hyphens are converted into dots and the version number part is ignored. So, for example, if you put &lt;code&gt;mysql-connector-java-8.0.11.jar&lt;/code&gt; on module path, its module name would be &lt;code&gt;mysql.connector.java&lt;/code&gt;&lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Bottom Up Approach for modularizing an application&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;While modularizing an app using the bottom-up approach, you basically need to convert lower level libraries into modular jars before you can convert the higher level libraries. For example, if a class in &lt;strong&gt;A.jar&lt;/strong&gt; directly uses a class from &lt;strong&gt;B.jar&lt;/strong&gt;, and a class in &lt;strong&gt;B.jar&lt;/strong&gt; directly uses a class from &lt;strong&gt;C.jar&lt;/strong&gt;, you need to first modularize &lt;strong&gt;C.jar&lt;/strong&gt; and then &lt;strong&gt;B.jar&lt;/strong&gt; before you can modularize &lt;strong&gt;A.jar&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Thus, bottom up approach is possible only when the dependent libraries are modularized already.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Top Down Approach for modularzing an application&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;While modularizing an app in a top-down approach, you need to remember the following points -&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Any jar file can be converted into an automatic module by simply putting that jar on the &lt;em&gt;module-path&lt;/em&gt; instead of the &lt;em&gt;classpath&lt;/em&gt;. Java automatically derives the name of this module from the jar file.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Any jar that is put on classpath(instead of &lt;em&gt;module-path&lt;/em&gt;) is loaded as part of the “unnamed” module.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An explicitly named module (which means, a module that has an explicitly defined name in its &lt;em&gt;module-info.java&lt;/em&gt; file) can specify dependency on an automatic module just like it does for any other module i.e. by adding a &lt;code&gt;requires &amp;lt;module-name&amp;gt;;&lt;/code&gt; clause in its module info but it cannot do so for the unnamed module because there is no way to write a &lt;code&gt;requires&lt;/code&gt; clause without a name. In other words, named module can access classes present in an automatic module but not in the unnamed module.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Automatic modules are given access to classes in the unnamed module (even though there is no explicitly defined module-info and requires clause in an automatic module). In other words, a class from an automatic module will be able to read a class in the unnamed module without doing anything special.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;An automatic module exports all its packages and is allowed to read all packages exported by other modules. Thus, an automatic module can access: all packages of all other automatic modules + all packages exported by all explicitly named modules + all packages of the unnamed module (i.e. classes loaded from the classpath).&lt;/p&gt;
+
+    &lt;p&gt;Thus, if your application jar &lt;strong&gt;A&lt;/strong&gt; directly uses a class from another jar &lt;strong&gt;B&lt;/strong&gt;, then you would have to convert &lt;strong&gt;B&lt;/strong&gt; into a module (either named or automatic). If &lt;strong&gt;B&lt;/strong&gt; uses another jar &lt;strong&gt;C&lt;/strong&gt;, then you can leave &lt;strong&gt;C&lt;/strong&gt; on the class path if &lt;strong&gt;B&lt;/strong&gt; hasn’t yet been migrated into a named module. Otherwise, you would have to convert &lt;strong&gt;C&lt;/strong&gt; into an automatic module as well.&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;p&gt;There are two possible ways for an automatic module to get its name:&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;When an Automatic-Module-Name entry is available in the manifest, its value is the name of the automatic module.&lt;/li&gt;
+      &lt;li&gt;Otherwise, a name is derived from the JAR filename (see the ModuleFinder JavaDoc for the derivation algorithm) - Basically, hyphens are converted into dots and the version number part is ignored. So, for example, if you put &lt;code&gt;mysql-connector-java-8.0.11.jar&lt;/code&gt; on module path, its module name would be &lt;code&gt;mysql.connector.java&lt;/code&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;hr /&gt;
 
@@ -787,7 +1257,7 @@ public class BeeperControl {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;65-which-of-the-following-collection-implementations-are-thread-safe&quot;&gt;65 Which of the following collection implementations are thread-safe?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;65 Which of the following collection implementations are thread-safe?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;ArrayList&lt;/li&gt;
@@ -809,7 +1279,7 @@ public class BeeperControl {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;complete-the-code-so-that-a-portfolio-object-can-be-serialized-and-deserialized-properly&quot;&gt;Complete the code so that a Portfolio object can be serialized and deserialized properly.&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Complete the code so that a Portfolio object can be serialized and deserialized properly.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;这题主要考察序列化与反序列化，正确答案如下：&lt;/p&gt;
 
@@ -821,7 +1291,6 @@ public class Bond {
     String ticker = &quot;bac&quot;;
     double coupon = 8.3;
 }
-
 class Portfolio implements Serializable {
     String accountName;
     transient Bond bond = new Bond();
@@ -831,7 +1300,6 @@ class Portfolio implements Serializable {
         os.writeObject(bond.ticker);
         os.writeDouble(bond.coupon);
     }
-
     private void readObject(ObjectInputStream os) throws Exception {
         os.defaultReadObject();
         this.bond = new Bond();
@@ -853,7 +1321,7 @@ class Portfolio implements Serializable {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;which-of-the-following-are-standard-annotations-used-to-suppress-various-warnings-generated-by-the-compiler&quot;&gt;Which of the following are standard annotations used to suppress various warnings generated by the compiler?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Which of the following are standard annotations used to suppress various warnings generated by the compiler?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -911,7 +1379,7 @@ static void m(List&amp;lt;String&amp;gt;... stringList) {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;you-are-implementing-a-special-sorting-algorithm-that-can-sort-objects-of-different-classes-which-of-the-following-class-declarations-will-you-use&quot;&gt;You are implementing a special sorting algorithm that can sort objects of different classes. Which of the following class declarations will you use?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;You are implementing a special sorting algorithm that can sort objects of different classes. Which of the following class declarations will you use?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -958,7 +1426,7 @@ public class SpecialSorter(K) {
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;which-of-the-following-statements-are-true&quot;&gt;Which of the following statements are true?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Which of the following statements are true?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -1055,7 +1523,7 @@ new ComplexClass() implements SimpleInterface { }
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;which-of-the-following-statements-are-true-1&quot;&gt;Which of the following statements are true?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Which of the following statements are true?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Package member classes can be declared static.&lt;/li&gt;
@@ -1071,16 +1539,15 @@ new ComplexClass() implements SimpleInterface { }
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;how-will-you-initialize-a-simpledateformat-object-to-that-the-following-code-will-print-the-full-name-of-the-month-of-the-given-date&quot;&gt;How will you initialize a &lt;code&gt;SimpleDateFormat&lt;/code&gt; object to that the following code will print the full name of the month of the given date?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;How will you initialize a &lt;code&gt;SimpleDateFormat&lt;/code&gt; object to that the following code will print the full name of the month of the given date?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
     &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;SimpleDateFormat sdf = new SimpleDateFormat(&quot;MMMM&quot;, Locale.FRANCE);&lt;/code&gt;&lt;/p&gt;
 
     &lt;blockquote&gt;
-      &lt;p&gt;Upper case M is for Month. For example, for February and December, the following will be printed:&lt;/p&gt;
-
-      &lt;p&gt;M =&amp;gt; 2, 12&lt;br /&gt;
+      &lt;p&gt;Upper case M is for Month. For example, for February and December, the following will be printed:
+M =&amp;gt; 2, 12&lt;br /&gt;
 MM =&amp;gt; 02, 12&lt;br /&gt;
 MMM =&amp;gt; févr., déc.&lt;br /&gt;
 MMMM =&amp;gt; février, décembre&lt;/p&gt;
@@ -1124,7 +1591,7 @@ https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/Da
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;code-that-uses-generic-collection-classes-can-interoperate-with-code-that-uses-raw-collections-classes-because-of&quot;&gt;Code that uses generic collection classes can interoperate with code that uses raw collections classes because of?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Code that uses generic collection classes can interoperate with code that uses raw collections classes because of?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -1274,7 +1741,7 @@ cArray[0] = new HashSet();
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;which-of-the-following-isare-valid-functional-interface&quot;&gt;Which of the following is/are valid functional interface?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Which of the following is/are valid functional interface?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -1501,7 +1968,7 @@ Note the difference between an Inner class and a static nested class. Inner clas
 
 &lt;hr /&gt;
 
-&lt;h5 id=&quot;which-of-the-following-annotations-are-retained-for-run-time&quot;&gt;Which of the following annotations are retained for run time?&lt;/h5&gt;
+&lt;p&gt;&lt;strong&gt;Which of the following annotations are retained for run time?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;
@@ -1537,6 +2004,202 @@ Note the difference between an Inner class and a static nested class. Inner clas
 
     &lt;blockquote&gt;
       &lt;p&gt;It is defined with @Retention(RUNTIME)&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Your application needs to load a set of key value pairs from a database table which never changes. Multiple threads need to access this information but none of them changes it.  Which class would be the most appropriate to store such data if the values need not be keep in a sorted fashion?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;Hashtable&lt;/code&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;HashMap&lt;/code&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;Set&lt;/code&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;TreeMap&lt;/code&gt;&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;List&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You should know that all &lt;code&gt;Hashtable&lt;/code&gt; methods are synchronized and this compromises its performance for simultaneous reads.&lt;br /&gt;
+Since no thread modifies the data, it is not efficient to use a &lt;code&gt;Hashtable&lt;/code&gt;.
+A &lt;code&gt;HashMap&lt;/code&gt; is perfect choice because its methods are not synchronized and so it allows efficient multiple reads. &lt;code&gt;TreeMap&lt;/code&gt; is used to keep the keys sorted which makes it a little bit slower than &lt;code&gt;HashMap&lt;/code&gt;.
+&lt;code&gt;Set&lt;/code&gt; and &lt;code&gt;List&lt;/code&gt; can’t be used since we need to store Key-value pairs.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;A programmer has written the following code to ensure that the phone number is not null and is of 10 characters:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public void processPhoneNumber(String number) {
+    assert number != null &amp;amp;&amp;amp; number.length() == 10 : &quot;Invalid phone number&quot;;
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which of the given statements regarding the above code are correct?&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;This is an appropriate use of assertions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;This code will not work  in all situations.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;It will not work if assertions are disabled.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;The given code is syntactically correct.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Constrains on input parameters should be enforced using assertions.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As a rule, assertions should not be used to assert the validity of input parameters of a public method. Since assertions may be disabled at the wish of the user of the program, input validation will not occur when assertions are disabled. A public method should ensure in all situations(whether assertions are enabled or disabled) that the input parameters are valid before proceeding with the rest of the code. For this reason, input validation should always be done using the standard exception mechanism:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;if(number == null || number.length() != 10) throw new RuntimeException(&quot;Invalid phone number&quot;);&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;However, assertions may be used to validate the input parameters of a private method. This is because private methods are called only by the developer of the class. Therefore, if a private method is called with an invalid parameter, this problem should be rectified at the development stage itself. It cannot occur in the production stage, so there is not need to throw an explicit exception.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Which clause(s) are used by a module definition that implements a service?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;exports&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;A service provider module is not read directly by a service user module. So, &lt;em&gt;exports&lt;/em&gt; clause is not required.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;provides&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;The provider module must specify the service interface and the implementing class that implements the service interface. For example,&lt;/p&gt;
+
+      &lt;p&gt;provides org.printservice.api.Print with com.myprinter.PrintImpl&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;uses&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;A uses clause is used by the module that uses a service. For example,&lt;/p&gt;
+
+      &lt;p&gt;uses org.printservice.api.Print;&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;implements&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;This is not a valid clause in module-info.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;requires&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;The implementing module must require the module that defines the service interface.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;For example, if an &lt;code&gt;abc.print&lt;/code&gt; module implements an &lt;code&gt;org.printing.Print&lt;/code&gt; service interface defined in &lt;code&gt;PrintServiceAPI&lt;/code&gt; module using &lt;code&gt;com.abc.PrintImpl&lt;/code&gt; class, then this is how its module-info should look:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;module abc.print {
+    requires PrintServiceAPI; //required because this module defines the service interface org.printing.Print
+    uses org.printing.Print; //specifies that this module uses this service
+    
+    //observe that abc.print module is not required.
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Which of the following statements regarding the assertion mechanism of Java is NOT correct?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Assertions require changes at the JVM level.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;No change is required in the JVM for supporting assertions.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Assertions require changes at the API level.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Besides the ‘assert’ keyword, new methods are added in &lt;code&gt;java.lang.Class&lt;/code&gt; and &lt;code&gt;java.lang.ClassLoader&lt;/code&gt; classes.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Assertions can be enabled or disabled through the command line at the time of execution of (i.e. starting) the program.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;By using the switches, -ea and -da or -enableassertions or -disableassertions&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Code that uses Assertions cannot be run on version below 1.4&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Because of the ‘assert’ keyword.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Code written for JDK version 1.3 cannot be compiled under JDK version 1.4&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;It can be compiled by using -source flag: javac -source 1.3 classname.java&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Identify correct statements about annotations.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;@SuppressWarnings can be used only on a class, constructor, or a method.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Actually, it can be used on several things. Its target can be a &lt;strong&gt;TYPE&lt;/strong&gt;, &lt;strong&gt;FIELD&lt;/strong&gt;, &lt;strong&gt;METHOD&lt;/strong&gt;, &lt;strong&gt;PARAMETER&lt;/strong&gt;, &lt;strong&gt;CONSTRUCTOR&lt;/strong&gt;, &lt;strong&gt;LOCAL_VARABLE&lt;/strong&gt;, and &lt;strong&gt;MODULE&lt;/strong&gt;.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;@Override can only be used on instance methods.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;@SafeVarargs can only be used on methods.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;It can be used on constructors and methods.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;@Deprecated can be used only on a class, constructor, or a method.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Actually, it can be used on serval things, Its target can be a &lt;strong&gt;CONSTRUCTOR&lt;/strong&gt;, &lt;strong&gt;FIELD&lt;/strong&gt;, &lt;strong&gt;LOCAL_VARIABLE&lt;/strong&gt;, &lt;strong&gt;METHOD&lt;/strong&gt;, &lt;strong&gt;PACKAGE&lt;/strong&gt;, &lt;strong&gt;MODULE&lt;/strong&gt;,&lt;strong&gt;PARAMETER&lt;/strong&gt;,&lt;strong&gt;TYPE&lt;/strong&gt;.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;
+    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;@SuppressWarnings(“all”) can be used suppress all warnings from a method or a class.&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Although you can pass any string value to the SuppressWarnings annotation (unrecognized values are ignored), the Java specification mandates only three values - unchecked, deprecation, and removal. Different compilers and IDEs may support other values in addition to these three. There is no rule that says the value “all” has to suppress all warnings (although a compiler or an IDE may do that upon seeing this value.)&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
@@ -3439,283 +4102,6 @@ Calzone calzone = new Calzone.Builder()
         <category>Design Pattern</category>
         
         <category>设计模式</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Spring Boot的类</title>
-        <description>&lt;h2 id=&quot;常见类的用途&quot;&gt;常见类的用途&lt;/h2&gt;
-
-&lt;h3 id=&quot;springapplicationbuilder&quot;&gt;SpringApplicationBuilder&lt;/h3&gt;
-
-&lt;p&gt;&lt;code&gt;java.lang.Object&lt;/code&gt;&lt;br /&gt;
-​	&lt;code&gt;org.springframework.boot.builder.SpringApplicationBuilder&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Builder for &lt;code&gt;SpringApplication&lt;/code&gt; and &lt;code&gt;ApplicationContext&lt;/code&gt; instances with convenient fluent API and context hierarchy support. Simple example of a context hierarchy:&lt;br /&gt;
-&lt;code&gt;new SpringApplicationBuider(ParentConfig.class).child(ChildConfig.class).run(args);&lt;/code&gt;&lt;br /&gt;
-Another common use case is setting active profiles and default properties to set up the environment for an application:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;new SpringApplicationBuilder(Application.class).profiles(&quot;server&quot;)
-    			.properties(&quot;transport=local&quot;).run(args);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If your needs are simpler, consider using the static convenience methods in SpringApplication instead.&lt;/p&gt;
-
-&lt;p&gt;(org.springframework.boot:spring-boot:2.2.4.RELEASE)&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;p&gt;这里就是Builder模式，顺便记录一下，先上图：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/builder-pattern.png&quot; alt=&quot;builder-pattern&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;GoF 对 &lt;strong&gt;Builder Pattern&lt;/strong&gt; 的定义如下：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Separate the construction of a complex object from its representation so that the same construction processes can create different representations.&lt;/p&gt;
-
-  &lt;p&gt;将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同表示。（中文版书里的翻译，另外注意，在书中 Builder 译作“生成器”）&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;上图中，&lt;code&gt;Product&lt;/code&gt; 是我们想要构建的复杂对象，&lt;code&gt;ConcreteBuilder&lt;/code&gt; 通过实现抽象的 &lt;code&gt;Builder&lt;/code&gt; 接口去构造和组合一个 product 的部件。具体的构造者，&lt;code&gt;ConcreteBuilder&lt;/code&gt; 负责构建 product 的内部表现，和创造过程及组合机制。 &lt;code&gt;Builder&lt;/code&gt; 也可以提供方法使得被创建的对象可以被使用。 Director 负责使用 Builder 取创建最终的 Product，也就是说 Director 是 Builder 的使用者。 构造者(Builders) 可以保持对所构造的对象(products)的引用，以便可以再次使用。&lt;/p&gt;
-
-&lt;h3 id=&quot;springapplication&quot;&gt;SpringApplication&lt;/h3&gt;
-
-&lt;p&gt;&lt;code&gt;java.lang.Object&lt;/code&gt;&lt;br /&gt;
-​	&lt;code&gt;org.springframework.boot.SpringApplication&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Class that can be used to bootstrap and launch a Spring application from a Java main method. By default class will perform the following steps to bootstrap your application:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create an appropriate &lt;code&gt;ApplicationContext&lt;/code&gt; instance (depending on your classpath)&lt;/li&gt;
-  &lt;li&gt;Register a &lt;code&gt;CommandLinePropertySource&lt;/code&gt; to expose command line arguments as Spring properties&lt;/li&gt;
-  &lt;li&gt;Refresh the application context, loading all singleton beans&lt;/li&gt;
-  &lt;li&gt;Trigger any &lt;code&gt;CommandLineRunner&lt;/code&gt; beans&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In most circumstances the static &lt;code&gt;run(Class, String[])&lt;/code&gt; method can be called directly from you main method to bootstrap your application:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt; @Configuration
- @EnableAutoConfiguration
- public class MyApplication  {
-
-   // ... Bean definitions
-
-   public static void main(String[] args) {
-     SpringApplication.run(MyApplication.class, args);
-   }
- }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For more advanced configuration a &lt;code&gt;SpringApplication&lt;/code&gt; instance can be created and customized before being run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public static void main(String[] args) {
-   SpringApplication application = new SpringApplication(MyApplication.class);
-   // ... customize application settings here
-   application.run(args)
- }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;SpringApplication&lt;/code&gt;s can read beans from a variety of different sources. It is generally recommended that a single &lt;code&gt;@Configuration&lt;/code&gt; class is used to bootstrap your application, however, you may also set sources from:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The fully qualified class name to be loaded by &lt;code&gt;AnnotatedBeanDefinitionReader&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;The location of an XML resource to be loaded by &lt;code&gt;XmlBeanDefinitionReader&lt;/code&gt;, or a groovy script to be loaded by &lt;code&gt;GroovyBeanDefinitionReader&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;The name of a package to be scanned by &lt;code&gt;ClassPathBeanDefinitionScanner&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Configuration properties are also bound to the SpringApplication. This makes it possible to set SpringApplication properties dynamically, like additional sources (“spring.main.sources” - a CSV list) the flag to indicate a web environment (“spring.main.web-application-type=none”) or the flag to switch off the banner (“spring.main.banner-mode=off”).&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;org.springframework.boot.SpringApplication&lt;/code&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public static org.springframework.context.ConfigurableApplicationContext run(Class &amp;lt;?&amp;gt; primarySource, String ... args)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Static helper that can be used to run a &lt;code&gt;SpringApplication&lt;/code&gt; from the specified source using default settings.&lt;br /&gt;
-Parameters:&lt;br /&gt;
-&lt;code&gt;primarySource&lt;/code&gt; - the primary source to load&lt;br /&gt;
-&lt;code&gt;args&lt;/code&gt; - the application arguments (usually passed from a Java main method)&lt;br /&gt;
-Returns:&lt;br /&gt;
-the running &lt;code&gt;ApplicationContext&lt;/code&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sat, 01 Feb 2020 15:54:00 +0000</pubDate>
-        <link>https://zwt.io/2020/02/01/spring-classes/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/02/01/spring-classes/</guid>
-        
-        <category>Spring Boot</category>
-        
-        <category>Notes</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Spring Boot 消息</title>
-        <description>&lt;h2 id=&quot;消息通信&quot;&gt;消息通信&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/messaging.png&quot; alt=&quot;messaging&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;最简单的消息机制，从A点到B点，通过某种信道传递消息，可以使一个简单的函数调用，一个socket连接，或者是一个HTTP请求。主要目的是发送端发送消息给接收端消费。&lt;/p&gt;
-
-&lt;h3 id=&quot;消息通信使用场景&quot;&gt;消息通信使用场景&lt;/h3&gt;
-
-&lt;p&gt;下面列出一些消息通信常见的使用场景：&lt;/p&gt;
-
-&lt;h4 id=&quot;可靠送达&quot;&gt;可靠送达&lt;/h4&gt;
-
-&lt;p&gt;通常需要一些消息确认机制，如果中间有个Broker，消息生产者要通过一些确认，了解Broker确实收到了消息。同理在消费者段也需要给Broker确认已经收到消息。通常支付、股票交易等系统会使用这种模式。&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;解耦&quot;&gt;解耦&lt;/h4&gt;
-
-&lt;p&gt;按照业务领域解耦，使用bounded context.&lt;/p&gt;
-
-&lt;h4 id=&quot;扩展和高可用&quot;&gt;扩展和高可用&lt;/h4&gt;
-
-&lt;p&gt;多个Broker扩展。&lt;/p&gt;
-
-&lt;h4 id=&quot;异步&quot;&gt;异步&lt;/h4&gt;
-
-&lt;p&gt;异步消息确保响应性，responsiveness&lt;/p&gt;
-
-&lt;h4 id=&quot;互操作性&quot;&gt;互操作性&lt;/h4&gt;
-
-&lt;p&gt;采用Broker架构，实现AMQP等协议。&lt;/p&gt;
-
-&lt;h3 id=&quot;消息模式和设计模式&quot;&gt;消息模式和设计模式&lt;/h3&gt;
-
-&lt;h4 id=&quot;点到点&quot;&gt;点到点&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/point-to-point.png&quot; alt=&quot;point-to-point&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;发布-订阅&quot;&gt;发布-订阅&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/pub-sub.png&quot; alt=&quot;pub-sub&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;设计模式&quot;&gt;设计模式&lt;/h4&gt;
-
-&lt;p&gt;A design patterns is a solution to a commonly known problem in the software design. By the same token, messaging patterns attempt to solve problems with messaging designs.&lt;/p&gt;
-
-&lt;p&gt;​	You will learn about the implementation of the following patterns during the course of this book, so I want to list them here with simple definitions to introduce them:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;em&gt;Message type patterns:&lt;/em&gt; Describe different forms of messaging, such as string(maybe plain text, JSON and/or XML), byte array, object, etc.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Message channel patterns:&lt;/em&gt; Determine what kind of a transport(channel) will be used to send a message and what kind of attributes it will have. The idea here is that the producer and consumer know how to connect to the transport(channel) and can send and receive the message. Possible attributes of this transport include a request-reply feature and a unidirectional channel, which you will learn about very soon. One example of this pattern is the point-to-point channel.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Routing patterns:&lt;/em&gt; Describe a way to send message between producer and consumers by providing a routing mechanism(filtering that’s dependent on a set of conditions) in an integrated solution. That can be accomplished by programming, or in some cases, the messaging system(the broker) can have these capabilities(as with RabbitMQ).&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Service consumer patterns:&lt;/em&gt; Describe how the consumers will behave when messages arrive, such as adding a transactional approach when processing the message. There are frameworks that allow you to initiate this kind of behavior(like the Spring Framework, which you do by adding the @Transactional, a transaction-base abstraction).&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Contract patterns:&lt;/em&gt; Contracts between the producer and consumer to have simple communications, such as when you do some REST calls, where you call a JSON or XML message with fields.&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Message construction patterns:&lt;/em&gt; Describe how a message is created so it can travel within the messaging system. For example, you can create an “envelope” that can have a body(the actual message) and some headers(with a correlation ID or a sequence or maybe a reply address). With a simple web request, you can add parameters or headers and the actual message becomes the body of the request, making the whole request part of the construction pattern. The HTTP protocol allows for that kind of communication (messaging).&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;Transformation patterns:&lt;/em&gt; Describe how to change the content of the message within the messaging system. Think about a message that requires some processing and needs to be enhanced on the fly, such as a content enricher.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;As you can see, these patterns not only describe the messaging process but some of them describe how to handle some of the common use cases you saw earlier. Of cause, there are a lot more messaging patterns.&lt;/p&gt;
-
-</description>
-        <pubDate>Sat, 01 Feb 2020 10:44:00 +0000</pubDate>
-        <link>https://zwt.io/2020/02/01/spring-boot-messaging/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/02/01/spring-boot-messaging/</guid>
-        
-        <category>Spring Boot</category>
-        
-        <category>Messaging</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Java线程间通信</title>
-        <description>&lt;h3 id=&quot;生产者与消费者&quot;&gt;生产者与消费者&lt;/h3&gt;
-
-&lt;p&gt;一种典型的线程间通信的例子是涉及到生产者线程与消费者线程之间的关系。生产者生产数据项被消费者消费，每个被生产出的数据项被存放在共享的变量中。&lt;/p&gt;
-
-&lt;p&gt;想象线程以不同的速度运行，消费者可能来不及处理掉生产者之前生产出来并放到共享变量中的数据项。还有可能就是消费者消费速度太快了，未等到生产者产生数据就去取了。&lt;/p&gt;
-
-&lt;p&gt;为了克服这类问题，生产者线程必须等到它被通知之前生产的数据项已经被消费掉了才继续生产，而消费者线程必须等到它被通知已经有新的数据项产生了才取消费。下面代码展示如何通过使用 &lt;code&gt;wait()&lt;/code&gt; 和 &lt;code&gt;notify()&lt;/code&gt; 完整这样的任务。&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package io.zwt;
-
-// PC stands for Producer and Consumer
-public class PC {
-    public static void main(String[] args) {
-        Shared s = new Shared(); // 共享变量
-        new Producer(s).start(); // 生产者线程
-        new Consumer(s).start(); // 消费者线程
-    }
-}
-
-// 表示共享数据的类
-class Shared {
-    private char c; // 字符
-    private volatile boolean writable = true; // 是否可写入状态
-
-    // 一个同步方法，设置共享变量所保存的字符 c，这个方法对应生产者的操作
-    synchronized void setSharedChar(char c) {
-        // 若不可写入，就在一个 while 循环中等待
-        while (!writable)
-            try {
-                wait();
-            } catch (InterruptedException ignored) {
-            }
-        this.c = c; // 写入数据
-        writable = false; // 改变状态
-        notify(); // 生产好了，通知消费者
-    }
-
-    // 对应消费者的操作
-    synchronized char getSharedChar() {
-        // 可写入状态则等待，说明在生产，所以要等待
-        while (writable)
-            try {
-                wait();
-            } catch (InterruptedException ignored) {
-            }
-        writable = true;
-        notify(); // 消费完了，通知生产者
-        return c; // 读取到的字符
-    }
-}
-
-// 生产者线程
-class Producer extends Thread {
-    private final Shared s;
-
-    Producer(Shared s) {
-        this.s = s;
-    }
-
-    @Override
-    public void run() {
-        for (char ch = 'A'; ch &amp;lt;= 'Z'; ch++) {
-            s.setSharedChar(ch);
-            System.out.println(ch + &quot; produced by producer.&quot;);
-        }
-    }
-}
-
-// 消费者线程
-class Consumer extends Thread {
-    private final Shared s;
-
-    Consumer(Shared s) {
-        this.s = s;
-    }
-
-    @Override
-    public void run() {
-        char ch;
-        do {
-            ch = s.getSharedChar();
-            System.out.println(ch + &quot; consumed by consumer.&quot;);
-        } while (ch != 'Z');
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-</description>
-        <pubDate>Thu, 30 Jan 2020 09:35:00 +0000</pubDate>
-        <link>https://zwt.io/2020/01/30/java-thread-communication/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/01/30/java-thread-communication/</guid>
-        
-        <category>Java</category>
-        
-        <category>Thread</category>
         
         
       </item>

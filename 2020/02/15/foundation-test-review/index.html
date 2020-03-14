@@ -230,7 +230,7 @@ public class BeeperControl {
 
 <hr />
 
-<h5 id="which-of-the-following-statements-are-correct">Which of the following statements are correct?</h5>
+<p><strong>Which of the following statements are correct?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -283,7 +283,7 @@ public class BeeperControl {
 
 <hr />
 
-<h5 id="how-many-methods-have-to-be-provided-by-a-class-that-is-not-abstract-and-that-implements-serializable-interface">How many methods have to be provided by a class that is not abstract and that implements Serializable interface?</h5>
+<p><strong>How many methods have to be provided by a class that is not abstract and that implements Serializable interface?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -310,7 +310,7 @@ public class BeeperControl {
 
 <hr />
 
-<h5 id="given-that-a-code-fragment-has-just-created-a-jdbc-connection-and-has-executed-an-update-statement-which-of-the-following-statements-is-correct">Given that a code fragment has just created a JDBC Connection and has executed an update statement, which of the following statements is correct?</h5>
+<p><strong>Given that a code fragment has just created a JDBC Connection and has executed an update statement, which of the following statements is correct?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -341,7 +341,7 @@ public class BeeperControl {
 
 <hr />
 
-<h5 id="which-statements-concerning-the-relation-between-a-non-static-inner-class-and-its-outer-class-instances-are-true">Which statements concerning the relation between a non-static inner class and its outer class instances are true?</h5>
+<p><strong>Which statements concerning the relation between a non-static inner class and its outer class instances are true?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -371,7 +371,7 @@ public class BeeperControl {
 
 <hr />
 
-<h5 id="which-interfaces-does-javautilnavigablemap-extend-directly-or-indirectly">Which interfaces does java.util.NavigableMap extend directly or indirectly?</h5>
+<p><strong>Which interfaces does java.util.NavigableMap extend directly or indirectly?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -409,7 +409,7 @@ public class BeeperControl {
 
 <hr />
 
-<h5 id="which-of-the-following-standard-functional-interfaces-is-most-suitable-to-process-a-large-collection-of-int-primitives-and-return-processed-data-for-each-of-them">Which of the following standard functional interfaces is most suitable to process a large collection of int primitives and return processed data for each of them?</h5>
+<p><strong>Which of the following standard functional interfaces is most suitable to process a large collection of int primitives and return processed data for each of them?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Function&lt;Integer&gt;</code></li>
@@ -429,7 +429,7 @@ public class BeeperControl {
 
 <hr />
 
-<h5 id="in-which-of-the-following-cases-can-the-console-object-be-acquired">In which of the following cases can the Console object be acquired?</h5>
+<p><strong>In which of the following cases can the Console object be acquired?</strong></p>
 
 <p>You had to select 1 option</p>
 
@@ -514,7 +514,7 @@ public class BeeperControl {
 
 <hr />
 
-<h5 id="which-of-the-following-standard-functional-interface-returns-void">Which of the following standard functional interface returns void?</h5>
+<p><strong>Which of the following standard functional interface returns void?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -689,49 +689,49 @@ public class BeeperControl {
     <p>Now, what if that jar in turn requires access to some other class from another third party non-modular jar? Here, the original modular jar doesn’t directly access the non-modular jar, so it may not be wise to create an automatic module out of all such third party jars. This is where the -classpath options is helpful.</p>
 
     <p>In addition to reading every other named module, an automatic module is also made to read the unnamed module. Thus, while running a modular application, the classpath option can be used to enable automatic modules to access third party non-modular jars.</p>
-
-    <p><strong>Explanation</strong></p>
-
-    <p><strong>Bottom Up Approach for modularizing an application</strong></p>
-
-    <p>While modularizing an app using the bottom-up approach, you basically need to convert lower level libraries into modular jars before you can convert the higher level libraries. For example, if a class in <strong>A.jar</strong> directly uses a class from <strong>B.jar</strong>, and a class in <strong>B.jar</strong> directly uses a class from <strong>C.jar</strong>, you need to first modularize <strong>C.jar</strong> and then <strong>B.jar</strong> before you can modularize <strong>A.jar</strong>.</p>
-
-    <p>Thus, bottom up approach is possible only when the dependent libraries are modularized already.</p>
-
-    <p><strong>Top Down Approach for modularzing an application</strong></p>
-
-    <p>While modularizing an app in a top-down approach, you need to remember the following points -</p>
-
-    <ol>
-      <li>
-        <p>Any jar file can be converted into an automatic module by simply putting that jar on the <em>module-path</em> instead of the <em>classpath</em>. Java automatically derives the name of this module from the jar file.</p>
-      </li>
-      <li>
-        <p>Any jar that is put on classpath(instead of <em>module-path</em>) is loaded as part of the “unnamed” module.</p>
-      </li>
-      <li>
-        <p>An explicitly named module (which means, a module that has an explicitly defined name in its <em>module-info.java</em> file) can specify dependency on an automatic module just like it does for any other module i.e. by adding a <code>requires &lt;module-name&gt;;</code> clause in its module info but it cannot do so for the unnamed module because there is no way to write a <code>requires</code> clause without a name. In other words, named module can access classes present in an automatic module but not in the unnamed module.</p>
-      </li>
-      <li>
-        <p>Automatic modules are given access to classes in the unnamed module (even though there is no explicitly defined module-info and requires clause in an automatic module). In other words, a class from an automatic module will be able to read a class in the unnamed module without doing anything special.</p>
-      </li>
-      <li>
-        <p>An automatic module exports all its packages and is allowed to read all packages exported by other modules. Thus, an automatic module can access: all packages of all other automatic modules + all packages exported by all explicitly named modules + all packages of the unnamed module (i.e. classes loaded from the classpath).</p>
-
-        <p>Thus, if your application jar <strong>A</strong> directly uses a class from another jar <strong>B</strong>, then you would have to convert <strong>B</strong> into a module (either named or automatic). If <strong>B</strong> uses another jar <strong>C</strong>, then you can leave <strong>C</strong> on the class path if <strong>B</strong> hasn’t yet been migrated into a named module. Otherwise, you would have to convert <strong>C</strong> into an automatic module as well.</p>
-
-        <p><strong>Note:</strong></p>
-
-        <p>There are two possible ways for an automatic module to get its name:</p>
-
-        <ol>
-          <li>When an Automatic-Module-Name entry is available in the manifest, its value is the name of the automatic module.</li>
-          <li>Otherwise, a name is derived from the JAR filename (see the ModuleFinder JavaDoc for the derivation algorithm) - Basically, hyphens are converted into dots and the version number part is ignored. So, for example, if you put <code>mysql-connector-java-8.0.11.jar</code> on module path, its module name would be <code>mysql.connector.java</code></li>
-        </ol>
-      </li>
-    </ol>
   </li>
 </ul>
+
+<p><strong>Explanation</strong></p>
+
+<p><strong>Bottom Up Approach for modularizing an application</strong></p>
+
+<p>While modularizing an app using the bottom-up approach, you basically need to convert lower level libraries into modular jars before you can convert the higher level libraries. For example, if a class in <strong>A.jar</strong> directly uses a class from <strong>B.jar</strong>, and a class in <strong>B.jar</strong> directly uses a class from <strong>C.jar</strong>, you need to first modularize <strong>C.jar</strong> and then <strong>B.jar</strong> before you can modularize <strong>A.jar</strong>.</p>
+
+<p>Thus, bottom up approach is possible only when the dependent libraries are modularized already.</p>
+
+<p><strong>Top Down Approach for modularzing an application</strong></p>
+
+<p>While modularizing an app in a top-down approach, you need to remember the following points -</p>
+
+<ol>
+  <li>
+    <p>Any jar file can be converted into an automatic module by simply putting that jar on the <em>module-path</em> instead of the <em>classpath</em>. Java automatically derives the name of this module from the jar file.</p>
+  </li>
+  <li>
+    <p>Any jar that is put on classpath(instead of <em>module-path</em>) is loaded as part of the “unnamed” module.</p>
+  </li>
+  <li>
+    <p>An explicitly named module (which means, a module that has an explicitly defined name in its <em>module-info.java</em> file) can specify dependency on an automatic module just like it does for any other module i.e. by adding a <code>requires &lt;module-name&gt;;</code> clause in its module info but it cannot do so for the unnamed module because there is no way to write a <code>requires</code> clause without a name. In other words, named module can access classes present in an automatic module but not in the unnamed module.</p>
+  </li>
+  <li>
+    <p>Automatic modules are given access to classes in the unnamed module (even though there is no explicitly defined module-info and requires clause in an automatic module). In other words, a class from an automatic module will be able to read a class in the unnamed module without doing anything special.</p>
+  </li>
+  <li>
+    <p>An automatic module exports all its packages and is allowed to read all packages exported by other modules. Thus, an automatic module can access: all packages of all other automatic modules + all packages exported by all explicitly named modules + all packages of the unnamed module (i.e. classes loaded from the classpath).</p>
+
+    <p>Thus, if your application jar <strong>A</strong> directly uses a class from another jar <strong>B</strong>, then you would have to convert <strong>B</strong> into a module (either named or automatic). If <strong>B</strong> uses another jar <strong>C</strong>, then you can leave <strong>C</strong> on the class path if <strong>B</strong> hasn’t yet been migrated into a named module. Otherwise, you would have to convert <strong>C</strong> into an automatic module as well.</p>
+
+    <p><strong>Note:</strong></p>
+
+    <p>There are two possible ways for an automatic module to get its name:</p>
+
+    <ol>
+      <li>When an Automatic-Module-Name entry is available in the manifest, its value is the name of the automatic module.</li>
+      <li>Otherwise, a name is derived from the JAR filename (see the ModuleFinder JavaDoc for the derivation algorithm) - Basically, hyphens are converted into dots and the version number part is ignored. So, for example, if you put <code>mysql-connector-java-8.0.11.jar</code> on module path, its module name would be <code>mysql.connector.java</code></li>
+    </ol>
+  </li>
+</ol>
 
 <hr />
 
@@ -778,7 +778,7 @@ public class BeeperControl {
 
 <hr />
 
-<h5 id="65-which-of-the-following-collection-implementations-are-thread-safe">65 Which of the following collection implementations are thread-safe?</h5>
+<p><strong>65 Which of the following collection implementations are thread-safe?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />ArrayList</li>
@@ -800,7 +800,7 @@ public class BeeperControl {
 
 <hr />
 
-<h5 id="complete-the-code-so-that-a-portfolio-object-can-be-serialized-and-deserialized-properly">Complete the code so that a Portfolio object can be serialized and deserialized properly.</h5>
+<p><strong>Complete the code so that a Portfolio object can be serialized and deserialized properly.</strong></p>
 
 <p>这题主要考察序列化与反序列化，正确答案如下：</p>
 
@@ -812,7 +812,6 @@ public class Bond {
     String ticker = "bac";
     double coupon = 8.3;
 }
-
 class Portfolio implements Serializable {
     String accountName;
     transient Bond bond = new Bond();
@@ -822,7 +821,6 @@ class Portfolio implements Serializable {
         os.writeObject(bond.ticker);
         os.writeDouble(bond.coupon);
     }
-
     private void readObject(ObjectInputStream os) throws Exception {
         os.defaultReadObject();
         this.bond = new Bond();
@@ -844,7 +842,7 @@ class Portfolio implements Serializable {
 
 <hr />
 
-<h5 id="which-of-the-following-are-standard-annotations-used-to-suppress-various-warnings-generated-by-the-compiler">Which of the following are standard annotations used to suppress various warnings generated by the compiler?</h5>
+<p><strong>Which of the following are standard annotations used to suppress various warnings generated by the compiler?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -902,7 +900,7 @@ static void m(List&lt;String&gt;... stringList) {
 
 <hr />
 
-<h5 id="you-are-implementing-a-special-sorting-algorithm-that-can-sort-objects-of-different-classes-which-of-the-following-class-declarations-will-you-use">You are implementing a special sorting algorithm that can sort objects of different classes. Which of the following class declarations will you use?</h5>
+<p><strong>You are implementing a special sorting algorithm that can sort objects of different classes. Which of the following class declarations will you use?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -949,7 +947,7 @@ public class SpecialSorter(K) {
 
 <hr />
 
-<h5 id="which-of-the-following-statements-are-true">Which of the following statements are true?</h5>
+<p><strong>Which of the following statements are true?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -1046,7 +1044,7 @@ new ComplexClass() implements SimpleInterface { }
 
 <hr />
 
-<h5 id="which-of-the-following-statements-are-true-1">Which of the following statements are true?</h5>
+<p><strong>Which of the following statements are true?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Package member classes can be declared static.</li>
@@ -1062,16 +1060,15 @@ new ComplexClass() implements SimpleInterface { }
 
 <hr />
 
-<h5 id="how-will-you-initialize-a-simpledateformat-object-to-that-the-following-code-will-print-the-full-name-of-the-month-of-the-given-date">How will you initialize a <code>SimpleDateFormat</code> object to that the following code will print the full name of the month of the given date?</h5>
+<p><strong>How will you initialize a <code>SimpleDateFormat</code> object to that the following code will print the full name of the month of the given date?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
     <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>SimpleDateFormat sdf = new SimpleDateFormat("MMMM", Locale.FRANCE);</code></p>
 
     <blockquote>
-      <p>Upper case M is for Month. For example, for February and December, the following will be printed:</p>
-
-      <p>M =&gt; 2, 12<br />
+      <p>Upper case M is for Month. For example, for February and December, the following will be printed:
+M =&gt; 2, 12<br />
 MM =&gt; 02, 12<br />
 MMM =&gt; févr., déc.<br />
 MMMM =&gt; février, décembre</p>
@@ -1115,7 +1112,7 @@ https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/format/Da
 
 <hr />
 
-<h5 id="code-that-uses-generic-collection-classes-can-interoperate-with-code-that-uses-raw-collections-classes-because-of">Code that uses generic collection classes can interoperate with code that uses raw collections classes because of?</h5>
+<p><strong>Code that uses generic collection classes can interoperate with code that uses raw collections classes because of?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -1265,7 +1262,7 @@ cArray[0] = new HashSet();
 
 <hr />
 
-<h5 id="which-of-the-following-isare-valid-functional-interface">Which of the following is/are valid functional interface?</h5>
+<p><strong>Which of the following is/are valid functional interface?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -1492,7 +1489,7 @@ Note the difference between an Inner class and a static nested class. Inner clas
 
 <hr />
 
-<h5 id="which-of-the-following-annotations-are-retained-for-run-time">Which of the following annotations are retained for run time?</h5>
+<p><strong>Which of the following annotations are retained for run time?</strong></p>
 
 <ul class="task-list">
   <li class="task-list-item">
@@ -1534,6 +1531,202 @@ Note the difference between an Inner class and a static nested class. Inner clas
 
 <hr />
 
+<p><strong>Your application needs to load a set of key value pairs from a database table which never changes. Multiple threads need to access this information but none of them changes it.  Which class would be the most appropriate to store such data if the values need not be keep in a sorted fashion?</strong></p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Hashtable</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>HashMap</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Set</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>TreeMap</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>List</code></li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>You should know that all <code>Hashtable</code> methods are synchronized and this compromises its performance for simultaneous reads.<br />
+Since no thread modifies the data, it is not efficient to use a <code>Hashtable</code>.
+A <code>HashMap</code> is perfect choice because its methods are not synchronized and so it allows efficient multiple reads. <code>TreeMap</code> is used to keep the keys sorted which makes it a little bit slower than <code>HashMap</code>.
+<code>Set</code> and <code>List</code> can’t be used since we need to store Key-value pairs.</p>
+
+<hr />
+
+<p><strong>A programmer has written the following code to ensure that the phone number is not null and is of 10 characters:</strong></p>
+
+<pre><code class="language-java">public void processPhoneNumber(String number) {
+    assert number != null &amp;&amp; number.length() == 10 : "Invalid phone number";
+    ...
+}
+</code></pre>
+
+<p>Which of the given statements regarding the above code are correct?</p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />This is an appropriate use of assertions.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />This code will not work  in all situations.</p>
+
+    <blockquote>
+      <p>It will not work if assertions are disabled.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />The given code is syntactically correct.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Constrains on input parameters should be enforced using assertions.</p>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>As a rule, assertions should not be used to assert the validity of input parameters of a public method. Since assertions may be disabled at the wish of the user of the program, input validation will not occur when assertions are disabled. A public method should ensure in all situations(whether assertions are enabled or disabled) that the input parameters are valid before proceeding with the rest of the code. For this reason, input validation should always be done using the standard exception mechanism:</p>
+
+<p><code>if(number == null || number.length() != 10) throw new RuntimeException("Invalid phone number");</code></p>
+
+<p>However, assertions may be used to validate the input parameters of a private method. This is because private methods are called only by the developer of the class. Therefore, if a private method is called with an invalid parameter, this problem should be rectified at the development stage itself. It cannot occur in the production stage, so there is not need to throw an explicit exception.</p>
+
+<hr />
+
+<p><strong>Which clause(s) are used by a module definition that implements a service?</strong></p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />exports</p>
+
+    <blockquote>
+      <p>A service provider module is not read directly by a service user module. So, <em>exports</em> clause is not required.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />provides</p>
+
+    <blockquote>
+      <p>The provider module must specify the service interface and the implementing class that implements the service interface. For example,</p>
+
+      <p>provides org.printservice.api.Print with com.myprinter.PrintImpl</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />uses</p>
+
+    <blockquote>
+      <p>A uses clause is used by the module that uses a service. For example,</p>
+
+      <p>uses org.printservice.api.Print;</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />implements</p>
+
+    <blockquote>
+      <p>This is not a valid clause in module-info.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />requires</p>
+
+    <blockquote>
+      <p>The implementing module must require the module that defines the service interface.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<p>For example, if an <code>abc.print</code> module implements an <code>org.printing.Print</code> service interface defined in <code>PrintServiceAPI</code> module using <code>com.abc.PrintImpl</code> class, then this is how its module-info should look:</p>
+
+<pre><code class="language-java">module abc.print {
+    requires PrintServiceAPI; //required because this module defines the service interface org.printing.Print
+    uses org.printing.Print; //specifies that this module uses this service
+    
+    //observe that abc.print module is not required.
+}
+</code></pre>
+
+<hr />
+
+<p><strong>Which of the following statements regarding the assertion mechanism of Java is NOT correct?</strong></p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Assertions require changes at the JVM level.</p>
+
+    <blockquote>
+      <p>No change is required in the JVM for supporting assertions.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Assertions require changes at the API level.</p>
+
+    <blockquote>
+      <p>Besides the ‘assert’ keyword, new methods are added in <code>java.lang.Class</code> and <code>java.lang.ClassLoader</code> classes.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Assertions can be enabled or disabled through the command line at the time of execution of (i.e. starting) the program.</p>
+
+    <blockquote>
+      <p>By using the switches, -ea and -da or -enableassertions or -disableassertions</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Code that uses Assertions cannot be run on version below 1.4</p>
+
+    <blockquote>
+      <p>Because of the ‘assert’ keyword.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Code written for JDK version 1.3 cannot be compiled under JDK version 1.4</p>
+
+    <blockquote>
+      <p>It can be compiled by using -source flag: javac -source 1.3 classname.java</p>
+    </blockquote>
+  </li>
+</ul>
+
+<hr />
+
+<p><strong>Identify correct statements about annotations.</strong></p>
+
+<ul class="task-list">
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@SuppressWarnings can be used only on a class, constructor, or a method.</p>
+
+    <blockquote>
+      <p>Actually, it can be used on several things. Its target can be a <strong>TYPE</strong>, <strong>FIELD</strong>, <strong>METHOD</strong>, <strong>PARAMETER</strong>, <strong>CONSTRUCTOR</strong>, <strong>LOCAL_VARABLE</strong>, and <strong>MODULE</strong>.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@Override can only be used on instance methods.</p>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@SafeVarargs can only be used on methods.</p>
+
+    <blockquote>
+      <p>It can be used on constructors and methods.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@Deprecated can be used only on a class, constructor, or a method.</p>
+
+    <blockquote>
+      <p>Actually, it can be used on serval things, Its target can be a <strong>CONSTRUCTOR</strong>, <strong>FIELD</strong>, <strong>LOCAL_VARIABLE</strong>, <strong>METHOD</strong>, <strong>PACKAGE</strong>, <strong>MODULE</strong>,<strong>PARAMETER</strong>,<strong>TYPE</strong>.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item">
+    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@SuppressWarnings(“all”) can be used suppress all warnings from a method or a class.</p>
+
+    <blockquote>
+      <p>Although you can pass any string value to the SuppressWarnings annotation (unrecognized values are ignored), the Java specification mandates only three values - unchecked, deprecation, and removal. Different compilers and IDEs may support other values in addition to these three. There is no rule that says the value “all” has to suppress all warnings (although a compiler or an IDE may do that upon seeing this value.)</p>
+    </blockquote>
+  </li>
+</ul>
+
+<hr />
+
 
 
         <!-- 来必力City版安装代码 -->
@@ -1568,9 +1761,9 @@ Note the difference between an Inner class and a static nested class. Inner clas
             
             
             <li class="next">
-                <a href="/2020/03/10/spring-tips-rsocket-spring-security/" data-toggle="tooltip" data-placement="top" title="RSocket与Spring Security简单整合">
+                <a href="/2020/02/26/ocp-816-learning-points/" data-toggle="tooltip" data-placement="top" title="OCP 816 考点速记">
                 下一篇<br>
-                <span>RSocket与Spring Security简单整合</span>
+                <span>OCP 816 考点速记</span>
                 </a>
             </li>
             
@@ -1612,11 +1805,7 @@ Note the difference between an Inner class and a static nested class. Inner clas
                             
         				
                             
-        				
-                            
-        				
-                            
-                				<a href="/tags/#Java" title="Java" rel="27">
+                				<a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
@@ -1736,11 +1925,17 @@ Note the difference between an Inner class and a static nested class. Inner clas
                             
         				
                             
-        				
-                            
                 				<a href="/tags/#JavaFX" title="JavaFX" rel="7">
                                     JavaFX
                                 </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
                             
         				
                             
