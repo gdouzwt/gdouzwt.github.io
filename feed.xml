@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 18 Mar 2020 13:33:42 +0000</pubDate>
-    <lastBuildDate>Wed, 18 Mar 2020 13:33:42 +0000</lastBuildDate>
+    <pubDate>Wed, 18 Mar 2020 20:21:27 +0000</pubDate>
+    <lastBuildDate>Wed, 18 Mar 2020 20:21:27 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -3392,16 +3392,31 @@ public class G extends A.B {
     public class B {
         // Can have a compile-time static constant field
         public final static int DAYS_IN_A_WEEK = 7; // OK
+
+        // Cannot have the following declaration, because it is not
         // a compile-time constant, even though it is final
-        // 上面一句不对，str 不能用 new String(&quot;Hello&quot;);
-        // 差点被坑了🕳
         public final static String str = new String(&quot;Hello&quot;);
-		// 可以用 public final static String str = &quot;Hello&quot;;
+		// 可以用 public final static String str = &quot;Hello&quot;; 是常量
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
 
+&lt;blockquote&gt;
+  &lt;p&gt;注意 成员接口和成员枚举是隐式 static 的，因此不能声明在内部类里。&lt;/p&gt;
+&lt;/blockquote&gt;
+
 &lt;h3 id=&quot;内部类和编译器的魔法&quot;&gt;内部类和编译器的魔法&lt;/h3&gt;
+
+&lt;p&gt;成员内部类和嵌套内部类：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;outer-class-name&amp;gt;$&amp;lt;member-or-nested-class-name&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;局部内部类：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;outer-class-name&amp;gt;$&amp;lt;a-number&amp;gt;&amp;lt;local-inner-class-name&amp;gt;&lt;/code&gt;
+匿名内部类：&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;lt;outer-class-name&amp;gt;$&amp;lt;a-number&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;闭包与回调&quot;&gt;闭包与回调&lt;/h3&gt;
 
