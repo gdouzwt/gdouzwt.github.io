@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 18 Mar 2020 20:21:27 +0000</pubDate>
-    <lastBuildDate>Wed, 18 Mar 2020 20:21:27 +0000</lastBuildDate>
+    <pubDate>Thu, 19 Mar 2020 01:59:57 +0000</pubDate>
+    <lastBuildDate>Thu, 19 Mar 2020 01:59:57 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -2298,7 +2298,7 @@ public class Outer {
             System.out.println(&quot;Inner: Inner.this.value = &quot; + 
                               Inner.this.value);
             System.out.println(&quot;Inner: Outer.this.value = &quot; + 
-                              Outer.this.vlaue);
+                              Outer.this.value);
         }
     }
        
@@ -2317,6 +2317,24 @@ public class Outer {
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;19680112&lt;/p&gt;
+
+      &lt;p&gt;19680112&lt;/p&gt;
+
+      &lt;p&gt;19680112&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;19690919&lt;/p&gt;
+
+      &lt;p&gt;19690919&lt;/p&gt;
+
+      &lt;p&gt;19690919&lt;/p&gt;
+
+      &lt;p&gt;19680112&lt;/p&gt;
+    &lt;/blockquote&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The following declaration of an AnonymousTest class does not compile. Describe the reasons and steps you might take to fix the error.&lt;/p&gt;
@@ -2338,6 +2356,10 @@ public class AnonymousTest {
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;x is not effectively final, make that effectively final by removing assignment x = 300;&lt;/p&gt;
+    &lt;/blockquote&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Consider the following declaration for a top-level class A and a member inner class B:&lt;/p&gt;
@@ -2363,9 +2385,13 @@ package io.zwt.innerclasses.exercises;
    
 public class C extends A.B {
     /* Define a constructor for class C here */
+    public C(A a) {
+        a.super();
+        System.out.println(&quot;C is created.&quot;)
+    }
        
     public static void main(String[] args) {
-        C c = /* Your code goes here */;
+        C c = new C(new A())/* Your code goes here */;
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
@@ -2384,7 +2410,7 @@ C is created.
 
     &lt;p&gt;b. It can inherit from one class and implement multiple interfaces.&lt;/p&gt;
 
-    &lt;p&gt;c. It can inherit from one class or implement one interface.&lt;/p&gt;
+    &lt;p&gt;c. It can inherit from one class or implement one interface. ✔&lt;/p&gt;
 
     &lt;p&gt;d. It can implement multiple interfaces, but inherits from only one class.&lt;/p&gt;
   &lt;/li&gt;
@@ -2408,6 +2434,18 @@ public class Computer {
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;4&lt;/p&gt;
+
+      &lt;p&gt;Computer.class&lt;/p&gt;
+
+      &lt;p&gt;Computer$Mouse.class&lt;/p&gt;
+
+      &lt;p&gt;Computer$Mouse.Button.class&lt;/p&gt;
+
+      &lt;p&gt;Computer$1.class&lt;/p&gt;
+    &lt;/blockquote&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;The following declaration of class H does not compile. Point out the problem and suggest a solution.&lt;/p&gt;
@@ -2423,6 +2461,10 @@ public class H {
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Declare x as static, or declare J as non-static.&lt;/p&gt;
+    &lt;/blockquote&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Consider the following declaration of a top-level class P and a nested static class Q:&lt;/p&gt;
@@ -2432,7 +2474,9 @@ package io.zwt.innerclasses.exercises;
     
 public class P {
     public static class Q {
-        System.out.println(&quot;Hello from Q.&quot;);
+        {
+            System.out.println(&quot;Hello from Q.&quot;);
+        }
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
@@ -2444,10 +2488,14 @@ package io.zwt.innerclasses.exercises;
     
 public class PTest {
     public static void main(String[] args) {
-        P.Q q = /* Your code goes here */ ;
+        P.Q q = /* Your code goes here */ new P.Q();
     }
 }
 &lt;/code&gt;&lt;/pre&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;P serve as namespace.&lt;/p&gt;
+    &lt;/blockquote&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -3424,7 +3472,8 @@ public class G extends A.B {
 
 &lt;h3 id=&quot;在静态上下文定义内部类&quot;&gt;在静态上下文定义内部类&lt;/h3&gt;
 
-&lt;h3 id=&quot;总结&quot;&gt;总结&lt;/h3&gt;
+&lt;p&gt;很少有用到，发现 static {} 里面可以放 {} 这样&lt;/p&gt;
+
 </description>
         <pubDate>Tue, 04 Feb 2020 22:34:00 +0000</pubDate>
         <link>https://zwt.io/2020/02/04/inner-class/</link>

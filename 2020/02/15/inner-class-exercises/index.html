@@ -270,7 +270,7 @@ public class Outer {
             System.out.println("Inner: Inner.this.value = " + 
                               Inner.this.value);
             System.out.println("Inner: Outer.this.value = " + 
-                              Outer.this.vlaue);
+                              Outer.this.value);
         }
     }
        
@@ -289,6 +289,24 @@ public class Outer {
     }
 }
 </code></pre>
+
+    <blockquote>
+      <p>19680112</p>
+
+      <p>19680112</p>
+
+      <p>19680112</p>
+    </blockquote>
+
+    <blockquote>
+      <p>19690919</p>
+
+      <p>19690919</p>
+
+      <p>19690919</p>
+
+      <p>19680112</p>
+    </blockquote>
   </li>
   <li>
     <p>The following declaration of an AnonymousTest class does not compile. Describe the reasons and steps you might take to fix the error.</p>
@@ -310,6 +328,10 @@ public class AnonymousTest {
     }
 }
 </code></pre>
+
+    <blockquote>
+      <p>x is not effectively final, make that effectively final by removing assignment x = 300;</p>
+    </blockquote>
   </li>
   <li>
     <p>Consider the following declaration for a top-level class A and a member inner class B:</p>
@@ -335,9 +357,13 @@ package io.zwt.innerclasses.exercises;
    
 public class C extends A.B {
     /* Define a constructor for class C here */
+    public C(A a) {
+        a.super();
+        System.out.println("C is created.")
+    }
        
     public static void main(String[] args) {
-        C c = /* Your code goes here */;
+        C c = new C(new A())/* Your code goes here */;
     }
 }
 </code></pre>
@@ -356,7 +382,7 @@ C is created.
 
     <p>b. It can inherit from one class and implement multiple interfaces.</p>
 
-    <p>c. It can inherit from one class or implement one interface.</p>
+    <p>c. It can inherit from one class or implement one interface. ✔</p>
 
     <p>d. It can implement multiple interfaces, but inherits from only one class.</p>
   </li>
@@ -380,6 +406,18 @@ public class Computer {
     }
 }
 </code></pre>
+
+    <blockquote>
+      <p>4</p>
+
+      <p>Computer.class</p>
+
+      <p>Computer$Mouse.class</p>
+
+      <p>Computer$Mouse.Button.class</p>
+
+      <p>Computer$1.class</p>
+    </blockquote>
   </li>
   <li>
     <p>The following declaration of class H does not compile. Point out the problem and suggest a solution.</p>
@@ -395,6 +433,10 @@ public class H {
     }
 }
 </code></pre>
+
+    <blockquote>
+      <p>Declare x as static, or declare J as non-static.</p>
+    </blockquote>
   </li>
   <li>
     <p>Consider the following declaration of a top-level class P and a nested static class Q:</p>
@@ -404,7 +446,9 @@ package io.zwt.innerclasses.exercises;
     
 public class P {
     public static class Q {
-        System.out.println("Hello from Q.");
+        {
+            System.out.println("Hello from Q.");
+        }
     }
 }
 </code></pre>
@@ -416,10 +460,14 @@ package io.zwt.innerclasses.exercises;
     
 public class PTest {
     public static void main(String[] args) {
-        P.Q q = /* Your code goes here */ ;
+        P.Q q = /* Your code goes here */ new P.Q();
     }
 }
 </code></pre>
+
+    <blockquote>
+      <p>P serve as namespace.</p>
+    </blockquote>
   </li>
 </ol>
 
