@@ -192,20 +192,43 @@
         col-md-10 col-md-offset-1
         post-containers">
 
-        <p>为了准备 1Z0-816，所以要学习一下 Java 11 的基础部分。</p>
+        <p>为了准备 1Z0-816，要学习一下 Java 11 的基础部分。</p>
 
 <!--more-->
 
 <p><img src="/img/image-20200122001604874.png" alt="image-20200122001604874" /></p>
 
-<p>module-info.java 是模块的信息。</p>
+<h4 id="模块描述符语法">模块描述符语法</h4>
 
-<p>一个新的关键词 <code>module</code> ，最简单的一个模块如下：</p>
+<p><strong><em>ModuleDeclaration:</em></strong><br />
+	<strong><em>{Annotation} [</em></strong><code>open</code><strong><em>]</em></strong> <code>module</code> <strong><em>Identifier {. Identifier}</em></strong><br />
+		{<strong><em>{ModuleDirective}</em></strong>}</p>
+
+<p><strong><em>ModuleDirective:</em></strong><br />
+  <code>requires</code> <strong><em>{RequiresModifier} ModuleName</em></strong> ;  <br />
+  <code>exports</code> <strong><em>PackageName [</em></strong><code>to</code> <strong><em>ModuleName</em></strong> <strong><em>{, ModuleName}]</em></strong> ;<br />
+  <code>opens</code> <strong><em>PackageName [</em></strong><code>to</code> <strong><em>ModuleName {, ModuleName}]</em></strong> ;<br />
+  <code>uses</code> <strong><em>TypeName</em></strong> ;<br />
+  <code>provides</code> <strong><em>TypeName</em></strong> <code>with</code> <strong><em>TypeName {, TypeName}</em></strong> ;</p>
+
+<p><strong><em>RequiresModifier:</em></strong><br />
+  <em>(one of)</em><br />
+  <code>transitive</code> <code>static</code></p>
+
+<h4 id="创建模块">创建模块</h4>
+
+<p><em>module-info.java</em> 是模块描述符。最简单的一个模块如下：</p>
 
 <pre><code class="language-java">module io.zwt.common {
-
 }
 </code></pre>
+
+<h4 id="定义模块间依赖">定义模块间依赖</h4>
+
+<h4 id="模块的访问控制">模块的访问控制</h4>
+
+<h4 id="服务消费者与服务提供者">服务消费者与服务提供者</h4>
+
 
 
         <!-- 来必力City版安装代码 -->
