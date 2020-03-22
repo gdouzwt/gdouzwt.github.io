@@ -176,6 +176,32 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/03/22/chapter11-exam-review/">
+        <h2 class="post-title">
+            第11章练习回顾
+        </h2>
+        
+        <h3 class="post-subtitle">
+            OCP 11-1 Book&nbsp;&nbsp;2020年3月22日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <ol>
+  <li>B</li>
+  <li>F -&gt; D Modules are required to have a module-info.java file at the root directory of the module. Option D matches this requirement.</li>
+  <li>B</li>
+  <li>D -&gt; G The -m or –module option is used to specify the module and class name. The -p or -module-path option is used to specify the location of the modules. Option D would be correct if the rest of the command were correct. However, running a program requires specifying the package name with periods (.) instead of slashes. Since the command is incorrect, option G is correct.</li>
+  <li>AF -&gt; AFG Options C and D are incorrect because there is no use keyword. Options A and F are correct because opens is for reflection and uses declares an API that consumes a service. Option G is also correct as the file can be completely empty. This is just something you have to memorize.</li>
+  <li>BDF -&gt; BC Packages inside a module are not exported by default, making option B correct and option A incorrect. Exporting is necessary for other code to use the packages; it is not necessary to call the main() method at the command line, making option C correct and option D incorrect. The module-info.java file has the correct name and compiles, making options E and F incorrect.</li>
+  <li>EF -&gt; DG Options A, B, E, and F are incorrect because they refer to keywords that don’t exist. The requires transitive keyword is used when specifying a module to be used by the requesting module and any other modules that use the requesting module. Therefore, dog needs to specify the transitive relationship, and option G is correct. The module puppy just needs to require dog, and it gets the transitive dependencies, making option D correct.</li>
+</ol>
+ <a href="/2020/03/22/chapter11-exam-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/03/10/spring-tips-rsocket-spring-security/">
         <h2 class="post-title">
             RSocket与Spring Security简单整合
@@ -221,149 +247,6 @@
 <h4 id="服务端应用">服务端应用</h4>
 
 <p>GreetingsServiceApplication.java</p>
-
-<pre><code class="language-java">// 省略导入
-// 一个简单的，基于用户名和密码的“问候”应用
-// 简单起见，所有类都写在一个文件里
-@SpringBootApplication
-public class GreetingsServiceApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(GreetingsServiceApplication.class, args);
-    }
-}
-
-@Configuration
-@EnableRSocketSecurity
-class RSocketSecurityConfiguration {
-
-    @Bean
-    RSocketMessageHandler messageHandler(RSocketStrategies strategies) {
-        RSocketMessageHandler mh = new RSocketMessageHandler();
-        mh.getArgumentResolverConfigurer()
-            .addCustomResolver(new AuthenticationPrincipalArgumentResolver());
-        mh.setRSocketStrategies(strategies);
-        return mh;
-    }
-
-    // 授权
-    @Bean
-    PayloadSocketAcceptorInterceptor authorization(RSocketSecurity security) {
-        return security
-                .authorizePayload(spec -&gt; spec
-                        .route("greetings")
-                        .authenticated()
-                        .anyExchange()
-                        .permitAll())
-                .simpleAuthentication(Customizer.withDefaults())
-                .build();
-    }
-
-    // 用户认证 Authentication
-    @Bean
-    MapReactiveUserDetailsService authentication() {
-        UserDetails jlong = User.withDefaultPasswordEncoder().username("jlong")
-            .password("pw").roles("USER").build();
-        UserDetails rwinch = User.withDefaultPasswordEncoder().username("rwinch")
-            .password("pw").roles("ADMIN", "USER").build();
-        return new MapReactiveUserDetailsService(jlong, rwinch);
-    }
-}
-
-// DTO
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-class GreetingResponse {
-    private String message;
-}
-
-@Controller
-class GreetingController {
-
-    @MessageMapping("greetings")
-    Flux&lt;GreetingResponse&gt; greet(@AuthenticationPrincipal Mono&lt;UserDetails&gt; user) {
-        return user
-                .map(UserDetails::getUsername)
-                .flatMapMany(GreetingController::greet);
-    }
-
-    private static Flux&lt;GreetingResponse&gt; greet(String name) {
-        return Flux.fromStream(
-                Stream.generate(() -&gt; 
-                new GreetingResponse("Hello " + name + " @ " + 
-                Instant.now().toString())))
-                .delayElements(Duration.ofSeconds(1));
-    }
-}
-</code></pre>
-
-<p><strong>服务端的配置文件</strong>：application.properties</p>
-
-<pre><code class="language-properties">spring.rsocket.server.port=8888
-</code></pre>
-
-<hr />
-
-<h4 id="客户端应用">客户端应用</h4>
-
-<p>GreetingsClientApplication.java</p>
-
-<pre><code class="language-java">@SpringBootApplication
-@Log4j2
-public class GreetingsClientApplication {
-
-    @SneakyThrows
-    public static void main(String[] args) {
-        SpringApplication.run(GreetingsClientApplication.class, args);
-        System.in.read(); // 让程序不要结束
-    }
-
-    private final MimeType mimeType =
-            MimeTypeUtils.parseMimeType(WellKnownMimeType.MESSAGE_RSOCKET_AUTHENTICATION.getString());
-    private final UsernamePasswordMetadata credentials = new UsernamePasswordMetadata("jlong", "pw");
-
-    // 配置所用编码器
-    @Bean
-    RSocketStrategiesCustomizer rSocketStrategiesCustomizer() {
-        return strategies -&gt; strategies.encoder(new SimpleAuthenticationEncoder());
-    }
-
-    // 相当于客户端
-    @Bean
-    RSocketRequester rSocketRequester(RSocketRequester.Builder builder) {
-        return builder
-                //.setupMetadata(this.credentials, this.mimeType)
-                .connectTcp("localhost", 8888)
-                .block();
-    }
-
-    // 应用就绪时通过RSocket向localhost:8888/greetings发起请求
-    // 并将响应消息通过日志输出到控制台
-    @Bean
-    ApplicationListener&lt;ApplicationReadyEvent&gt; ready(RSocketRequester greetings) {
-        return event -&gt; greetings
-                .route("greetings")
-                .metadata(this.credentials, this.mimeType)
-                .data(Mono.empty())
-                .retrieveFlux(GreetingResponse.class)
-                .subscribe(gr -&gt; log.info("secured response: " + gr.toString()));
-    }
-}
-
-// DTO
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-class GreetingResponse {
-    private String message;
-}
-</code></pre>
-
-<h3 id="结束">结束</h3>
-
-<p>感觉直接看代码也挺好理解的，就不勉强添加太多文字说明了。有什么不明白的，可以看<a href="https://www.bilibili.com/video/av95256090">视频讲解</a>。</p>
-
  <a href="/2020/03/10/spring-tips-rsocket-spring-security/"><b>阅读更多📰</b></a>
     </div>
 </div>
@@ -696,32 +579,6 @@ public class Outer {
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/02/02/builder-pattern-in-depth/">
-        <h2 class="post-title">
-            深入生成器设计模式
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Builder Pattern in Depth&nbsp;&nbsp;2020年2月2日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="gof-定义">GoF 定义</h3>
-
-<blockquote>
-  <p>Separate the construction of a complex object from its representation so that the same construction processes can create different representations.</p>
-
-  <p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同表示。（中文版书里的翻译）</p>
-</blockquote>
-
-<p>Builder 在《设计模式》的中文版里边翻译为“生成器”，那我就按这个译法吧。生成器模式属于创建型模式（Creational patterns），它关注如何创建对象。当需要构建的对象比较复杂，由多个部分组成，也就说它的构造方法会有很多参数，就可以考虑使用这种模式。生成器模式认为对象的构建机制应该独立于它的组成部分（也就是属性），对象的<strong>构建过程</strong>不关注对象的<strong>组成部分</strong>。所以同一个构建过程可以构建出不同表示（属性）的对象（通过<strong>改变构建步骤</strong>）。</p>
- <a href="/2020/02/02/builder-pattern-in-depth/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -756,7 +613,7 @@ public class Outer {
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="29">
+                                <a href="/tags/#Java" title="Java" rel="30">
                                     Java
                                 </a>
                             
@@ -795,6 +652,10 @@ public class Outer {
                         
                             
                         
+                            
+                                <a href="/tags/#OCP" title="OCP" rel="4">
+                                    OCP
+                                </a>
                             
                         
                             

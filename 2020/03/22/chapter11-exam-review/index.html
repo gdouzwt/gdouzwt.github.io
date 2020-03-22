@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>网络爬虫学习笔记 - 招文桃 | 记录</title>
+    <title>第11章练习回顾 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io/2020/03/02/web-scraping-notes/">
+    <link rel="canonical" href="https://zwt.io/2020/03/22/chapter11-exam-review/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -168,17 +168,15 @@
                         
                         <a class="tag" href="/tags/#Java" title="Java">Java</a>
                         
-                        <a class="tag" href="/tags/#爬虫" title="爬虫">爬虫</a>
-                        
-                        <a class="tag" href="/tags/#scraping" title="scraping">scraping</a>
+                        <a class="tag" href="/tags/#OCP" title="OCP">OCP</a>
                         
                     </div>
-                    <h1>网络爬虫学习笔记</h1>
+                    <h1>第11章练习回顾</h1>
                     
                     
-                    <h2 class="subheading">scraping the web for fun and for profit</h2>
+                    <h2 class="subheading">OCP 11-1 Book</h2>
                     
-                    <span class="meta">由招文桃在2020年3月2日发布</span>
+                    <span class="meta">由招文桃在2020年3月22日发布</span>
                 </div>
             </div>
         </div>
@@ -196,82 +194,29 @@
         col-md-10 col-md-offset-1
         post-containers">
 
-        <h3 id="课程计划">课程计划</h3>
-
-<ul>
-  <li>
-    <p>入门</p>
-  </li>
-  <li>
-    <p>HttpClient</p>
-  </li>
-  <li>
-    <p>Jsoup</p>
-  </li>
-  <li>
-    <p>案例</p>
-
-    <pre><code class="language-java">dependencies {
-    implementation('org.jsoup:jsoup:1.12.2')
-    implementation('org.apache.httpcomponents:httpclient:4.5.2')
-  
-    testImplementation('org.slf4j:slf4j-log4j12:1.7.25')
-    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
-}
-</code></pre>
-  </li>
-</ul>
-
-<h3 id="爬虫功能">爬虫功能</h3>
-
-<p>从功能上来讲，爬虫一般分为数据采集，处理，存储三个部分。爬虫从一个或若干个初始页面的URL开始，获得初始页面上的URL，在抓取页面的过程中，不断从当前页面抽取新的URL放入队列，直到满足系统的一定停止条件。</p>
-
-<ul>
-  <li>数据采集</li>
-  <li>处理</li>
-  <li>存储</li>
-</ul>
-
-<p>从初始页面开始，爬取这个页面里面的详细页面连接，接着是下一页，等等。<!--more--></p>
-
-<h4 id="为什么学习网络爬虫">为什么学习网络爬虫</h4>
-
-<ol>
-  <li>
-    <p>可以实现搜索引擎</p>
-
-    <p>搜集，自己感兴趣的数据。做好玩的事情。</p>
-  </li>
-  <li>
-    <p>大数据时代，获取更多数据源，人工智能</p>
-
-    <ul>
-      <li>数据分析</li>
-      <li>数据挖掘</li>
-    </ul>
-  </li>
-  <li>
-    <p>搜索引擎优化，网站推广，研究规则</p>
-  </li>
-  <li>
-    <p>就业，数据工程师，爬虫工程师， Microsoft Health,  Data mining</p>
-  </li>
+        <ol>
+  <li>B</li>
+  <li>F -&gt; D Modules are required to have a module-info.java file at the root directory of the module. Option D matches this requirement.</li>
+  <li>B</li>
+  <li>D -&gt; G The -m or –module option is used to specify the module and class name. The -p or -module-path option is used to specify the location of the modules. Option D would be correct if the rest of the command were correct. However, running a program requires specifying the package name with periods (.) instead of slashes. Since the command is incorrect, option G is correct.</li>
+  <li>AF -&gt; AFG Options C and D are incorrect because there is no use keyword. Options A and F are correct because opens is for reflection and uses declares an API that consumes a service. Option G is also correct as the file can be completely empty. This is just something you have to memorize.</li>
+  <li>BDF -&gt; BC Packages inside a module are not exported by default, making option B correct and option A incorrect. Exporting is necessary for other code to use the packages; it is not necessary to call the main() method at the command line, making option C correct and option D incorrect. The module-info.java file has the correct name and compiles, making options E and F incorrect.</li>
+  <li>EF -&gt; DG Options A, B, E, and F are incorrect because they refer to keywords that don’t exist. The requires transitive keyword is used when specifying a module to be used by the requesting module and any other modules that use the requesting module. Therefore, dog needs to specify the transitive relationship, and option G is correct. The module puppy just needs to require dog, and it gets the transitive dependencies, making option D correct.<!--more--></li>
+  <li>ABCD -&gt; ABD Options A and B are correct because the -p (–module-path) option can be passed when compiling or running a program. Option D is also correct because jdeps can use the –module-path option when listing dependency information.</li>
+  <li>AEF -&gt; AB The -p specifies the module path. This is just a directory, so all of the options have a legal module path. The -m specifies the module, which has two parts separated by a slash. Options E and F are incorrect since there is no slash. The first part is the module name. It is separated by periods (.) rather than dashes (-), making option C incorrect. The second part is the package and class name, again separated by periods. The package and class names must be legal Java identifiers. Dashes (-) are not allowed, ruling out option D. This leaves options A and B as the correct answers.</li>
+  <li>B</li>
+  <li>ABD -&gt; BDEF This is another question you just have to memorize. The jmod command has five modes you need to be able to list: create, extract, describe, list, and hash. The hash operation is not an answer choice. The other four are making options B, D, E, and F correct.</li>
+  <li>A -&gt; B The java command uses this option to print information when the program loads. You might think jar does the same thing since it runs a program too. Alas, this parameter does not exist on jar.</li>
+  <li>AD -&gt; E There is a trick here. A module definition uses the keyword module rather than class. Since the code does not compile, option E is correct. If the code did compile, options A and D would be correct.</li>
+  <li>A</li>
+  <li>AD -&gt; BD The java command has an –add-exports option that allows exporting a package at runtime. However, it is not encouraged to use it, making options B and D the answer.</li>
+  <li>BC</li>
+  <li>D -&gt; E</li>
+  <li>AC</li>
+  <li>BC</li>
+  <li>BE</li>
+  <li>G</li>
 </ol>
-
-<h3 id="带参数的-get-请求">带参数的 GET 请求</h3>
-
-<ul>
-  <li>HttpGet</li>
-</ul>
-
-<h3 id="post-请求">POST 请求</h3>
-
-<ul>
-  <li>HttpPost 不带参数</li>
-  <li>带参数</li>
-</ul>
-
-<p>[To be continued!]</p>
 
 
 
@@ -299,19 +244,12 @@
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2020/02/26/ocp-mock-test1-review/" data-toggle="tooltip" data-placement="top" title="OCP-1Z0-816 模拟测试1回顾">
-                上一篇<br>
-                <span>OCP-1Z0-816 模拟测试1回顾</span>
-                </a>
-            </li>
-            
-            
-            <li class="next">
                 <a href="/2020/03/10/spring-tips-rsocket-spring-security/" data-toggle="tooltip" data-placement="top" title="RSocket与Spring Security简单整合">
-                下一篇<br>
+                上一篇<br>
                 <span>RSocket与Spring Security简单整合</span>
                 </a>
             </li>
+            
             
         </ul>
     </div>  

@@ -176,6 +176,44 @@
             ">
             
 <div class="post-preview">
+    <a href="/2019/09/26/exam-review/">
+        <h2 class="post-title">
+            笔试题目回顾
+        </h2>
+        
+        <h3 class="post-subtitle">
+            做过的题目值得总结下&nbsp;&nbsp;2019年9月26日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="多选一选择题和编程题">多选一选择题和编程题</h3>
+
+<h4 id="javacore---14题">JavaCore - 14题</h4>
+
+<ol>
+  <li>
+    <p>下述哪些说法是正确的？（）</p>
+
+    <blockquote>
+      <p>A. 实例变量是用static关键字声明的</p>
+
+      <p>B. 方法变量在方法执行时创建</p>
+
+      <p>C. 实例变量是类的成员变量</p>
+
+      <p>D. 方法变量在使用之前必须初始化</p>
+    </blockquote>
+
+    <p>这个题有点怀疑它的准确性，单选题又问“哪些说法是正确的”……</p>
+  </li>
+</ol>
+ <a href="/2019/09/26/exam-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2019/09/25/thoughts-on-oca/">
         <h2 class="post-title">
             关于OCA的一些想法
@@ -410,47 +448,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2019/09/05/java-is-pass-by-value/">
-        <h2 class="post-title">
-            Java是值传递
-        </h2>
-        
-        <h3 class="post-subtitle">
-            搞清楚Java是值传递还是引用传递&nbsp;&nbsp;2019年9月5日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h1 id="java是值传递">Java是值传递</h1>
-
-<p>在一本Java面试参考书里面看到一个题目，有如下代码：</p>
-<pre><code class="language-java">public class Test {
-
-    private void change(String str, char[] ch) {
-        str = "test ok";
-        ch[0] = 'g';
-    }
-    public static void main(String[] args) {
-        String str = new String("good");
-        char[] ch = {'a', 'b', 'c'};
-        Test ex = new Test();
-        ex.change(str, ch);
-        System.out.print(str + " and ");
-        System.out.print(ch);
-    }
-}
-</code></pre>
-<p>问上面程序运行的结果是（）<br />
-A. good and abc<br />
-B. good and gbc<br />
-C. test ok and abc<br />
-D. test ok and gbc</p>
- <a href="/2019/09/05/java-is-pass-by-value/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -489,7 +486,7 @@ D. test ok and gbc</p>
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="29">
+                                <a href="/tags/#Java" title="Java" rel="30">
                                     Java
                                 </a>
                             
@@ -528,6 +525,10 @@ D. test ok and gbc</p>
                         
                             
                         
+                            
+                                <a href="/tags/#OCP" title="OCP" rel="4">
+                                    OCP
+                                </a>
                             
                         
                             
