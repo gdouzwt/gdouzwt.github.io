@@ -318,30 +318,36 @@
         
     </a>
     <div class="post-content-preview">
-        <h3 id="nio-2-files-class">NIO 2 Files class</h3>
+        <p><strong>How many methods have to be provided by a class that is not abstract and that implements Serializable interface?</strong></p>
 
-<p>文件操作， <code>Files.copy</code>方法</p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />0
+    <blockquote>
+      <p>Serializable interface does not declare any methods. That is why is also called as a “marker” interface.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />1</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />2</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />3</li>
+</ul>
 
-<p>However, <code>Files.isSameFile</code> method doesn’t check the contents of the file. It is meant to check if the two path objects resolve to the same file or not. In this case, they are not, and so, it will return false.</p>
+<p><strong>Given that a code fragment has just created a JDBC Connection and has executed an update statement, which of the following statements is correct?</strong></p>
 
-<pre><code class="language-java">public static Path copy(Path source, Path target, CopyOption... options) throws IOException
-</code></pre>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database are pending a commit call on the connection.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database will be rolled back if another update is executed without committing the previous update.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Changes to the database will be committed right after the update statement has completed execution.
+    <blockquote>
+      <p>A Connection is always in auto-commit mode when it is created. As per the problem statement, an update was fired without explicitly disabling the auto-commit mode, the changes will be committed right after the update statement has finished execution.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database will be committed when another query (update or select) is fired using the connection.</li>
+</ul>
 
-<p>选项参数（options parameter)可以包括以下：</p>
+<p><strong>Explanation</strong><br />
+When a connection is created, it is in auto-commit mode. i.e. auto-commit is enabled. This means that each individual SQL statement is treated as a transaction and is automatically committed right after it is completed. (A statement is completed when all of its result sets and update counts have been retrieved. In almost all cases, however, a statement is completed, and therefore committed, right after it is executed.)</p>
 
-<p><strong>REPLACE_EXISTING</strong></p>
-
-<p>​      If the target file exists, then the target file is replaced if it is not a non-empty directory. If the target file exists and is a symbolic link, then the symbolic link itself, not the target of the link, is replaced.</p>
-
-<p><strong>COPY_ATTRIBUTES</strong></p>
-
-<p>​      Attempts to copy the file attributes associated with this file to the target file. The exact file attributes that are copied is platform and file system dependent and therefore unspecified. Minimally, the last-modified-time is copied to the target file if supported by both the source and target file store. Copying of file timestamps may result in precision loss.</p>
-
-<p><strong>NOFOLLOW_LINKS</strong></p>
-
-<p>​      Symbolic links are not followed. If the file is a symbolic link, then the symbolic link itself, not the target of the link, is copied. It is implementation specific if file attributes can be copied to the new link.  In other words, the COPY_ATTRIBUTES option may be ignored when copying a symbolic link.<br />
-An implementation of this interface may support additional implementation specific options.
-Coping a file is not an atomic operation. If an <code>IOException</code> is thrown then it’s possible that the target file is incomplete or some of its file attributes have not been copied from the source file. When the REPLACE_EXISTING option is specified and the target file exists, then the target file is replaced. The check for the existence of the creation of the new file may not be atomic with respect to other file system activities.</p>
+<p>The way to allow two or more statements to be grouped into a transaction is to disable the auto-commit mode. Since it is enabled by default, you have to explicitly disable it after creating a connection by calling <code>con.setAutoCommit(false);</code></p>
  <a href="/2020/02/26/ocp-mock-test1-review/"><b>阅读更多📰</b></a>
     </div>
 </div>
