@@ -194,554 +194,62 @@
         col-md-10 col-md-offset-1
         post-containers">
 
-        <p><strong>How many methods have to be provided by a class that is not abstract and that implements Serializable interface?</strong></p>
+        <p><strong>1.</strong> Which of the following annotations are retained for run time?</p>
 
 <ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />0
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@SuppressWarnings
     <blockquote>
-      <p>Serializable interface does not declare any methods. That is why is also called as a “marker” interface.</p>
+      <p>It is defined with @Retention(SOURCE)</p>
     </blockquote>
   </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />1</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />2</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />3</li>
-</ul>
-
-<p><strong>Given that a code fragment has just created a JDBC Connection and has executed an update statement, which of the following statements is correct?</strong></p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database are pending a commit call on the connection.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database will be rolled back if another update is executed without committing the previous update.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Changes to the database will be committed right after the update statement has completed execution.
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@Override
     <blockquote>
-      <p>A Connection is always in auto-commit mode when it is created. As per the problem statement, an update was fired without explicitly disabling the auto-commit mode, the changes will be committed right after the update statement has finished execution.</p>
+      <p>It is defined with @Retention(SOURCE)</p>
     </blockquote>
   </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Changes to the database will be committed when another query (update or select) is fired using the connection.</li>
-</ul>
-
-<p><strong>Explanation</strong><br />
-When a connection is created, it is in auto-commit mode. i.e. auto-commit is enabled. This means that each individual SQL statement is treated as a transaction and is automatically committed right after it is completed. (A statement is completed when all of its result sets and update counts have been retrieved. In almost all cases, however, a statement is completed, and therefore committed, right after it is executed.)</p>
-
-<p>The way to allow two or more statements to be grouped into a transaction is to disable the auto-commit mode. Since it is enabled by default, you have to explicitly disable it after creating a connection by calling <code>con.setAutoCommit(false);</code></p>
-
-<p><strong>Which interfaces does java.util.NavigableMap extend directly or indirectly?</strong></p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.util.SortedSet</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>java.util.Map</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>java.util.SortedMap</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.util.TreeMap</code>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@SafeVarargs
     <blockquote>
-      <p><code>TreeMap</code> is a class that implements <code>NavigableMap</code> interface. <code>ConcurrentSkipListMap</code> is the other such class.</p>
+      <p>It is defined with @Retention(RUNTIME)</p>
     </blockquote>
   </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.util.List</code></li>
-</ul>
-
-<p><strong>Explanation</strong><br />
-A <code>NavigableMap</code> is a <code>SortedMap</code> (which in turn extends Map) extended with navigation methods returning the closest matches for given search targets. Methods <code>lowerEntry</code>, <code>floorEntry</code>, <code>ceilingEntry</code>, and <code>higherEntry</code> return Map. Entry objects associated with keys respectively less than, less than or equal, greater than or equal, and greater than a give key, returning null if there is no such key. Similarly, methods <code>lowerKey</code>, <code>ceilingKey</code>, and <code>higherKey</code> return only the associated keys.</p>
-
-<p>All of these methods are designed for locating, not traversing entries.</p>
-
-<p>A <code>NavigableMap</code> may be accessed and traversed in either ascending or descending key order. The <code>descendingMap</code> method returns a view of the map with the senses of all relational and directional methods inverted. The performance of ascending operations and views is likely to be faster than that of descending ones. Methods <code>subMap</code>, <code>headMap</code>, and <code>tailMap</code> differ from the like-named <code>SortedMap</code> methods in accepting additional arguments describing whether lower and upper bounds are inclusive versus exclusive. Submaps of any NavigableMap must implement the NavigableMap interface.</p>
-
-<p>This interface additionally defines methods <code>firstEntry</code>, <code>pollFirstEntry</code>, <code>lastEntry</code>, and <code>pollLastEntry</code> that return and/or remove the least and greatest mapping, if any exist, else returning null.</p>
-
-<p>Implementations of entry-returning methods are expected to return <code>Map.Entry</code> pairs representing snapshots of mappings at the time they were produced, and thus generally do not support the optional <code>Entry.setValue</code> method. Note however that it is possible to change mappings in the associated map using method put.</p>
-
-<p>Methods <code>subMap(K, K)</code>, <code>headMap(K)</code>, and <code>tailMap(K)</code> are specified to return <code>SortedMap</code> to allow existing implementations of <code>SortedMap</code> to be compatibly retrofitted to implement <code>NavigableMap</code>, but extensions and implementations of this interface are encouraged to override these methods to return <code>NavigableMap</code>. Similarly, <code>SortedMap.keySet()</code> can be overridden to return <code>NavigableSet</code>.</p>
-
-<hr />
-
-<p><strong>In which of the following cases can the Console object be acquired?</strong></p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When the JVM is started from an interactive command line with explicitly redirecting the standard input and output streams to Console.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />When the JVM is started from an interactive command line without redirecting the standard input and output streams.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When the JVM is started in the background with the standard input and output streams directed to Console.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When the JVM is started in the background without redirecting the standard input and output streams.</li>
-</ul>
-
-<p><strong>Explanation</strong><br />
-Whether a virtual machine has a console is dependent upon the underlying platform and also upon the manner in which the virtual machine is invoked. If the virtual machine is started from an interactive command line without redirecting the standard input and output streams then its console will exist and will typically be connected to the keyboard and display from which the virtual machine was launched. If the virtual machine is started automatically, for example by a background job scheduler, then it will typically not have a console.</p>
-
-<p>If this virtual machine has a console then it is represented by a unique instance of this class which can be obtained by invoking the <code>System.console()</code> method. If no console device is available then an invocation of that method will return null.</p>
-
-<hr />
-
-<p>Which of the following are wrapper classes for primitive types?</p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.lang.String</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.lang.Void</code>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@FunctionalInterface
     <blockquote>
-      <p>There is Void class but it does not wrap any primitive type.</p>
+      <p>It is defined with @Retention(RUNTIME)</p>
     </blockquote>
   </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.lang.Null</code>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@Deprecated
     <blockquote>
-      <p>There is no Null class in java.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java.lang.Object</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />None of the above</li>
-</ul>
-
-<p><strong>Explanation</strong><br />
-Frequently it is necessary to represent a value of primitive type as if it were an object. There are following wrapper classes for this purpose:</p>
-
-<p><code>Byte</code>, <code>Char</code>, <code>Character</code>, <code>Short</code>, <code>Integer</code>, <code>Long</code>, <code>Float</code>, and <code>Double</code>.</p>
-
-<p>Note that Byte, Short, Integer, Long, Float and Double extend from Number which is an abstract class. An object of type Double, for example, contains a field whose type is double, representing that value in such a way that a reference to it can be stored in a variable of reference type. These classes also provide a number of methods for converting among primitive values, as well as supporting such standard methods as <code>equals</code> and <code>hasCode</code>.</p>
-
-<p><strong>It is important to understand that objects of wrapper classes are immutable.</strong></p>
-
-<hr />
-
-<p>Complete the following code so that it will print dick, harry, and tom in that order.</p>
-
-<pre><code class="language-java">public class TestClass {
-    public static void main(String[] args) {
-        Set&lt;String&gt; holder = new TreeSet&lt;&gt;();
-        holder.add("tom");
-        holder.add("dick");
-        holder.add("harry");
-        holder.add("tom");
-        printIt(holder);
-    }
-    public static void printIt(Collection&lt;String&gt; list) {
-        for(String s : list) System.out.println(s);
-    }
-}
-</code></pre>
-
-<hr />
-
-<p><strong>Which of the following standard functional interface returns void?</strong></p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Supplier</code>
-    <blockquote>
-      <p>It takes no argument and returns an object.<br />
-<code>T get()</code></p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Function</code>
-    <blockquote>
-      <p>Represents a function that accepts one argument and produces a result.<br />
-<code>R apply(T t)</code><br />
-Applies this function to the given argument.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Predicate</code>
-    <blockquote>
-      <p>It takes and argument and returns a boolean:<br />
-<code>boolean test(T t)</code><br />
-Evaluates this predicate on the given argument.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>Consumer</code>
-    <blockquote>
-      <p>Its functional method is:<br />
-<code>void accept(T t)</code><br />
-Performs this operation on the given argument.<br />
-It also has the following default method:<br />
-<code>default Consumer&lt;T&gt; andThen(Consumer&lt;? super T&gt; after)</code><br />
-Returns a composed <code>Consumer</code> that performs, in sequence, this operation followed by the after operation.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>UnaryOperator</code>
-    <blockquote>
-      <p>Represents an operation on a single operand that produces a result of the same type as its operand. This is a specialization of <code>Function</code> for the case where the operand and result are of the same type.</p>
-    </blockquote>
-  </li>
-</ul>
-
-<p><strong>Explanation</strong><br />
-You should go through the description of all the functional interfaces given <strong><a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">here</a></strong></p>
-
-<hr />
-
-<p>Which of the following switches is/are used for controlling the execution of assertions at run time?</p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>-ua</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>-da</code>
-    <blockquote>
-      <p>It is a short form for ‘disable assertions’.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>-enableassertions</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>-assert</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>-keepassertions</code></li>
-</ul>
-
-<p><strong>Explanation</strong><br />
-Although not explicitly mentioned in the exam objectives, OCP Java 11 Part 2 Exam requires you to know about the switches used to enable and disable assertions. Here are a few important points that you should know:<br />
-Assertions can be enabled or disabled for specific classes and/or packages. To specify a class, use the class name. To specify a package, use the package name followed by “…“(three dots also known as ellipses):<br />
-<code>java -ea:&lt;class&gt; myPackage.myProgram</code><br />
-<code>java -da:&lt;package&gt;... myPackage.myProgram</code><br />
-You can have multiple <code>-ea/-da</code> flags on the command line. For example, multiple flags allow you to enable assertions in general, but disable them in a particular package.<br />
-<code>java -ea -da:com.xyz... myPackage.myProgram</code><br />
-The above command enables assertions for all classes  in all packages, but then the subsequent <code>-da</code> switch disables them for the <code>com.xyz</code> package and its subpackages.<br />
-To enable assertion for one package and disable for other you can use:<br />
-<code>java -ea:&lt;package1&gt;... -da:&lt;package2&gt;... myPackage.myProgram</code><br />
-You can enable or disable assertions in the unnamed root package (i.e. the default package) using the following commands:<br />
-<code>java -ea:... myPackage.myProgram</code><br />
-<code>java -da:... myPackage.myProgram</code><br />
-Note that when you use a package name in the <code>ea</code> or <code>da</code> flag, the flag applies to that package as well as its subpackages. For example,<br />
-<code>java -ea:com... -da:com.enthuware... com.enthuware.Main</code><br />
-The above command first enables assertions for all the classes in <code>com</code> as well as for the classes in the subpackages of <code>com</code>. It then disables assertions for classes in package <code>com.enthuware</code> and its subpackages.<br />
-Another thing is that -ea/-da do not apply to system classes. For system classes (i.e. the classes that com bundled with the JDK/JRE), you need to use <code>-enablesystemassertions/-esa</code> or <code>-disablesystemassertions/-dsa</code><br />
-Note that * and ** are not valid wildcards for including subpackages.</p>
-
-<hr />
-
-<p>Which of these statements concerning the use of standard collection interfaces are true?</p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />None of the standard collection classes are thread safe.
-    <blockquote>
-      <p>Vector and Hashtable are.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />class HashSet implements SortedSet.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Collection classes implementing List cannot have duplicate elements.
-    <blockquote>
-      <p>List is meant for ordering of elements. Duplicates are allowed.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />ArrayList can only accommodate a fixed number of elements.
-    <blockquote>
-      <p>It grows as more elements are added.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Some operations may throw an UnsupportedOperationException.</li>
-</ul>
-
-<p><strong>Explanation</strong><br />
-Some operations may throw an UnsupportedOperationException. This exception type is unchecked, and code calling these operations is not required to explicitly handle exceptions of this type.</p>
-
-<hr />
-
-<p><strong>Which of the following are standard annotations used to suppress various warnings generated by the compiler?</strong></p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>@SuppressWarning("rawtypes")</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>@SuppressWarning( {"deprecation", "unchecked"} )</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>@SuppressWarning("deprecation", "unchecked")</code>
-    <blockquote>
-      <p>Syntax is incorrect because this annotation takes only one value type String array. So, if you want to pass multiple string values, you must pass an array containing those values.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>@SafeVarargs</code>
-    <blockquote>
-      <p>This can be used on a constructor or a method. If a constructor or a method tries to perform unsafe operations involving a var args parameter and a parameterized collection, a warning is generated. This annotation suppresses that warning. Example:</p>
-
-      <pre><code class="language-java">@SafeVarargs // Not actually safe but still suppresses the warning
-static void m(List&lt;String&gt;... stringList) {
-    Object[] array = stringLists;
-    List&lt;Integer&gt; temList = Arrays.asList(42);
-    array[0] = temList; // Semantically invalid, but compiles without warnings because of the annotation
-    String s = stringLists[0].get(0);  // Oh no, ClassCastException at runtime!
-}
-</code></pre>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>@Override</code>
-    <blockquote>
-      <p>This annotation is used only on methods. It causes a warning to be generated if a method does not actually override any method from the base class. It does not suppress any warning.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>@Deprecated</code>
-    <blockquote>
-      <p>This annotation causes a warning to be generated. It does not suppress any warning.</p>
-    </blockquote>
-  </li>
-</ul>
-
-<p><strong>Explanation</strong><br />
-As per JLS 11 section 9.6.4.5, <code>@SuppressWarning</code> must support three values: <code>unchecked</code>, <code>deprecation</code>, and <code>removal</code>. However, it is not an error if you use a value that is not supported by the compiler. A compiler simply ignores it.</p>
-
-<p>Different compilers may support more values. For example, Oracle’s javac compiler supports a large number of values (https://docs.oracle.com/en/java/javase/11/tools/javac.html). The ones that you should be aware of for the exam are: <code>none</code>, <code>rawtypes</code>, <code>serial</code>, and <code>varargs</code>.</p>
-
-<p>This annotation is not repeatable. Therefore, you cannot use it twice on the same type. However, you can specify multiple values like this: <code>@SuppressWarning({ "deprecation", "unchecked"} )</code></p>
-
-<hr />
-
-<p><strong>You are implementing a special sorting algorithm that can sort objects of different classes. Which of the following class declarations will you use?</strong></p>
-
-<ul class="task-list">
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java
-public class SpecialSorter&lt;&gt; {
-    ...
-}
-</code></p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>java
-public class SpecialSorter&lt;K&gt; {
-    ...
-}
-</code></p>
-
-    <blockquote>
-      <p>This is the correct way to define a generic class. Within the class, you can use K as a type, for example:</p>
-
-      <pre><code class="language-java">public class SpecialSorter&lt;K&gt; {
-    public void sort(ArrayList&lt;K&gt; items) {
-        K item = items.get(0);
-        // ...
-    }
-}
-</code></pre>
-    </blockquote>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java
-public class &lt;SpecialSorter&gt; {
-    ...
-}
-</code></p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java
-public class SpecialSorter(K) {
-    ...
-}
-</code></p>
-  </li>
-</ul>
-
-<hr />
-
-<p><strong>Code that uses generic collection classes can interoperate with code that uses raw collections classes because of?</strong></p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />type erasure
-    <blockquote>
-      <p>Type erasure means that a compiled java class does not contain any of the generic information that is present in the java file. In other words, the compiler removes the generic information from a java class when it compile it into byte code. For example, <code>List&lt;String&gt; list;</code> and <code>List list;</code> are compiled to the same byte code. Therefore, at run time, it does not matter whether you’ve used generic classes or not and this kinds of classes to interoperate because they are essentially the same class to the JVM.<br />
-Type erasure ensure that no new classes are created for parameterized types; consequently, generics incur no runtime overhead.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />reification
-    <blockquote>
-      <p>This is just the opposite of type erasure. Here, all the type information is preserved in the byte code. In Java, arrays are reified. For example,</p>
-
-      <pre><code class="language-java">ArrayList[] alArray = new ArrayList[1];
-Collection[] cArray = alArray;
-cArray[0] = new HashSet();
-</code></pre>
-
-      <p>The above code will compile fine. But it will throw an <code>java.lang.ArrayStoreException</code> at run time because the byte code contains the information that <code>cArray</code> actually points to an array of <code>ArrayList</code>s and not of <code>HasSet</code>s.</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />just in time compilation</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />byte code instrumentation<br />
-字节码操作好像有点意思。</li>
-</ul>
-
-<hr />
-
-<p><strong>Which of the following is/are valid functional interface?</strong></p>
-
-<ul class="task-list">
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java
-interface F {
-    default void m() {}
-}
-</code></p>
-
-    <p>It is not a valid functional interface because it does not have an abstract method.</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java
-interface F {
-    default void m() {}
-    static void n() {}
-}
-</code></p>
-
-    <p>It is not a valid functional interface because it does not have an abstract method.</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java
-interface F {
-    void m();
-    void n();
-}
-</code></p>
-
-    <p>It is not a valid functional interface because it has more than one abstract methods.</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>java
-interface F {
-    default void m() { }
-    abstract void n();
-}
-</code></p>
-
-    <p>The use of abstract keyword is redundant here, but it legal.</p>
-  </li>
-  <li class="task-list-item">
-    <p><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>java
-interface F {
-    void m() {}
-}
-</code></p>
-  </li>
-</ul>
-
-<p>This will not compile because the method has a body but it lacks the keyword default.</p>
-
-<p><strong>Explanation</strong><br />
-A functional interface is an interface that contains exactly one abstract method. It may contain zero or more default methods and/or static methods in addition to the abstract method. Because a functional interface contains exactly one abstract method, you can omit the name of that method when you implement it using a lambda expression. For example, consider the following interface -</p>
-
-<pre><code class="language-java">interface Predicate&lt;T&gt; {
-    boolean test(T t);
-}
-</code></pre>
-
-<p>The purpose of this interface is to provide a method that operates on an object of class T and return a boolean.</p>
-
-<p>You could have a method that takes an instance of class that  implements this interface defined like this -</p>
-
-<pre><code class="language-java">public void printImportantData(ArrayList&lt;Data&gt; dataList, Predicate&lt;Data&gt; p) {
-    for (Data d: dataList) {
-        if (p.test(d)) System.out.println(d);
-    }
-}
-</code></pre>
-
-<p>where Data class could be as simple as <code>public class Data { public int value; }</code></p>
-
-<p>Now, you can call the above method as follows:</p>
-
-<p><code>printImportantData(al, (Data d) -&gt; { return d.value &gt; 1; } );</code></p>
-
-<p>Notice the lack of method name here. This is possible because the interface has only one abstract method so the compiler can figure out the name. This can be shortened to:</p>
-
-<p><code>printImportantData(al, d -&gt; d.value &gt; 1);</code></p>
-
-<p>Notice that there is no declaration of d! The compiler can figure out all information it needs because the interface has only one abstract method and that method has only one parameter. So you don’t need to write all those things in your code.</p>
-
-<p>Compare the above approach to the old style using an inner class that does the same thing -</p>
-
-<pre><code class="language-java">printImportantData(al, new Predicate&lt;Data&gt;() {
-    public boolean test(Data d) {
-        return d.value &gt; 1;
-    }
-});
-</code></pre>
-
-<p>The <code>Predicate</code> interface described above can be used anywhere there is a need to “do something with an object and return a boolean” and is actually provided by the standard java library in <code>java.util.function</code> package. This package provides a few other useful functional interfaces.</p>
-
-<p><code>Predicate&lt;T&gt;</code> Represents a predicate (boolean-valued function) of one argument of type T.<br />
-<code>Consumer&lt;T&gt;</code> Represents an operation that accepts a single input argument of type T and returns no result.<br />
-<code>Function&lt;T, R&gt;</code> Represents a function that accepts one argument of type T and produces a result of type R<br />
-<code>Supplier&lt;T&gt;</code> Represents a supplier of results of type T.</p>
-
-<p>Please see <a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html</a> for learning Lambda expressions in Java.</p>
-
-<hr />
-
-<p>看段代码，判断输出：</p>
-
-<pre><code class="language-java">import java.util.HashSet;
-
-enum SIZE {
-    TALL, GRANDE, JUMBO;
-}
-
-public class CoffeeMug {
-    public static void main(String[] args) {
-        HashSet&lt;SIZE&gt; hs = new HashSet&lt;&gt;();
-        hs.add(SIZE.TALL); hs.add(SIZE.JUMBO); hs.add(SIZE.GRANDE);
-        hs.add(SIZE.TALL); hs.add(SIZE.TALL); hs.add(SIZE.JUMBO);
-        for(SIZE s: hs) System.out.println(s);
-    }
-}
-</code></pre>
-
-<p>There are two concepts involved in this question:</p>
-
-<ol>
-  <li>A <code>Set</code> (such as a <code>HashSet</code>) does not allow duplicate elements. If you add a duplicate element, it is ignored. Thus, only three unique <code>SIZE</code> elements are stored.</li>
-</ol>
-
-<p>It is important to understand how the <code>add()</code> method of a Set works :<br />
-<code>boolean add(E o)</code>
-    Adds the specified element to this set if it is not already present (optional operation). More formally, adds the specified element, o, to this set if this set contains no element e such that <code>(o==null ? e==null : o.equals(e))</code>. If this set already contains the specified element, the call leaves this set unchanged and returns false. In combination with the restriction on constructors, this ensures that sets never contain duplicate elements.</p>
-
-<ol>
-  <li>The order of elements is not defined in <code>HashSet</code>. So while retrieving elements, it can return them in any order.</li>
-</ol>
-
-<p>Remember that, <code>TreeSet</code> does store elements in their <strong>natural sorted order</strong>.</p>
-
-<p>Also remember that the order of Enums is the order in which they are defined. It is not necessarily same as alphabetical order of their names.</p>
-
-<hr />
-
-<p><strong>Which of the following annotations are retained for run time?</strong></p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>@SuppressWarnings</code>
-    <blockquote>
-      <p>It is defined with <code>@Retention(SOURCE)</code></p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>@Override</code>
-    <blockquote>
-      <p>It is defined with <code>@Retention(SOURCE)</code></p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>@SafeVarargs</code>
-    <blockquote>
-      <p>It is defined with <code>@Retention(RUNTIME)</code></p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>@FunctionalInterface</code>
-    <blockquote>
-      <p>It is defined with <code>@Retention(RUNTIME)</code></p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>@Deprecated</code>
-    <blockquote>
-      <p>It is defined with <code>@Retention(RUNTIME)</code></p>
+      <p>It is defined with @Retention(RUNTIME)</p>
     </blockquote>
   </li>
 </ul>
 
 <hr />
 
-<p><strong>Your application needs to load a set of key value pairs from a database table which never changes. Multiple threads need to access this information but none of them changes it.  Which class would be the most appropriate to store such data if the values need not be keep in a sorted fashion?</strong></p>
+<p><strong>2.</strong> Your application needs to load a set of key value pairs from a database table which never changes. Multiple threads need to access this information but none of them changes it.<br />
+Which class would be the most appropriate to store such data if the values need not be kept in a sorted fashion?</p>
 
 <ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Hashtable</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>HashMap</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>Set</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>TreeMap</code></li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>List</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Hashtable</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />HaspMap</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />TreeMap</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />List</li>
 </ul>
 
 <p><strong>Explanation</strong><br />
 You should know that all <code>Hashtable</code> methods are synchronized and this compromises its performance for simultaneous reads.<br />
-Since no thread modifies the data, it is not efficient to use a <code>Hashtable</code>.<br />
-A <code>HashMap</code> is perfect choice because its methods are not synchronized and so it allows efficient multiple reads. <code>TreeMap</code> is used to keep the keys sorted which makes it a little bit slower than <code>HashMap</code>.<br />
-<code>Set</code> and <code>List</code> can’t be used since we need to store Key-value pairs.</p>
+Since not thread modifies the data, it is not efficient to use a <code>Hashtable</code>.<br />
+A <code>HashMap</code> is a perfect choice because its methods are not synchronized and so it allows efficient multiple reads. TreeMap is used to keep the keys sorted which makes it a little bit slower than <code>HashMap</code>.<br />
+<code>Set</code> and <code>List</code> can’t be used since we need to store Key-value pairs.  <!--more--></p>
 
 <hr />
 
-<p><strong>A programmer has written the following code to ensure that the phone number is not null and is of 10 characters:</strong></p>
+<p><strong>3.</strong> A programmer has written the following code to ensure that the phone number is not null and is of 10 characters:</p>
 
 <pre><code class="language-java">public void processPhoneNumber(String number) {
-    assert number != null &amp;&amp; number.length() == 10 : "Invalid phone number";
-    ...
+  assert number != null &amp;&amp; number.length() == 10 : "Invalid phone number";
+  ...
 }
 </code></pre>
 
@@ -749,25 +257,425 @@ A <code>HashMap</code> is perfect choice because its methods are not synchronize
 
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />This is an appropriate use of assertions.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />This code will not work  in all situations.
-    <blockquote>
-      <p>It will not work if assertions are disabled.</p>
-    </blockquote>
-  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />This code will not in all situations.</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />The given code is syntactically correct.</li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Constrains on input parameters should be enforced using assertions.</li>
 </ul>
 
 <p><strong>Explanation</strong><br />
-As a rule, assertions should not be used to assert the validity of input parameters of a public method. Since assertions may be disabled at the wish of the user of the program, input validation will not occur when assertions are disabled. A public method should ensure in all situations(whether assertions are enabled or disabled) that the input parameters are valid before proceeding with the rest of the code. For this reason, input validation should always be done using the standard exception mechanism:</p>
+As a rule, assertions should not be used to assert the validity of the input public method. Since assertions may be disabled at wish of the user of the program, input validation will not occur when assertions are disabled. A public method should ensure in all situations(whether assertions are enabled or disabled) that the input parameters are valid before proceeding with the rest of the code. For this reason, input validation should always be done using the standard exception mechanism:</p>
 
 <p><code>if(number == null || number.length() != 10) throw new RuntimeException("Invalid phone number");</code></p>
 
-<p>However, assertions may be used to validate the input parameters of a private method. This is because private methods are called only by the developer of the class. Therefore, if a private method is called with an invalid parameter, this problem should be rectified at the development stage itself. It cannot occur in the production stage, so there is not need to throw an explicit exception.</p>
+<p>However, assertions may be used to validate the input parameters of a private method. This is because private methods are called only by the developer of the class. Therefore, if a private method is called with an invalid parameter, this problem should be rectified at the development stage itself. It cannot occur in the production stage, so there is no need to throw an explicit exception.</p>
 
 <hr />
 
-<p><strong>Which clause(s) are used by a module definition that implements a service?</strong></p>
+<p><strong>8.</strong> Which is/are the root interface(s) for all collection related interfaces?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />BaseCollection</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Collection</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />List</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Map</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+All name-value maps such as <code>java.util.HashMap</code> and <code>java.util.TreeMap</code> implement <code>java.util.Map</code> and all collections such as <code>java.util.ArrayList</code>, and <code>java.util.LinkedList</code> implement <code>java.util.Collection</code>.</p>
+
+<hr />
+
+<p><strong>9.</strong> You have a collection (say, an ArrayList) which is read by multiple reader threads and which is modified by a single writer thread. The collection allows multiple concurrent reads but does not tolerate concurrent read and write. Which of the following strategies will you use to obtain best performance?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />synchronize all access to the collection.
+    <blockquote>
+      <p>While this is a valid approach, if you do this then even the reader threads will not be able to read concurrently. This will drastically reduce performance.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />make the collection variable final.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />make the collection variable final and volatile.
+    <blockquote>
+      <p>Making it final and volatile will only ensure that all threads access the same collection object but it will not prevent simultaneous access by reader and writer threads.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Wrap the collection into its synchronized version using Collections.synchronizedCollection().
+    <blockquote>
+      <p>This is same as option 1 and has the same issue.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Encapsulate the collection into another class and use ReadWriteLock to manage read and write access.</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+Since the collection allows multiple simultaneous reads, it is ok for multiple threads to access the collection simultaneously if they are not modifying the collection. On the other hand, a writer thread must get sole custody of the collection before modifying. This can be easily achieved by using a ReadWriteLock. For example:</p>
+
+<pre><code class="language-java">public class MultipleReadersSingleWriter {
+    private final ArrayList&lt;String&gt; theList = new ArrayList&lt;String&gt;();
+    //Note that ReadWriteLock is an interface.
+    private final ReadWriteLock rwl = new ReentrantReadWriteLock();
+    private final Lock r = rwl.readLock();
+    private final Lock w = rwl.writeLock();
+    public String read(){
+        r.lock();
+        try{
+            System.out.println("reading");
+            if(theList.isEmpty()) return null;
+            else return theList.get(0);
+        }finally{
+            r.unlock();
+        }
+    }
+    public void write(String data){
+        w.lock();
+        try{
+            System.out.println("Written "+data);
+            theList.add(data);
+        }finally{
+            w.unlock();
+        }
+    }
+}
+</code></pre>
+
+<hr />
+
+<p><strong>11.</strong> Which variables of the encapsulating class can an inner class access, if the inner class is defined in a instance method of the encapsulating class?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />All static variables.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />All final instance variables.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />All instance variables.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />All automatic variables.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />All final and effectively final automatic variables.</li>
+</ul>
+
+<p><strong>Explanation</strong> <br />
+Consider the following code:</p>
+
+<pre><code class="language-java">public class TestClass
+{
+  static int si = 10; int ii = 20;
+  public void inner() {
+    int ai = 30; // automatic variable
+    ai = 31; // ai is not effectively final anymore
+    final int fai = 40; // automatic final variable
+    class Inner {
+      public Inner() { System.out.println(si" "+ii+" "+fai); }
+    }
+    new Inner();
+  }
+  public static void main(String[] args) { ne TestClass().inner(); }
+}
+</code></pre>
+
+<p>As method <code>inner()</code> is an instance method(i.e. non-static method), <code>si</code>, <code>ii</code>, and <code>fai</code> are accessible in class <code>Inner</code>. Note that <code>ai</code> is not accessible because it is not effectively final. If the line <code>ai = 31;</code> did not exist, <code>ai</code> would have been accessible. If method <code>inner()</code> were a static method, <code>ii</code> would have been inaccessible. Prior to Java 8, only final local variables were accessible to the inner class but in Java 8, event effectively final local variables of the method are accessible to the inner defined in that method as well.</p>
+
+<p><strong>12.</strong> Which interface would you use to represent a collection having non-unique objects in the order of insertion?</p>
+<blockquote>
+  <p>List<br />
+java.util.List</p>
+</blockquote>
+
+<p><strong>Explanation</strong><br />
+<code>java.util.List</code> interface is implemented by collections that maintain sequences of possibly non-unique elements. Elements retain their ordering in the sequence. Collection classes implementing <code>SortedSet</code> maintain their elements sorted in the set.</p>
+
+<hr />
+
+<p><strong>14.</strong> Identify the correct statement about i18n.</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />I18N class allows you to port your code from multiple regions and/or languages.
+    <blockquote>
+      <p>There is no class named I18N.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />You should use Locale and formatter objects such as NumberFormat and DateFormat to generate locale specific output.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />The i18n method of NumberFormat and DateFormat allows you to generate locale specific output.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Using default locale for NumberFormat and DateFormat automatically ensures that the formatted text will be localized to the location - [ ] setting of the machine on which the code is run.(Assuming the default locale hasn’t been explicitly changed by any means.)
+    <blockquote>
+      <p>When not passed to the <code>getInstance()</code> method, the default <code>Locale</code> is used, which is same as the one set by the operating system. If you want to change it,(for example, if you want to generate French format on a US machine), you must create a new <code>Locale("fr", "FR")</code> object and use the following methods to get an appropriate NumberFormat or DateFormat instance -<br />
+NumberFormat: <code>NumberFormat getInstance(Locale locale)</code><br />
+DateFormat: <code>DateFormat getDateInstance(int style, Locale locale)</code><br />
+Note that DateFormat does not have <code>getInstance(Locale locale)</code> method.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />i18n stands for Internationalization and it is handled automatically by Java.</li>
+</ul>
+
+<hr />
+
+<p><strong>15.</strong> Which of the following statements are correct regarding abstract classes and interfaces?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An abstract class can have private as well as static methods while an interface can not have static methods.
+    <blockquote>
+      <p>Interfaces can have static methods(public as well as private). Interfaces cannot have protected methods. It cannot have non-public fields and instance fields.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />An abstract class cannot implement multiple interfaces while an interface can extend multiple interfaces.
+    <blockquote>
+      <p>An abstract class(or any class for that matter) can implement any number of interfaces.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Abstract classes can have abstract methods but interface cannot.
+    <blockquote>
+      <p>Both abstract classes and interfaces can have abstract as well as non-abstract methods. The difference is that by default(i.e. when no modifier is specified), the methods of an abstract class have “default” access and are non-abstract(i.e. must have a body), while the methods of an interface are public and abstract.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Abstract classes can have instance fields but interfaces can’t
+    <blockquote>
+      <p>Fields of an interface are always public, static, and final.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />An abstract class can have final methods but an interface cannot.</li>
+</ul>
+
+<p><strong>16.</strong> Which of the following statements are correct?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Assertions can be enabled or disabled on a class basis.
+    <blockquote>
+      <p>Yes, it can be enabled/disabled for class as well as package basis using -ea or -da flags.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Assertions are appropriate to check whether method parameters are valid.
+    <blockquote>
+      <p>Since it does not say which kind of methods (public or private), you should assume all methods.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Conditional compilation is used to allow an application that uses assertions to run with maximum performance.
+    <blockquote>
+      <p>Assertion can be disabled without recompiling the code.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When an assertion fails, a programmer may either throw an exception or simply return from the method.
+    <blockquote>
+      <p>When an assertion fails, a programmer should always throw the exception.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+An assertion signifies a basic assumption made by the programmer that he/she believes to be true at all times. It is never a wise idea to try to recover when an assertion fails because that is the whole purpose of assertions: that the program should fail if that assumption fails.</p>
+
+<hr />
+
+<p><strong>17.</strong> Complete the code so that the user can enter a password on the command line.</p>
+
+<pre><code class="language-java">import java.io.Console;
+public class TestClass {
+  public static void main(String[] args) throws Exception {
+    Console c = System.console();
+    char[] cha = c.readPassword("Please enter password:");
+    String pwd = new String(cha);
+    System.out.println("pwd = "+pwd);
+  }
+}
+</code></pre>
+
+<p><strong>Explanation</strong><br />
+<strong>1.</strong> <code>Console</code> class is in <code>java.io</code> package.<br />
+<strong>2.</strong> Correct way to retrieve the <code>Console</code> object is <code>System.console();</code> There is only one <code>Console</code> object so <code>new Console();</code> doesn’t make sense. And therefore, Console’s constructor is not public.<br />
+<strong>3.</strong> You can read user’s input using either <code>readLine()</code> or <code>readPassword()</code>. Here, since you are reading password, <code>readPassword()</code> should be used. <code>readPassword()</code> ensures that the keys typed by the user aren’t echoed to the command prompt.</p>
+
+<hr />
+
+<p><strong>19.</strong> What will the following code print?</p>
+
+<pre><code class="language-java">ReentrantLock rlock = new ReentrantLock();
+boolean f1 = rlock.lock();
+System.out.println(f1);
+boolean f2 = rlock.lock();
+System.out.println(f2);
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />    <blockquote>
+      <p>true<br />
+true</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />    <blockquote>
+      <p>true<br />
+false</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />    <blockquote>
+      <p>true</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will not compile.
+    <blockquote>
+      <p><code>java.util.concurrent.locks.Lock</code> interface’s <code>lock()</code> method returns <code>void</code>, while its <code>tryLock()</code> returns <code>boolean</code>.<br />
+Had the code been:</p>
+    </blockquote>
+  </li>
+</ul>
+
+<pre><code class="language-java">ReentrantLock rlock = new ReentrantLock();
+boolean f1 = rlock.tryLock();
+System.out.println(f1);
+boolean f2 = rlock.tryLock();
+System.out.println(f2);
+</code></pre>
+
+<p>It would have printed:</p>
+<blockquote>
+  <p>true<br />
+true</p>
+</blockquote>
+
+<p>Note that <code>java.util.concurrent.locks.ReentrantLock</code> class implements <code>java.util.concurrent.locks.Lock</code> interface.</p>
+
+<hr />
+
+<p><strong>21.</strong> Anonymous inner classes always extend directly from the Object class.</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />True</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />False</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+When you create an anonymous class for an interface, it extends from Object. For example,<br />
+button.addActionListener( new ActionListener() {  public void actionPerformed(ActionEvent ae) { } }  );<br />
+But if you make an anonymous class from another class then it extends from that class. For example, consider the following class:</p>
+
+<pre><code class="language-java">class MyListener implements ActionListener {
+  public void actionPerformed(ActionEvent ae) {
+    System.out.println("MyListener class");
+  }
+}
+
+button.addActionListener(new MyListener() {
+  public void actionPerformed(ActionEvent ea) {
+    System.out.println("Anonymous Listener class");
+  }
+});
+</code></pre>
+
+<p>Here the anonymous class actually extends from MyListener class and successfully overrides the actionPerformed() method.</p>
+
+<hr />
+
+<p><strong>22.</strong> Consider the following code:</p>
+
+<pre><code class="language-java">Locale myLoc = new Locale("fr", "FR");
+ResourceBundle rb = ResourceBundle.getBundle("appmessages", myLoc);
+//INSERT CODE HERE
+</code></pre>
+
+<p>Which of the following lines of code will assign a ResourceBundle for a different Locale to rb than the one currently assigned?<br />
+(Assume appropriate import statements)</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />rb = ResourceBundle.getBundle(“appmessages”, new Locale(“ch”, “CH”));</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />rb = ResourceBundle.getBundle(“appmessages”, CHINA);
+    <blockquote>
+      <p>In this question, the import statements are not specified. If appropriate imports are present (i.e. import static java.util.Locale.*; ), this will work fine. In the exam, you may see a couple of question that have such ambiguous options. In our opinion, it is best not to assume anything special or out of ordinary. Therefore, this option should not be selected.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />myLoc.setLocale(Locale.CHINA);
+    <blockquote>
+      <p>There is no setLocale() method in Locale.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />myLoc.setLocale(new Locale(“ch”, “CH”));</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />rb = ResourceBundle.getBundle(“appmessages”, Locale.CHINA);</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />rb.setLocale(Locale.CHINA);
+    <blockquote>
+      <p>There is no setLocale() method in Locale.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+Note that once a <code>ResourceBundle</code> is retrieved, changing the Locale will not affect the <code>ResourceBundle</code>. You have to retrieve a new <code>ResourceBundle</code> by passing in the new <code>Locale</code> and then assign it to the variable.</p>
+
+<hr />
+
+<p><strong>23.</strong> Which of these methods are defined in the Map interface?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />contains(Object o)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />addAll(Collection c)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />remove(Object o)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />values()</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />toArray()</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+The Map interface defines the methods <code>remove(Object)</code> and <code>values()</code>. It does not define  methods <code>contains()</code>, <code>addAll()</code> and <code>toArray()</code><br />
+Methods with these names are defined in the Collection interface, but Map does not extend from Collection.</p>
+
+<hr />
+
+<p><strong>24.</strong> Insert appropriate methods so that the following code will produce expected output.</p>
+
+<pre><code class="language-java">import java.util.*;
+public class TestClass {
+  public static void main(String[] args) {
+    NavigableSet&lt;String&gt; myset = new TreeSet&lt;String&gt;();
+    myset.add("a"); myset.add("b"); myset.add("c");
+    myset.add("aa"); myset.add("bb"); myset.add("c");
+    System.out.println(myset.floor("a"));
+    System.out.println(myset.ceiling("aaa"));
+    System.out.println(myset.lower("a"));
+    System.out.println(myset.higher("bb"));
+  }
+}
+</code></pre>
+
+<p><strong>Expected output.</strong></p>
+<blockquote>
+  <p>a<br />
+b<br />
+null<br />
+c</p>
+</blockquote>
+
+<p><strong>25.</strong> Complete the following code so that it will print each line in the given file.</p>
+
+<pre><code class="language-java">import java.io.*;
+class Liner {
+  public void dumper(File f) throws IOException {
+    FileReader x1 = new FileReader(f);
+    BufferedReader x2 = new BufferedReader(x1);
+    String x3 = x2.readLine();
+    while (x3 != null) {
+      System.out.println(x3);
+      x3 = x2.readLine();
+    }
+  }
+}
+</code></pre>
+
+<p><strong>26.</strong> Which of the following statements are correct?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Assertions are usually enabled in the production environment.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Assertions are usually disabled in the development and testing environment.
+    <blockquote>
+      <p>Just the reverse is true.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Assertions can be enabled selectively on per class basis but not on per package basis.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Assertions can be enabled selectively on per class basis as well as on per package basis.
+    <blockquote>
+      <p>Yes, it can be enabled/disabled on class as well as package basis -ea or -da flags.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It is not a good practice to write code that recovers from an assertion failure.</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+An assertion signifies a basic assumption made by the programmer that he/she believes to be true at all times. It is never a wise idea to try to recover when an assertion fails is the whole prupose of assertions: that the program should fail if that assumption fails.</p>
+
+<hr />
+
+<p><strong>27.</strong> Which clause(s) are used by a module definition that implements a service?</p>
 
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />exports
@@ -811,7 +719,7 @@ For example, if an <code>abc.print</code> module implements an <code>org.printin
 
 <hr />
 
-<p><strong>Which of the following statements regarding the assertion mechanism of Java is NOT correct?</strong></p>
+<p><strong>31.</strong> Which of the following statements regarding the assertion mechanism of Java is NOT correct?</p>
 
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Assertions require changes at the JVM level.
@@ -843,12 +751,12 @@ For example, if an <code>abc.print</code> module implements an <code>org.printin
 
 <hr />
 
-<p><strong>Identify correct statements about annotations.</strong></p>
+<p><strong>32.</strong> Identify correct statements about annotations.</p>
 
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@SuppressWarnings can be used only on a class, constructor, or a method.
     <blockquote>
-      <p>Actually, it can be used on several things. Its target can be a <strong>TYPE</strong>, <strong>FIELD</strong>, <strong>METHOD</strong>, <strong>PARAMETER</strong>, <strong>CONSTRUCTOR</strong>, <strong>LOCAL_VARABLE</strong>, and <strong>MODULE</strong>.</p>
+      <p>Actually, it can be used on several things. Its target can be a <strong>TYPE</strong>, <strong>FIELD</strong>, <strong>METHOD</strong>, <strong>PARAMETER</strong>, <strong>CONSTRUCTOR</strong>, <strong>LOCAL_VARIABLE</strong>, and <strong>MODULE</strong>.</p>
     </blockquote>
   </li>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@Override can only be used on instance methods.</li>
@@ -869,53 +777,36 @@ For example, if an <code>abc.print</code> module implements an <code>org.printin
   </li>
 </ul>
 
-<p>1</p>
+<hr />
 
-<p>2</p>
+<p><strong>33.</strong> Which of the following is thrown when an assertion fails?</p>
 
-<p>3</p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />AssertionError</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />AssertionException</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />RuntimeException</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />AssertionFailedException</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Exception</li>
+</ul>
 
-<p>8</p>
+<p><strong>Explanation</strong><br />
+A java.lang.AssertionError is thrown.</p>
 
-<p>9</p>
+<pre><code class="language-java">public class java.lang.AssertionError extends java.lang.Error {
+  public java.lang.AssertionError();
+  public java.lang.AssertionError(java.lang.Object);
+  public java.lang.AssertionError(boolean);
+  public java.lang.AssertionError(char);
+  public java.lang.AssertionError(int);
+  public java.lang.AssertionError(long);
+  public java.lang.AssertionError(float);
+  public java.lang.AssertionError(double);
+}
+</code></pre>
 
-<p>11</p>
+<hr />
 
-<p>12</p>
-
-<p>14</p>
-
-<p>15</p>
-
-<p>16</p>
-
-<p>17</p>
-
-<p>19</p>
-
-<p>21</p>
-
-<p>22</p>
-
-<p>23</p>
-
-<p>24</p>
-
-<p>25</p>
-
-<p>26</p>
-
-<p>27</p>
-
-<p>31</p>
-
-<p>32</p>
-
-<p>33</p>
-
-<p>38</p>
-
-<p><strong>40.</strong> Which of the following are required to construct a Locale?</p>
+<p><strong>38.</strong> Which of the following are required to construct a Locale?</p>
 
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />language</li>
@@ -930,7 +821,7 @@ For example, if an <code>abc.print</code> module implements an <code>org.printin
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />culture</li>
 </ul>
 
-<p><strong>Explanation</strong>
+<p><strong>Explanation</strong><br />
 Locale needs at least a language to be constructed. It has three constructor -<br />
 <code>Locale(String language)</code><br />
 Construct a locale from a language code.<br />
@@ -943,6 +834,42 @@ Construct a locale from language, country, variant</p>
 <code>new Locale("fr", "FR");</code> // language is French, Country is France.<br />
 <code>new Locale("fr", "CA");</code> // language is French, Country is Canada, so this means, you are trying to use Canadian dialect of French.<br />
 <code>new Locale("en", "IN");</code> // language is English, COuntry is India, so this means, you are trying to use Indian dialect of English.</p>
+
+<hr />
+
+<p><strong>40.</strong> Which of the following are standard Java annotations?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@NonNull
+    <blockquote>
+      <p>This is not a standard Java annotation.<br />
+Although this annotation is officially not in scope for the OCP Java 11 exam, we have seen questions on the exam that require knowledge about this annotation. It exists in Spring framework as well as in <strong><a href="https://checkerframework.org/manual/">Checker Framework</a></strong>, which is referred in an Oracle <strong><a href="https://blogs.oracle.com/java-platform-group/java-8s-new-type-annotations">blog</a></strong><br />
+It can be applied to a field, method parameter, or method return type.<br />
+org.springframework.lang<br />
+Annotation Type NonNull<br />
+@Target(value={METHOD,PARAMETER,FIELD})<br />
+@Retention(value=RUNTIME)<br />
+@Documented @Nonnull<br />
+@TypeQualifierNickname<br />
+public @interface NonNull<br />
+A common Spring annotation to declare that annotated elements cannot be null.<br />
+It can be used like this:<br />
+<strong>1.</strong> @NonNull String getString(@NonNull String input){ return “adsf”; };<br />
+<strong>2.</strong> @NonNull String name; //instance or class fields<br />
+<strong>3.</strong> Function&lt;Integer, Integer&gt; fin =  (@NonNull var x) -&gt; 2*x;//lambda expression<br />
+You may see the details of the NonNull annotation of the checker framework <strong><a href="https://checkerframework.org/api/org/checkerframework/checker/nullness/qual/NonNull.html">here</a></strong></p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@Interned
+    <blockquote>
+      <p>@Interned is not a standard Java annotation.<br />
+Although this annotation is officially not in scope for the OCP Java 11 exam, we have seen questions on the exam that require knowledge about this annotation. It exists in Spring framework as well as in <strong><a href="https://checkerframework.org/manual/">Checker Framework</a></strong>, which is referred in an Oracle <strong><a href="https://blogs.oracle.com/java-platform-group/java-8s-new-type-annotations">blog</a></strong></p>
+
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@Repeatable</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@Retention</li>
+</ul>
 
 <hr />
 
@@ -975,7 +902,7 @@ public class ChangeFileNames {
 }
 </code></pre>
 
-<p><strong>Explanation</strong>
+<p><strong>Explanation</strong><br />
 This programs illustrates the usage of many important File class methods.<br />
 <strong>1.</strong> The <code>isDirectory()</code> method returns <code>true</code> if the file object represents a directory.<br />
 <strong>2 and 3.</strong> File class has two methods for returning the contents of a directory (although it has more but for the exam, you need to know only these two):<br />
@@ -1000,7 +927,7 @@ The for loop is expecting ‘files’ to be an array or a Collection of File obj
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />None of the above.</li>
 </ul>
 
-<p><strong>Explanation</strong>
+<p><strong>Explanation</strong><br />
 In general, there is no restriction on what a nested class may or may not extend.<br />
 FYI, a nested class is any class whose declaration occurs within the body of another class or interface. A top level class is a class that is not a nested class. An inner class is a nested class that is not explicitly or implicitly declared static.</p>
 
@@ -1024,7 +951,7 @@ FYI, a nested class is any class whose declaration occurs within the body of ano
   </li>
 </ul>
 
-<p><strong>Explanation</strong>
+<p><strong>Explanation</strong><br />
 <code>java.sql.ResultSet</code> is another important interface that a driver must provide.<br />
 Besides these, there are several interfaces and methods that a driver must provide but they are not relevant for the exam. If you want to learn more, please refer JDBC Specification.</p>
 
@@ -1039,7 +966,7 @@ Besides these, there are several interfaces and methods that a driver must provi
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />When a JDBC Connection is created, it is in commit mode undetermined.</li>
 </ul>
 
-<p><strong>Explanation</strong>
+<p><strong>Explanation</strong><br />
 When a connection is created, it is in auto-commit mode. i.e. auto-commit is enabled. This means that each individual SQL statement is treated as a transaction and is automatically committed right after it is completed. (A statement is completed when all of its result sets and update counts have been retrieved. In almost all cases, however, a statement is completed, and therefore committed, right after it is executed.)<br />
 The way to allow two or more statements to be grouped into a transaction is to disable the auto-commit mode. Since it is enabled by default, you have to explicitly disable it after creating a connection by calling <code>con.setAutoCommit(false);</code></p>
 
@@ -1063,7 +990,7 @@ The way to allow two or more statements to be grouped into a transaction is to d
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Anonymous classes cannot be static.</li>
 </ul>
 
-<p><strong>Explanation</strong>
+<p><strong>Explanation</strong><br />
 Non-static inner classes can contain final static fields (but not methods).<br />
 Anonymous classes cannot have explicitly defined constructors, since they have no names.<br />
 Remember: A nested class is any class whose declaration occurs within the body of another class or interface. A top level class is a class that is not a nested class. An inner class is a nested class that is not explicitly or implicitly declared <code>static</code>. A class defined inside an interface is implicitly <code>static</code>.<br />
@@ -1377,15 +1304,12 @@ class Portfolio implements Serializable {
 }
 </code></pre>
 
-<p><strong>Explanation</strong></p>
-
-<ol>
-  <li>Bond class does not implement Serializable. Therefore, for Portfolio to be serialized, ‘bond’ must be transient.</li>
-  <li><code>writeObject</code> method takes <code>ObjectOutputStream</code> as the only parameter, while <code>readObject</code> method takes <code>ObjectInputStream</code>.</li>
-  <li>To serialize the object using the default behavior, you must call <code>objectOutputStream.defaultWriteObject();</code> or <code>objectOutputStream.writeFields();</code>. This will ensure that instance field of Portfolio object are serialized.</li>
-  <li>To deserialize the object using the default behavior, you must call <code>objectInputStream.defaultReadObject();</code> or <code>objectInputStream.readFields();</code>. This will ensure that instance fields of Portfolio object are deserialized.</li>
-  <li>The order of values to be read explicitly in <code>readObject</code> must be exactly the same as the order they were written in <code>writeObject</code>. Here, ticker was written before coupon and so ticker must be read before coupon.</li>
-</ol>
+<p><strong>Explanation</strong><br />
+<strong>1.</strong> Bond class does not implement Serializable. Therefore, for Portfolio to be serialized, ‘bond’ must be transient.<br />
+<strong>2.</strong> <code>writeObject</code> method takes <code>ObjectOutputStream</code> as the only parameter, while <code>readObject</code> method takes <code>ObjectInputStream</code>.<br />
+<strong>3.</strong> To serialize the object using the default behavior, you must call <code>objectOutputStream.defaultWriteObject();</code> or <code>objectOutputStream.writeFields();</code>. This will ensure that instance field of Portfolio object are serialized.<br />
+<strong>4.</strong> To deserialize the object using the default behavior, you must call <code>objectInputStream.defaultReadObject();</code> or <code>objectInputStream.readFields();</code>. This will ensure that instance fields of Portfolio object are deserialized.<br />
+<strong>5.</strong> The order of values to be read explicitly in <code>readObject</code> must be exactly the same as the order they were written in <code>writeObject</code>. Here, ticker was written before coupon and so ticker must be read before coupon.</p>
 
 <hr />
 
@@ -1540,7 +1464,22 @@ The above command first enables assertions for all the classes in <code>com</cod
 
 <hr />
 
-<p><strong>72.</strong></p>
+<p><strong>72.</strong> Complete the following code so that it will print dick, harry, and tom in that order.</p>
+
+<pre><code class="language-java">public class TestClass {
+    public static void main(String[] args) {
+        Set&lt;String&gt; holder = new TreeSet&lt;&gt;();
+        holder.add("tom");
+        holder.add("dick");
+        holder.add("harry");
+        holder.add("tom");
+        printIt(holder);
+    }
+    public static void printIt(Collection&lt;String&gt; list) {
+        for(String s : list) System.out.println(s);
+    }
+}
+</code></pre>
 
 <p><strong>Explanation</strong><br />
 The output is expected to contain unique items. This implies that you need to use a <code>Set</code>. The output is also expected to be sorted. Thus, <code>TreeSet</code> is the only option.<br />
@@ -1651,7 +1590,7 @@ The schedule methods create tasks with various delays and return a task object t
 
 <p>All schedule methods accept relative delays and periods as arguments, not absolute times or dates. It is a simple matter to transform an absolute time represented as a Date to the required form. For example, to schedule at a certain future date, you can use: <code>schedule(task, date.getTime() - System.currentTimeMillis(), TimeUnit.MILLISECONDS)</code>. Beware however that expiration of a relative delay need not coincide with the current Date at which the task is enabled due to network time synchronization protocols, clock drift, or other factors. The Executors class provides convenient factory methods for the <code>ScheduledExecutorService</code> implementations provided in this package.</p>
 
-<p><strong>Explanation:</strong>
+<p><strong>Explanation</strong><br />
 Following is a usage example that sets up a <code>ScheduledExecutorService</code> to beep every ten seconds for an hour:</p>
 
 <pre><code class="language-java">import java.util.concurrent.*;
@@ -1714,20 +1653,6 @@ public class BeeperControl {
     </div>  
 
     <!-- Side Catalog Container -->
-        
-            <div class="
-                col-lg-2 col-lg-offset-0
-                visible-lg-block
-                sidebar-container
-                catalog-container">
-                <div class="side-catalog">
-                    <hr class="hidden-sm hidden-xs">
-                    <h5>
-                        <a class="catalog-toggle" href="#">目录</a>
-                    </h5>
-                    <ul class="catalog-body"></ul>
-                </div>
-            </div>
         
 
     <!-- Sidebar Container -->
@@ -2178,50 +2103,6 @@ public class BeeperControl {
 </script>
     
 <!-- Side Catalog -->
-
-<script type="text/javascript">
-    function generateCatalog (selector) {
-        var P = $('div.post-container'),a,n,t,l,i,c;
-        a = P.find('h1,h2,h3,h4,h5,h6');
-        a.each(function () {
-            n = $(this).prop('tagName').toLowerCase();
-            i = "#"+$(this).prop('id');
-            t = $(this).text();
-            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
-            l = $('<li class="'+n+'_nav"></li>').append(c);
-            $(selector).append(l);
-        });
-        return true;    
-    }
-
-    generateCatalog(".catalog-body");
-
-    // toggle side catalog
-    $(".catalog-toggle").click((function(e){
-        e.preventDefault();
-        $('.side-catalog').toggleClass("fold")
-    }))
-
-    /*
-     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
-     * Fork by Hux to support padding
-     */
-    async("/js/jquery.nav.js", function () {
-        $('.catalog-body').onePageNav({
-            currentClass: "active",
-            changeHash: !1,
-            easing: "swing",
-            filter: "",
-            scrollSpeed: 700,
-            scrollOffset: 0,
-            scrollThreshold: .2,
-            begin: null,
-            end: null,
-            scrollChange: null,
-            padding: 80
-        });
-    });
-</script>
 
 
 
