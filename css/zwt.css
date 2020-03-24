@@ -121,14 +121,14 @@ body {
    *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
    */
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
+  line-height: 1.4;
   font-size: 16px;
   color: #404040;
   overflow-x: hidden;
 }
 
 p {
-  margin: 30px 0;
+  margin: 10px 0px 5px 0px;
 }
 
 h1,
@@ -142,7 +142,7 @@ h6 {
    *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
    */
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
+  line-height: 1.4;
   line-height: 1.1;
   font-weight: bold;
 }
@@ -170,7 +170,8 @@ blockquote {
   color: gray;
   font-style: normal;
   font-size: 0.95em;
-  margin: 5px 0 5px;
+  margin: 0;
+  padding: 5px 10px;
 }
 blockquote p {
   margin: 0;
@@ -201,10 +202,6 @@ ul.task-list li.task-list-item {
 input.task-list-item-checkbox {
   margin-right: 5px;
 }
-input.task-list-item-checkbox:checked {
-  outline: #53e45396 solid 7px;
-  outline-offset: -7px;
-}
 
 select {
   -webkit-appearance: none;
@@ -219,18 +216,26 @@ select.sel-lang {
   font-size: 14px;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   border: 1px solid #eee !important;
 }
 
-hr.small {
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 0;
+  border-top: 1px solid #8e57cb;
+}
+hr small {
   max-width: 100px;
   margin: 15px auto;
   border-width: 4px;
   border-color: white;
 }
 
-pre, .table-responsive {
+pre,
+.table-responsive {
   -webkit-overflow-scrolling: touch;
 }
 
@@ -280,26 +285,55 @@ code {
 .post-container h6 + p {
   margin-top: 5px;
 }
-.post-container ul, .post-container ol {
-  margin-bottom: 40px;
+@media screen and (max-width: 768px) {
+  .post-container ul.task-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .post-container ul.task-list li.task-list-item {
+    list-style-type: none;
+  }
+}
+.post-container ul,
+.post-container ol {
+  margin-bottom: 0;
 }
 @media screen and (max-width: 768px) {
-  .post-container ul, .post-container ol {
+  .post-container ul,
+  .post-container ol {
     padding-left: 30px;
   }
 }
 @media screen and (max-width: 500px) {
-  .post-container ul, .post-container ol {
+  .post-container ul,
+  .post-container ol {
     padding-left: 20px;
   }
 }
-.post-container ol ol, .post-container ol ul, .post-container ul ol, .post-container ul ul {
+.post-container ol {
+  display: block;
+  list-style-type: decimal;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 30px;
+}
+.post-container ol ol,
+.post-container ol ul,
+.post-container ul ol,
+.post-container ul ul {
   margin-bottom: 5px;
 }
 .post-container li p {
-  margin: 0 0 5px;
+  margin: 0;
 }
-.post-container li h1, .post-container li h2, .post-container li h3, .post-container li h4, .post-container li h5, .post-container li h6 {
+.post-container li h1,
+.post-container li h2,
+.post-container li h3,
+.post-container li h4,
+.post-container li h5,
+.post-container li h6 {
   line-height: 2;
   margin-top: 20px;
 }
@@ -406,7 +440,7 @@ code {
    *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
    */
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
+  line-height: 1.4;
 }
 .navbar-custom .navbar-brand {
   font-weight: 800;
@@ -552,7 +586,7 @@ code {
    *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
    */
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
+  line-height: 1.4;
   font-size: 18px;
   line-height: 1.1;
   display: block;
@@ -580,7 +614,7 @@ code {
    *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
    */
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
+  line-height: 1.4;
   font-size: 17px;
   line-height: 1.4;
   font-weight: normal;
@@ -765,7 +799,7 @@ form .row:first-child .floating-label-form-group {
    *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
    */
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
+  line-height: 1.4;
   text-transform: uppercase;
   font-size: 14px;
   font-weight: 800;
@@ -796,7 +830,7 @@ form .row:first-child .floating-label-form-group {
    *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
    */
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
+  line-height: 1.4;
   text-transform: uppercase;
   font-size: 13px;
   font-weight: 800;
@@ -860,7 +894,8 @@ img::-moz-selection {
 .tags {
   margin-bottom: -5px;
 }
-.tags a, .tags .tag {
+.tags a,
+.tags .tag {
   display: inline-block;
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 999em;
@@ -871,14 +906,17 @@ img::-moz-selection {
   text-decoration: none;
   margin: 0 1px 6px;
 }
-.tags a:hover, .tags a:active, .tags .tag:hover, .tags .tag:active {
+.tags a:hover, .tags a:active,
+.tags .tag:hover,
+.tags .tag:active {
   color: white;
   border-color: white;
   background-color: rgba(255, 255, 255, 0.4);
   text-decoration: none;
 }
 @media only screen and (min-width: 768px) {
-  .tags a, .tags .tag {
+  .tags a,
+  .tags .tag {
     margin-right: 5px;
   }
 }
@@ -895,14 +933,17 @@ img::-moz-selection {
 #tag_cloud {
   margin: 20px 0 15px 0;
 }
-#tag_cloud a, #tag_cloud .tag {
+#tag_cloud a,
+#tag_cloud .tag {
   font-size: 14px;
   border: none;
   line-height: 28px;
   margin: 0 2px 8px;
   background: #D6D6D6;
 }
-#tag_cloud a:hover, #tag_cloud a:active, #tag_cloud .tag:hover, #tag_cloud .tag:active {
+#tag_cloud a:hover, #tag_cloud a:active,
+#tag_cloud .tag:hover,
+#tag_cloud .tag:active {
   background-color: #0085a1 !important;
 }
 @media only screen and (min-width: 768px) {
@@ -945,7 +986,7 @@ img::-moz-selection {
    *     [This Post](http://zhuanlan.zhihu.com/ibuick/20186806) etc.
    */
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Arial", "PingFang SC", "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "Microsoft JhengHei", "Source Han Sans SC", "Noto Sans CJK SC", "Source Han Sans CN", "Noto Sans SC", "Source Han Sans TC", "Noto Sans CJK TC", "WenQuanYi Micro Hei", SimSun, sans-serif;
-  line-height: 1.7;
+  line-height: 1.4;
 }
 .one-tag-list .post-preview {
   position: relative;

@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 24 Mar 2020 13:03:49 +0000</pubDate>
-    <lastBuildDate>Tue, 24 Mar 2020 13:03:49 +0000</lastBuildDate>
+    <pubDate>Tue, 24 Mar 2020 21:33:24 +0000</pubDate>
+    <lastBuildDate>Tue, 24 Mar 2020 21:33:24 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -1943,7 +1943,7 @@ false&lt;/p&gt;
       &lt;p&gt;true&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;It will not compile.
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;It will not compile.
     &lt;blockquote&gt;
       &lt;p&gt;&lt;code&gt;java.util.concurrent.locks.Lock&lt;/code&gt; interface’s &lt;code&gt;lock()&lt;/code&gt; method returns &lt;code&gt;void&lt;/code&gt;, while its &lt;code&gt;tryLock()&lt;/code&gt; returns &lt;code&gt;boolean&lt;/code&gt;.&lt;br /&gt;
 Had the code been:&lt;/p&gt;
