@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Mar 2020 21:27:25 +0000</pubDate>
-    <lastBuildDate>Mon, 23 Mar 2020 21:27:25 +0000</lastBuildDate>
+    <pubDate>Tue, 24 Mar 2020 12:26:19 +0000</pubDate>
+    <lastBuildDate>Tue, 24 Mar 2020 12:26:19 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -335,7 +335,422 @@ class GreetingResponse {
     
       <item>
         <title>OCP-1Z0-816 模拟测试1回顾</title>
-        <description>&lt;p&gt;&lt;strong&gt;How many methods have to be provided by a class that is not abstract and that implements Serializable interface?&lt;/strong&gt;&lt;/p&gt;
+        <description>&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; Given:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;Path p1 = Paths.get(&quot;c:\\temp\\test1.txt&quot;);
+Path p2 = Paths.get(&quot;c:\\temp\\test2.txt&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which of the following code fragments moves the file test1.txt to test2.txt, even if test2.txt exists?&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Files.move(p1, p2);
+    &lt;blockquote&gt;
+      &lt;p&gt;This will throw a &lt;code&gt;java.nio.file.FileAlreadyExistsException&lt;/code&gt; if the file already exists.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Files.move(p1, p2, StandardCopyOption.REPLACE_EXISTING);&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;try(Files.move(p1, p2)) { }
+    &lt;blockquote&gt;
+      &lt;p&gt;&lt;code&gt;Files.move&lt;/code&gt; returns a &lt;code&gt;Path&lt;/code&gt; object (of the destination file), which is not a resource that can be closed because it does not implement &lt;code&gt;AutoCloseable&lt;/code&gt; interface. So this will not compile.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;try(Files.copy(p1, p2, StandardCopyOption.REPLACE_EXISTING)) { Files.delete(p1); }&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Files.copy(p1, p2, StandardCopyOption.REPLACE_EXISTING); Files.delete(p1);&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
+Files.copy method will copy the test1.txt into test2.txt. If test2.txt doesn’t exist, it will be created. However, Files.isSameFile method doesn’t check the contents of the file. It is meant to check if the two path objects resolve to the same file or not. In this case, they are not, and so, it will return false.&lt;br /&gt;
+The following is brief JavaDoc description for both the methods:&lt;br /&gt;
+&lt;code&gt;public static Path copy(Path source, Path target, CopyOption... option) throws IOException&lt;/code&gt;&lt;br /&gt;
+Copy a file to a target file.&lt;br /&gt;
+This method copies a file to the target file with the options parameter specifying how the copy is performed. By default, the copy fails if the target file already exists or is a symbolic link, except if the source are the same file, in which case the method completes without copying the file.&lt;br /&gt;
+File attributes are not required to be copied to the target file. If symbolic links are supported, and the file is a symbolic link, then the final target of the link is copied. If the file is a directory in the target location(entries in the directory are not copies).&lt;br /&gt;
+The options parameter may include any of the following:&lt;br /&gt;
+&lt;strong&gt;REPLACE_EXISTING&lt;/strong&gt; If the target file exists, then the target file is replaced if it is not a non-empty directory. If the target file exists and is a symbolic link, then the symbolic link itself, not the target of the link, is replaced.&lt;br /&gt;
+&lt;strong&gt;COPY_ATTRIBUTES&lt;/strong&gt; Attempts to copy the file attributes associated with this file to the target file. The exact file attributes that are copied is platform and file system dependent and therefore unspecified. Minimally, the last-modified-time is copied to the target file if supported by both the source and target file store. Copying of file timestamps may result in precision loss.&lt;br /&gt;
+&lt;strong&gt;NOFOLLOW_LINKS&lt;/strong&gt; Symbolic links are not followed. If the file is a symbolic link, then the symbolic link itself, not the target of the link, is copied. It is implementation specific if file attributes can be copied to the new link. In other words, the &lt;strong&gt;COPY_ATTRIBUTES&lt;/strong&gt; option may be ignored when copying a symbolic link.&lt;br /&gt;
+An implementation of this interface may support additional implementation specific options.&lt;br /&gt;
+Copying a file is not an atomic operation. If an &lt;code&gt;IOException&lt;/code&gt; is thrown then it possible that the target file is incomplete or some of its file attributes have not been copied from the source file. When the &lt;code&gt;REPLACE_EXISTING&lt;/code&gt; option is specified and the target file exists, then the target file is replaced. The check for the existence of the file and the creation of the new file may not be atomic with respect to other file system activities.&lt;br /&gt;
+&lt;code&gt;public static Path move(Path source, Path target, CopyOption... options) throws IOException&lt;/code&gt;&lt;br /&gt;
+Move or rename a file to a target file.&lt;br /&gt;
+By default, this method attempts to move the file to the target file, failing if the target file exists except if the source and target are the same file, in which case this method has no effect. If the file is a symbolic link then the symbolic link itself, not the target of the link, is moved. This method may be invoked to move an empty directory. In some implementations a directory has entries for special files or links that are created when the directory is created. In such implementations a directory is considered empty when only the special entries exist. When invoked to move a directory that is not empty then the directory is moved if it does not require moving the entries in the directory. For example, renaming a directory on the same FileStore will usually not require moving the entries in the directory. When moving a directory requires that its entries be moved then this method fails (by throwing an &lt;code&gt;IOException&lt;/code&gt;). To move a file tree may involve copying rather than moving directories and this can be done using the copy method in conjunction with the Files.walkFileTree utility method.&lt;br /&gt;
+The options parameter may include any of the following:&lt;br /&gt;
+&lt;strong&gt;REPLACE_EXISTING&lt;/strong&gt;  If the target file exists, then the target file is replaced if it is not a non-empty directory. If the target file exists and is a symbolic link, then the symbolic link itself, not the target of the link, is replaced.
+&lt;strong&gt;ATOMIC_MOVE&lt;/strong&gt; The move is performed as an atomic file system operation and all other options are ignored. If the target file exists then it is implementation specific if the existing file is replaced or this method fails by throwing an &lt;code&gt;IOException&lt;/code&gt;. If the move cannot be performed as an atomic file system operation then &lt;code&gt;AtomicMoveNotSupportedException&lt;/code&gt; is thrown. This can arise, for example, when the target location is on a different FileStore and would require that the file be copied, or target location is associated with a different provider to this object. An implementation of this interface may support additional implementation specific options.&lt;br /&gt;
+Where the move requires that the file be copied then the last-modified-time is copied to the new file. An implementation may also attempt to copy other file attributes but is not required to fail if the file attributes cannot be copied. When the move is performed as a non-atomic operation, and a IOException is thrown, then the state of the files is not defined. The original file and the target file may both exist, the target file may be incomplete or some of its file attributes may not been copied from the original file.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt; Consider the following code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;class LowBalanceException extends ____ {  // 1
+    public LowBalanceException(String msg) { super(msg); }
+}
+
+class WithdrawalException extends ____ { // 2 
+    public WithdrawalException(String msg) { super(msg); }
+}
+
+class Account {
+    double balance;
+    public void withdraw(double amount) throws WithdrawalException {
+        try {
+            throw new RuntimeException(&quot;Not Implemented&quot;);
+        } catch (Exception e) {
+            throw new LowBalanceException( e.getMessage());
+        }
+    }
+    public static void main(String[] args) {
+        try {
+            Account a = new Account();
+            a.withdraw(100.0);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What can be inserted at // 1 and // 2 so that the above code will prints Not Implemented?&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Exception Exception&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Exception LowBalanceException&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;WithdrawalException Exception&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;WithdrawalException RuntimeException&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;1.&lt;/strong&gt; The withdraw method declares that it throws &lt;code&gt;WithdrawalException&lt;/code&gt;. This means that the only exceptions that can come out of this method are WithdrawalExceptions (which means &lt;code&gt;WithdrawalException&lt;/code&gt; or its subclasses) or RuntimeExceptions.&lt;br /&gt;
+&lt;strong&gt;2.&lt;/strong&gt; The try block in withdraw method throws a &lt;code&gt;RuntimeException&lt;/code&gt;. It will be caught by the &lt;code&gt;catch(Exception)&lt;/code&gt; block because &lt;code&gt;RuntimeException&lt;/code&gt; is-a &lt;code&gt;Exception&lt;/code&gt;. The code in the catch block throws a LowBalanceException, which is not caught. Thus, it will be thrown out of this method, which means LowBalanceException must either be a &lt;code&gt;RuntimeException&lt;/code&gt; or be a &lt;code&gt;WithdrawalException&lt;/code&gt; (i.e. must extend &lt;code&gt;WithdrawalException&lt;/code&gt;) to satisfy the throws clause of the withdraw method.&lt;br /&gt;
+&lt;strong&gt;3.&lt;/strong&gt; The &lt;code&gt;main()&lt;/code&gt; method does not have a throws clause but the call to &lt;code&gt;withdraw()&lt;/code&gt; is enclosed within a try block with &lt;code&gt;catch(Exception)&lt;/code&gt;. Thus, &lt;code&gt;WithdrawalException&lt;/code&gt; can extend either &lt;code&gt;Exception&lt;/code&gt; or &lt;code&gt;RuntimeException&lt;/code&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;6.&lt;/strong&gt; Which of the following lines will cause the compilation to fail?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public enum EnumA{ A, AA, AAA};  //1
+
+public class TestClass //2
+{
+  public enum EnumB { B, BB, BBB }; //3
+  public static enum EnumC { C, CC, CCC }; //4
+  public TestClass()
+  {
+    enum EnumD { D, DD, DDD } //5
+  }
+  public void methodX()
+  {
+    public enum EnumE{ E, EE, EEE } //6
+  }
+  public static void main(String[] args) //7
+  {
+    enum EnumF {F, FF, FFF }; //8
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;1,2, or both depending on the file name.
+    &lt;blockquote&gt;
+      &lt;p&gt;Since both EnumA and TestClass are public, they must be defined in a file with a name of EnumA.java and TestClass.java respectively.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;3
+    &lt;blockquote&gt;
+      &lt;p&gt;A public (or non-public) enum can be defined inside any class.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;4
+    &lt;blockquote&gt;
+      &lt;p&gt;A enum can be defined as a static member of any class. You can also have multiple public enums with in the same class.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;5
+    &lt;blockquote&gt;
+      &lt;p&gt;An enum cannot be defined inside any method or constructor&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;6
+    &lt;blockquote&gt;
+      &lt;p&gt;An enum cannot be defined inside any method or constructor&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;7
+    &lt;blockquote&gt;
+      &lt;p&gt;There is nothing wrong with this line.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;8
+    &lt;blockquote&gt;
+      &lt;p&gt;An enum cannot be defined inside any method or constructor&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
+You need to know the following facts about enums:&lt;br /&gt;
+&lt;strong&gt;1.&lt;/strong&gt; Enum constructor is always private. You cannot make it public or protected. If an enum type has no constructor declarations, then a private constructor that takes no parameters is automatically provided.&lt;br /&gt;
+&lt;strong&gt;2.&lt;/strong&gt; An enum is implicitly final, which means you cannot extend it.&lt;br /&gt;
+&lt;strong&gt;3.&lt;/strong&gt; You cannot extend an enum from another enum or class because an enum implicitly extends java.lang.Enum. But an enum can implement interfaces.&lt;br /&gt;
+&lt;strong&gt;4.&lt;/strong&gt; Since enum maintains exactly one instance of its constants, you cannot clone it. You cannot even override the clone method in an enum because java.lang.Enum makes it final.&lt;br /&gt;
+&lt;strong&gt;5.&lt;/strong&gt; Compiler provides an enum with two public static methods automatically - &lt;code&gt;values()&lt;/code&gt; and &lt;code&gt;valueOf(String)&lt;/code&gt;. The &lt;code&gt;values()&lt;/code&gt; method returns an array of its constants and &lt;code&gt;valueOf()&lt;/code&gt; method tries to match the String argument exactly (i.e. case sensitive) with an enum constant and returns that constant if successful otherwise it throws &lt;code&gt;java.lang.IllegalArgumentException&lt;/code&gt;.&lt;br /&gt;
+&lt;strong&gt;6.&lt;/strong&gt; By default, an enum’s &lt;code&gt;toString()&lt;/code&gt; prints the enum name but you can override it to print anything you want.&lt;br /&gt;
+The following are a few more important facts about &lt;code&gt;java.lang.Enum&lt;/code&gt; which you should know:&lt;br /&gt;
+&lt;strong&gt;1.&lt;/strong&gt; It implements &lt;code&gt;java.lang.Comparable&lt;/code&gt; (thus, an enum can be added to sorted collections such as &lt;code&gt;SortedSet&lt;/code&gt;, &lt;code&gt;TreeSet&lt;/code&gt;, and &lt;code&gt;TreeMap&lt;/code&gt;).&lt;br /&gt;
+&lt;strong&gt;2.&lt;/strong&gt; It has a method &lt;code&gt;ordinal()&lt;/code&gt;, which returns the index (starting with 0) of that constant i.e. the position of that constant in its enum declaration.&lt;br /&gt;
+&lt;strong&gt;3.&lt;/strong&gt; It has a method &lt;code&gt;name()&lt;/code&gt;, which returns the name of this enum constant, exactly as declared in its enum declaration.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;8.&lt;/strong&gt; Which statements about the following code are correct?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;interface House{
+  public default String getAddress() {
+    return &quot;101 Main Str&quot;;
+  }
+}
+interface Office {
+  public static String getAddress() {
+    return &quot;101 Smart Str&quot;;
+  }
+}
+interface WFH extends House, Office {
+  private boolean isOffice() {
+    return true;
+  }
+}
+class HomeOffice implements House, Office {
+  public String getAddress() {
+    return &quot;R No 1, Home&quot;;
+  }
+}
+public class TestClass {
+  public static void main(String[] args) {
+    Office off = new HomeOffice(); //1
+    System.out.println(off.getAddress()); //2
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Code for class HomeOffice will cause compilation to fail.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Code for interface WFH will cause compilation to fail.
+    &lt;blockquote&gt;
+      &lt;p&gt;Since Java 9, an interface is allowed to have private(but not protected) static as well as instance methods.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;It will compile fine and print R No 1, Home when run.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Line at //1 will cause compilation to fail.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Line at //2 will cause compilation to fail.
+    &lt;blockquote&gt;
+      &lt;p&gt;Since the declared type of variable off is Office, compiler will check the call to getAddress against Office interface. However, getAddress in Office is static and Java 8 requires static interface method to be invoked using the interface name instead of a reference variable. That is why, the compiler will raise the following error message:&lt;br /&gt;
+TestClass.java:26 error: illegal static interface method call&lt;br /&gt;
+   System.out.println(h.getAddress()); //2&lt;br /&gt;
+the receiver expression should be replaced with the type qualifier ‘Office’
+1 error&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;9.&lt;/strong&gt; Given:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;class Booby {
+}
+class Dooby extends Booby {
+}
+class Tooby extends Dooby {
+}
+
+and the following declarations:  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;List&amp;lt;? super Booby&amp;gt; bV = null;&lt;/code&gt;&lt;br /&gt;
+&lt;code&gt;List&amp;lt;? extends Tooby&amp;gt; tV = null;&lt;/code&gt;&lt;br /&gt;
+Which of the following statements will compile without any error?&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;11.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;14.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;15.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;17.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;20.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;21.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;25.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;27.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;29.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;30.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;31.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;32.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;33.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;34.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;35.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;36.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;39.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;41.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;42.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;43.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;45.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;46.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;48.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;49.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;50.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;51.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;53.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;57.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;58.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;60.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;61.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;63.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;64.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;65.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;66.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;67.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;70.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;71.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;73.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;78.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;80.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;81.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;82.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;83.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;How many methods have to be provided by a class that is not abstract and that implements Serializable interface?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;0
@@ -929,59 +1344,6 @@ By default, this method attempts to move the file to the target file, failing if
 &lt;p&gt;Where the move requires that the file be copied then the last-modified-time is copied to the new file. An implementation may also attempt to copy other file attributes but is not required to fail if the file attributes cannot be copied. When the move is performed as a non-atomic operation, and an &lt;code&gt;IOException&lt;/code&gt; is thrown, then the state of the files is not defined. The original file and the target file may both exist, the target file may be incomplete or some of its file attributes may not been copied from the original file.&lt;/p&gt;
 
 &lt;hr /&gt;
-
-&lt;p&gt;Consider the following code:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;class LowBalanceException extends ____ {  // 1
-    public LowBalanceException(String msg) { super(msg); }
-}
-
-class WithdrawalException extends ____ { // 2 
-    public WithdrawalException(String msg) { super(msg); }
-}
-
-class Account {
-    double balance;
-    public void withdraw(double amount) throws WithdrawalException {
-        try {
-            throw new RuntimeException(&quot;Not Implemented&quot;);
-        } catch (Exception e) {
-            throw new LowBalanceException( e.getMessage());
-        }
-    }
-    public static void main(String[] args) {
-        try {
-            Account a = new Account();
-            a.withdraw(100.0);
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;What can be inserted at // 1 and // 2 so that the above code will prints Not Implemented?&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Exception
-Exception&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Exception
-LowBalanceException&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;WithdrawalException
-Exception&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;WithdrawalException
-RuntimeException&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;The withdraw method declares that it throws WithdrawalException. This means that the only exceptions that can come out of this method are WithdrawalExceptions  (which means WithdrawalException or its subclasses) or RuntimeExceptions.&lt;/li&gt;
-  &lt;li&gt;The try block in withdraw method throws a RuntimeException. It will be caught by the catch(Exception) block because RuntimeException is-a Exception. The code in the catch block throws a LowBalanceException, which is not caught. Thus, it will be thrown out of this method, which means LowBalanceException must either be a RuntimeException or be a WithdrawalException (i.e. must extend WithdrawalException) to satisfy the throws clause of the withdraw method.&lt;/li&gt;
-  &lt;li&gt;The main() method does not have a throws clause but the call to withdraw() is enclosed within a try block with catch(Exception). Thus, WithdrawalException can extend either Exception or RuntimeException.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;[To be continued!]&lt;/p&gt;
 </description>
         <pubDate>Wed, 26 Feb 2020 15:15:00 +0000</pubDate>
         <link>https://zwt.io/2020/02/26/ocp-mock-test1-review/</link>
