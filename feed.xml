@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 24 Mar 2020 12:26:19 +0000</pubDate>
-    <lastBuildDate>Tue, 24 Mar 2020 12:26:19 +0000</lastBuildDate>
+    <pubDate>Tue, 24 Mar 2020 13:03:49 +0000</pubDate>
+    <lastBuildDate>Tue, 24 Mar 2020 13:03:49 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -362,7 +362,7 @@ Path p2 = Paths.get(&quot;c:\\temp\\test2.txt&quot;);
 &lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
 Files.copy method will copy the test1.txt into test2.txt. If test2.txt doesn’t exist, it will be created. However, Files.isSameFile method doesn’t check the contents of the file. It is meant to check if the two path objects resolve to the same file or not. In this case, they are not, and so, it will return false.&lt;br /&gt;
 The following is brief JavaDoc description for both the methods:&lt;br /&gt;
-&lt;code&gt;public static Path copy(Path source, Path target, CopyOption... option) throws IOException&lt;/code&gt;&lt;br /&gt;
+&lt;code&gt;public static Path copy(Path source, Path target, CopyOption... option) throws IOException&lt;/code&gt;  &lt;!--more--&gt;
 Copy a file to a target file.&lt;br /&gt;
 This method copies a file to the target file with the options parameter specifying how the copy is performed. By default, the copy fails if the target file already exists or is a symbolic link, except if the source are the same file, in which case the method completes without copying the file.&lt;br /&gt;
 File attributes are not required to be copied to the target file. If symbolic links are supported, and the file is a symbolic link, then the final target of the link is copied. If the file is a directory in the target location(entries in the directory are not copies).&lt;br /&gt;
@@ -1690,8 +1690,12 @@ A &lt;code&gt;HashMap&lt;/code&gt; is a perfect choice because its methods are n
 
 &lt;ul class=&quot;task-list&quot;&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;This is an appropriate use of assertions.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;This code will not in all situations.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;The given code is syntactically correct.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;This code will not work in all situations.
+    &lt;blockquote&gt;
+      &lt;p&gt;It will not work if assertions are disabled.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;The given code is syntactically correct.&lt;/li&gt;
   &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Constrains on input parameters should be enforced using assertions.&lt;/li&gt;
 &lt;/ul&gt;
 

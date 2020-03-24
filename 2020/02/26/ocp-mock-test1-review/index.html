@@ -223,7 +223,7 @@ Path p2 = Paths.get("c:\\temp\\test2.txt");
 <p><strong>Explanation</strong><br />
 Files.copy method will copy the test1.txt into test2.txt. If test2.txt doesn’t exist, it will be created. However, Files.isSameFile method doesn’t check the contents of the file. It is meant to check if the two path objects resolve to the same file or not. In this case, they are not, and so, it will return false.<br />
 The following is brief JavaDoc description for both the methods:<br />
-<code>public static Path copy(Path source, Path target, CopyOption... option) throws IOException</code><br />
+<code>public static Path copy(Path source, Path target, CopyOption... option) throws IOException</code>  <!--more-->
 Copy a file to a target file.<br />
 This method copies a file to the target file with the options parameter specifying how the copy is performed. By default, the copy fails if the target file already exists or is a symbolic link, except if the source are the same file, in which case the method completes without copying the file.<br />
 File attributes are not required to be copied to the target file. If symbolic links are supported, and the file is a symbolic link, then the final target of the link is copied. If the file is a directory in the target location(entries in the directory are not copies).<br />
