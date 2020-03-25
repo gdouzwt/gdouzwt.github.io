@@ -1,3 +1,8 @@
+/*!
+ * zwt v1.4.1 (https://zwt.io/)
+ * Copyright 2020 招文桃 <zhao@wen-tao.com>
+ */
+
 @charset "UTF-8";
 @import url(../css/prism.css);
 .sidebar-container {
@@ -154,7 +159,7 @@ h6 {
 }
 
 h4 {
-  font-size: 21px;
+  font-size: 17px;
 }
 
 a {
