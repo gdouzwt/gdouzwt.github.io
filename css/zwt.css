@@ -302,6 +302,13 @@ code {
 .post-container ul,
 .post-container ol {
   margin-bottom: 0;
+  display: block;
+  list-style-type: decimal;
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 30px;
 }
 @media screen and (max-width: 768px) {
   .post-container ul,
@@ -314,15 +321,6 @@ code {
   .post-container ol {
     padding-left: 20px;
   }
-}
-.post-container ol {
-  display: block;
-  list-style-type: decimal;
-  margin-block-start: 5px;
-  margin-block-end: 5px;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  padding-inline-start: 30px;
 }
 .post-container ol ol,
 .post-container ol ul,
