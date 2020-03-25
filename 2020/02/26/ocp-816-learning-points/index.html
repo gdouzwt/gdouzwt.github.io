@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>OCP 816 考点速记 - 招文桃 | 记录</title>
+    <title>816考点速记 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -173,12 +173,14 @@
                         <a class="tag" href="/tags/#认证考试" title="认证考试">认证考试</a>
                         
                     </div>
-                    <h1>OCP 816 考点速记</h1>
+                    <h1>816考点速记</h1>
                     
                     
-                    <h2 class="subheading">记录部分</h2>
+                    <h2 class="subheading"></h2>
                     
                     <span class="meta">2020年2月26日发布📑</span>
+                    
+                    <span class="meta">2020年3月25日更新🚀</span>
                     
                 </div>
             </div>
@@ -197,7 +199,7 @@
         col-md-10 col-md-offset-1
         post-container">
 
-        <p><strong>Unmodifiable collections using of/copyOf and Collections.unmodifiableXXX methods</strong></p>
+        <h4 id="1-unmodifiable-collections-using-ofcopyof-and-collectionsunmodifiablexxx-methods">1. Unmodifiable collections using of/copyOf and Collections.unmodifiableXXX methods</h4>
 
 <p><code>java.util.List</code> and <code>java.util.Set</code> have <code>of</code> and <code>copyOf</code> static factory methods that provide a convenient way to create unmodifiable lists/sets.</p>
 
@@ -213,7 +215,7 @@
   <li>They do not support <code>null</code> elements. Thus, if your array contains a <code>null</code> and if you try to create a <code>List</code> using <code>List.of</code>, it will throw a <code>NullPointerException</code>.</li>
 </ol>
 
-<p><strong><code>Collections.unmodifiableXXX</code> methods</strong></p>
+<p><code>Collections.unmodifiableXXX</code> methods</p>
 
 <p><code>java.utils.Collections</code> class also has several variations of <code>unmodifiableXXX</code> static methods (such as <code>unmodifiableList(List )</code>, <code>unmodifiableSet(Set )</code>, and <code>unmodifiableMap(Map )</code> ). These method return an unmodifiable view of the underlying collection. The fundamental difference between <code>Collections.unmodifiableXXX</code> and <code>List.of/copyOf</code> methods is that <code>Collections.unmodifiableList</code> returns a view (instead of a copy) into the underlying list. Which means, if you make any changes to the underlying list after creating the view, those changes will be visible in the view. Further, <code>Collections.unmodifiableList</code> has no problem with nulls.</p>
 
@@ -221,30 +223,41 @@
 
 <hr />
 
-<p><strong>Top Down Approach for modularzing an application</strong></p>
+<h4 id="2-top-down-approach-for-modularizing-an-application">2. Top Down Approach for modularizing an application</h4>
 
 <p>While modularizing an app in a top-down approach, you need to remember the following points -</p>
 
-<p>\1. Any jar file can be converted into an automatic module by simply putting that jar on the module-path instead of the classpath. Java automatically derives the name of this module from the name of the jar file.</p>
-
-<p>\2. Any jar that is put on classpath (instead of module-path) is loaded as a part of the “unnamed” module.</p>
-
-<p>\3. An explicitly named module (which means, a module that has an explicitly defined name in its module-info.java file) can specify dependency on an automatic module just like it does for any other module i.e. by adding a requires <code>&lt;module-name&gt;;</code> clause in its module info but it cannot do so for the unnamed module because there is no way to write a requires clause without a name. In other words, a named module can access classes present in an automatic module but not in the unnamed module.</p>
-
-<p>\4. Automatic modules are given access to classes in the unnamed module (even though there is no explicitly defined module-info and requires clause in an automatic module). In other words, a class from an automatic module will be able to read a class in the unnamed module without doing anything special.</p>
-
-<p>\5. An automatic module exports all its packages and is allowed to read all packages exported by other modules. Thus, an automatic module can access: all packages of all other automatic modules + all packages exported by all explicitly named modules + all packages of the unnamed module (i.e. classes loaded from the classpath).</p>
+<ol>
+  <li>
+    <p>Any jar file can be converted into an automatic module by simply putting that jar on the module-path instead of the classpath. Java automatically derives the name of this module from the name of the jar file.</p>
+  </li>
+  <li>
+    <p>Any jar that is put on classpath (instead of module-path) is loaded as a part of the “unnamed” module.</p>
+  </li>
+  <li>
+    <p>An explicitly named module (which means, a module that has an explicitly defined name in its module-info.java file) can specify dependency on an automatic module just like it does for any other module i.e. by adding a requires <code>&lt;module-name&gt;;</code> clause in its module info but it cannot do so for the unnamed module because there is no way to write a requires clause without a name. In other words, a named module can access classes present in an automatic module but not in the unnamed module.</p>
+  </li>
+  <li>
+    <p>Automatic modules are given access to classes in the unnamed module (even though there is no explicitly defined module-info and requires clause in an automatic module). In other words, a class from an automatic module will be able to read a class in the unnamed module without doing anything special.</p>
+  </li>
+  <li>
+    <p>An automatic module exports all its packages and is allowed to read all packages exported by other modules. Thus, an automatic module can access: all packages of all other automatic modules + all packages exported by all explicitly named modules + all packages of the unnamed module (i.e. classes loaded from the classpath).</p>
+  </li>
+</ol>
 
 <p>Thus, if your application jar <strong>A</strong> directly uses a class from another jar <strong>B</strong>, then you would have to convert <strong>B</strong> into a module (either named or automatic). If <strong>B</strong> uses another jar <strong>C</strong>, then you can leave <strong>C</strong> on the class path if <strong>B</strong> hasn’t yet been migrated into a named module. Otherwise, you would have to convert <strong>C</strong> into an automatic module as well.</p>
 
-<p><strong>Note:</strong>
-There are two possible ways for an automatic module to get its name:
-\1. When an Automatic-Module-Name entry is available in the manifest, its value is the name of the automatic module.
-\2. Otherwise, a name is derived from the JAR filename (see the ModuleFinder JavaDoc for the derivation algorithm) - Basically, hyphens are converted into dots and the version number part is ignored. So, for example, if you put mysql-connector-java-8.0.11.jar on module path, its module name would be mysql.connector.java</p>
+<p><strong>Note:</strong><br />
+There are two possible ways for an automatic module to get its name:</p>
+
+<ol>
+  <li>When an Automatic-Module-Name entry is available in the manifest, its value is the name of the automatic module.</li>
+  <li>Otherwise, a name is derived from the JAR filename (see the ModuleFinder JavaDoc for the derivation algorithm) - Basically, hyphens are converted into dots and the version number part is ignored. So, for example, if you put mysql-connector-java-8.0.11.jar on module path, its module name would be mysql.connector.java</li>
+</ol>
 
 <hr />
 
-<p><strong>Bottom Up Approach for modularzing an application</strong></p>
+<h4 id="3-bottom-up-approach-for-modularizing-an-application">3. Bottom Up Approach for modularizing an application</h4>
 
 <p>While modularizing an app using the bottom-up approach, you basically need to convert lower level libraries into modular jars before you can convert the higher level libraries. For example, if a class in <strong>A.jar</strong> directly uses a class from <strong>B.jar</strong>, and a class in <strong>B.jar</strong> directly uses a class from <strong>C.jar</strong>, you need to first modularize <strong>C.jar</strong> and then <strong>B.jar</strong> before you can modularize <strong>A.jar</strong>.</p>
 
@@ -252,75 +265,60 @@ There are two possible ways for an automatic module to get its name:
 
 <hr />
 
-<p><strong>Java_Module_Execution_Options</strong></p>
+<h4 id="4-java-module-execution-options">4. Java Module Execution Options</h4>
 
 <p>You need to know about three command line options for running a class that is contained in a module:</p>
 
-<p>\1. <strong>–module-path</strong> or -p: This option specifies the location(s) of the module(s) that are required for execution. This option is very versatile. You can specify exploded module directories, directories containing modular jars, or even specific modular or non-modular jars here. The path can be absolute or relative to the current directory. For example, –module-path c:/javatest/output/mathutils.jar or –module-path mathutils.jar</p>
-
-<p>You can also specify the location where the module’s files are located. For example, if your module is named abc.math.utils and this module is stored in c:\javatest\output, then you can use: –module-path c:/javatest/output. Remember that c:\javatest\output directory must contain abc.math.utils directory and the module files (including module-info.class) must be present in their appropriate directory structure under abc.math.utils directory.</p>
-
-<p>You can specify as many jar files or module locations separated by path separator (; on windows and : on *nix) as required.</p>
-
-<p>NOTE: -p is the short form for –module-path.(Observe the single and double dashes).</p>
-
-<p>\2. <strong>–module</strong> or <strong>-m</strong>: This option specifies the module that you want to run. For example, if you want to run abc.utils.Main class of abc.math.utils module, you should write –module abc.math.utils/abc.utils.Main
-If a module jar specifies the Main-Class property its MANIFEST.MF file, you can omit the main class name from –module option. For example, you can write, –module abc.math.utils instead of –module abc.math.utils/abc.utils.Main.</p>
-
-<p>NOTE: -m is the short form for –module.(Observe the single and double dashes).</p>
-
-<p>Thus,
-java –module-path mathutils.jar –module abc.math.utils/abc.utils.Main is same as
-java -p mathutils.jar -m abc.math.utils/abc.utils.Main</p>
-
-<p>NOTE: It is possible to treat modular code as non-modular by ignoring module options altogether. For example, if you want to run the same class using the older classpath option, you can do it like this:
+<ol>
+  <li>
+    <p><strong>–module-path</strong> or -p: This option specifies the location(s) of the module(s) that are required for execution. This option is very versatile. You can specify exploded module directories, directories containing modular jars, or even specific modular or non-modular jars here. The path can be absolute or relative to the current directory. For example, –module-path c:/javatest/output/mathutils.jar or –module-path mathutils.jar<br />
+You can also specify the location where the module’s files are located. For example, if your module is named abc.math.utils and this module is stored in c:\javatest\output, then you can use: –module-path c:/javatest/output. Remember that c:\javatest\output directory must contain abc.math.utils directory and the module files (including module-info.class) must be present in their appropriate directory structure under abc.math.utils directory.<br />
+You can specify as many jar files or module locations separated by path separator (; on windows and : on *nix) as required.<br />
+NOTE: -p is the short form for –module-path.(Observe the single and double dashes).</p>
+  </li>
+  <li>
+    <p><strong>–module</strong> or <strong>-m</strong>: This option specifies the module that you want to run. For example, if you want to run abc.utils.Main class of abc.math.utils module, you should write –module abc.math.utils/abc.utils.Main<br />
+If a module jar specifies the Main-Class property its MANIFEST.MF file, you can omit the main class name from –module option.<br />
+For example, you can write, –module abc.math.utils instead of –module abc.math.utils/abc.utils.Main.<br />
+NOTE: -m is the short form for –module.(Observe the single and double dashes).<br />
+Thus,<br />
+<code>java --module-path mathutils.jar --module abc.math.utils/abc.utils.Main</code> is same as<br />
+<code>java -p mathutils.jar -m abc.math.utils/abc.utils.Main</code><br />
+NOTE: It is possible to treat modular code as non-modular by ignoring module options altogether. For example, if you want to run the same class using the older classpath option, you can do it like this:<br />
 java -classpath mathutils.jar abc.utils.Main</p>
-
-<p>\3. <strong>-classpath</strong>: Remember that modular code cannot access code present on the -classpath but “automatic modules” are an exception to this rule. When a non-modular jar is put on –module-path, it becomes an “automatic module” but it can still access all the modular as well as non-modular code. In other words, a class from an automatic module can access classes present on –module-path as well as on -classpath without having any “requires” clause (remember that there is no module-info in automatic modules).
+  </li>
+  <li>
+    <p><strong>-classpath</strong>: Remember that modular code cannot access code present on the -classpath but “automatic modules” are an exception to this rule. When a non-modular jar is put on –module-path, it becomes an “automatic module” but it can still access all the modular as well as non-modular code. In other words, a class from an automatic module can access classes present on –module-path as well as on -classpath without having any “requires” clause (remember that there is no module-info in automatic modules).
 Thus, if your modular jar A depends on a non-modular jar B, you have to put that non-modular jar B on –module-path. You must also add appropriate requires clause in your module A’s module-info otherwise compilation of your module will not succeed. Further, if the non-modular jar B depends on another non-modular jar C, then the non-modular jar C may be put on the classpath or module-path.</p>
+  </li>
+</ol>
 
 <hr />
 
-<p><strong>Java_Module_Compilation_Options</strong></p>
+<h4 id="5-java-module-compilation-options">5. Java Module Compilation Options</h4>
 
 <p>For compiling a Java class that is part of a module, you need to remember the following five command line options:</p>
 
 <ol>
-  <li>–module-source-path: This option is used to specify the location of the module source files. It should point to the parent directory of the directory where module-info.java of the module is stored. For example, if your module name is moduleA, then the module-info.java for this module would be in moduleA directory and if moduleA directory exists in src directory, then –module-source-path should contain the src directory i.e. –module-source-path src</li>
-</ol>
-
-<p>If moduleA depends on another module named moduleB, and if moduleB directory exists in src2 directory, you can add this directory in –module-source-path as well i.e. –module-source-path src;src2. javac will compile the required files of src2 as well if the source code of moduleB is organized under src2 correctly.</p>
-
-<ol>
-  <li>
-    <p>-d: This option is required when you use the –module-source-path option. It is used to specify the output directory. This is the directory where javac will generate the module’s package driven directory structure and the class files for the sources. For example, if you specify out as the output directory, javac will create a directory under out with the same name as the name of the module and will create class files with appropriate package driven directory structure under that directory.</p>
-  </li>
-  <li>
-    <p>–module or -m: This option is used when you want to compile all the source files of a particular module. This option is helpful when you want to compile all the files at once without listing any of the source files of a module individually in the command.
-For example, if you have two java files in moduleA, stored under moduleA\a\A1.java and moduleA\a\A2.java, you can compile both of them at the same time using the command: java –module-source-path src -d out –module moduleA
-Javac will find out all the java source files under moduleA and compile all of them. It will create the class files under the output directory specified in -d option i.e. out. Thus, the out directory will now have two class files - moduleA/a/A1.class and moduleA/a/A2.class.</p>
-  </li>
-  <li>
-    <p>–module-path or -p: This option specifies the location(s) of any other module upon which the module to be compiled depends and is very versatile. You can specify the exploded module directories, directories containing modular jars, or specific modular jars here. For example, if you want to compile moduleA and it depends on another module named abc.util packaged as utils.jar located in thirdpartymodules directory then your module-path can be thirdpartymodules or thirdpartymodules/utils.jar. That both the following two commands will work:</p>
-  </li>
-</ol>
-
-<p>javac –module-source-path src –module-path thirdpartymodules -d out –module moduleA
-and
-javac –module-source-path src –module-path thirdpartymodules\utils.jar -d out –module moduleA</p>
-
-<p><strong>Note:</strong>If your module depends on a non-modular third party jar, you need to do two things -Put that third party jar in –module-path.
-Putting a non-modular jar in –module-path causes that jar to be loaded as an “automatic module”. The name of this module is assumed to be same as the name of the jar minus any version numbers. For example, if you put mysql-driver-6.0.jar in –module-path, it will be loaded as an automatic module with name mysql.driver. Name derivation is explained in detail in java.lang.module.ModuleFinder JavaDoc but for the exam, just remember that hyphens are converted into dots and the version number and extension part is removed.
-It is also possible for a non-modular jar to specify its module name using Automatic-Module-Name: <code>&lt;module name&gt;</code> entry to the jar’s MANIFEST.MF.Add a requires <code>&lt;module-name&gt;;</code> clause in module-info of your module.</p>
-
-<ol>
-  <li><strong>-classpath</strong>: This option is used for compilation of non-modular code. If you are compiling regular non-modular code but that code depends on some classes, then you can put those classes or jars on the classpath using -classpath option.
+  <li>–module-source-path: This option is used to specify the location of the module source files. It should point to the parent directory of the directory where module-info.java of the module is stored. For example, if your module name is moduleA, then the module-info.java for this module would be in moduleA directory and if moduleA directory exists in src directory, then –module-source-path should contain the src directory i.e. –module-source-path src<br />
+If moduleA depends on another module named moduleB, and if moduleB directory exists in src2 directory, you can add this directory in –module-source-path as well i.e. –module-source-path src;src2. javac will compile the required files of src2 as well if the source code of moduleB is organized under src2 correctly.</li>
+  <li>-d: This option is required when you use the –module-source-path option. It is used to specify the output directory. This is the directory where javac will generate the module’s package driven directory structure and the class files for the sources. For example, if you specify out as the output directory, javac will create a directory under out with the same name as the name of the module and will create class files with appropriate package driven directory structure under that directory.</li>
+  <li>–module or -m: This option is used when you want to compile all the source files of a particular module. This option is helpful when you want to compile all the files at once without listing any of the source files of a module individually in the command.<br />
+For example, if you have two java files in moduleA, stored under moduleA\a\A1.java and moduleA\a\A2.java, you can compile both of them at the same time using the command: java –module-source-path src -d out –module moduleA<br />
+Javac will find out all the java source files under moduleA and compile all of them. It will create the class files under the output directory specified in -d option i.e. out. Thus, the out directory will now have two class files - moduleA/a/A1.class and moduleA/a/A2.class.</li>
+  <li>–module-path or -p: This option specifies the location(s) of any other module upon which the module to be compiled depends and is very versatile. You can specify the exploded module directories, directories containing modular jars, or specific modular jars here. For example, if you want to compile moduleA and it depends on another module named abc.util packaged as utils.jar located in thirdpartymodules directory then your module-path can be thirdpartymodules or thirdpartymodules/utils.jar. That both the following two commands will work:<br />
+<code>javac --module-source-path src --module-path thirdpartymodules -d out --module moduleA</code> and<br />
+<code>javac --module-source-path src --module-path thirdpartymodules\utils.jar -d out --module moduleA</code><br />
+<strong>Note:</strong>If your module depends on a non-modular third party jar, you need to do two things -Put that third party jar in –module-path.<br />
+Putting a non-modular jar in –module-path causes that jar to be loaded as an “automatic module”. The name of this module is assumed to be same as the name of the jar minus any version numbers. For example, if you put mysql-driver-6.0.jar in –module-path, it will be loaded as an automatic module with name mysql.driver. Name derivation is explained in detail in java.lang.module.ModuleFinder JavaDoc but for the exam, just remember that hyphens are converted into dots and the version number and extension part is removed.<br />
+It is also possible for a non-modular jar to specify its module name using Automatic-Module-Name: <code>&lt;module name&gt;</code> entry to the jar’s MANIFEST.MF.Add a requires <code>&lt;module-name&gt;;</code> clause in module-info of your module.</li>
+  <li><strong>-classpath</strong>: This option is used for compilation of non-modular code. If you are compiling regular non-modular code but that code depends on some classes, then you can put those classes or jars on the classpath using -classpath option.<br />
 <strong>Note:</strong> This option is not helpful for compilation of modular code because classes of a modular cannot see classes on classpath. Modular code can only see other modular code. That is why, non-modular classes have to be converted into “automatic modules” and put on –module-path as explained above.</li>
 </ol>
 
 <hr />
 
-<p><strong>enum points</strong></p>
+<h4 id="6-enum-points">6. enum points</h4>
 
 <p>You need to know the following facts about enums:</p>
 
@@ -343,34 +341,24 @@ It is also possible for a non-modular jar to specify its module name using Autom
 
 <hr />
 
-<p><strong>AutoCloseable_points</strong></p>
+<h4 id="7-autocloseable-points">7. AutoCloseable points</h4>
 
 <p>You need to know the following points regarding try-with-resources statement for the exam:</p>
 
 <ol>
-  <li>
-    <p>The resource class must implement java.lang.AutoCloseable interface. Many standard JDK classes such as implement java.io.Closeable interface, which extends java.lang.AutoCloseable.</p>
-  </li>
-  <li>
-    <p>AutoCloseable has only one method - public void close() throws Exception.</p>
-  </li>
-  <li>
-    <p>Resources are closed at the end of the try block and before any catch or finally block.</p>
-  </li>
-  <li>
-    <p>Resources are not even accessible in the catch or finally block. For example:</p>
-
-    <pre><code>try(Device d = new Device())
+  <li>The resource class must implement java.lang.AutoCloseable interface. Many standard JDK classes such as implement java.io.Closeable interface, which extends java.lang.AutoCloseable.</li>
+  <li>AutoCloseable has only one method - public void close() throws Exception.</li>
+  <li>Resources are closed at the end of the try block and before any catch or finally block.</li>
+  <li>Resources are not even accessible in the catch or finally block. For example:
+    <pre><code class="language-java">try(Device d = new Device())
 {
    d.read();
 }finally{
    d.close(); //This will not compile because d is not accessible here.
 }
 </code></pre>
-
     <p>Note that the try-with-resource was enhanced in Java 9 and it now allows you to use a variable declared before the try statement in the try-with-resource block. In this case, of course, the variable is accessible after the try block but the object referred to by it has been closed. For example, the following is valid since Java 9:</p>
-
-    <pre><code>Device d = new Device();
+    <pre><code class="language-java">Device d = new Device();
 try(d){ //valid since Java 9
   ...
 }finally{
@@ -378,76 +366,62 @@ try(d){ //valid since Java 9
 }
 </code></pre>
   </li>
-  <li>
-    <p>Resources are closed in the reverse order of their creation.</p>
-  </li>
-  <li>
-    <p>Resources are closed even if the code in the try block throws an exception.</p>
-  </li>
-  <li>
-    <p>java.lang.AutoCloseable’s close() throws Exception but java.io.Closeable’s close() throws IOException.</p>
-  </li>
-  <li>
-    <p>If code in try block throws exception and an exception also thrown while closing is resource, the exception thrown while closing the resource is suppressed. The caller gets the exception thrown in the try block.</p>
-  </li>
+  <li>Resources are closed in the reverse order of their creation.</li>
+  <li>Resources are closed even if the code in the try block throws an exception.</li>
+  <li>java.lang.AutoCloseable’s close() throws Exception but java.io.Closeable’s close() throws IOException.</li>
+  <li>If code in try block throws exception and an exception also thrown while closing is resource, the exception thrown while closing the resource is suppressed. The caller gets the exception thrown in the try block.</li>
 </ol>
 
 <hr />
 
-<p><strong>JDBC URL</strong></p>
+<h4 id="8-jdbc-url">8. JDBC URL</h4>
 
-<p>The format of a JDBC URL is : <code>jdbc:&lt;subprotocol&gt;:&lt;subname&gt;</code>
-where subprotocol defines the kind of database connectivity mechanism that may be supported by one or more drivers. The contents and syntax of the subname will depend on the subprotocol.</p>
-
-<p>Here are a few examples of commonly used urls for connecting to derby db (the Java database that comes bundled with various IDEs such as Netbeans) and Mysql:</p>
+<p>The format of a JDBC URL is : <code>jdbc:&lt;subprotocol&gt;:&lt;subname&gt;</code><br />
+where subprotocol defines the kind of database connectivity mechanism that may be supported by one or more drivers. The contents and syntax of the subname will depend on the subprotocol.<br />
+Here are a few examples of commonly used urls for connecting to derby db (the Java database that comes bundled with various IDEs such as NetBeans) and MySQL:</p>
 
 <blockquote>
-  <p>jdbc:derby:sample
-jdbc:derby://localhost:1527/sample
-jdbc:mysql://localhost:1527/sample
+  <p>jdbc:derby:sample<br />
+jdbc:derby://localhost:1527/sample<br />
+jdbc:mysql://localhost:1527/sample<br />
 jdbc:mysql://192.168.0.100:3306/testdb</p>
 </blockquote>
 
-<p>Observe that a JDBC url always starts with jdbc: and has at least three components separated by a two colons.</p>
+<p>Observe that a JDBC url always starts with jdbc: and has at least three components separated by a two colons.<br />
+It also usually includes the hostname or address and the port number on which the database is listening for the requests but that is not necessary.<br />
+Most drivers allow adding more options to the URL in the subname part, for example the following JDBC url for Oracle DB specifies the type of the jdbc driver :<br />
+<code>jdbc:oracle:thin:@localhost:1521:testdb</code></p>
 
-<p>It also usually includes the hostname or address and the port number on which the database is listening for the requests but that is not necessary.</p>
-
-<p>Most drivers allow adding more options to the URL in the subname part, for example the following JDBC url for Oracle DB specifies the type of the jdbc driver : <br />
-jdbc:oracle:thin:@localhost:1521:testdb</p>
-
-<p>Userid and password are usually supplied separately from the URL but some drivers allow them to be specified in the URL itself. For example: <br />
-jdbc:oracle:thin:scott/mypassword@//myhost:1521/orcl</p>
+<p>Userid and password are usually supplied separately from the URL but some drivers allow them to be specified in the URL itself. For example:<br />
+<code>jdbc:oracle:thin:scott/mypassword@//myhost:1521/orcl</code></p>
 
 <hr />
 
-<p><strong>Command Line Switches for Assertions</strong></p>
+<h4 id="9-command-line-switches-for-assertions">9. Command Line Switches for Assertions</h4>
 
-<p>Although not explicitly mentioned in the exam objectives, OCP Java 11 Part 2 Exam requires you to know about the switches used to enable and disable assertions. Here are a few important points that you should know:</p>
-
-<p>Assertions can be enabled or disabled for specific classes and/or packages. To specify a class, use the class name. To specify a package, use the package name followed by “…” (three dots also known as ellipses):</p>
-
-<p><code>java -ea:&lt;class&gt; myPackage.myProgram</code>
+<p>Although not explicitly mentioned in the exam objectives, OCP Java 11 Part 2 Exam requires you to know about the switches used to enable and disable assertions. Here are a few important points that you should know:<br />
+Assertions can be enabled or disabled for specific classes and/or packages. To specify a class, use the class name. To specify a package, use the package name followed by “…” (three dots also known as ellipses):<br />
+<code>java -ea:&lt;class&gt; myPackage.myProgram</code><br />
 <code>java -da:&lt;package&gt;... myPackage.myProgram</code></p>
 
-<p>You can have multiple -ea/-da flags on the command line. For example, multiple flags allow you to enable assertions in general, but disable them in a particular package.
-<code>java -ea -da:com.xyz... myPackage.myProgram</code>
-The above command enables assertions for all classes in all packages, but then the subsequent -da switch disables them for the com.xyz package and its subpackages.</p>
+<p>You can have multiple -ea/-da flags on the command line. For example, multiple flags allow you to enable assertions in general, but disable them in a particular package.<br />
+<code>java -ea -da:com.xyz... myPackage.myProgram</code></p>
 
-<p>To enable assertion for one package and disable for other you can use:
+<p>The above command enables assertions for all classes in all packages, but then the subsequent -da switch disables them for the com.xyz package and its subpackages.<br />
+To enable assertion for one package and disable for other you can use:<br />
 <code>java -ea:&lt;package1&gt;... -da:&lt;package2&gt;... myPackage.myProgram</code></p>
 
-<p>You can enable or disable assertions in the unnamed root package (i.e. the default package) using the following commands:
-<code>java -ea:... myPackage.myProgram</code>
+<p>You can enable or disable assertions in the unnamed root package (i.e. the default package) using the following commands:<br />
+<code>java -ea:... myPackage.myProgram</code><br />
 <code>java -da:... myPackage.myProgram</code></p>
 
-<p>Note that when you use a package name in the ea or da flag, the flag applies to that package as well as its subpackages. For example,
-<code>java -ea:com... -da:com.enthuware... com.enthuware.Main</code>
+<p>Note that when you use a package name in the ea or da flag, the flag applies to that package as well as its subpackages. For example,<br />
+<code>java -ea:com... -da:com.enthuware... com.enthuware.Main</code><br />
 The above command first enables assertions for all the classes in com as well as for the classes in the subpackages of com. It then disables assertions for classes in package com.enthuware and its subpackages.</p>
 
 <p>Another thing is that <code>-ea/-da</code> do not apply to system classes. For system classes (i.e. the classes that come bundled with the JDK/JRE), you need to use <code>-enablesystemassertions/-esa</code> or <code>-disablesystemassertions/-dsa</code></p>
 
-<p>Note that <strong>*** and ****</strong> are not valid wildcards for including subpackages.</p>
-
+<p>Note that ** and * are not valid wildcards for including subpackages.</p>
 
 
         <!-- 来必力City版安装代码 -->
@@ -474,9 +448,9 @@ The above command first enables assertions for all the classes in com as well as
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2020/02/15/foundation-test-review/" data-toggle="tooltip" data-placement="top" title="816 基准测试回顾">
+                <a href="/2020/02/15/foundation-test-review/" data-toggle="tooltip" data-placement="top" title="816基准测试回顾">
                 上一篇<br>
-                <span>816 基准测试回顾</span>
+                <span>816基准测试回顾</span>
                 </a>
             </li>
             
@@ -933,7 +907,7 @@ The above command first enables assertions for all the classes in com as well as
     tex2jax: {
       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
       inlineMath: [ ['$','$'] ],
-      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      displayMath: [ ['$$','$$'] ],
       processEnvironments: true
     }
   });

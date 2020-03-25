@@ -210,8 +210,8 @@
 package io.zwt.innerclasses.exercises;
    
 public class A {
-	public class B {
-	}
+    public class B {
+    }
 }
 </code></pre>
 
@@ -224,15 +224,15 @@ public class A {
 package io.zwt.innerclasses.exercises;
    
 public class Cup {
-	public class Handle {
-		public Handle() {
-			System.out.println("Created a handle for the cup");
-		}
-	}
-   	
-	public Cup() {
-		System.out.println("Created a cup");
-	}
+    public class Handle {
+        public Handle() {
+            System.out.println("Created a handle for the cup");
+        }
+    }
+       
+    public Cup() {
+        System.out.println("Created a cup");
+    }
 }
 </code></pre>
 
@@ -504,9 +504,9 @@ public class PTest {
             
             
             <li class="next">
-                <a href="/2020/02/15/foundation-test-review/" data-toggle="tooltip" data-placement="top" title="816 基准测试回顾">
+                <a href="/2020/02/15/foundation-test-review/" data-toggle="tooltip" data-placement="top" title="816基准测试回顾">
                 下一篇<br>
-                <span>816 基准测试回顾</span>
+                <span>816基准测试回顾</span>
                 </a>
             </li>
             
@@ -514,20 +514,6 @@ public class PTest {
     </div>  
 
     <!-- Side Catalog Container -->
-        
-            <div class="
-                col-lg-2 col-lg-offset-0
-                visible-lg-block
-                sidebar-container
-                catalog-container">
-                <div class="side-catalog">
-                    <hr class="hidden-sm hidden-xs">
-                    <h5>
-                        <a class="catalog-toggle" href="#">目录</a>
-                    </h5>
-                    <ul class="catalog-body"></ul>
-                </div>
-            </div>
         
 
     <!-- Sidebar Container -->
@@ -955,7 +941,7 @@ public class PTest {
     tex2jax: {
       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
       inlineMath: [ ['$','$'] ],
-      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      displayMath: [ ['$$','$$'] ],
       processEnvironments: true
     }
   });
@@ -976,50 +962,6 @@ public class PTest {
 </script>
     
 <!-- Side Catalog -->
-
-<script type="text/javascript">
-    function generateCatalog (selector) {
-        var P = $('div.post-container'),a,n,t,l,i,c;
-        a = P.find('h1,h2,h3,h4,h5,h6');
-        a.each(function () {
-            n = $(this).prop('tagName').toLowerCase();
-            i = "#"+$(this).prop('id');
-            t = $(this).text();
-            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
-            l = $('<li class="'+n+'_nav"></li>').append(c);
-            $(selector).append(l);
-        });
-        return true;    
-    }
-
-    generateCatalog(".catalog-body");
-
-    // toggle side catalog
-    $(".catalog-toggle").click((function(e){
-        e.preventDefault();
-        $('.side-catalog').toggleClass("fold")
-    }))
-
-    /*
-     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
-     * Fork by Hux to support padding
-     */
-    async("/js/jquery.nav.js", function () {
-        $('.catalog-body').onePageNav({
-            currentClass: "active",
-            changeHash: !1,
-            easing: "swing",
-            filter: "",
-            scrollSpeed: 700,
-            scrollOffset: 0,
-            scrollThreshold: .2,
-            begin: null,
-            end: null,
-            scrollChange: null,
-            padding: 80
-        });
-    });
-</script>
 
 
 

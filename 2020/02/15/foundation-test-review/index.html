@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>816 基准测试回顾 - 招文桃 | 记录</title>
+    <title>816基准测试回顾 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -170,15 +170,17 @@
                         
                         <a class="tag" href="/tags/#OCP 11" title="OCP 11">OCP 11</a>
                         
+                        <a class="tag" href="/tags/#1Z0-816" title="1Z0-816">1Z0-816</a>
+                        
                     </div>
-                    <h1>816 基准测试回顾</h1>
+                    <h1>816基准测试回顾</h1>
                     
                     
-                    <h2 class="subheading">OCP 816</h2>
+                    <h2 class="subheading"></h2>
                     
                     <span class="meta">2020年2月15日发布📑</span>
                     
-                    <span class="meta">2020年3月25日更新🚀</span>
+                    <span class="meta">2020年3月26日更新🚀</span>
                     
                 </div>
             </div>
@@ -378,6 +380,8 @@ Consider the following code:</p>
 </code></pre>
 
 <p>As method <code>inner()</code> is an instance method(i.e. non-static method), <code>si</code>, <code>ii</code>, and <code>fai</code> are accessible in class <code>Inner</code>. Note that <code>ai</code> is not accessible because it is not effectively final. If the line <code>ai = 31;</code> did not exist, <code>ai</code> would have been accessible. If method <code>inner()</code> were a static method, <code>ii</code> would have been inaccessible. Prior to Java 8, only final local variables were accessible to the inner class but in Java 8, event effectively final local variables of the method are accessible to the inner defined in that method as well.</p>
+
+<hr />
 
 <p><strong>12.</strong> Which interface would you use to represent a collection having non-unique objects in the order of insertion?</p>
 <blockquote>
@@ -642,6 +646,8 @@ b<br />
 null<br />
 c</p>
 </blockquote>
+
+<hr />
 
 <p><strong>25.</strong> Complete the following code so that it will print each line in the given file.</p>
 
@@ -1176,7 +1182,7 @@ Consider the following code:</p>
 <p><strong>58.</strong> How will you initialize a <code>SimpleDateFormat</code> object to that the following code will print the full name of the month of the given date?</p>
 
 <ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>SimpleDateFormat sdf = new SimpleDateFormat("MMMM", Locale.FRANCE);</code>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>SimpleDateFormat sdf = new SimpleDateFormat("MMMM", Locale.FRANCE);</code>
     <blockquote>
       <p>Upper case M is for Month. For example, for February and December, the following will be printed:<br />
 M =&gt; 2, 12<br />
@@ -1515,8 +1521,8 @@ Now, since the problem statement requires something to be returned after process
 <p><strong>77.</strong> Which statements concerning the relation between a non-static inner class and its outer class instances are true?</p>
 
 <ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Member variables of the outer instance are always accessible to inner instances, regardless of their accessibility modifiers.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Member variables of the outer instance can always be referred to using only the variable name within the inner instance.
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Member variables of the outer instance are always accessible to inner instances, regardless of their accessibility modifiers.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Member variables of the outer instance can always be referred to using only the variable name within the inner instance.
     <blockquote>
       <p>This is possible only if that variable is not shadowed by another variable in inner class.</p>
     </blockquote>
@@ -1650,9 +1656,9 @@ public class BeeperControl {
             
             
             <li class="next">
-                <a href="/2020/02/26/ocp-816-learning-points/" data-toggle="tooltip" data-placement="top" title="OCP 816 考点速记">
+                <a href="/2020/02/26/ocp-816-learning-points/" data-toggle="tooltip" data-placement="top" title="816考点速记">
                 下一篇<br>
-                <span>OCP 816 考点速记</span>
+                <span>816考点速记</span>
                 </a>
             </li>
             
@@ -2087,7 +2093,7 @@ public class BeeperControl {
     tex2jax: {
       skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
       inlineMath: [ ['$','$'] ],
-      displayMath: [ ['$$','$$'], ['\\','\\'] ],
+      displayMath: [ ['$$','$$'] ],
       processEnvironments: true
     }
   });
