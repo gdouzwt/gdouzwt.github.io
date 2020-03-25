@@ -5,36 +5,73 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 25 Mar 2020 00:48:49 +0000</pubDate>
-    <lastBuildDate>Wed, 25 Mar 2020 00:48:49 +0000</lastBuildDate>
+    <pubDate>Wed, 25 Mar 2020 00:49:50 +0000</pubDate>
+    <lastBuildDate>Wed, 25 Mar 2020 00:49:50 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
         <title>第11章练习回顾</title>
-        <description>&lt;ol&gt;
-  &lt;li&gt;B&lt;/li&gt;
-  &lt;li&gt;F -&amp;gt; D Modules are required to have a module-info.java file at the root directory of the module. Option D matches this requirement.&lt;/li&gt;
-  &lt;li&gt;B&lt;/li&gt;
-  &lt;li&gt;D -&amp;gt; G The -m or –module option is used to specify the module and class name. The -p or -module-path option is used to specify the location of the modules. Option D would be correct if the rest of the command were correct. However, running a program requires specifying the package name with periods (.) instead of slashes. Since the command is incorrect, option G is correct.&lt;/li&gt;
-  &lt;li&gt;AF -&amp;gt; AFG Options C and D are incorrect because there is no use keyword. Options A and F are correct because opens is for reflection and uses declares an API that consumes a service. Option G is also correct as the file can be completely empty. This is just something you have to memorize.&lt;/li&gt;
-  &lt;li&gt;BDF -&amp;gt; BC Packages inside a module are not exported by default, making option B correct and option A incorrect. Exporting is necessary for other code to use the packages; it is not necessary to call the main() method at the command line, making option C correct and option D incorrect. The module-info.java file has the correct name and compiles, making options E and F incorrect.&lt;/li&gt;
-  &lt;li&gt;EF -&amp;gt; DG Options A, B, E, and F are incorrect because they refer to keywords that don’t exist. The requires transitive keyword is used when specifying a module to be used by the requesting module and any other modules that use the requesting module. Therefore, dog needs to specify the transitive relationship, and option G is correct. The module puppy just needs to require dog, and it gets the transitive dependencies, making option D correct.&lt;!--more--&gt;&lt;/li&gt;
-  &lt;li&gt;ABCD -&amp;gt; ABD Options A and B are correct because the -p (–module-path) option can be passed when compiling or running a program. Option D is also correct because jdeps can use the –module-path option when listing dependency information.&lt;/li&gt;
-  &lt;li&gt;AEF -&amp;gt; AB The -p specifies the module path. This is just a directory, so all of the options have a legal module path. The -m specifies the module, which has two parts separated by a slash. Options E and F are incorrect since there is no slash. The first part is the module name. It is separated by periods (.) rather than dashes (-), making option C incorrect. The second part is the package and class name, again separated by periods. The package and class names must be legal Java identifiers. Dashes (-) are not allowed, ruling out option D. This leaves options A and B as the correct answers.&lt;/li&gt;
-  &lt;li&gt;B&lt;/li&gt;
-  &lt;li&gt;ABD -&amp;gt; BDEF This is another question you just have to memorize. The jmod command has five modes you need to be able to list: create, extract, describe, list, and hash. The hash operation is not an answer choice. The other four are making options B, D, E, and F correct.&lt;/li&gt;
-  &lt;li&gt;A -&amp;gt; B The java command uses this option to print information when the program loads. You might think jar does the same thing since it runs a program too. Alas, this parameter does not exist on jar.&lt;/li&gt;
-  &lt;li&gt;AD -&amp;gt; E There is a trick here. A module definition uses the keyword module rather than class. Since the code does not compile, option E is correct. If the code did compile, options A and D would be correct.&lt;/li&gt;
-  &lt;li&gt;A&lt;/li&gt;
-  &lt;li&gt;AD -&amp;gt; BD The java command has an –add-exports option that allows exporting a package at runtime. However, it is not encouraged to use it, making options B and D the answer.&lt;/li&gt;
-  &lt;li&gt;BC&lt;/li&gt;
-  &lt;li&gt;D -&amp;gt; E&lt;/li&gt;
-  &lt;li&gt;AC&lt;/li&gt;
-  &lt;li&gt;BC&lt;/li&gt;
-  &lt;li&gt;BE&lt;/li&gt;
-  &lt;li&gt;G&lt;/li&gt;
-&lt;/ol&gt;
+        <description>&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; Which of the following is an advantage of the Java Platform Module System? &lt;strong&gt;B&lt;/strong&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;strong&gt;A.&lt;/strong&gt; A central repository of all modules&lt;br /&gt;
+&lt;strong&gt;B.&lt;/strong&gt; Encapsulating packages&lt;br /&gt;
+&lt;strong&gt;C.&lt;/strong&gt; Encapsulating objects&lt;br /&gt;
+&lt;strong&gt;D.&lt;/strong&gt; No defined types&lt;br /&gt;
+&lt;strong&gt;E.&lt;/strong&gt; Platform independence&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; Which statement is true of the following module? &lt;strong&gt;F -&amp;gt; D&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;zoo.staff
+|—zoo
+|– staff
+|– Vet.java&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;A.&lt;/strong&gt; The directory structure shown is a valid module.
+&lt;strong&gt;B.&lt;/strong&gt; The directory structure would be a valid module if module.java were added directly underneath zoo.staff.
+&lt;strong&gt;C.&lt;/strong&gt; The directory structure would be a valid module if module.java were added directly underneath zoo.
+&lt;strong&gt;D.&lt;/strong&gt; The directory structure would be a valid module if module-info.java were added directly underneath zoo.staff.
+&lt;strong&gt;E.&lt;/strong&gt; The directory structure would be a valid module if module-info.java were added directly underneath zoo.
+&lt;strong&gt;F.&lt;/strong&gt; None of these changes would make this directory structure a valid module.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;  Modules are required to have a module-info.java file at the root directory of the module. Option D matches this requirement.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; B&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; D -&amp;gt; G The -m or –module option is used to specify the module and class name. The -p or -module-path option is used to specify the location of the modules. Option D would be correct if the rest of the command were correct. However, running a program requires specifying the package name with periods (.) instead of slashes. Since the command is incorrect, option G is correct.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt; AF -&amp;gt; AFG Options C and D are incorrect because there is no use keyword. Options A and F are correct because opens is for reflection and uses declares an API that consumes a service. Option G is also correct as the file can be completely empty. This is just something you have to memorize.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;6.&lt;/strong&gt; BDF -&amp;gt; BC Packages inside a module are not exported by default, making option B correct and option A incorrect. Exporting is necessary for other code to use the packages; it is not necessary to call the main() method at the command line, making option C correct and option D incorrect. The module-info.java file has the correct name and compiles, making options E and F incorrect.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;7.&lt;/strong&gt; EF -&amp;gt; DG Options A, B, E, and F are incorrect because they refer to keywords that don’t exist. The requires transitive keyword is used when specifying a module to be used by the requesting module and any other modules that use the requesting module. Therefore, dog needs to specify the transitive relationship, and option G is correct. The module puppy just needs to require dog, and it gets the transitive dependencies, making option D correct.&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;8.&lt;/strong&gt; ABCD -&amp;gt; ABD Options A and B are correct because the -p (–module-path) option can be passed when compiling or running a program. Option D is also correct because jdeps can use the –module-path option when listing dependency information.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;9.&lt;/strong&gt; AEF -&amp;gt; AB The -p specifies the module path. This is just a directory, so all of the options have a legal module path. The -m specifies the module, which has two parts separated by a slash. Options E and F are incorrect since there is no slash. The first part is the module name. It is separated by periods (.) rather than dashes (-), making option C incorrect. The second part is the package and class name, again separated by periods. The package and class names must be legal Java identifiers. Dashes (-) are not allowed, ruling out option D. This leaves options A and B as the correct answers.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;10.&lt;/strong&gt; B&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;11.&lt;/strong&gt; ABD -&amp;gt; BDEF This is another question you just have to memorize. The jmod command has five modes you need to be able to list: create, extract, describe, list, and hash. The hash operation is not an answer choice. The other four are making options B, D, E, and F correct.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;12.&lt;/strong&gt; A -&amp;gt; B The java command uses this option to print information when the program loads. You might think jar does the same thing since it runs a program too. Alas, this parameter does not exist on jar.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;13.&lt;/strong&gt; AD -&amp;gt; E There is a trick here. A module definition uses the keyword module rather than class. Since the code does not compile, option E is correct. If the code did compile, options A and D would be correct.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;14.&lt;/strong&gt; A&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;15.&lt;/strong&gt; AD -&amp;gt; BD The java command has an –add-exports option that allows exporting a package at runtime. However, it is not encouraged to use it, making options B and D the answer.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;16.&lt;/strong&gt; BC&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;17.&lt;/strong&gt; D -&amp;gt; E&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;18.&lt;/strong&gt; AC&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;19.&lt;/strong&gt; BC&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;20.&lt;/strong&gt; BE&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;21.&lt;/strong&gt; G&lt;/p&gt;
 </description>
         <pubDate>Sun, 22 Mar 2020 18:42:00 +0000</pubDate>
         <link>https://zwt.io/2020/03/22/chapter11-exam-review/</link>
