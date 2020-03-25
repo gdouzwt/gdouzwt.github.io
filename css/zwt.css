@@ -1,8 +1,3 @@
-/*!
- * zwt v1.4.1 (https://zwt.io/)
- * Copyright 2020 招文桃 <zhao@wen-tao.com>
- */
-
 @charset "UTF-8";
 @import url(../css/prism.css);
 .sidebar-container {
@@ -202,14 +197,6 @@ img.shadow {
   box-shadow: rgba(0, 0, 0, 0.258824) 0 2px 5px 0;
 }
 
-ul.task-list {
-  list-style-type: none;
-  padding: 0;
-}
-ul.task-list li.task-list-item {
-  list-style-type: none;
-}
-
 input.task-list-item-checkbox {
   margin-right: 5px;
 }
@@ -296,30 +283,24 @@ code {
 .post-container h6 + p {
   margin-top: 5px;
 }
-@media screen and (max-width: 768px) {
-  .post-container ul.task-list {
-    list-style-type: none;
-    padding: 0;
-  }
-  .post-container ul.task-list li.task-list-item {
-    list-style-type: none;
-  }
-}
 .post-container ul,
 .post-container ol {
   padding-inline-start: 30px;
 }
-@media screen and (max-width: 768px) {
-  .post-container ul,
-  .post-container ol {
-    padding-inline-start: 30px;
-  }
+.post-container ul.task-list,
+.post-container ol.task-list {
+  list-style-type: none;
+  padding-inline-start: 5px;
 }
 @media screen and (max-width: 500px) {
-  .post-container ul,
-  .post-container ol {
-    padding-inline-start: 20px;
+  .post-container ul.task-list,
+  .post-container ol.task-list {
+    padding-inline-start: 5px;
   }
+}
+.post-container ul.task-list-item,
+.post-container ol.task-list-item {
+  list-style-type: none;
 }
 .post-container ol ol,
 .post-container ol ul,
@@ -603,7 +584,7 @@ code {
 }
 .intro-header .post-heading h1 {
   font-size: 30px;
-  margin-bottom: 24px;
+  margin-bottom: 10px 0;
 }
 .intro-header .post-heading .subheading,
 .intro-header .post-heading .meta {
@@ -620,26 +601,30 @@ code {
   font-size: 17px;
   line-height: 1.4;
   font-weight: normal;
-  margin: -5px 0 30px;
+  margin: 0;
 }
 .intro-header .post-heading .meta {
-  font-family: 'Lora', 'Times New Roman', serif;
   font-style: normal;
   font-weight: 300;
   font-size: 18px;
+  color: #eee;
 }
 .intro-header .post-heading .meta a {
   color: white;
 }
 @media only screen and (min-width: 768px) {
   .intro-header .post-heading h1 {
-    font-size: 55px;
+    font-size: 36px;
   }
   .intro-header .post-heading .subheading {
-    font-size: 30px;
+    font-size: 24px;
   }
   .intro-header .post-heading .meta {
-    font-size: 20px;
+    margin: 5px 0;
+    float: left;
+    margin-right: 5px;
+    display: block;
+    font-size: 12px;
   }
 }
 
