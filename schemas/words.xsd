@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema
-        elementFormDefault="qualified"
-        targetNamespace="https://zwt.io/schemas/words.xsd"
-        xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema elementFormDefault="qualified" targetNamespace="https://zwt.io/schemas/words.xsd" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <xs:element name="NotebookUnit" type="wor:NotebookUnitType" xmlns:wor="https://zwt.io/schemas/words.xsd"/>
+    <xs:element name="NotebookUnit" type="wor:NotebookUnitType" 
+        xmlns:wor="https://zwt.io/schemas/words.xsd"/>
 
     <xs:complexType name="WordUnitType">
         <xs:sequence>
@@ -23,8 +22,8 @@
 
     <xs:complexType name="WordsType">
         <xs:sequence>
-            <xs:element type="wor:WordUnitType" name="WordUnit" maxOccurs="unbounded" minOccurs="0"
-                        xmlns:wor="https://zwt.io/schemas/words.xsd"/>
+            <xs:element type="wor:WordUnitType" name="WordUnit" maxOccurs="unbounded" minOccurs="0" 
+                xmlns:wor="https://zwt.io/schemas/words.xsd"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -43,7 +42,8 @@
             <xs:element type="xs:string" name="StrAssignNew"/>
             <xs:element type="xs:string" name="StrChallengeRank"/>
             <xs:element type="xs:string" name="WordCount"/>
-            <xs:element type="wor:WordsType" name="Words" xmlns:wor="https://zwt.io/schemas/words.xsd"/>
+            <xs:element type="wor:WordsType" name="Words" 
+                xmlns:wor="https://zwt.io/schemas/words.xsd"/>
         </xs:sequence>
     </xs:complexType>
 
