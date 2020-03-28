@@ -5,9 +5,289 @@
     <description></description>
     <link>https://zwt.io//</link>
     <atom:link href="https://zwt.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 25 Mar 2020 18:59:07 +0000</pubDate>
-    <lastBuildDate>Wed, 25 Mar 2020 18:59:07 +0000</lastBuildDate>
+    <pubDate>Sat, 28 Mar 2020 15:26:46 +0000</pubDate>
+    <lastBuildDate>Sat, 28 Mar 2020 15:26:46 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>OCP-1Z0-816模拟测试2回顾</title>
+        <description>&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; Given&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;class Booby {
+}
+class Dooby extends Booby {
+}
+class Tooby extends Dooby {
+}
+
+public class TestClass {
+  Booby b = new Booby();
+  Tooby t = new Tooby();
+  public void do1(List&amp;lt;? super Dooby&amp;gt; dataList) {
+    //1 INSERT CODE HERE
+  }
+  public void do2(List&amp;lt;? extends Dooby&amp;gt; dataList) {
+    //2 INSERT CODE HERE
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the following four statements:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;b = dataList.get(0);&lt;/li&gt;
+  &lt;li&gt;t = dataList.get(0);&lt;/li&gt;
+  &lt;li&gt;dataList.add(b);&lt;/li&gt;
+  &lt;li&gt;dataList.add(t);&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;What can be inserted in the above code?&lt;/p&gt;
+
+&lt;ul class=&quot;task-list&quot;&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Statements 1 and 3 can inserted at //1 and Statements 2 and 4 can be inserted at //2.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Statement 4 can inserted at //1 and Statement 1 can be inserted at //2.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Statements 3 and 4 can inserted at //1 and Statements 1 and 2 can be inserted at //2.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Statements 1 and 2 can inserted at //1 and Statements 3 and 4 can be inserted at //2.&lt;/li&gt;
+  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Statement 1 can inserted at //1 and Statement 4 can be inserted at //2.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;addData1(List&amp;lt;? super Dooby&amp;gt; dataList)&lt;/code&gt;&lt;br /&gt;
+This means that dataList is a List whose elements are of a class that is either Dooby or a super class of Dooby. We don’t know which super class of Dooby. Thus, if you try to add any object to dataList, it has to be a assignable to Dooby.&lt;br /&gt;
+Thus, &lt;code&gt;dataList.add(b);&lt;/code&gt; will be invalid because b is not assignable to Dooby.&lt;br /&gt;
+Further, if you try to take some object out of dataList, that object will be of a class that is either Dooby or a Superclass of Dooby. Only way you can declare a variable that can be assigned the object retrieved from dataList is Object obj. Thus, &lt;code&gt;t = dataList.get(0);&lt;/code&gt; and &lt;code&gt;b = dataList.get(0);&lt;/code&gt; are both invalid.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code&gt;addData2(List&amp;lt;? extends Dooby&amp;gt; dataList)&lt;/code&gt;&lt;br /&gt;
+This means that dataList is a List whose elements are of a class that is either Dooby or a subclass of Dooby. Since we don’t know which subclass of Dooby is the list composed of, there is no way you can add any object to this list.&lt;br /&gt;
+If you try to take some object out of dataList, that object will be of a class that is either Dooby or a subclass of Dooby and thus it can be assigned to a variable of class Dooby or its superclass.. Thus, &lt;code&gt;t = dataList.get(0);&lt;/code&gt; is invalid.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;WTF&lt;/strong&gt;&lt;br /&gt;
+A type argument $T_1$ is said to contain another type argument $T_2$, written $T_2 &amp;lt;= T_1$, is the set of types denoted by $T_2$ is provably a subset of the set of types denoted by $T_1$ under the reflexive and transitive closure of the following rules(where $&amp;lt;:$ denotes subtyping($\S4.10$)):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;$?\space extends\space T&amp;lt;=\space ?\space extends \space S$ if $T &amp;lt;: S$&lt;/li&gt;
+  &lt;li&gt;$?\space extends \space T&amp;lt;=\space ?$&lt;/li&gt;
+  &lt;li&gt;$?\space super \space T&amp;lt;=\space ?\space super \space S$  if $T &amp;lt;: S$&lt;/li&gt;
+  &lt;li&gt;$?\space super \space T&amp;lt;=\space ?$&lt;/li&gt;
+  &lt;li&gt;$?\space super \space T&amp;lt;=\space ? \space extends \space Object$&lt;/li&gt;
+  &lt;li&gt;$ T&amp;lt;=\space T$&lt;/li&gt;
+  &lt;li&gt;$T &amp;lt;= \space ? \space extends \space T$&lt;/li&gt;
+  &lt;li&gt;$T &amp;lt;= \space ? \space super \space T$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;6.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;7.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;10.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;11.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;12.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;14.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;15.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;19.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;21.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;22.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;23.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;24.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;25.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;27.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;28.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;29.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;30.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;31.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;33.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;38.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;44.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;45.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;46.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;48.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;50.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;54.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;55.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;57.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;58.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;59.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;60.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;62.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;63.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;65.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;66.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;69.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;70.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;73.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;74.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;75.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;76.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;77.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;79.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;80.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;81.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+</description>
+        <pubDate>Sat, 28 Mar 2020 12:20:00 +0000</pubDate>
+        <link>https://zwt.io//2020/03/28/ocp-mock-test2-review/</link>
+        <guid isPermaLink="true">https://zwt.io//2020/03/28/ocp-mock-test2-review/</guid>
+        
+        <category>Java</category>
+        
+        <category>1Z0-816</category>
+        
+        <category>认证考试</category>
+        
+        
+      </item>
     
       <item>
         <title>第11章练习回顾</title>
@@ -4122,220 +4402,6 @@ line of code  &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&g
         <category>Asciidoc</category>
         
         <category>Notes</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Java 内部类</title>
-        <description>&lt;blockquote&gt;
-  &lt;p&gt;在这一篇文章，你将会学习到：&lt;/p&gt;
-
-  &lt;ul&gt;
-    &lt;li&gt;内部类是什么&lt;/li&gt;
-    &lt;li&gt;如何声明内部类&lt;/li&gt;
-    &lt;li&gt;如何声明成员、局部，以及匿名内部类&lt;/li&gt;
-    &lt;li&gt;如何创建内部类的对象&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;什么是内部类&quot;&gt;什么是内部类？&lt;/h3&gt;
-
-&lt;p&gt;我们知道类（class）是包（package）的成员（member）。即顶层类，直接放在包下面的类。例如以下这段代码：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// TopLevel.java
-package io.zwt.innerclasses;
-
-public class TopLevel {
-    private int value = 101;
-    
-    public int getValue() {
-        return value;
-    }
-    
-    public void setValue(int value) {
-        this.value = value;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;上面的 &lt;code&gt;TopLevel&lt;/code&gt; 类是 &lt;code&gt;io.zwt.innerclasses&lt;/code&gt; 包的成员。 这个里有三个成员：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;一个实例变量（instance variable）：&lt;code&gt;value&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;两个方法（method）：&lt;code&gt;getValue()&lt;/code&gt; and &lt;code&gt;setValue()&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;一个类也可以声明在另一个类里面。这种类称为&lt;em&gt;内部类&lt;/em&gt;。如果定义在另一个类中的类显式或隐式被声明为static，则它被称为嵌套类，而不是内部类。包含内部类的类称为&lt;em&gt;外层类&lt;/em&gt;或&lt;em&gt;外部类&lt;/em&gt;。看一下下面的 &lt;code&gt;Outer&lt;/code&gt; 和 &lt;code&gt;Inner&lt;/code&gt; 类声明：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// Outer.java
-pakcage io.zwt.innerclasses;
-
-public class Outer {
-	public class Inner {
-		// 内部类的成员在这里
-	}
-	// 外部类的其它成员在这里
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;一个内部类实例只能存在于其外部类实例内。也就是说，你在创建内部类实例之前必须要有一个外部类的实例。这个规则在规范一个对象不能脱离另一个对象而存在这方面很有用。内部类可以完全访问到它的外部类的所有成员，包括私有成员。&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;使用内部类的好处&quot;&gt;使用内部类的好处&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;可以将一个类定义在它的使用者附近。例如，一个计算机有处理器，所以最好将 &lt;code&gt;Processor&lt;/code&gt; 类定义为 &lt;code&gt;Computer&lt;/code&gt; 类的内部类。&lt;/li&gt;
-  &lt;li&gt;它们提供了额外管理类结构的命名空间。例如，在未有内部类之前，一个类只能是包的成员。有了内部类，包含内部类的顶层类，提供了额外的命名空间。&lt;/li&gt;
-  &lt;li&gt;某些设计模式用内部类实现更简单。例如，适配器模式，枚举模式，还有状态模式，都可以用内部类轻松实现。&lt;/li&gt;
-  &lt;li&gt;用内部类实现回调机制优雅且方便。Java 8 的 Lambda 表达式是一种更好且更简洁的回调实现方式。&lt;/li&gt;
-  &lt;li&gt;有助于在 Java 实现闭包。&lt;/li&gt;
-  &lt;li&gt;使用内部类你可以体验一种类的多继承。一个内部类可以继承其它类。因此，内部类可以访问它的外部类成员，以及它的超类成员。注意，访问两个以上类的成员是多继承的目标之一，这可以通过使用内部类实现。然而，只是可以访问两个类的成员，并不是真正意义上的多继承。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;内部类的种类&quot;&gt;内部类的种类&lt;/h3&gt;
-
-&lt;p&gt;你可以在类的任意可以写 Java 语句的位置定义一个内部类，有三种内部类。它们的类型取决于声明所在的位置和声明的方式。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;成员内部类&lt;/li&gt;
-  &lt;li&gt;局部内部类&lt;/li&gt;
-  &lt;li&gt;匿名内部类&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;成员内部类&quot;&gt;成员内部类&lt;/h4&gt;
-
-&lt;p&gt;成员内部类和成员字段或成员方法一样声明在一个类里面。可以声明为 &lt;code&gt;public&lt;/code&gt;, &lt;code&gt;private&lt;/code&gt;, &lt;code&gt;protected&lt;/code&gt; 或者是包级别访问权限。其实例仅在外部类存在的条件下才存在。&lt;/p&gt;
-
-&lt;h4 id=&quot;局部内部类&quot;&gt;局部内部类&lt;/h4&gt;
-
-&lt;p&gt;局部内部类声明在块内。它的作用范围受限于它声明所在的块。由于它作用范围始终受限于块，它的声明不可以使用任何访问修饰符，例如 &lt;code&gt;public&lt;/code&gt;, &lt;code&gt;private&lt;/code&gt; 或 &lt;code&gt;protected&lt;/code&gt;。 通常局部内部类定义在一个方法内。然而，它也可以被定义在静态初始化块，实例初始化块，以及构造器内。当只在块内使用一个类，你可以使用局部内部类。&lt;/p&gt;
-
-&lt;p&gt;要在块外使用局部内部类，它必须符合以下至少一项：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Implement a public interface 实现一个公有接口&lt;/li&gt;
-  &lt;li&gt;继承自另一个公有类，并重写它的超类方法。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;匿名内部类&quot;&gt;匿名内部类&lt;/h4&gt;
-
-&lt;p&gt;匿名内部类跟局部内部类同样，除了一个区别：它没有名字。因为它没有名字，所以没有构造器。&lt;/p&gt;
-
-&lt;h3 id=&quot;静态成员类不是内部类&quot;&gt;静态成员类不是内部类&lt;/h3&gt;
-
-&lt;p&gt;在另一个类中定义的成员类可以声明为 &lt;code&gt;static&lt;/code&gt;。 以下代码声明了一个顶层类 &lt;code&gt;A&lt;/code&gt; 和一个静态成员类 &lt;code&gt;B&lt;/code&gt;：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package io.zwt.innnerclasses;
-public class A {
-	// A static member class
-	public static class B {
-		// The body of class B goes here
-	}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;一个静态成员类不是内部类。它被看作是顶层类。它亦被称为嵌套顶层类。因为它是一个顶层类，你不需要它的外层类的实例去创建它的对象。一个类 A 的实例和类 B 的实例可以独立地存在，因为它们都是顶层类。一个静态成员类可以声明为 &lt;code&gt;public&lt;/code&gt;, &lt;code&gt;protected&lt;/code&gt;，包访问级别，或者是&lt;code&gt; private&lt;/code&gt; 以限制它在外层类之外的访问权限。&lt;/p&gt;
-
-&lt;h3 id=&quot;创建内部类对象&quot;&gt;创建内部类对象&lt;/h3&gt;
-
-&lt;p&gt;创建局部内部类，匿名内部类，和静态成员类是非常直接的。局部内部类的对象在声明所在的内使用 &lt;code&gt;new&lt;/code&gt; 创建对象。匿名内部类的对象在声明时候创建对象。静态成员类是另一类顶层类，其对象创建方式跟顶层类一样。&lt;/p&gt;
-
-&lt;h3 id=&quot;访问外层类的成员&quot;&gt;访问外层类的成员&lt;/h3&gt;
-
-&lt;h3 id=&quot;局部变量访问的限制&quot;&gt;局部变量访问的限制&lt;/h3&gt;
-
-&lt;p&gt;A local inner class is declared inside a block—typically inside a method of a class. A local inner class can access the instance variables of its enclosing class as well as the local variables, which are in scope. The instance of an inner class exists within an instance of its enclosing class. Therefore, accessing the instance variables of the enclosing class inside a local inner class is not a problem because they exist throughout the lifecycle of the instance of the local inner class. However, the local variables in a method exist only during the execution of that method. All local variables become inaccessible when method execution is over. Java makes a copy of the local variables that are used inside a local inner class and stores that copy along with the inner class object. However, to guarantee that the values of the local variables can be reproduced when accessed inside the local inner class code after the method call is over, Java puts a restriction that the local variables must be effectively final. An effectively final variable is a variable whose value does not change after it is initialized. One way to have an effectively final variable is to declare the variable final. Another way is not to change its value after it is initialized. Therefore, a local variable or an argument to a method must be effectively final if it is used inside a local inner class. This restriction also applies to an anonymous inner class declared inside a method.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;提示&lt;/strong&gt; 在 Java 8 以前，如果一个局部变量是被局部内部类，或者匿名内部类访问的，它必须被声明为 &lt;code&gt;final&lt;/code&gt;。 Java 8 更改了这个规则：局部变量不需要被声明为 &lt;code&gt;final&lt;/code&gt;， 但它应该是 effectively final 的。 什么意思呢？就是说，在变量声明前面添加个 &lt;code&gt;final&lt;/code&gt; 修饰符，仍然能够通过编译，相当于 &lt;code&gt;final&lt;/code&gt;，就是所谓的 “effective final” ，就等效于 &lt;code&gt;final&lt;/code&gt; 嘛。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;内部类与继承&quot;&gt;内部类与继承&lt;/h3&gt;
-
-&lt;p&gt;An inner class can inherit from another inner class, a top-level class, or its enclosing class. For example, in the following snippet of code, inner class C inherits from inner class B; inner class D inherits from its enclosing top-level class A, and inner class F inherits from inner class A.B:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class A {
-    public class B {
-    }
-    public class C extends B {
-    }
-    public class D extends A {
-    }
-}
-
-public class E extends A {
-    public class F extends B {
-        
-    }
-}
-
-public class G extends A.B {
-    // This code won't compile
-    // 这段代码不能通过编译！
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;内部类中不能有静态成员除非是编译时常量&quot;&gt;内部类中不能有静态成员（除非是编译时常量）&lt;/h3&gt;
-
-&lt;p&gt;Java 里面的 &lt;code&gt;static&lt;/code&gt; 关键字使得一个结构变成顶层结构。因此，你不能在一个内部类里边定义任何静态成员（字段、方法或者是初始化语句块）。以下代码不能通过编译，因为内部类 &lt;code&gt;B&lt;/code&gt; 声明了一个静态字段 &lt;code&gt;DAYS_IN_A_WEEK&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class A {
-    public class B {
-        // Cannot have the following declaration
-        public static int DAYS_IN_A_WEEK = 7; // A compile-time error
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;然而，内部类里面可以有性质为编译时常量的静态字段。什么意思？请看以下代码：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class A {
-    public class B {
-        // Can have a compile-time static constant field
-        public final static int DAYS_IN_A_WEEK = 7; // OK
-
-        // Cannot have the following declaration, because it is not
-        // a compile-time constant, even though it is final
-        public final static String str = new String(&quot;Hello&quot;);
-		// 可以用 public final static String str = &quot;Hello&quot;; 是常量
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;注意 成员接口和成员枚举是隐式 static 的，因此不能声明在内部类里。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h3 id=&quot;内部类和编译器的魔法&quot;&gt;内部类和编译器的魔法&lt;/h3&gt;
-
-&lt;p&gt;成员内部类和嵌套内部类：&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;&amp;lt;outer-class-name&amp;gt;$&amp;lt;member-or-nested-class-name&amp;gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;局部内部类：&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;&amp;lt;outer-class-name&amp;gt;$&amp;lt;a-number&amp;gt;&amp;lt;local-inner-class-name&amp;gt;&lt;/code&gt;
-匿名内部类：&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;&amp;lt;outer-class-name&amp;gt;$&amp;lt;a-number&amp;gt;&lt;/code&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;闭包与回调&quot;&gt;闭包与回调&lt;/h3&gt;
-
-&lt;p&gt;In functional programming, a higher order function is an anonymous function that can be treated as a data object. That is, it can be stored in a variable and passed around from one context to another.  It might be invoked in a context that did not necessarily define it. Note that a higher order function is an anonymous function, so the invoking context does not have to know its name. A closure is a higher order function packaged with its defining environment. A closure carries with it the variables in scope when it was defined, and it can access those variables even when it is invoked in a context other than the context in which it was defined.&lt;/p&gt;
-
-&lt;h3 id=&quot;在静态上下文定义内部类&quot;&gt;在静态上下文定义内部类&lt;/h3&gt;
-
-&lt;p&gt;很少有用到，发现 static {} 里面可以放 {} 这样&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 04 Feb 2020 22:34:00 +0000</pubDate>
-        <link>https://zwt.io//2020/02/04/inner-class/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/02/04/inner-class/</guid>
-        
-        <category>Java</category>
-        
-        <category>语言特性</category>
         
         
       </item>

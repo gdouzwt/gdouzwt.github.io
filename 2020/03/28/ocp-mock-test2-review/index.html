@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>在数组中找到众数 - 招文桃 | 记录</title>
+    <title>OCP-1Z0-816模拟测试2回顾 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io//2019/09/25/exercise/">
+    <link rel="canonical" href="https://zwt.io//2020/03/28/ocp-mock-test2-review/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -166,15 +166,19 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#笔试面试" title="笔试面试">笔试面试</a>
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#1Z0-816" title="1Z0-816">1Z0-816</a>
+                        
+                        <a class="tag" href="/tags/#认证考试" title="认证考试">认证考试</a>
                         
                     </div>
-                    <h1>在数组中找到众数</h1>
+                    <h1>OCP-1Z0-816模拟测试2回顾</h1>
                     
                     
-                    <h2 class="subheading">在群里面别人发的题目</h2>
+                    <h2 class="subheading"></h2>
                     
-                    <span class="meta">2019年9月25日发布📑</span>
+                    <span class="meta">2020年3月28日发布📑</span>
                     
                 </div>
             </div>
@@ -193,30 +197,269 @@
         col-md-10 col-md-offset-1
         post-container">
 
-        <h3 id="赛题内容">赛题内容</h3>
+        <p><strong>1.</strong> Given</p>
 
-<p>给定一个大小为 $n$ 的数组，找到其中的众数。众数是指在数组中出现次数大于 $\lfloor n/2 \rfloor$ 的元素。你可以假设数组是非空的，并且给定的数组总是存在众数。<!--more--></p>
-
-<p>测试样例：</p>
-
-<pre><code>样例输入：
-9
-9 9 9 9 8 8 8 8 9
-样例输出：
-9
-</code></pre>
-
-<h3 id="思考过程">思考过程</h3>
-
-<h3 id="java实现">Java实现</h3>
-
-<pre><code class="language-java">public class Mode {
-    
+<pre><code class="language-java">class Booby {
+}
+class Dooby extends Booby {
+}
+class Tooby extends Dooby {
 }
 
+public class TestClass {
+  Booby b = new Booby();
+  Tooby t = new Tooby();
+  public void do1(List&lt;? super Dooby&gt; dataList) {
+    //1 INSERT CODE HERE
+  }
+  public void do2(List&lt;? extends Dooby&gt; dataList) {
+    //2 INSERT CODE HERE
+  }
+}
 </code></pre>
 
-<h3 id="最后">最后</h3>
+<p>and the following four statements:</p>
+
+<ol>
+  <li>b = dataList.get(0);</li>
+  <li>t = dataList.get(0);</li>
+  <li>dataList.add(b);</li>
+  <li>dataList.add(t);</li>
+</ol>
+
+<p>What can be inserted in the above code?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 1 and 3 can inserted at //1 and Statements 2 and 4 can be inserted at //2.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Statement 4 can inserted at //1 and Statement 1 can be inserted at //2.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 3 and 4 can inserted at //1 and Statements 1 and 2 can be inserted at //2.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 1 and 2 can inserted at //1 and Statements 3 and 4 can be inserted at //2.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statement 1 can inserted at //1 and Statement 4 can be inserted at //2.</li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<ol>
+  <li>
+    <p><code>addData1(List&lt;? super Dooby&gt; dataList)</code><br />
+This means that dataList is a List whose elements are of a class that is either Dooby or a super class of Dooby. We don’t know which super class of Dooby. Thus, if you try to add any object to dataList, it has to be a assignable to Dooby.<br />
+Thus, <code>dataList.add(b);</code> will be invalid because b is not assignable to Dooby.<br />
+Further, if you try to take some object out of dataList, that object will be of a class that is either Dooby or a Superclass of Dooby. Only way you can declare a variable that can be assigned the object retrieved from dataList is Object obj. Thus, <code>t = dataList.get(0);</code> and <code>b = dataList.get(0);</code> are both invalid.</p>
+  </li>
+  <li>
+    <p><code>addData2(List&lt;? extends Dooby&gt; dataList)</code><br />
+This means that dataList is a List whose elements are of a class that is either Dooby or a subclass of Dooby. Since we don’t know which subclass of Dooby is the list composed of, there is no way you can add any object to this list.<br />
+If you try to take some object out of dataList, that object will be of a class that is either Dooby or a subclass of Dooby and thus it can be assigned to a variable of class Dooby or its superclass.. Thus, <code>t = dataList.get(0);</code> is invalid.</p>
+  </li>
+</ol>
+
+<p><strong>WTF</strong><br />
+A type argument $T_1$ is said to contain another type argument $T_2$, written $T_2 &lt;= T_1$, is the set of types denoted by $T_2$ is provably a subset of the set of types denoted by $T_1$ under the reflexive and transitive closure of the following rules(where $&lt;:$ denotes subtyping($\S4.10$)):</p>
+
+<ul>
+  <li>$?\space extends\space T&lt;=\space ?\space extends \space S$ if $T &lt;: S$</li>
+  <li>$?\space extends \space T&lt;=\space ?$</li>
+  <li>$?\space super \space T&lt;=\space ?\space super \space S$  if $T &lt;: S$</li>
+  <li>$?\space super \space T&lt;=\space ?$</li>
+  <li>$?\space super \space T&lt;=\space ? \space extends \space Object$</li>
+  <li>$ T&lt;=\space T$</li>
+  <li>$T &lt;= \space ? \space extends \space T$</li>
+  <li>$T &lt;= \space ? \space super \space T$</li>
+</ul>
+
+<hr />
+
+<p><strong>2.</strong></p>
+
+<hr />
+
+<p><strong>3.</strong></p>
+
+<hr />
+
+<p><strong>5.</strong></p>
+
+<hr />
+
+<p><strong>6.</strong></p>
+
+<hr />
+
+<p><strong>7.</strong></p>
+
+<hr />
+
+<p><strong>10.</strong></p>
+
+<hr />
+
+<p><strong>11.</strong></p>
+
+<hr />
+
+<p><strong>12.</strong></p>
+
+<hr />
+
+<p><strong>14.</strong></p>
+
+<hr />
+
+<p><strong>15.</strong></p>
+
+<hr />
+
+<p><strong>19.</strong></p>
+
+<hr />
+
+<p><strong>21.</strong></p>
+
+<hr />
+
+<p><strong>22.</strong></p>
+
+<hr />
+
+<p><strong>23.</strong></p>
+
+<hr />
+
+<p><strong>24.</strong></p>
+
+<hr />
+
+<p><strong>25.</strong></p>
+
+<hr />
+
+<p><strong>27.</strong></p>
+
+<hr />
+
+<p><strong>28.</strong></p>
+
+<hr />
+
+<p><strong>29.</strong></p>
+
+<hr />
+
+<p><strong>30.</strong></p>
+
+<hr />
+
+<p><strong>31.</strong></p>
+
+<hr />
+
+<p><strong>33.</strong></p>
+
+<hr />
+
+<p><strong>38.</strong></p>
+
+<hr />
+
+<p><strong>44.</strong></p>
+
+<hr />
+
+<p><strong>45.</strong></p>
+
+<hr />
+
+<p><strong>46.</strong></p>
+
+<hr />
+
+<p><strong>48.</strong></p>
+
+<hr />
+
+<p><strong>50.</strong></p>
+
+<hr />
+
+<p><strong>54.</strong></p>
+
+<hr />
+
+<p><strong>55.</strong></p>
+
+<hr />
+
+<p><strong>57.</strong></p>
+
+<hr />
+
+<p><strong>58.</strong></p>
+
+<hr />
+
+<p><strong>59.</strong></p>
+
+<hr />
+
+<p><strong>60.</strong></p>
+
+<hr />
+
+<p><strong>62.</strong></p>
+
+<hr />
+
+<p><strong>63.</strong></p>
+
+<hr />
+
+<p><strong>65.</strong></p>
+
+<hr />
+
+<p><strong>66.</strong></p>
+
+<hr />
+
+<p><strong>69.</strong></p>
+
+<hr />
+
+<p><strong>70.</strong></p>
+
+<hr />
+
+<p><strong>73.</strong></p>
+
+<hr />
+
+<p><strong>74.</strong></p>
+
+<hr />
+
+<p><strong>75.</strong></p>
+
+<hr />
+
+<p><strong>76.</strong></p>
+
+<hr />
+
+<p><strong>77.</strong></p>
+
+<hr />
+
+<p><strong>79.</strong></p>
+
+<hr />
+
+<p><strong>80.</strong></p>
+
+<hr />
+
+<p><strong>81.</strong></p>
+
+<hr />
 
 
 
@@ -244,38 +487,17 @@
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2019/09/24/minimum-swap-times/" data-toggle="tooltip" data-placement="top" title="男女位置最小交换次数">
+                <a href="/2020/03/22/chapter11-exam-review/" data-toggle="tooltip" data-placement="top" title="第11章练习回顾">
                 上一篇<br>
-                <span>男女位置最小交换次数</span>
+                <span>第11章练习回顾</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2019/09/25/spring-keywords/" data-toggle="tooltip" data-placement="top" title="Spring及其周边关键词">
-                下一篇<br>
-                <span>Spring及其周边关键词</span>
-                </a>
-            </li>
             
         </ul>
     </div>  
 
     <!-- Side Catalog Container -->
-        
-            <div class="
-                col-lg-2 col-lg-offset-0
-                visible-lg-block
-                sidebar-container
-                catalog-container">
-                <div class="side-catalog">
-                    <hr class="hidden-sm hidden-xs">
-                    <h5>
-                        <a class="catalog-toggle" href="#">目录</a>
-                    </h5>
-                    <ul class="catalog-body"></ul>
-                </div>
-            </div>
         
 
     <!-- Sidebar Container -->
@@ -728,50 +950,6 @@
 </script>
     
 <!-- Side Catalog -->
-
-<script type="text/javascript">
-    function generateCatalog (selector) {
-        var P = $('div.post-container'),a,n,t,l,i,c;
-        a = P.find('h1,h2,h3,h4,h5,h6');
-        a.each(function () {
-            n = $(this).prop('tagName').toLowerCase();
-            i = "#"+$(this).prop('id');
-            t = $(this).text();
-            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
-            l = $('<li class="'+n+'_nav"></li>').append(c);
-            $(selector).append(l);
-        });
-        return true;    
-    }
-
-    generateCatalog(".catalog-body");
-
-    // toggle side catalog
-    $(".catalog-toggle").click((function(e){
-        e.preventDefault();
-        $('.side-catalog').toggleClass("fold")
-    }))
-
-    /*
-     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
-     * Fork by Hux to support padding
-     */
-    async("/js/jquery.nav.js", function () {
-        $('.catalog-body').onePageNav({
-            currentClass: "active",
-            changeHash: !1,
-            easing: "swing",
-            filter: "",
-            scrollSpeed: 700,
-            scrollOffset: 0,
-            scrollThreshold: .2,
-            begin: null,
-            end: null,
-            scrollChange: null,
-            padding: 80
-        });
-    });
-</script>
 
 
 
