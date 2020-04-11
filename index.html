@@ -176,6 +176,20 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/04/04/getMin/">
+        <h2 class="post-title">
+            设计一个有 getMin 功能的栈
+        </h2>
+        
+    </a>
+    <div class="post-content-preview">
+        
+ <a href="/2020/04/04/getMin/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/03/28/ocp-mock-test2-review/">
         <h2 class="post-title">
             OCP-1Z0-816模拟测试2回顾
@@ -239,7 +253,7 @@ If you try to take some object out of dataList, that object will be of a class t
   </li>
 </ol>
 
-<p><strong>WTF</strong><br />
+<p><strong>泛型规则（JLS）</strong><br />
 A type argument $T_1$ is said to contain another type argument $T_2$, written $T_2 &lt;= T_1$, is the set of types denoted by $T_2$ is provably a subset of the set of types denoted by $T_1$ under the reflexive and transitive closure of the following rules(where $&lt;:$ denotes subtyping($\S4.10$)):</p>
 
 <ul>
@@ -255,63 +269,631 @@ A type argument $T_1$ is said to contain another type argument $T_2$, written $T
 
 <hr />
 
-<p><strong>2.</strong></p>
+<p><strong>2.</strong>
+Given the following RDBMS table information :<br />
+STUDENT Table<br />
+SID INT Primary Key NAME VARCHAR(50)<br />
+GPA INT<br />
+and the following code:</p>
+
+<pre><code class="language-java">Statement stmt = connection.createStatement();  
+ResultSet rs = stmt.executeQuery("select SID, NAME,  GPA from STUDENT");  
+while(rs.next()){  
+  System.out.println( INSERT CODE HERE );  
+}  
+connection.close();  
+</code></pre>
+
+<p>What can be inserted in the above code so that it will print the GPA value for each student?  (Assume that items not specified such as import statements and try/catch block are all valid.)</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />rs.getString(2)
+    <blockquote>
+      <p>The numbering of columns in a ResultSet stars with 1. Therefore, it should be rs.getString(3).</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />rs.getString(3)
+    <blockquote>
+      <p>Although the value of the GPA field is int, it can still be retrieved using getString().<br />
+Note that if a field is of type VARCHAR and if you try to retrieve the value using say getInt(), it may throw an exception at runtime if the value cannot be parsed into an Integer.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />rs.getInt(2)
+    <blockquote>
+      <p>The numbering of columns in a ResultSet starts with 1. Therefore, it should be rs.getInt(3).</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />rs.getInteger(2)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />rs.getInt(“GPA”)</li>
+</ul>
 
 <hr />
 
 <p><strong>3.</strong></p>
 
+<p>Given:</p>
+
+<pre><code class="language-java">class Item {
+  private int id;
+  private String name;
+  public Item(int id, String name) {
+    this.id = id;
+    this.name = name;
+  }
+  public Integer getId() {
+    return id;
+  }
+  public void setId(int id) {
+    this.id = id;
+  }
+  public String getName() {
+    return name;
+  }
+  public void setName(String name) {
+    this.name = name;
+  }
+  public String toString() {
+    return name;
+  }
+}
+
+public class Test {
+  public static void main(String[] args) {
+    List&lt;Item&gt; l = Arrays.asList(
+          new Item(1, "Screw"),
+          new Item(2, "Nail"),
+          new Item(3, "Bolt")
+    );
+    l.stream()
+    // INSERT CODE HERE
+    .forEach(System.out::print);
+  }
+}
+</code></pre>
+
+<p>Which of the following options can be inserted in the above code independent of each other, so that the code will print BoltNailScrew?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />.sorted((a, b)-&gt;a.getId().compareTo(b.getId()))
+    <blockquote>
+      <p>This option creates a Comparator using a lambda expression that compares two Item objects for their id attribute. Syntactically, this option is correct but we need to sort by name instead of id.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />.sorted(Comparator.comparing(a-&gt;a.getName())).map((i)-&gt;i.getName())
+    <blockquote>
+      <ol>
+        <li>This option uses Comparator’s comparing method that accepts a function that extracts a Comparable sort key, and returns a Comparator that compares by that sort key. Note that this is helpful only if the type of the object returned by the function implements Comparable. Here, it returns a String, which does implement Comparable and so it is ok.</li>
+        <li>Although the map part is not required because Item class overrides the toString method to print the name anyway, it is valid.</li>
+      </ol>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />.map((i)-&gt;i.getName())
+    <blockquote>
+      <p>Just mapping the Items to their names will not help because we need to sort the elements as well.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />.map((i)-&gt;i.getName()).sorted()
+    <blockquote>
+      <ol>
+        <li>The call to map converts the stream of Items to a stream of Strings.</li>
+        <li>The call to sorted() sorts the stream of String by their natural order, which is what we want here.</li>
+      </ol>
+    </blockquote>
+  </li>
+</ul>
+
 <hr />
 
-<p><strong>5.</strong></p>
+<p><strong>5.</strong>
+Given:</p>
+
+<pre><code class="language-java">List&lt;Integer&gt; ls = Arrays.asList(3,4,6,9,2,5,7);
+System.out.println(ls.stream().reduce(Integer.MIN_VALUE, (a, b)-&gt;a&gt;b?a:b)) //1
+System.out.println(ls.stream().max(Integer::max).get()); //2
+System.out.println(ls.stream().max(Integer::compare).get()); //3
+System.out.println(ls.stream().max((a, b)-&gt;a&gt;b?a:b)); //4
+</code></pre>
+
+<p>Which of the above statements will print 9?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />1 and 4</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />2 and 3</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />1 and 3</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />2,3, and 4</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />All of them.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />None of them.</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+The code will print:</p>
+
+<p>9<br />
+3<br />
+9<br />
+Optional[3]</p>
+
+<p>You need to understand the following points to answer this question:</p>
+
+<ol>
+  <li>
+    <p>The reduce method needs a BinaryOperator. This interface is meant to consume two arguments and produce one output. It is applied repeatedly on the elements in the stream until only one element is left. The first argument is used to provide an initial value to start the process. (If you don’t pass this argument, a different reduce method will be invoked and that returns an Optional object. )</p>
+  </li>
+  <li>
+    <p>The Stream.max method requires a Comparator. All you need to implement this interface using a lambda expression is a reference to any method that takes two arguments and returns an int. The name of the method doesn’t matter. That is why it is possible to pass the reference of Integer’s max method as an argument to Stream’s max method. However, Integer.max works very differently from Integer.compare. The max method returns the maximum of two numbers while the compare method returns a difference between two numbers. Therefore, when you pass Integer::max to Stream’s max, you will not get the correct maximum element from the stream. That is why //2 will compile but will not work correctly.</p>
+  </li>
+</ol>
+
+<p>//4 is basically same as //2. It will not work correctly for the same reason.</p>
 
 <hr />
 
-<p><strong>6.</strong></p>
+<p><strong>6.</strong>
+Given:</p>
+
+<pre><code class="language-java">@Retention(RetentionPolicy.RUNTIME)
+public @interface DebugInfo {
+    String[] params() default {""};
+    String date() default "";
+    int depth() default 10;
+    String value() ;
+}
+</code></pre>
+
+<p>Which of the following options correctly uses the above annotation?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>List&lt;Integer&gt; al = new ArrayList&lt;Integer&gt;(); al.forEach((@DebugInfo("lambda") x) -&gt;{ System.out.println(x);});</code>
+    <blockquote>
+      <p>It is possible to annotate lambda parameters but to do that the type of the lambda parameter must be specified.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>List&lt;Integer&gt; al = new ArrayList&lt;Integer&gt;(); al.forEach((@DebugInfo("lambda") var x) -&gt;{ System.out.println(x);});</code>
+    <blockquote>
+      <p>Normally, when a lambda express requires only a single parameter, you don’t need to specify its type because it can be inferred by the compiler. However, in that case, you cannot apply an annotation to it. To be able to apply an annotation and to get the benefit of type inferencing, you can specify the type of the variable as var.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>List&lt;Integer&gt; al = new ArrayList&lt;Integer&gt;(); al.forEach((@DebugInfo("lambda") Integer x) -&gt;System.out.println(x));</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>@DebugInfo( "01/01/2019") void applyLogic(int index){ }</code>
+    <blockquote>
+      <p>Since there is only one element in the @DebugInfo annotation that does not have a default value and since its name is value, you can pass a value for this element directly without specifying the name.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>BinaryOperator&lt;Integer&gt; bin = @DebugInfo("lambda")( a, b)-&gt; a+b;</code>
+    <blockquote>
+      <p>The annotation is not placed correctly. You can do something like this: <code>BinaryOperator&lt;Integer&gt; bin = ( @DebugInfo("lambda") Integer a, Integer b)-&gt; a+b;</code> or <code>BinaryOperator&lt;Integer&gt; bin = ( @DebugInfo("lambda1") Integer a, @DebugInfo("lambda1") Integer b)-&gt; a+b;</code> or even this: <code>BinaryOperator&lt;Integer&gt; bin = ( @DebugInfo("lambda") var a, var b)-&gt; a+b;</code>  But you cannot do: <code>BinaryOperator&lt;Integer&gt; bin = ( @DebugInfo("lambda") var a, Integer b)-&gt; a+b;</code> because you cannot mix var and explicit types in lambda.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>@DebugInfo( date=new Date(), value="01/01/2019") void applyLogic(int index){ }</code>
+    <blockquote>
+      <p>Value of an element must be a constant expression. So, new Date() is not a valid value for date element.</p>
+    </blockquote>
+  </li>
+</ul>
 
 <hr />
 
-<p><strong>7.</strong></p>
+<p><strong>7.</strong><br />
+Which of the following method implementations will write a boolean value to the underlying stream?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>public void usePrintWriter(PrintWriter pw){ boolean bval = true;     pw.writeBoolean(bval); }</code>
+    <blockquote>
+      <p>PrintWriter does not have write  methods such as writeInt, writeBoolean, WriteLong. It has overloaded print methods for writing various primitives.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>public void usePrintWriter(PrintWriter pw) throws IOException{     boolean bval = true; pw.write(bval); }</code>
+    <blockquote>
+      <p>PrintWriter does not have write(boolean ) method. It does have write(String), write(int ), write(char[] ) methods. It also has write(char[] buf, int off, int len) and write(String buf, int off, int len) methods that let you write a portion of the input buf.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>public void usePrintWriter(PrintWriter pw) throws IOException{     boolean bval = true;  pw.print(bval); }</code>
+    <blockquote>
+      <p>Although the throws IOException clause is not required here, it is not invalid.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>public void usePrintWriter(PrintWriter pw) { boolean bval = true;     pw.print(bval); }</code></li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>public void usePrintWriter(PrintWriter pw) { boolean bval = true;     pw.println(bval); }</code></li>
+</ul>
+
+<p>Explanation<br />
+Remember that none of PrintWriter’s print or write methods throw I/O exceptions (although some of its constructors may). This is unlike other streams, where you need to include exception handling (i.e. a try/catch or throws clause) when you use the stream.</p>
 
 <hr />
 
-<p><strong>10.</strong></p>
+<p><strong>10.</strong><br />
+Consider the following code fragment:</p>
+
+<pre><code class="language-java">public static void myMethod(int x)  //Specify throws clause here
+{
+    try{
+        if(x == 0){
+            throw new ClassNotFoundException();
+        }
+        else throw new NoSuchFieldException();
+    }catch(RuntimeException e){
+        throw e;
+    }
+}
+</code></pre>
+
+<p>Which of the following is a valid throws clause for the above method?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />No throws clause is necessary.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />throws ClassNotFoundException, NoSuchFieldException</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />throws ClassNotFoundException</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />throws NoSuchFieldException</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />throws Exception</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+<code>ClassNotFoundException</code> and <code>NoSuchFieldException</code> are checked exceptions and are thrown when you use Java reflection mechanism to load a class and access its fields. For example:<br />
+<code>Class c = Class.forName("test.MyClass");</code> //may throw ClassNotFoundException<br />
+<code>java.lang.reflect.Field f = c.getField("someField");</code> //may throw NoSuchFieldException</p>
 
 <hr />
 
-<p><strong>11.</strong></p>
+<p><strong>11.</strong><br />
+Which of the following are correct definitions of a repeatable annotation?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>public @interface Meal{ String value(); }</code>
+    <blockquote>
+      <p>For an annotation to be repeatable it must be defined with @Repeatable meta-annotation.<br />
+@Repeatable requires the name of the container annotation class. It cannot be empty. For example, @Repeatable(Meals.class)</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>@Repeatable(Meals.class) public @interface Meal { int id() default 0; } public @interface Meals{ Meal[] meals(); }</code>
+    <blockquote>
+      <p>The name of the Meal[] array should be value, not meals.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" /><code>public @interface Meals{ Meal[] value(); String course() default "maincourse"; } @Repeatable(Meals.class) public @interface Meal{ int id() default 0; String name(); }</code>
+    <blockquote>
+      <p>The value of the <code>@Repeatable</code> meta-annotation, in parentheses, is the type of the container annotation that the Java compiler generates to store repeating annotations. Containing annotation type must have a value element with an array type. The component type of the array type must be the repeatable annotation type. It is possible to use other elements in the container annotation but they must have default values.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" /><code>public @interface Meals{ Meal[] value(); String course(); } @Repeatable(Meals.class) public @interface Meal{ int id() default 0; String value(); }</code>
+    <blockquote>
+      <p>It is possible to use other elements in the container annotation but they must have default values. So, String course(); should be changed to something like String course() default “maincourse”;<br />
+The reason for this restriction is simple. Java allows you to use the contained annotation and omit the container annotation. But internally, the container does create the container annotation and if there is no default value for any element of the container annotation, the compiler will not be able to supply its value.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong>
+To make it easy to repeat annotations, Java does not require you to use the container annotation. You can just write <code>@Meal(name="sandwich")</code> but, internally, Java converts it to <code>@Meals(@Meal(name="sandwich"))</code>. If you apply two such annotations, for example:<br />
+<code>@Meal(name="sandwich")</code><br />
+<code>@Meal(name="fries")</code></p>
+
+<p>the compiler will convert them to: <code>@Meals({@Meal(name="sandwich"), @Meal(name="fries") })</code></p>
+
+<p>A container annotation is also an annotation and just like any other annotation, it can be used independently. It can have other elements as well. For example, you can use the <code>@Meals</code> annotation like this:<br />
+<code>@Meals(value={@Meal(name="sandwich"), @Meal(name="fries") }, course="starter")</code></p>
+
+<p>Remember that values of a repeated annotations are not additive. So, for example, you cannot expect <code>@Meal(id=1)</code> and <code>@Meal(name="fries")</code> to combine automatically to <code>@Meal(id=1, name="fries")</code>. Since id is defined using a default value but name is not, <code>@Meal(name="fries")</code> is valid but <code>@Meal(id=1)</code> is not valid.</p>
 
 <hr />
 
-<p><strong>12.</strong></p>
+<p><strong>12.</strong>
+Your application is packaged in myapp.jar and depends on a jar named datalayer.jar, which in turn depends on mysql-connector-java-8.0.11.jar. The following packages exist in these jars:</p>
+
+<p>myapp.jar:   com.abc.myapp<br />
+datalayer.jar: com.abc.datalayer<br />
+mysql-connector-java-8.0.11.jar:  com.mysql.jdbc</p>
+
+<p>You want to use bottom up approach for migrating your app to a modular app. Which of the following is required before you can do this?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Mysql driver jar and datalayer.jar must first be converted into modular jars.
+    <blockquote>
+      <p>In this case, mysql-connector-java-8.0.11.jar would have to become modular first, then datalayer.jar.<br />
+In the top down approach, on the other hand, you would directly make myapp.jar modular by including a module-info and adding requires datalayer; clause. You would create an automatic module for datalayer.jar by simply placing it on module-path (instead of classpath). You would leave mysql jar on the classpath so that datalayer could access it.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />datalayer.jar must first be converted into modular jar. The mysql jar need not be converted.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />The mysql jar must first be converted into modular jar. The datalayer.jar need not be converted.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Neither datalayer nor mysql driver need to be converted into modular jars.<br />
+<strong>Explanation</strong><br />
+<strong>Bottom Up Approach for modularzing an application</strong><br />
+While modularizing an app using the bottom-up approach, you basically need to convert lower level libraries into modular jars before you can convert the higher level libraries. For example, if a class in A.jar directly uses a class from B.jar, and a class in B.jar directly uses a class from C.jar, you need to first modularize C.jar and then B.jar before you can modularize A.jar.<br />
+Thus, bottom up approach is possible only when the dependent libraries are modularized already.</li>
+</ul>
 
 <hr />
 
-<p><strong>14.</strong></p>
+<p><strong>14.</strong>
+Given:<br />
+<code>List&lt;Integer&gt; ls = Arrays.asList(1, 2, 3);</code><br />
+Which of the following options will compute the sum of all Integers in the list correctly?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />double sum = ls.stream().sum();
+    <blockquote>
+      <p>There no sum method in Stream. There is one in IntStream and DoubleStream.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />double sum = ls.stream().reduce(0, (a,b)-&gt; a+b);
+    <blockquote>
+      <p>The reduce method performs a reduction on the elements of this stream, using the provided identity value and an associative accumulation function, and returns the reduced value.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />double sum = ls.stream().mapToInt(x-&gt;x).sum();</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />double sum = 0; ls.stream().forEach(a-&gt;{sum=sum+a;});
+    <blockquote>
+      <p>This code is almost correct but for the fact that only final local variables can be used in a lambda expression. Here, the code is trying to use sum and sum is not final. Effectively final means that even though it is not declared as final, it is not assigned any value anywhere else after the first assignment. That compiler determines that this variable never changes and consider it as final.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />double sum = 0; ls.stream().peek(x-&gt;{sum=sum+x;}).forEach(y-&gt;{});
+    <blockquote>
+      <p>This has the same problem as above. sum is not final or effectively final.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+It is important that you go through the JavaDoc API description of the three flavors of reduce method given here: You should read about the three flavors of reduce method given here: <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html</a></p>
 
 <hr />
 
-<p><strong>15.</strong></p>
+<p><strong>15.</strong>
+Given:</p>
+
+<pre><code class="language-java">public class Book{
+    private String title;
+    private Double price;
+    public Book(String title, Double price){
+        this.title = title;
+        this.price = price;
+    }
+    //accessor methods not shown
+</code></pre>
+
+<p>What will the following code print when compiled and run?</p>
+
+<p><code>Book b1 = new Book("Java in 24 hrs", null);</code><br />
+<code>DoubleSupplier ds1 = b1::getPrice;</code><br />
+<code>System.out.println(b1.getTitle()+" "+ds1.getAsDouble());</code></p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Java in 24 hrs null</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Java in 24 hrs 0.0</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Java in 24 hrs</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will throw a NullPointerException.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will not compile.
+    <blockquote>
+      <p>There is no problem with the code.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+<code>java.util.function.DoubleSupplier</code>(and other similar Suppliers such as IntSupplier and LongSupplier) is a functional interface with the functional method named <code>getAsDouble</code>. The return type of this method is a primitive double (not <code>Double</code>). Therefore, if your lambda expression for this function returns a <code>Double</code>, it will automatically be converted into a double because of auto-unboxing. However, if your expression returns a null, a <code>NullPointerException</code> will be thrown.</p>
 
 <hr />
 
-<p><strong>19.</strong></p>
+<p><strong>19.</strong>
+What will the following code print?</p>
+
+<pre><code class="language-java">import java.util.Optional;
+public class NewClass {
+    public static Optional&lt;String&gt; getGrade(int marks){
+        Optional&lt;String&gt; grade = Optional.empty();
+        if(marks&gt;50){
+            grade = Optional.of("PASS");
+        }
+        else {
+            grade.of("FAIL");
+        }
+        return grade;
+    }
+    public static void main(String[] args) {
+        Optional&lt;String&gt; grade1 = getGrade(50);
+        Optional&lt;String&gt; grade2 = getGrade(55);
+        System.out.println(grade1.orElse("UNKNOWN"));
+        if(grade2.isPresent()){
+            grade2.ifPresent(x-&gt;System.out.println(x));
+        }else{
+            System.out.println(grade2.orElse("Empty"));
+        }
+    }
+}
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />UNKNOWN PASS</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Optional[UNKNOWN] PASS</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Optional[UNKNOWN] Optional[PASS]</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />FAIL PASS</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Optional[FAIL] OPTIONAL[PASS]</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+You should go through the following article about java.util.Optional:<br />
+<a href="http://www.oracle.com/technetwork/articles/java/java8-optional-2175753.html">http://www.oracle.com/technetwork/articles/java/java8-optional-2175753.html</a></p>
+
+<p>Here are a few important things you need to know about Optional class:</p>
+
+<ol>
+  <li>Optional has a static method named <code>of(T t)</code> that returns an Optional object containing the value passed as argument. It will throw <code>NullPointerException</code> if you pass <code>null</code>. If you want to avoid <code>NullPointerException</code>, you should use <code>Optional.ofNullable(T t)</code> method. This will return <code>Optional.empty</code> if you pass <code>null</code>.</li>
+  <li>You cannot change the contents of Optional object after creation. Optional does not have a set method. Therefore, <code>grade.of</code>, although technically correct, will not actually change the Optional object referred to by grade. It will return a new Optional object containing the passed argument.</li>
+  <li>The <code>orElse</code> method returns the actual object contained inside the Optional or the argument passed to this method if the Optional is empty. It does not return an Optional object. Therefore, <code>print(grade1.orElse("UNKNOWN"))</code> will print UNKNOWN and not Optional[UNKNOWN].</li>
+  <li><code>isPresent()</code> returns true if the Optional contains a value, false otherwise.</li>
+  <li><code>ifPresent(Consumer)</code> executes the <code>Consumer</code> object with the value if the Optional contains a value. Not that it is the value contained in the Optional that is passed to the <code>Consumer</code> and not the Optional itself.</li>
+</ol>
 
 <hr />
 
-<p><strong>21.</strong></p>
+<p><strong>21.</strong>
+Consider the following method exposed by a utility class:</p>
+
+<pre><code class="language-java">public static String getOptions(final String propName) {
+                return AccessController.doPrivileged(
+                    new PrivilegedAction&lt;String&gt;() {
+                        public String run() {
+                            return System.getProperty(propName);
+                        }
+                    }
+                );
+            }
+</code></pre>
+
+<p>It has been decided to give appropriate permission in the security file for this code. Identify correct statements.</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It violates secure coding guidelines for invoking privileged actions.
+    <blockquote>
+      <p>As per Guideline 9-3 / ACCESS-3: “Safely invoke java.security.AccessController.doPrivileged”, the given code should retrieve a system property using a hardcoded value instead of passing user input directly to the OS. In the given code, the user can potentially wreck the application by requesting illformated or mischievous property name. Since the code is privileged, the call may cause unwanted impact directly on the OS.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It violates secure coding guidelines for exposing static methods.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It violates secure coding guidelines for validating inputs.
+    <blockquote>
+      <p>Ideally, it should validate whether the property name for which the value is requested is valid or not.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It violates secure coding guidelines for protecting confidential information.</li>
+</ul>
 
 <hr />
 
-<p><strong>22.</strong></p>
+<p><strong>22.</strong>
+Which of the following statements are true regarding the try-with-resources statement?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Resources are closed in the same order of their creation.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Resources may not be closed properly if the code in the try block throws an exception for which there is no catch block.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Resources may not be closed properly if the code in the catch block throws an exception.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />catch and finally blocks are executed after the resources opened in the try blocks are closed.</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+You need to know the following points regarding try-with-resources statement for the exam:</p>
+
+<p><strong>1.</strong> The resource class must implement java.lang.AutoCloseable interface. Many standard JDK classes such as implement java.io.Closeable interface, which extends java.lang.AutoCloseable.<br />
+<strong>2.</strong> AutoCloseable has only one method - public void close() throws Exception.<br />
+<strong>3.</strong> Resources are closed at the end of the try block and before any catch or finally block.<br />
+<strong>4.</strong> Resources are not even accessible in the catch or finally block. For example:</p>
+
+<pre><code class="language-java">try(Device d = new Device())
+{
+   d.read();
+}finally{
+   d.close(); //This will not compile because d is not accessible here.
+}
+</code></pre>
+
+<p>Note that the try-with-resource was enhanced in Java 9 and it now allows you to use a variable declared before the try statement in the try-with-resource block. In this case, of course, the variable is accessible after the try block but the object referred to by it has been closed. For example, the following is valid since Java 9:</p>
+
+<pre><code class="language-java">Device d = new Device();
+try(d){ //valid since Java 9
+  ...
+}finally{
+   d.close(); //this will compile but may not work correctly because the object referred to by d has already been closed.
+}
+</code></pre>
+
+<p><strong>5.</strong> Resources are closed in the reverse order of their creation.<br />
+<strong>6.</strong> Resources are closed even if the code in the try block throws an exception.<br />
+<strong>7.</strong> java.lang.AutoCloseable’s <code>close()</code> throws <code>Exception</code> but java.io.Closeable’s <code>close()</code> throws <code>IOException</code>.<br />
+<strong>8.</strong> If code in try block throws exception and an exception also thrown while closing is resource, the exception thrown while closing the resource is suppressed. The caller gets the exception thrown in the try block.</p>
 
 <hr />
 
-<p><strong>23.</strong></p>
+<p><strong>23.</strong>
+What will the following code print when run?</p>
+
+<pre><code class="language-java">import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class PathTest {
+    static Path p1 = Paths.get("c:\\finance\\data\\reports\\daily\\pnl.txt");  
+    public static void main(String[] args) {
+        System.out.println(p1.subpath(0, 2));
+    }
+}
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />finance\data</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />finance\data\</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />\finance\data\reports</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />c:\finance\data</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />c:\finance</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+Remember the following points about <code>Path.subpath(int beginIndex, int endIndex)</code></p>
+
+<ol>
+  <li>Indexing starts from 0.</li>
+  <li>Root (i.e. c:) is not considered as the beginning.</li>
+  <li>name at beginIndex is included but name at endIndex is not.</li>
+  <li>paths do not start or end with .</li>
+</ol>
+
+<p>Thus, in case of “c:\finance\data\reports\daily\pnl.txt”, name at 0 is <em>finance</em> and name at 2 is <em>reports</em>. However, since the name at endIndex is excluded, <code>subpath(0, 2)</code> will correspond to finance\data.</p>
+
+<p>The following is the API description for this method:</p>
+
+<p><code>public Path subpath(int beginIndex, int endIndex)</code><br />
+Returns a relative Path that is a subsequence of the name elements of this path.<br />
+The beginIndex and endIndex parameters specify the subsequence of name elements. The name that is closest to the root in the directory hierarchy has index 0. The name that is farthest from the root has index count-1. The returned Path object has the name elements that begin at beginIndex and extend to the element at index endIndex-1.</p>
+
+<p>Parameters:<br />
+beginIndex - the index of the first element, inclusive<br />
+endIndex - the index of the last element, exclusive<br />
+Returns:<br />
+a new Path object that is a subsequence of the name elements in this Path<br />
+Throws:<br />
+IllegalArgumentException - if beginIndex is negative, or greater than or equal to the number of elements. If endIndex is less than or equal to beginIndex, or larger than the number of elements.</p>
 
 <hr />
 
-<p><strong>24.</strong></p>
+<p><strong>24.</strong>
+Consider the following code:</p>
+
+<pre><code class="language-java">public class AssertErrorTest
+{
+   public void robustMethod(int[] intArray) throws AssertionError
+   {
+      int[] newIA = //get new array by processing intArray
+      assert newIA != intArray;
+   }
+}
+</code></pre>
+
+<p>Which of the following declarations of robustMethod(int[] intArray) are valid in a subclass of the above class?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />public void robustMethod(int[] intArray)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />public void robustMethod(int[] intArray) throws Exception
+    <blockquote>
+      <p>Exception is in a different branch of Exceptions than AssertionError.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />public void robustMethod(int[] intArray) throws Throwable
+    <blockquote>
+      <p>Throwable is a super class of AssertionError so it cannot be thrown from the subclass’s overriding method.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />public void robustMethod(int[] intArray) throws Error
+    <blockquote>
+      <p>Error is also a superclass of AssertionError but any Error or any RuntimeException can be thrown without having to declare them in the throws clause.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />public void robustMethod(int[] intArray) throws RuntimeException</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+This questions tests two concepts:</p>
+
+<ol>
+  <li>An overriding method must not throw any new or broader checked exceptions than the ones declared in the overridden method. This means, the overriding method can only throw the exceptions or the subclasses of the exceptions declared in the overridden method. It can throw any subclass of Error or RuntimeException as well because it is not mandatory to declare Errors and RuntimeExceptions in the throws clause. An overriding method may also choose not to throw any exception at all.</li>
+  <li>AssertionError is a subclass of Error.<br />
+Therefore, option 1, 4, and 5 are valid.</li>
+</ol>
 
 <hr />
 
@@ -799,51 +1381,6 @@ after_success:
 
 <p>用来测试构建时长，哈哈哈哈！</p>
  <a href="/2020/02/12/intro-to-travis/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/02/12/hello-asciidoctor/">
-        <h2 class="post-title">
-            AsciiDoc语法参考
-        </h2>
-        
-        <h3 class="post-subtitle">
-            学习笔记&nbsp;&nbsp;2020年2月12日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <div class="sect2">
-<h3 id="段落"><em>段落</em></h3>
-<div class="paragraph lead">
-<p>段落不需要特别的格式，<strong>直接</strong>写就是了。
-然后呢</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="自然段"><em>自然段</em></h3>
-<div class="paragraph">
-<p>这是普通段落</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>开始至少空一格就成为自然段，同一个自然段里面的内容必须相邻，
-即不能隔空行。</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>隔空行就是另一个自然段了。自然段文字是等宽字体，然后会保留空格和新行。
-例如    保留了前边的空格，
-然后这样，保留了换新行。</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>现在这里又是一个普通段落了。</p>
-</div>
-</div> <a href="/2020/02/12/hello-asciidoctor/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
