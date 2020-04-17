@@ -180,6 +180,8 @@
                     
                     <span class="meta">2020年3月28日发布📑</span>
                     
+                    <span class="meta">2020年4月17日更新🚀</span>
+                    
                 </div>
             </div>
         </div>
@@ -264,7 +266,8 @@ A type argument $T_1$ is said to contain another type argument $T_2$, written $T
   <li>$?\space super \space T&lt;=\space ? \space extends \space Object$</li>
   <li>$ T&lt;=\space T$</li>
   <li>$T &lt;= \space ? \space extends \space T$</li>
-  <li>$T &lt;= \space ? \space super \space T$</li>
+  <li>$T &lt;= \space ? \space super \space T$<br />
+<!--more--></li>
 </ul>
 
 <hr />
@@ -2028,66 +2031,689 @@ System.out.println(p3);
 </code></pre>
 
 <ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />x\y\z</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />\z</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />..\z</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />..\..\z</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />x\y\z
+    <blockquote>
+      <p>Observe what happens when you append this path to p1:<br />
+x\y + \x\y\z =&gt; x\y\x\y\z<br />
+This is not same as z</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />\z
+    <blockquote>
+      <p>Observe what happens when you append this path to p1:<br />
+x\y + \z =&gt; x\y\z<br />
+This is not same as z</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />..\z
+    <blockquote>
+      <p>Observe what happens when you append this path to p1:<br />
+x\y + ..\z =&gt; x\z<br />
+This is not same as z</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />..\..\z
+    <blockquote>
+      <p>Observe what happens when you append this path to p1:<br />
+x\y + ..\..\z =&gt; x + ..\z =&gt; z<br />
+This is what we want. So this is the correct answer.</p>
+    </blockquote>
+
+    <p>A “..” implies parent folder, therefore imagine that you are taking off one “..” from the right side of the plus sign and removing the last name of the path on the left side of the plus sign.<br />
+For example, .. appended to y makes it y\.., which cancels out.</p>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+You need to understand how relativize works for the purpose of the exam. The basic idea of relativize is to determine a path, which, when applied to the original path will give you the path that was passed. For example, “a/c” relativize “a/b”  is “../b” because “/a/c/../b” is “/a/b” Notice that  “c/..” cancel out.</p>
+
+<p>Please go through the following description of relativize() method, which explains how it works in more detail.</p>
+
+<p>Note that in Java 11, the paths are first normalized before relativizing.</p>
+
+<p><code>public Path relativize(Path other)</code><br />
+Constructs a relative path between this path and a given path. Relativization is the inverse of resolution. This method attempts to construct a relative path that when resolved against this path, yields a path that locates the same file as the given path. For example, on UNIX, if this path is “/a/b” and the given path is “/a/b/c/d” then the resulting relative path would be “c/d”.</p>
+
+<p>Where this path and the given path do not have a root component, then a relative path can be constructed.</p>
+
+<p>A relative path cannot be constructed if only one of the paths have a root component.</p>
+
+<p>Where both paths have a root component then it is implementation dependent if a relative path can be constructed.</p>
+
+<p>If this path and the given path are equal then an empty path is returned.</p>
+
+<p>For any two normalized paths p and q, where q does not have a root component,
+p.relativize(p.resolve(q)).equals(q)</p>
+
+<p>When symbolic links are supported, then whether the resulting path, when resolved against this path, yields a path that can be used to locate the same file as other is implementation dependent. For example, if this path is “/a/b” and the given path is “/a/x” then the resulting relative path may be “../x”. If “b” is a symbolic link then is implementation dependent if “a/b/../x” would locate the same file as “/a/x”.</p>
+
+<hr />
+
+<p><strong>63.</strong>
+What will the following code fragment print?</p>
+
+<pre><code class="language-java">Path p1 = Paths.get("\\personal\\readme.txt");
+Path p2 = Paths.get("\\index.html");
+Path p3 = p1.relativize(p2);
+System.out.println(p3);
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />\index.html
+    <blockquote>
+      <p>Observe what happens when you append this path to p1:<br />
+\personal\readme.txt + \index.html =&gt;\personal\readme.txt\index.html<br />
+This is not same as \index.html</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />\personal\index.html
+    <blockquote>
+      <p>Observe what happens when you append this path to p1:<br />
+\personal\readme.txt + \personal\index.html =&gt;\personal\readme.txt\personal\index.html<br />
+This is not same as \index.html</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />personal\index.html
+    <blockquote>
+      <p>Observe what happens when you append this path to p1:<br />
+\personal\readme.txt + personal\index.html =&gt;\personal\readme.txt\personal\index.html<br />
+This is not same as \index.html</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />..\..\index.html
+    <blockquote>
+      <p>Observe that if you append this path to p1, you will get p2. Therefore, this is the right answer.<br />
+p1 + ....\index.html<br />
+=&gt;\personal\readme.txt + ....\index.html<br />
+=&gt;\personal + ..\index.html<br />
+=&gt;\index.html</p>
+    </blockquote>
+
+    <p>A “..” implies parent folder, therefore imagine that you are taking off one “..” from the right side of the plus sign and removing the last name of the path on the left side of the plus sign.<br />
+For example, .. appended to personal makes it personal.., which cancels out.</p>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+You need to understand how relativize works for the purpose of the exam. The basic idea of relativize is to determine a path, which, when applied to the original path will give you the path that was passed. For example, “a/c” relativize “a/b”  is “../b” because “/a/c/../b” is “/a/b” Notice that  “c/..” cancel out.</p>
+
+<p>Note that in Java 11, the paths are first normalized before computing relativizing.</p>
+
+<p>Please go through the following description of relativize() method, which explains how it works in more detail.</p>
+
+<p><code>public Path relativize(Path other)</code><br />
+Constructs a relative path between this path and a given path. Relativization is the inverse of resolution. This method attempts to construct a relative path that when resolved against this path, yields a path that locates the same file as the given path. For example, on UNIX, if this path is “/a/b” and the given path is “/a/b/c/d” then the resulting relative path would be “c/d”.</p>
+
+<p>Where this path and the given path do not have a root component, then a relative path can be constructed.</p>
+
+<p>A relative path cannot be constructed if only one of the paths have a root component.</p>
+
+<p>Where both paths have a root component then it is implementation dependent if a relative path can be constructed.</p>
+
+<p>If this path and the given path are equal then an empty path is returned.</p>
+
+<p>For any two normalized paths p and q, where q does not have a root component,
+p.relativize(p.resolve(q)).equals(q)</p>
+
+<p>When symbolic links are supported, then whether the resulting path, when resolved against this path, yields a path that can be used to locate the same file as other is implementation dependent. For example, if this path is “/a/b” and the given path is “/a/x” then the resulting relative path may be “../x”. If “b” is a symbolic link then is implementation dependent if “a/b/../x” would locate the same file as “/a/x”.</p>
+
+<hr />
+
+<p><strong>65.</strong>
+What will the following code print when compiled and run?</p>
+
+<pre><code class="language-java">interface Boiler{
+    public void boil();
+    private static void log(String msg){ //1
+       System.out.println(msg);
+    }
+    public static void shutdown(){
+        log("shutting down");
+    }
+}
+interface Vaporizer extends Boiler{  
+    public default void vaporize(){
+        boil();
+        System.out.println("Vaporized!");
+    }
+}
+public class Reactor implements Vaporizer{
+    public void boil() {
+        System.out.println("Boiling...");
+    }
+
+    public static void main(String[] args) {
+        Vaporizer v =  new Reactor(); //2
+        v.vaporize(); //3
+        v.shutdown(); //4
+    }
+}
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 1</li>
+</ul>
+
+<pre><code class="language-none">Boiling...
+Vaporized!
+shutting down
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Compilation failure at //1.
+    <blockquote>
+      <p>Since Java 9, an interface is allowed to have private (but not protected) static as well as instance methods. Fields of an interface are still always implicitly public, static, and final.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Compilation failure at //2.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Compilation failure at //4.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 5</li>
+</ul>
+
+<pre><code class="language-none">If code at //4 is changed to Vaporizer.shutdown();, it will print  Boiling...
+Vaporized!
+shutting down
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Definition of interface Vaporizer will cause compilation to fail.
+    <blockquote>
+      <p>Definition of interface Vaporizer is fine.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+Remember that static method of an interface can only be accessed by using the name of that interface. i.e. <code>Boiler.shutdown()</code> in this case. This is unlike a static method of a class, which can be accessed using a subclass name or a variable name as well.</p>
+
+<hr />
+
+<p><strong>66.</strong>
+Given:</p>
+
+<pre><code class="language-java">@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface DebugInfo {
+    String value();
+    String[] params();
+    String date();
+    int depth();
+}
+</code></pre>
+
+<p>Which of the following options correctly uses the above annotation?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />option 1</li>
+</ul>
+
+<pre><code class="language-java">@DebugInfo(value="applyLogic", date = "2019", depth = 10, params = "index")
+void applyLogic(int index) {
+}
+</code></pre>
+
+<p>The date element is defined as String. So, it doesn’t really have to be a date. Any string value will be valid. params is defined as a <code>String[]</code>. So, you can either use a single string such as used in this option or a String array such as <code>params={"index"}</code> or <code>params={"index1", "whatever"}</code>.</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 2</li>
+</ul>
+
+<pre><code class="language-java">@DebugInfo(value="applyLogic", date = "01/01/2019", depth = "10", params = "index" )
+void applyLogic(int index) {
+}
+</code></pre>
+
+<p>Since <em>depth</em> is defined as <code>int</code>, you can’t pass “10”, You must pass 10 (i.e. without double quotes.)</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 3</li>
+</ul>
+
+<pre><code class="language-java">@DebugInfo(value="applyLogic", date="01/01/2019", depth="10", params = {"index"})
+void applyLogic(int index) {
+}
+</code></pre>
+
+<p>Since <em>depth</em> is defined as <code>int</code>, you can’t pass “10”, You must pass 10 (i.e. without double quotes.)</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 4</li>
+</ul>
+
+<pre><code class="language-java">@DebugInfo(value="applyLogic", date="01/01/2019")
+@DebugInfo(depth = 10, params = {"index"})
+void applyLogic(int index) {
+}
+</code></pre>
+
+<p>Since @DebugInfo is not annotated with @Repeatable, you can use this annotation only once at any place.</p>
+
+<hr />
+
+<p><strong>69.</strong>
+Identify the correct statements about the following code:</p>
+
+<pre><code class="language-java">import java.util.*;
+class Person {
+    private static int count = 0;
+    private String id = "0"; private String interest;
+    public Person(String interest){ this.interest = interest; this.id = "" + ++count; }
+    public String getInterest(){ return interest;     }
+    public void setInterest(String interest){ this.interest = interest; }
+    public String toString(){ return id; }
+}
+
+public class StudyGroup
+{
+    String name = "MATH";
+    TreeSet&lt;Person&gt; set = new TreeSet&lt;Person&gt;();
+    public void add(Person p) {
+      if(name.equals(p.getInterest())) set.add(p);
+    }
+
+    public static void main(String[] args) {
+      StudyGroup mathGroup = new StudyGroup();
+      mathGroup.add(new Person("MATH"));
+      System.out.println("A");
+      mathGroup.add(new Person("MATH"));
+      System.out.println("B");
+      System.out.println(mathGroup.set);
+    }
+}
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print : A, B, and then the contents of mathGroup.set.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will compile with a warning.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will NOT throw an exception at runtime.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />It will compile without warning but will throw an exception at runtime.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will only print : A</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will print : A and B.</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+Note that <code>TreeSet</code> is an ordered set that keeps its elements in a sorted fashion. When you call the <code>add()</code> method, it immediately compares the element to be added to the existing elements and puts the new element in its appropriate place. Thus, the foremost requirement of a <code>TreeSet</code> is that the elements must either implement <code>Comparable</code> interface (which has the <code>compareTo(Object) method)</code> and they must also be mutually comparable or the <code>TreeSet</code> must be created with by passing a <code>Comparator</code> (which has a <code>compare(Object, Object)</code> method). For example, you might have two classes \\\A\\\ and \\\B\\\ both implementing <code>Comparable</code> interface. But if their <code>compareTo()</code> method does not work with both the types, you cannot add both type of elements in the same <code>TreeSet</code>.</p>
+
+<p>In this question, <code>Person</code> class does not implement <code>Comparable</code> interface. Ideally, when you add the first element, since there is nothing to compare this element to, there should be no exception. But when you add the second element, <code>TreeSet</code> tries to compare it with the existing element, thereby throwing <code>ClassCastException</code> because they don’t implement <code>Comparable</code> interface. However, this behavior was changed in the <code>TreeSet</code> implementation recently and it throws a <code>ClassCastException</code> when you add the first element itself.</p>
+
+<p>The compiler knows nothing about this requirement of <code>TreeSet</code> since it is an application level requirement and not a language level requirement. So the program compiles fine without any warning.</p>
+
+<hr />
+
+<p><strong>70.</strong>
+java.util.Locale allows you to do which of the following?<br />
+<strong>You had to select 2 options</strong></p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Provide country specific formatting for fonts.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Provide country and language specific for HTML pages.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Provide country and language specific formatting for Dates.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Provide country specific formatting for Currencies.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Provide country and language specific formatting for properties files.
+    <blockquote>
+      <p>The objective of Localization is not to format properties files but to format the data that is displayed to the user in country/language specific manner. Resource Bundles, which are nothing but appropriately named properties files, are used along with the <code>Locale</code> (i.e. country and language) information to format <code>Date</code>, <code>Currencies</code>, and text messages in Locale specific manner.</p>
+    </blockquote>
+  </li>
 </ul>
 
 <hr />
 
-<p><strong>63.</strong></p>
+<p><strong>73.</strong>
+Identify valid statements.</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Locale myLocal = System.getDefaultLocale();
+    <blockquote>
+      <p>There is no such method in System class.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Locale myLocale = Locale.getDefaultLocale();</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Locale myLocale = Locale.getDefault();</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Locale myLocale = Locale.US;
+    <blockquote>
+      <p>Locale class has several static constants for standard country locales.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Locale myLocale = Locale.getInstance();
+    <blockquote>
+      <p>There is no getInstance() method in Locale.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Locale myLocale = new Locale(“ru”, “RU”);
+    <blockquote>
+      <p>You don’t have to worry about the actual values of the language and country codes. Just remember that both are two lettered codes and country codes are always upper case.</p>
+    </blockquote>
+  </li>
+</ul>
 
 <hr />
 
-<p><strong>65.</strong></p>
+<p><strong>74.</strong>
+Consider the following classes:</p>
+
+<pre><code class="language-java">class Boo {
+    public Boo(){ System.out.println("In Boo"); }
+}
+class BooBoo extends Boo {
+    public BooBoo(){ System.out.println("In BooBoo"); }
+}
+
+class Moo extends BooBoo implements Serializable {
+    int moo = 10; { System.out.println("moo set to 10"); }
+    public Moo(){ System.out.println("In Moo"); }
+}
+</code></pre>
+
+<p>First, the following code was executed and the file moo1.ser was created successfully:</p>
+
+<pre><code class="language-java">  Moo moo = new Moo();
+  moo.moo = 20;
+  FileOutputStream fos = new FileOutputStream("c:\\temp\\moo1.ser");
+  ObjectOutputStream os = new ObjectOutputStream(fos);
+  os.writeObject(moo);
+  os.close();
+</code></pre>
+
+<p>Next, the following code was executed.</p>
+
+<pre><code class="language-java">  FileInputStream fis = new FileInputStream("c:\\temp\\moo1.ser");
+  ObjectInputStream is = new ObjectInputStream(fis);
+  Moo moo = (Moo) is.readObject();
+  is.close();
+  System.out.println(moo.moo);
+</code></pre>
+
+<p>Which of the following will be a part of the output of the second piece of code?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />In Boo</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />In BooBoo</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />In Moo</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />10</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />20</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />moo set to 10</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+During deserialization, the constructor of the class (or any static or instance blocks) is not executed. However, if the super class does not implement Serializable, its constructor is called. So here, <code>BooBoo</code> and <code>Boo</code> are not Serializable. So, their constructor is invoked.</p>
 
 <hr />
 
-<p><strong>66.</strong></p>
+<p><strong>75.</strong>
+What will the following code print when compiled and run?</p>
+
+<pre><code class="language-java">import java.util.*;
+
+interface Birdie {
+    void fly();
+}
+
+class Dino implements Birdie {
+    public void fly(){ System.out.println("Dino flies"); }
+    public void eat(){ System.out.println("Dino eats");}
+}
+
+class Bino extends Dino {
+    public void fly(){ System.out.println("Bino flies"); }
+    public void eat(){ System.out.println("Bino eats");}
+}
+
+public class TestClass {
+    public static void main(String[] args)    {
+       List&lt;Birdie&gt; m = new ArrayList&lt;&gt;();
+       m.add(new Dino());
+       m.add(new Bino());
+       for(Birdie b : m) {
+    b.fly();
+    b.eat();
+       }
+    }
+}
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 1</li>
+</ul>
+
+<pre><code class="language-java">Dino flies
+Dino eats
+Bino flies
+Bino eats
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 2</li>
+</ul>
+
+<pre><code class="language-java">Bino flies
+Bino eats
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 3</li>
+</ul>
+
+<pre><code class="language-java">Dino flies
+Bino eats
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />The code will not compile.
+    <blockquote>
+      <p>Note that in the for loop b has been declared to be of type Birdie. But Birdie doesn’t define the method eat(), so the compiler will not allow b.eat() even though the actual class of the object referred to by b does have an eat() method.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Exception at run time.</li>
+</ul>
 
 <hr />
 
-<p><strong>69.</strong></p>
+<p><strong>76.</strong>
+Consider the following program:</p>
+
+<pre><code class="language-java">import java.io.FileReader;
+import java.io.FileWriter;
+
+public class ClosingTest {
+    public static void main(String[] args) throws Exception {
+        try(FileReader fr = new FileReader("c:\\temp\\license.txt");
+            FileWriter fw = new FileWriter("c:\\temp\\license2.txt") )
+        {
+            int x = -1;
+            while( (x = fr.read()) != -1){
+                fw.write(x);
+            }
+        }
+    }
+}
+</code></pre>
+
+<p>Identify the correct statements.</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />The FileWriter object will always be closed before the FileReader object.
+    <blockquote>
+      <p>Resources are closed automatically at the end of the try block in reverse order of their creation.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />The order of the closure of the FileWriter and FileReader objects is platform dependent and should not be relied upon.
+    <blockquote>
+      <p>The order is defined. They are always closed in the reverse order.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />The FileWriter object will not be closed if an exception is thrown while closing the FileReader object.
+    <blockquote>
+      <p>The close method is called on all the resources one by one even if any resource throws an exception in its close method.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />This is not a fail safe approach to managing resources because in certain situations one or both of the resources may be left open after the end of the try block.
+    <blockquote>
+      <p>This is the right approach. The close method will be called automatically on all the resources that were opened even if any exception is thrown any where.</p>
+    </blockquote>
+  </li>
+</ul>
 
 <hr />
 
-<p><strong>70.</strong></p>
+<p><strong>77.</strong>
+Given:</p>
+
+<pre><code class="language-java">class Book{
+    private String title;
+    private double price;
+    public Book(String title, double price){
+        this.title = title;
+        this.price = price;
+    }
+    //getters/setters not shown
+}
+</code></pre>
+
+<p>What will the following code print?</p>
+
+<pre><code class="language-java">List&lt;Book&gt; books = Arrays.asList(new Book("Thinking in Java", 30.0),
+                                 new Book("Java in 24 hrs", 20.0),
+                                 new Book("Java Recipies", 10.0));
+double averagePrice = books.stream().filter(b-&gt;b.getPrice()&gt;10)
+        .mapToDouble(b-&gt;b.getPrice())
+        .average().getAsDouble();
+System.out.println(averagePrice);
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will not compile.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />It will thrown an exception at runtime.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />0.0</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />25.0</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />10.0</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+This is a straight forward code that chains three operations to a stream. First, it filters out all the element that do not satisfy the condition <code>b.getPrice()&gt;10</code>, which means only two elements are left in the stream, second, it maps each <code>Book</code> element to a double using the mapping function <code>b.getPrice()</code>, which means, the stream now contains two doubles - <em>20.0</em> and <em>30.0</em>. Finally, the <code>average()</code> method computes the average of all the elements. Therefore, the code will print <em>25.0</em>.</p>
+
+<p>This is a straight forward code that chains three operations to a stream. First, it filters out all the element that do not satisfy the condition <code>b.getPrice()&gt;10</code>, which means only two elements are left in the stream, second, it maps each <code>Book</code> element to a double using the mapping function <code>b.getPrice()</code>, which means, the stream now contains two doubles - <em>20.0</em> and <em>30.0</em>. Finally, the <code>average()</code> method computes the average of all the elements. Therefore, the code will print <em>25.0</em>.</p>
 
 <hr />
 
-<p><strong>73.</strong></p>
+<p><strong>79.</strong>
+Your group has an existing application (reports.jar) that uses a library (analytics.jar) from another group in your company. Both - the application and the library - use a JDBC driver packaged in ojdbc8.jar.</p>
+
+<p>Which of the following options describes the steps that will be required to modularize your application?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />option 1</li>
+</ul>
+
+<pre><code class="language-none">1. Convert analytics.jar and ojdbc8.jar into automatic modules  
+2. Convert reports.jar into a named module.  
+3. Add requires clauses for analytics and ojdbc8 in reports.jar in its module-info.java.
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 2</li>
+</ul>
+
+<pre><code class="language-none">1. Modularize analytics.jar and ojdbc8.jar into modules by adding module-info.java to these jars. 2. Convert reports.jar into a named module. 3. Add requires clauses for all packages contained in analytics.jar and ojdbc8.jar that are directly referred to by classes in reports.jar in its module-info.java.
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 3</li>
+</ul>
+
+<pre><code class="language-none">1. Convert reports.jar into a named module. 2. Add requires clauses for analytics and ojdbc8 modules in reports.jar in its module-info.java. 3. Use analytics.jar and ojdbc8.jar as unnamed modules.
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />option 4</li>
+</ul>
+
+<pre><code class="language-none">1. Convert ojdbc8.jar into automatic module. 2. Convert analytics.jar into a named module by adding module-info.java to it. In this module-info, export all packages that are used by reports.jar and add requires clauses for all packages of ojdbc.jar that are used by analytics.jar. 3. Convert reports.jar into a named module. Add requires clause for analytics module in reports's module-info.java.
+</code></pre>
+
+<p><strong>Explanation</strong><br />
+If a module directly uses classes from another jar, then that jar has to be converted into a module (either named or automatic).</p>
+
+<p>So, if you want to modularize reports.jar, then analytics.jar and ojdbc8.jar must also be converted into a module. Since these two jars are not controlled by you, they can be converted into automatic modules.</p>
+
+<p>module-info for reports.jar must have requires clauses for the two automatic modules (whose names will be analytics and ojdbc8).</p>
+
+<p>Since an automatic module is allowed to access classes from all other modules, nothing special needs to be done for analytics.jar. It will be able to access all classes from ojdbc.jar.</p>
 
 <hr />
 
-<p><strong>74.</strong></p>
+<p><strong>80.</strong>
+Which of the given options if put at //1 will correctly instantiate objects of various classes defined in the following code?</p>
+
+<pre><code class="language-java">public class TestClass
+{
+   public class A{
+   }
+   public static class B {
+   }
+   public static void main(String args[]){
+      class C{
+      }
+      //1
+   }
+}
+</code></pre>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />new TestClass().new A();</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />new TestClass().new B();</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />new TestClass.A();
+    <blockquote>
+      <p>A is not static. So on outer instance of TestClass is necessary.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />new C();</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />new TestClass.C();</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+class A is not static inner class of <code>TestClass</code>. So it cannot exist without an outer instance of <code>TestClass</code>. So, option 1 is the right way to instantiate it. class B is static inner class and can be instantiated like this: <code>new TestClass.B()</code>. But <code>new TestClass().new B()</code> is not correct.<br />
+Although not related to this question, unlike popular belief, anonymous class can never be static. Even if created in a static method.</p>
 
 <hr />
 
-<p><strong>75.</strong></p>
+<p><strong>81.</strong>
+Consider the following code:</p>
 
-<hr />
+<pre><code class="language-java">Statement stmt = null;
+try(Connection c = DriverManager.getConnection("jdbc:derby://localhost:1527/sample", "app", "app"))
+{
+    stmt = c.createStatement();
+    ResultSet rs = stmt.executeQuery("select * from STUDENT");
+    while(rs.next()){
+        System.out.println(rs.getString(1));
+    }
 
-<p><strong>76.</strong></p>
+}
+catch(SQLException e){
+    System.out.println("Exception "+e);
+}
+</code></pre>
 
-<hr />
+<p>Which objects can be successfully used to query the database after the try block ends without any exception?</p>
 
-<p><strong>77.</strong></p>
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />stmt</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />c</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />rs</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />stmt as well c</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />None of them.</li>
+</ul>
 
-<hr />
+<p><strong>Explanation</strong><br />
+There are a few things to note in the question:</p>
 
-<p><strong>79.</strong></p>
+<ol>
+  <li>Once a <code>Connection</code> object is closed, you cannot access any of the subsequent objects such as <code>Statement</code> and <code>ResultSet</code> that are retrieved from that <code>Connection</code>.</li>
+  <li>The references declared in the try block (in this case, <code>c</code> and <code>ResultSet</code>) are not visible outside the try block. Not even in the catch block.</li>
+  <li>When a resource is created in the try-with-resources block ( in this case, c), it is closed at the end of the try block irrespective of whether there is an exception in the try block or not.</li>
+</ol>
 
-<hr />
-
-<p><strong>80.</strong></p>
-
-<hr />
-
-<p><strong>81.</strong></p>
-
-<hr />
-
+<p>Based on the above, it is easy to see that only stmt is visible after the try block but it cannot be successfully used because the <code>Connection</code> object from which it was retrieved has already been closed.</p>
 
 
         <!-- 来必力City版安装代码 -->
