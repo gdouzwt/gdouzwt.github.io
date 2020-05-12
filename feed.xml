@@ -5,9 +5,110 @@
     <description></description>
     <link>https://zwt.io//</link>
     <atom:link href="https://zwt.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 23 Apr 2020 17:49:24 +0000</pubDate>
-    <lastBuildDate>Thu, 23 Apr 2020 17:49:24 +0000</lastBuildDate>
+    <pubDate>Tue, 12 May 2020 01:54:56 +0000</pubDate>
+    <lastBuildDate>Tue, 12 May 2020 01:54:56 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Java笔试题1</title>
+        <description>&lt;h3 id=&quot;真题1-某知名互联网下载服务提供商软件工程师笔试题&quot;&gt;真题1 某知名互联网下载服务提供商软件工程师笔试题&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;一、选择题&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;1.&lt;/strong&gt; 访问修饰符作用范围由大到小是（ ）。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;A.private-protected-default-public&lt;br /&gt;
+B.public-protected-default-private&lt;br /&gt;
+C.private-default-protected-public&lt;br /&gt;
+D.public-default-protected-private&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这题没什么好说，当然是选择 &lt;strong&gt;B&lt;/strong&gt; 啦，初学的时候可能有点难记住，不过习惯了就记住了。后来越了解就更容易记住，根本不需要死记硬背。 &lt;code&gt;default&lt;/code&gt; 关键字，表示访问权限的时候，其实新的规范（8以上？）改称为 ‘package private’ 可以理解为包内私有访问权限，所以限制程度就是仅次于私有。接着protected和public容易，因为public肯定是范围最宽（大）的。&lt;br /&gt;
+关于类的访问修饰符的作用范围，Java语言规范的 8.1.1 节有：&lt;br /&gt;
+The access modifier &lt;code&gt;public&lt;/code&gt; pertains only to top level classes and member classes, not to local classes or anonymous classes.&lt;br /&gt;
+The access modifier &lt;code&gt;protected&lt;/code&gt; and &lt;code&gt;private&lt;/code&gt; pertain only to member classes within a directly enclosing class declaration.&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; 在Java 语言中，下面接口以键−值对的方式存储对象的是（ ）。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;A.java.util.List&lt;br /&gt;
+B.java.util.Map&lt;br /&gt;
+C.java.util.Collection&lt;br /&gt;
+D.java.util.Set&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;选 &lt;strong&gt;B&lt;/strong&gt; 这题也很直接。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; 以下不是Object 类的方法的是（ ）。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;A.hashCode()&lt;br /&gt;
+B.finalize()&lt;br /&gt;
+C.notify()&lt;br /&gt;
+D.hasNext()&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;选 &lt;strong&gt;D&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; 有如下代码：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class Test {
+    public void change(String str, char ch[]) {
+        str = &quot;test ok&quot;;
+        ch[0] = 'g';
+    }
+    public static void main(String args[]) {
+      String str = new String(&quot;good&quot;);
+      char[] ch = { 'a', 'b', 'c' };
+      Test ex = new Test();
+      ex.change(str, ch);
+      System.out.print(str + &quot; and &quot;);
+      System.out.print(ch);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面程序的运行结果是（ ）。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;A.good and abc&lt;br /&gt;
+B.good and gbc&lt;br /&gt;
+C.test ok and abc&lt;br /&gt;
+D.test ok and gbc&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;选 &lt;strong&gt;B&lt;/strong&gt; 在 Java 语言中，除了8 种原始的数据类型（分别为 &lt;code&gt;byte&lt;/code&gt;、&lt;code&gt;short&lt;/code&gt;、&lt;code&gt;int&lt;/code&gt;、&lt;code&gt;long&lt;/code&gt;、&lt;code&gt;float&lt;/code&gt;、&lt;code&gt;double&lt;/code&gt;、&lt;code&gt;char&lt;/code&gt; 和 &lt;code&gt;boolean&lt;/code&gt;）外，其他的类型都是对象，在方法调用的时候，传递的都是引用。引用从本质上来讲也是按值传递，只不过传递的这个值是对象的引用而已，因此，在方法调用的时候，对形参引用所指对象属性值的修改对实参可见。但是对引用值本身的修改对实参是不可见的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;二、填空题&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;1.&lt;/strong&gt; &lt;code&gt;Math.round(12.5)&lt;/code&gt; 的返回值等于（ &lt;strong&gt;13&lt;/strong&gt; ），&lt;code&gt;Math.round(-12.5)&lt;/code&gt; 的返回值等于（ &lt;strong&gt;-12&lt;/strong&gt; ）。&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code&gt;round&lt;/code&gt; 是一个四舍五入的方法，12.5 的小数部分为 0.5，当对其执行 &lt;code&gt;Math.round()&lt;/code&gt; 操作时，结果需要四舍五入，所以，结果为 13；−12.5 的小数部分也为 0.5，当对
+其执行 &lt;code&gt;Math.round()&lt;/code&gt; 操作时，结果也需要四舍五入，由于 −12 &amp;gt; −13，因此，结果为 −12。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; 有如下程序：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;String str1 = &quot;hello world&quot;;
+String str2 = &quot;hello&quot; + new String(&quot;world&quot;);
+System.out.println(str1 == str2);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;那么程序的运行结果是（ &lt;strong&gt;false&lt;/strong&gt; ）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; 在Java 语言中，基本数据类型包括（ 浮点型 float、double ）、字符类型（ char ）、布尔类型 boolean 和 数值类型（byte、short、int、long ）。&lt;br /&gt;
+&lt;strong&gt;4.&lt;/strong&gt; 字符串分为两大类：一类是字符串常量（ String ）；另一类是字符串变量（ StringBuffer ）。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;三、简答题&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;1.&lt;/strong&gt; 接口和抽象类有什么区别？&lt;br /&gt;
+&lt;strong&gt;2.&lt;/strong&gt; 实现多线程的方法有哪几种？&lt;br /&gt;
+&lt;strong&gt;3.&lt;/strong&gt; 利用递归方法求6!&lt;br /&gt;
+&lt;strong&gt;4.&lt;/strong&gt; 用Java 语言实现一个观察者模式。&lt;br /&gt;
+&lt;strong&gt;5.&lt;/strong&gt; 一个有10 亿条记录的文本文件，已按照关键字排好序存储，请设计一个算法，可以从文件中快速查找指定关键字的记录。&lt;/p&gt;
+</description>
+        <pubDate>Sun, 10 May 2020 20:02:00 +0000</pubDate>
+        <link>https://zwt.io//2020/05/10/java-interview-test1/</link>
+        <guid isPermaLink="true">https://zwt.io//2020/05/10/java-interview-test1/</guid>
+        
+        <category>Java 笔试</category>
+        
+        
+      </item>
     
       <item>
         <title>OCP-1Z0-816模拟测试2回顾</title>
@@ -5930,729 +6031,6 @@ after_success:
         <guid isPermaLink="true">https://zwt.io//2020/02/12/intro-to-travis/</guid>
         
         <category>持续集成</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>AsciiDoc语法参考</title>
-        <description>&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;段落&quot;&gt;&lt;em&gt;段落&lt;/em&gt;&lt;/h3&gt;
-&lt;div class=&quot;paragraph lead&quot;&gt;
-&lt;p&gt;段落不需要特别的格式，&lt;strong&gt;直接&lt;/strong&gt;写就是了。
-然后呢&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;自然段&quot;&gt;&lt;em&gt;自然段&lt;/em&gt;&lt;/h3&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;这是普通段落&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;literalblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;开始至少空一格就成为自然段，同一个自然段里面的内容必须相邻，
-即不能隔空行。&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;literalblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;隔空行就是另一个自然段了。自然段文字是等宽字体，然后会保留空格和新行。
-例如    保留了前边的空格，
-然后这样，保留了换新行。&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;现在这里又是一个普通段落了。&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;然后呢&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;杂记&quot;&gt;杂记&lt;/h4&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;使用 Travis CI 也挺好玩的，搭建起持续集成的工作流。在这里也添加个动图吧：&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;一个普通图：&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/img/city.jpg&quot; alt=&quot;City&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;一个专用动图：&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/img/cache_1581461859_5053.gif&quot; alt=&quot;travis 真香！&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;bold &lt;strong&gt;constrained&lt;/strong&gt; &amp;amp; &lt;strong&gt;un&lt;/strong&gt;constrained&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;italic &lt;em&gt;constrained&lt;/em&gt; &amp;amp; &lt;em&gt;un&lt;/em&gt;constrained&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;bold italic &lt;strong&gt;&lt;em&gt;constrained&lt;/em&gt;&lt;/strong&gt; &amp;amp; &lt;strong&gt;&lt;em&gt;un&lt;/em&gt;&lt;/strong&gt;constrained&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;monospace &lt;code&gt;constrained&lt;/code&gt; &amp;amp; &lt;code&gt;un&lt;/code&gt;constrained&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;monospace bold &lt;code&gt;&lt;strong&gt;constrained&lt;/strong&gt;&lt;/code&gt; &amp;amp; &lt;code&gt;&lt;strong&gt;un&lt;/strong&gt;&lt;/code&gt;constrained&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;monospace italic &lt;code&gt;&lt;em&gt;constrained&lt;/em&gt;&lt;/code&gt; &amp;amp; &lt;code&gt;&lt;em&gt;un&lt;/em&gt;&lt;/code&gt;constrained&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;monospace bold italic &lt;code&gt;&lt;strong&gt;&lt;em&gt;constrained&lt;/em&gt;&lt;/strong&gt;&lt;/code&gt; &amp;amp; &lt;code&gt;&lt;strong&gt;&lt;em&gt;un&lt;/em&gt;&lt;/strong&gt;&lt;/code&gt;constrained&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;code&gt;C&amp;#43;&amp;#43;&lt;/code&gt; is valid syntax in the programming language by the same name.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;code&gt;WHERE id &amp;lt;= 20 AND value = &quot;{name}&quot;&lt;/code&gt; is a SQL WHERE clause.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;public class Hello {
-  public static void main(String[] args) {
-    System.out.println(&quot;Hello&quot;);
-  }
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Werewolves are allergic to &lt;mark&gt;cassia cinnamon&lt;/mark&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Did the werewolves read the &lt;span class=&quot;small&quot;&gt;small print&lt;/span&gt;?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Where did all the &lt;span class=&quot;underline&quot;&gt;cores&lt;/span&gt; run off to?&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;We need &lt;span class=&quot;line-through&quot;&gt;ten&lt;/span&gt; make that twenty VMs.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;span class=&quot;big&quot;&gt;O&lt;/span&gt;nce upon an infinite loop.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;sup&gt;super&lt;/sup&gt;script phrase&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;sub&gt;sub&lt;/sub&gt;script phrase&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&amp;#8220;double curved quotes&amp;#8221;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&amp;#8216;single curved quotes&amp;#8217;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Olaf&amp;#8217;s desk was a mess.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;All of the werewolves&amp;#8217; desks were a mess.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Olaf had been with the company since the &amp;#8217;60s.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Rubies are red,&lt;br&gt;
-Topazes are blue.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Ruby is red.&lt;br&gt;
-Java is black.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div style=&quot;page-break-after: always;&quot;&gt;&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Lists&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Edgar Allen Poe&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Sheri S. Tepper&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Bill Bryson&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;max nesting&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;level 1&lt;/p&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;level 2&lt;/p&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;level 3&lt;/p&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;level 4&lt;/p&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;level 5&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;level 1&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Ordered, basic&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;Step 1&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Step 2&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Step 3&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Ordered, max nesting&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;olist arabic&quot;&gt;
-&lt;ol class=&quot;arabic&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;level 1&lt;/p&gt;
-&lt;div class=&quot;olist loweralpha&quot;&gt;
-&lt;ol class=&quot;loweralpha&quot; type=&quot;a&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;level 2&lt;/p&gt;
-&lt;div class=&quot;olist lowerroman&quot;&gt;
-&lt;ol class=&quot;lowerroman&quot; type=&quot;i&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;level 3&lt;/p&gt;
-&lt;div class=&quot;olist upperalpha&quot;&gt;
-&lt;ol class=&quot;upperalpha&quot; type=&quot;A&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;level 4&lt;/p&gt;
-&lt;div class=&quot;olist upperroman&quot;&gt;
-&lt;ol class=&quot;upperroman&quot; type=&quot;I&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;level 5&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;level 1&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Checklist&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist checklist&quot;&gt;
-&lt;ul class=&quot;checklist&quot;&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;i class=&quot;fa fa-check-square-o&quot;&gt;&lt;/i&gt; checked&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;i class=&quot;fa fa-check-square-o&quot;&gt;&lt;/i&gt; also checked&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;i class=&quot;fa fa-square-o&quot;&gt;&lt;/i&gt; not checked&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;normal list item&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Description, single-line&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;first term&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;definition of first term&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;second term&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;definition of second term&lt;/p&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Description, multi-line&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;first term&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;definition of first term&lt;/p&gt;
-&lt;/dd&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;second term&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;definition of second term&lt;/p&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Q &amp;amp; A&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;qlist qanda&quot;&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;em&gt;What is Asciidoctor?&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;An implementation of the AsciiDoc processor in Ruby.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;em&gt;What is the answer to the Ultimate Question?&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;42&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Complex content in outline lists&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Every list item has at least one paragraph of content,
-which may be wrapped, even using a hanging indent.&lt;/p&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Additional paragraphs or blocks are adjoined by putting
-a list continuation on a line adjacent to both blocks.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;dlist&quot;&gt;
-&lt;dl&gt;
-&lt;dt class=&quot;hdlist1&quot;&gt;list continuation&lt;/dt&gt;
-&lt;dd&gt;
-&lt;p&gt;a plus sign (&lt;code&gt;&amp;#43;&lt;/code&gt;) on a line by itself&lt;/p&gt;
-&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;A literal paragraph does not require a list continuation.&lt;/p&gt;
-&lt;div class=&quot;literalblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;$ gem install asciidoctor&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;AsciiDoc lists may contain any complex content.&lt;/p&gt;
-&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
-&lt;colgroup&gt;
-&lt;col style=&quot;width: 50%;&quot;&gt;
-&lt;col style=&quot;width: 50%;&quot;&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Application&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Language&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;AsciiDoc&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Python&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Asciidoctor&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Ruby&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;超链接&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://asciidoctor.org&quot; class=&quot;bare&quot;&gt;https://asciidoctor.org&lt;/a&gt; - automatic!&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://asciidoctor.org&quot;&gt;Asciidoctor&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/asciidoctor&quot;&gt;Asciidoctor @ &lt;strong&gt;GitHub&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://discuss.asciidoctor.org&quot; class=&quot;external&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Discuss Asciidoctor&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://discuss.asciidoctor.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Discuss Asciidoctor&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;&lt;a href=&quot;https://example.org&quot; class=&quot;teal&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Google, Yahoo, Bing&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;See &lt;a href=&quot;#自然段&quot;&gt;&lt;em&gt;自然段&lt;/em&gt;&lt;/a&gt; to learn how to write paragraphs.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Learn how to organize the document into &lt;a href=&quot;#section-titles&quot;&gt;sections&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;图片&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;https://asciidoctor.org/images/octocat.jpg&quot; alt=&quot;GitHub mascot&quot;&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;UI Macro&lt;/p&gt;
-&lt;/div&gt;
-&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
-&lt;colgroup&gt;
-&lt;col style=&quot;width: 50%;&quot;&gt;
-&lt;col style=&quot;width: 50%;&quot;&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Shortcut&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Purpose&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;kbd&gt;F11&lt;/kbd&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Toggle fullscreen&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;T&lt;/kbd&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Open a new tab&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Shift&lt;/kbd&gt;+&lt;kbd&gt;N&lt;/kbd&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;New incognito window&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;kbd&gt;\&lt;/kbd&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Used to escape characters&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;]&lt;/kbd&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Jump to keyword&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;span class=&quot;keyseq&quot;&gt;&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;+&lt;/kbd&gt;&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Increase zoom&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;
-Content in a passthrough block is passed to the output unprocessed.
-That means you can include raw HTML, like this embedded Gist:
-&lt;/p&gt;
-
-&lt;script src=&quot;https://gist.github.com/mojavelinux/5333524.js&quot;&gt;
-&lt;/script&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Four score and seven years ago our fathers brought forth
-on this continent a new nation&amp;#8230;&amp;#8203;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;div class=&quot;attribution&quot;&gt;
-&amp;#8212; Abraham Lincoln&lt;br&gt;
-&lt;cite&gt;Address delivered at the dedication of the Cemetery at Gettysburg&lt;/cite&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-A person who never made a mistake never tried anything new.
-&lt;/blockquote&gt;
-&lt;div class=&quot;attribution&quot;&gt;
-&amp;#8212; Albert Einstein
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;A person who never made a mistake never tried anything new.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;/div&gt;
-&lt;div class=&quot;quoteblock&quot;&gt;
-&lt;blockquote&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you don&amp;#8217;t know where you are going, any road will get you there.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/blockquote&gt;
-&lt;div class=&quot;attribution&quot;&gt;
-&amp;#8212; Charles Lutwidge Dodgson&lt;br&gt;
-&lt;cite&gt;Mathematician and author, also known as &lt;a href=&quot;https://en.wikipedia.org/wiki/Lewis_Carroll&quot;&gt;Lewis Carroll&lt;/a&gt;&lt;/cite&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sidebarblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;AsciiDoc history&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;AsciiDoc was first released in Nov 2002 by Stuart Rackham.
-It was designed from the start to be a shorthand syntax
-for producing professional documents like DocBook and LaTeX.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;exampleblock&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Example 1. Sample document&lt;/div&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here&amp;#8217;s a sample AsciiDoc document:&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;= Title of Document
-Doc Writer
-:toc:
-
-This guide provides...&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The document header is useful, but not required.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;admonitionblock note&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;An admonition block may contain complex content.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;A list&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;one&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;two&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;three&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Another paragraph.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre&gt;line of code  &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-line of code  &lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;(2)&lt;/b&gt;
-line of code  &lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;(3)&lt;/b&gt;
-line of code  &lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;(4)&lt;/b&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;A callout behind a line comment for C-style languages.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;2&quot;&gt;&lt;/i&gt;&lt;b&gt;2&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;A callout behind a line comment for Ruby, Python, Perl, etc.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;3&quot;&gt;&lt;/i&gt;&lt;b&gt;3&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;A callout behind a line comment for Clojure.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;4&quot;&gt;&lt;/i&gt;&lt;b&gt;4&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;A callout behind a line comment for XML or SGML languages like HTML.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div class=&quot;listingblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&amp;lt;section&amp;gt;
-  &amp;lt;title&amp;gt;Section Title&amp;lt;/title&amp;gt; &lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;(1)&lt;/b&gt;
-&amp;lt;/section&amp;gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;colist arabic&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;i class=&quot;conum&quot; data-value=&quot;1&quot;&gt;&lt;/i&gt;&lt;b&gt;1&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;The section title is required.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;插入视频&quot;&gt;插入视频&lt;/h4&gt;
-&lt;div class=&quot;videoblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;iframe src=&quot;https://player.vimeo.com/video/67480300&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
-&lt;caption class=&quot;title&quot;&gt;Table 1. Table Title&lt;/caption&gt;
-&lt;colgroup&gt;
-&lt;col style=&quot;width: 33.3333%;&quot;&gt;
-&lt;col style=&quot;width: 33.3333%;&quot;&gt;
-&lt;col style=&quot;width: 33.3334%;&quot;&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Name of Column 1&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Name of Column 2&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Name of Column 3&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 1, row 1&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 2, row 1&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 3, row 1&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 1, row 2&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 2, row 2&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Cell in column 3, row 2&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
-&lt;colgroup&gt;
-&lt;col style=&quot;width: 33.3333%;&quot;&gt;
-&lt;col style=&quot;width: 33.3333%;&quot;&gt;
-&lt;col style=&quot;width: 33.3334%;&quot;&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Artist&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Track&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Genre&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Baauer&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Harlem Shake&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Hip Hop&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;The Lumineers&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Ho Hey&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Folk Rock&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table class=&quot;tableblock frame-all grid-all stretch&quot;&gt;
-&lt;colgroup&gt;
-&lt;col style=&quot;width: 33.3333%;&quot;&gt;
-&lt;col style=&quot;width: 33.3333%;&quot;&gt;
-&lt;col style=&quot;width: 33.3334%;&quot;&gt;
-&lt;/colgroup&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Artist&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Track&lt;/th&gt;
-&lt;th class=&quot;tableblock halign-left valign-top&quot;&gt;Genre&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Baauer&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Harlem Shake&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;Hip Hop&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;table class=&quot;tableblock frame-all grid-all&quot; style=&quot;width: 25%;&quot;&gt;
-&lt;colgroup&gt;
-&lt;col style=&quot;width: 25%;&quot;&gt;
-&lt;col style=&quot;width: 25%;&quot;&gt;
-&lt;col style=&quot;width: 25%;&quot;&gt;
-&lt;col style=&quot;width: 25%;&quot;&gt;
-&lt;/colgroup&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;1&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-right valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;2&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-center valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;3&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-right valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;strong&gt;4&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-center valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;5&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-center valign-middle&quot; colspan=&quot;2&quot; rowspan=&quot;2&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;6&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-left valign-bottom&quot; rowspan=&quot;3&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;7&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-center valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;8&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td class=&quot;tableblock halign-left valign-top&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;em&gt;9&lt;/em&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td class=&quot;tableblock halign-right valign-top&quot; colspan=&quot;2&quot;&gt;&lt;p class=&quot;tableblock&quot;&gt;&lt;code&gt;10&lt;/code&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To save the file, select &lt;span class=&quot;menuseq&quot;&gt;&lt;b class=&quot;menu&quot;&gt;File&lt;/b&gt;&amp;#160;&lt;i class=&quot;fa fa-angle-right caret&quot;&gt;&lt;/i&gt; &lt;b class=&quot;menuitem&quot;&gt;Save&lt;/b&gt;&lt;/span&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Select &lt;span class=&quot;menuseq&quot;&gt;&lt;b class=&quot;menu&quot;&gt;View&lt;/b&gt;&amp;#160;&lt;i class=&quot;fa fa-angle-right caret&quot;&gt;&lt;/i&gt; &lt;b class=&quot;submenu&quot;&gt;Zoom&lt;/b&gt;&amp;#160;&lt;i class=&quot;fa fa-angle-right caret&quot;&gt;&lt;/i&gt; &lt;b class=&quot;menuitem&quot;&gt;Reset&lt;/b&gt;&lt;/span&gt; to reset the zoom level to the default setting.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</description>
-        <pubDate>Wed, 12 Feb 2020 05:26:00 +0000</pubDate>
-        <link>https://zwt.io//2020/02/12/hello-asciidoctor/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/02/12/hello-asciidoctor/</guid>
-        
-        <category>Asciidoc</category>
-        
-        <category>Notes</category>
         
         
       </item>

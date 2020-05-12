@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>回顾 protected 访问修饰符 - 招文桃 | 记录</title>
+    <title>Java笔试题1 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io//2019/11/02/java-protected-access-modifier-revisited/">
+    <link rel="canonical" href="https://zwt.io//2020/05/10/java-interview-test1/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -166,17 +166,15 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
-                        
-                        <a class="tag" href="/tags/#Inheritance" title="Inheritance">Inheritance</a>
+                        <a class="tag" href="/tags/#Java 笔试" title="Java 笔试">Java 笔试</a>
                         
                     </div>
-                    <h1>回顾 protected 访问修饰符</h1>
+                    <h1>Java笔试题1</h1>
                     
                     
-                    <h2 class="subheading">重读一下 OCA Guide 访问控制符内容</h2>
+                    <h2 class="subheading"></h2>
                     
-                    <span class="meta">2019年11月2日发布📑</span>
+                    <span class="meta">2020年5月10日发布📑</span>
                     
                 </div>
             </div>
@@ -195,124 +193,95 @@
         col-md-10 col-md-offset-1
         post-container">
 
-        <h2 id="使用-protected-访问控制符">使用 protected 访问控制符</h2>
+        <h3 id="真题1-某知名互联网下载服务提供商软件工程师笔试题">真题1 某知名互联网下载服务提供商软件工程师笔试题</h3>
 
-<p>这是基础内容了，但是不能轻视，越基础越要清晰理解。<!--more--></p>
+<p><strong>一、选择题</strong><br />
+<strong>1.</strong> 访问修饰符作用范围由大到小是（ ）。</p>
+<blockquote>
+  <p>A.private-protected-default-public<br />
+B.public-protected-default-private<br />
+C.private-default-protected-public<br />
+D.public-default-protected-private</p>
+</blockquote>
 
-<h3 id="protected-access">Protected Access</h3>
+<p>这题没什么好说，当然是选择 <strong>B</strong> 啦，初学的时候可能有点难记住，不过习惯了就记住了。后来越了解就更容易记住，根本不需要死记硬背。 <code>default</code> 关键字，表示访问权限的时候，其实新的规范（8以上？）改称为 ‘package private’ 可以理解为包内私有访问权限，所以限制程度就是仅次于私有。接着protected和public容易，因为public肯定是范围最宽（大）的。<br />
+关于类的访问修饰符的作用范围，Java语言规范的 8.1.1 节有：<br />
+The access modifier <code>public</code> pertains only to top level classes and member classes, not to local classes or anonymous classes.<br />
+The access modifier <code>protected</code> and <code>private</code> pertain only to member classes within a directly enclosing class declaration.<!--more--></p>
 
-<p>这是用于演示 <code>protected</code> 关键字的代码包图。</p>
+<p><strong>2.</strong> 在Java 语言中，下面接口以键−值对的方式存储对象的是（ ）。</p>
+<blockquote>
+  <p>A.java.util.List<br />
+B.java.util.Map<br />
+C.java.util.Collection<br />
+D.java.util.Set</p>
+</blockquote>
 
-<p><img src="/img/image-20191102082917612.png" alt="image-20191102082917612" /></p>
+<p>选 <strong>B</strong> 这题也很直接。</p>
 
-<p><img src="/img/image-20191102204121667.png" alt="image-20191102204121667" /></p>
+<p><strong>3.</strong> 以下不是Object 类的方法的是（ ）。</p>
+<blockquote>
+  <p>A.hashCode()<br />
+B.finalize()<br />
+C.notify()<br />
+D.hasNext()</p>
+</blockquote>
 
-<p>首先创建一个 <code>Bird</code> 类并将其成员设置为 <code>protected</code> ：</p>
+<p>选 <strong>D</strong></p>
 
-<pre><code class="language-java">package pond.shore;
-public class Bird {
-    protected String text = "floating";		// protected 访问
-    protected void floatInWater() {			// protected 访问
-        System.out.println(text);
-    } 
-}
-</code></pre>
+<p><strong>4.</strong> 有如下代码：</p>
 
-<p>接着我们创建一个子类：</p>
-
-<pre><code class="language-java">package pond.goose;
-import pond.shore.Bird;		// 在不同的包
-public class Gosling extends Bird {		// 创建子类
-    public void swim() {
-        floatInWater();		// 调用 protected 成员
-        System.out.println(text);	// 调用 protected 成员
+<pre><code class="language-java">public class Test {
+    public void change(String str, char ch[]) {
+        str = "test ok";
+        ch[0] = 'g';
+    }
+    public static void main(String args[]) {
+      String str = new String("good");
+      char[] ch = { 'a', 'b', 'c' };
+      Test ex = new Test();
+      ex.change(str, ch);
+      System.out.print(str + " and ");
+      System.out.print(ch);
     }
 }
 </code></pre>
 
-<p>运行以上代码，会打印 <em>floating</em> 两次，一次因为调用 <code>floatInWater()</code> 另一次因为 <code>swim()</code> 里面的 <code>println()</code>。 因为 <code>Gosling</code> 是 <code>Bird</code> 的子类，它可以访问这些成员，即使不在同一个包。 记住 <code>protected</code> 允许所有默认访问权限所允许的。(Remember <code>protected</code> also gives us access to everything that default access does.) 意味着与 <code>Bird</code> 在同一个包的类可以访问它的 <code>protected</code> 成员。</p>
+<p>上面程序的运行结果是（ ）。</p>
+<blockquote>
+  <p>A.good and abc<br />
+B.good and gbc<br />
+C.test ok and abc<br />
+D.test ok and gbc</p>
+</blockquote>
 
-<pre><code class="language-java">package pond.shore;			// 与 Bird 在同一个包
-public class BirdWatcher {
-    public void watchBird() {
-        Bird bird = new Bird();
-        bird.floatInWater();	// 调用 protected 成员
-        System.out.println(bird.text);	// 调用 protected 成员
-    }
-}
+<p>选 <strong>B</strong> 在 Java 语言中，除了8 种原始的数据类型（分别为 <code>byte</code>、<code>short</code>、<code>int</code>、<code>long</code>、<code>float</code>、<code>double</code>、<code>char</code> 和 <code>boolean</code>）外，其他的类型都是对象，在方法调用的时候，传递的都是引用。引用从本质上来讲也是按值传递，只不过传递的这个值是对象的引用而已，因此，在方法调用的时候，对形参引用所指对象属性值的修改对实参可见。但是对引用值本身的修改对实参是不可见的。</p>
+
+<p><strong>二、填空题</strong><br />
+<strong>1.</strong> <code>Math.round(12.5)</code> 的返回值等于（ <strong>13</strong> ），<code>Math.round(-12.5)</code> 的返回值等于（ <strong>-12</strong> ）。</p>
+<blockquote>
+  <p><code>round</code> 是一个四舍五入的方法，12.5 的小数部分为 0.5，当对其执行 <code>Math.round()</code> 操作时，结果需要四舍五入，所以，结果为 13；−12.5 的小数部分也为 0.5，当对
+其执行 <code>Math.round()</code> 操作时，结果也需要四舍五入，由于 −12 &gt; −13，因此，结果为 −12。</p>
+</blockquote>
+
+<p><strong>2.</strong> 有如下程序：</p>
+
+<pre><code class="language-java">String str1 = "hello world";
+String str2 = "hello" + new String("world");
+System.out.println(str1 == str2);
 </code></pre>
 
-<p>现在我们尝试在不同的包做同样的操作：</p>
+<p>那么程序的运行结果是（ <strong>false</strong> ）。</p>
 
-<pre><code class="language-java">package pond.inland;			// 与 Bird 不在同一个包
-public class BirdWatcherFromAfar {
-    public void watchBird() {
-        Bird bird = new Bird();
-        bird.floatInWater();	// 不能通过编译
-        System.out.println(bird.text);	// 不能通过编译
-    }
-}
-</code></pre>
+<p><strong>3.</strong> 在Java 语言中，基本数据类型包括（ 浮点型 float、double ）、字符类型（ char ）、布尔类型 boolean 和 数值类型（byte、short、int、long ）。<br />
+<strong>4.</strong> 字符串分为两大类：一类是字符串常量（ String ）；另一类是字符串变量（ StringBuffer ）。</p>
 
-<p><code>BirdWatcherFromAfar</code> 与 <code>Bird</code> 不在同一个包，且不是 <code>Bird</code> 的子类，所以无法访问 <code>Bird</code> 的 <code>protected</code> 成员。</p>
-
-<p>好了，现在看看下面这个例子：</p>
-
-<pre><code class="language-java">package pond.swan;
-import pond.shore.Bird;			// 与 Bird 不在同一个包
-public class Swan extends Bird {	// 但是 Bird 的子类
-    public void swim() {
-        floatInWater();		// 包访问父类
-        System.out.println(text);	// 包访问父类
-    }
-    public void helpOtherSwanSwim() {
-        Swan other = new Swan();
-        other.floatInWater();	// 包访问父类
-        System.out.println(other.text);		// 包访问父类
-    }
-    public void helpOtherBirdSwim() {
-        Bird other = new Bird();
-        other.floatInWater();	// 不能通过编译
-        System.out.println(other.text);		// 不能通过编译
-    }
-}
-</code></pre>
-
-<p>上面代码，<code>helpOtherBirdSwim()</code> 方法里面 <code>other.floatInWater()</code> 和 <code>System.out.println(other.text)</code> 不能通过编译是因为引用变量 <code>other</code> 的类型是 <code>Bird</code>。 如果通过引用变量访问一个成员，能否访问取决于引用的<strong>变量的类型</strong>。</p>
-
-<p>再看看下面这个例子：</p>
-
-<pre><code class="language-java">package pond.goose;
-import pond.shore.Bird;			
-public class Goose extends Bird {	
-    public void helpGooseSwim() {
-        Goose other = new Goose();
-        other.floatInWater();	
-        System.out.println(other.text);		
-    }
-    public void helpOtherGooseSwim() {
-        Bird other = new Goose();
-        other.floatInWater();	// 不能通过编译
-        System.out.println(other.text);		// 不能通过编译
-    }
-}
-</code></pre>
-
-<p>上面代码中，在第二个方法 <code>helpOtherGooseSwim()</code> 有问题，尽管创建的是一个 <code>Goose</code> 对象，但是 <code>other</code> 保存的引用类型是 <code>Bird</code>。因为 <code>Goose</code> 与 <code>Bird</code> 不在同一个包，而且 <code>Bird</code> 不是 <code>Goose</code> 的子类，所以不允许访问 <code>Bird</code> 的成员。</p>
-
-<p>在看多一个例子：</p>
-
-<pre><code class="language-java">package pond.duck;
-import pond.goose.Goose;
-public class GooseWatcher {
-    public void watch() {
-        Goose goose = new Goose();
-        goose.floatInWater();	// 不能通过编译
-    }
-}
-</code></pre>
-
-<p>代码不能通过编译的原因是我们不在 <code>Goose</code> 类里面。 <code>floatInWater()</code> 方法是 <code>Bird</code> 类中声明的。 <code>GooseWatcher</code> 与 <code>Bird</code> 不在同一个包，而且不是 <code>Bird</code> 的子类。<code>Goose</code> 继承自 <code>Bird</code> 只是允许 <code>Goose</code> 访问 <code>floatInWater()</code> ，而不是 <code>Goose</code> 的调用者。</p>
+<p><strong>三、简答题</strong><br />
+<strong>1.</strong> 接口和抽象类有什么区别？<br />
+<strong>2.</strong> 实现多线程的方法有哪几种？<br />
+<strong>3.</strong> 利用递归方法求6!<br />
+<strong>4.</strong> 用Java 语言实现一个观察者模式。<br />
+<strong>5.</strong> 一个有10 亿条记录的文本文件，已按照关键字排好序存储，请设计一个算法，可以从文件中快速查找指定关键字的记录。</p>
 
 
         <!-- 来必力City版安装代码 -->
@@ -339,19 +308,12 @@ public class GooseWatcher {
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2019/10/31/maven-basics-review/" data-toggle="tooltip" data-placement="top" title="回顾 Maven 的一些基本操作">
+                <a href="/2020/03/28/ocp-mock-test2-review/" data-toggle="tooltip" data-placement="top" title="OCP-1Z0-816模拟测试2回顾">
                 上一篇<br>
-                <span>回顾 Maven 的一些基本操作</span>
+                <span>OCP-1Z0-816模拟测试2回顾</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2019/11/04/java-generic-revisited/" data-toggle="tooltip" data-placement="top" title="Java 泛型回顾">
-                下一篇<br>
-                <span>Java 泛型回顾</span>
-                </a>
-            </li>
             
         </ul>
     </div>  

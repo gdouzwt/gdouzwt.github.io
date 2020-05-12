@@ -176,6 +176,34 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/05/10/java-interview-test1/">
+        <h2 class="post-title">
+            Java笔试题1
+        </h2>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="真题1-某知名互联网下载服务提供商软件工程师笔试题">真题1 某知名互联网下载服务提供商软件工程师笔试题</h3>
+
+<p><strong>一、选择题</strong><br />
+<strong>1.</strong> 访问修饰符作用范围由大到小是（ ）。</p>
+<blockquote>
+  <p>A.private-protected-default-public<br />
+B.public-protected-default-private<br />
+C.private-default-protected-public<br />
+D.public-default-protected-private</p>
+</blockquote>
+
+<p>这题没什么好说，当然是选择 <strong>B</strong> 啦，初学的时候可能有点难记住，不过习惯了就记住了。后来越了解就更容易记住，根本不需要死记硬背。 <code>default</code> 关键字，表示访问权限的时候，其实新的规范（8以上？）改称为 ‘package private’ 可以理解为包内私有访问权限，所以限制程度就是仅次于私有。接着protected和public容易，因为public肯定是范围最宽（大）的。<br />
+关于类的访问修饰符的作用范围，Java语言规范的 8.1.1 节有：<br />
+The access modifier <code>public</code> pertains only to top level classes and member classes, not to local classes or anonymous classes.<br />
+The access modifier <code>protected</code> and <code>private</code> pertain only to member classes within a directly enclosing class declaration.</p>
+ <a href="/2020/05/10/java-interview-test1/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/03/28/ocp-mock-test2-review/">
         <h2 class="post-title">
             OCP-1Z0-816模拟测试2回顾
@@ -608,51 +636,6 @@ after_success:
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/02/12/hello-asciidoctor/">
-        <h2 class="post-title">
-            AsciiDoc语法参考
-        </h2>
-        
-        <h3 class="post-subtitle">
-            学习笔记&nbsp;&nbsp;2020年2月12日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <div class="sect2">
-<h3 id="段落"><em>段落</em></h3>
-<div class="paragraph lead">
-<p>段落不需要特别的格式，<strong>直接</strong>写就是了。
-然后呢</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="自然段"><em>自然段</em></h3>
-<div class="paragraph">
-<p>这是普通段落</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>开始至少空一格就成为自然段，同一个自然段里面的内容必须相邻，
-即不能隔空行。</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>隔空行就是另一个自然段了。自然段文字是等宽字体，然后会保留空格和新行。
-例如    保留了前边的空格，
-然后这样，保留了换新行。</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>现在这里又是一个普通段落了。</p>
-</div>
-</div> <a href="/2020/02/12/hello-asciidoctor/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -844,6 +827,8 @@ after_success:
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             
