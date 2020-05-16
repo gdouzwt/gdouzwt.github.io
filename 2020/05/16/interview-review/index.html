@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io//2020/05/10/java-interview-test1/">
+    <link rel="canonical" href="https://zwt.io//2020/05/16/interview-review/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -174,7 +174,7 @@
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">2020年5月10日发布📑</span>
+                    <span class="meta">2020年5月16日发布📑</span>
                     
                 </div>
             </div>
@@ -193,118 +193,24 @@
         col-md-10 col-md-offset-1
         post-container">
 
-        <h3 id="真题1-某知名互联网下载服务提供商软件工程师笔试题">真题1 某知名互联网下载服务提供商软件工程师笔试题</h3>
+        <p>最大汉明距离
+给出 n 个数，求这 n 个数中两两最大的汉明距离
+两个数的汉明距离定义为两个数的二进制表示中不同的位数。
+例如 11 和 6 的汉明距离为 3， 因为 11 转换成为二进制后为 1011， 6 转换为二进制后为 0110， 他们的二进制第 1，3，4 位（从低位开始数）不同。</p>
 
-<p><strong>一、选择题</strong><br />
-<strong>1.</strong> 访问修饰符作用范围由大到小是（ ）。</p>
-<blockquote>
-  <p>A.private-protected-default-public<br />
-B.public-protected-default-private<br />
-C.private-default-protected-public<br />
-D.public-default-protected-private</p>
-</blockquote>
+<p>输入
+第一行一个数 n， 代表有 n 个数
+接下来 n 个数，描述这 n 个数 a1，a2, … , an
+1 &lt;= n &lt;= 100     1 &lt;= ai &lt;= 10000</p>
 
-<p>这题没什么好说，当然是选择 <strong>B</strong> 啦，初学的时候可能有点难记住，不过习惯了就记住了。后来越了解就更容易记住，根本不需要死记硬背。 <code>default</code> 关键字，表示访问权限的时候，其实新的规范（8以上？）改称为 ‘package private’ 可以理解为包内私有访问权限，所以限制程度就是仅次于私有。接着protected和public容易，因为public肯定是范围最宽（大）的。<br />
-关于类的访问修饰符的作用范围，Java语言规范的 8.1.1 节有：<br />
-The access modifier <code>public</code> pertains only to top level classes and member classes, not to local classes or anonymous classes.<br />
-The access modifier <code>protected</code> and <code>private</code> pertain only to member classes within a directly enclosing class declaration.<!--more--></p>
+<p>输出
+一个数，最大的汉明距离</p>
 
-<p><strong>2.</strong> 在Java 语言中，下面接口以键−值对的方式存储对象的是（ ）。</p>
-<blockquote>
-  <p>A.java.util.List<br />
-B.java.util.Map<br />
-C.java.util.Collection<br />
-D.java.util.Set</p>
-</blockquote>
-
-<p>选 <strong>B</strong> 这题也很直接。</p>
-
-<p><strong>3.</strong> 以下不是Object 类的方法的是（ ）。</p>
-<blockquote>
-  <p>A.hashCode()<br />
-B.finalize()<br />
-C.notify()<br />
-D.hasNext()</p>
-</blockquote>
-
-<p>选 <strong>D</strong></p>
-
-<p><strong>4.</strong> 有如下代码：</p>
-
-<pre><code class="language-java">public class Test {
-    public void change(String str, char ch[]) {
-        str = "test ok";
-        ch[0] = 'g';
-    }
-    public static void main(String args[]) {
-      String str = new String("good");
-      char[] ch = { 'a', 'b', 'c' };
-      Test ex = new Test();
-      ex.change(str, ch);
-      System.out.print(str + " and ");
-      System.out.print(ch);
-    }
-}
-</code></pre>
-
-<p>上面程序的运行结果是（ ）。</p>
-<blockquote>
-  <p>A.good and abc<br />
-B.good and gbc<br />
-C.test ok and abc<br />
-D.test ok and gbc</p>
-</blockquote>
-
-<p>选 <strong>B</strong> 在 Java 语言中，除了8 种原始的数据类型（分别为 <code>byte</code>、<code>short</code>、<code>int</code>、<code>long</code>、<code>float</code>、<code>double</code>、<code>char</code> 和 <code>boolean</code>）外，其他的类型都是对象，在方法调用的时候，传递的都是引用。引用从本质上来讲也是按值传递，只不过传递的这个值是对象的引用而已，因此，在方法调用的时候，对形参引用所指对象属性值的修改对实参可见。但是对引用值本身的修改对实参是不可见的。</p>
-
-<p><strong>二、填空题</strong><br />
-<strong>1.</strong> <code>Math.round(12.5)</code> 的返回值等于（ <strong>13</strong> ），<code>Math.round(-12.5)</code> 的返回值等于（ <strong>-12</strong> ）。</p>
-<blockquote>
-  <p><code>round</code> 是一个四舍五入的方法，12.5 的小数部分为 0.5，当对其执行 <code>Math.round()</code> 操作时，结果需要四舍五入，所以，结果为 13；−12.5 的小数部分也为 0.5，当对
-其执行 <code>Math.round()</code> 操作时，结果也需要四舍五入，由于 −12 &gt; −13，因此，结果为 −12。</p>
-</blockquote>
-
-<p><strong>2.</strong> 有如下程序：</p>
-
-<pre><code class="language-java">String str1 = "hello world";
-String str2 = "hello" + new String("world");
-System.out.println(str1 == str2);
-</code></pre>
-
-<p>那么程序的运行结果是（ <strong>false</strong> ）。</p>
-
-<p><strong>3.</strong> 在Java 语言中，基本数据类型包括（ 浮点型 float、double ）、字符类型（ char ）、布尔类型 boolean 和 数值类型（byte、short、int、long ）。<br />
-<strong>4.</strong> 字符串分为两大类：一类是字符串常量（ String ）；另一类是字符串变量（ StringBuffer ）。</p>
-
-<p><strong>三、简答题</strong><br />
-<strong>1.</strong> 接口和抽象类有什么区别？</p>
-
-<p>答案：接口（interface）和抽象类（abstract class）是支持抽象类定义的两种机制（注意，该句中前后两个抽象类的意义不一样，前者表示的是一个实体，后者表示的是一个概念）。<br />
-两者具有很大的相似性，甚至有时候是可以互换的。但同时，两者也存在很大的区别。具体而言，接口是公开的，里面不能有私有的方法或变量，是用于让别人使用的，而抽象类是可以有私有方法或私有变量的，如果一个类中包含抽象方法，那么这个类就是抽象类。在Java 语言中，可以通过把类或者类中的某些方法声明为abstract（abstract 只能用来修饰类或者方法，不能用来修饰属性）来表示一个类是抽象类。接口就是指一个方法的集合，接口中的所有方法都没有方法体，在Java 语言中，接口是通过关键字interface 来实现的。包含一个或多个抽象方法的类就必须被声明为抽象类，抽象类可以声明方法的存在而不去实现它，被声明为抽象的方法不能包含方法体。在抽象类的子类中，实现方法必须含有相同的或者更低的访问级别（public-&gt;protected-&gt;private）。抽象类在使用的过程中不能被实例化，但是可以创建一个对象使其指向具体子类的一个实例。抽象类的子类为父类中所有的抽象方法提供具体的实现，否则，它们也是抽象类。接口可以被看作是抽象类的变体，接口中所有的方法都是抽象的，可以通过接口来间接地实现多重继承。接口中的成员变量都是static final
-类型，由于抽象类可以包含部分方法的实现，所以，在一些场合下抽象类比接口存在更多的优势。接口与抽象类的相同点如下：<br />
-1）都不能被实例化。<br />
-2）接口的实现类或抽象类的子类都只有实现了接口或抽象类中的方法后才能被实例化。<br />
-接口与抽象类的不同点如下：<br />
-1）接口只有定义，不能有方法的实现，而抽象类可以有定义与实现，即其方法可以在抽象类中被实现。<br />
-2）实现接口的关键字为implements，继承抽象类的关键字为extends。一个类可以实现多个接口，但一个类只能继承一个抽象类，因此，使用接口可以间接地达到多重继承的目的。<br />
-3）接口强调特定功能的实现，其设计理念是“has-a”关系，而抽象类强调所属关系，其设计理念为“is-a”关系。<br />
-4）接口中定义的成员变量默认为public static final，只能够有静态的不能被修改的数据成员，而且，必须给其赋初值，其所有的成员方法都是public、abstract 的，而且只能被这两个关键字修饰。而抽象类可以有自己的数据成员变量，也可以有非抽象的成员方法，而且，抽象类中的成员变量默认为default，当然也可以被定义为private、protected 和public，这些成员变量可以在子类中被重新定义，也可以被重新赋值，抽象类中的抽象方法（其前有abstract修饰）不能用private、static、synchronized 和native 等访问修饰符修饰，同时方法必须以分号结尾，并且不带花括号{}。所以，当功能需要累积时，使用抽象类；不需要累积时，使用接口。<br />
-5）接口被运用于实现比较常用的功能，便于日后维护或者添加删除方法，而抽象类更倾向于充当公共类的角色，不适用于日后重新对里面的代码进行修改。</p>
-
-<p><strong>2.</strong> 实现多线程的方法有哪几种？</p>
-
-<p>答案：Java 虚拟机（Java Virtual Machine，JVM，是运行所有Java 程序的抽象计算机，是Java 语言的运行环境）允许应用程序并发地运行多个线程。在Java 语言中，多线程的实现一般有以下三种方法：<br />
-1）实现Runnable 接口，并实现该接口的run()方法。<br />
-以下是主要步骤：
-① 自定义类并实现Runnable 接口，实现run()方法。<br />
-② 创建Thread 对象，用实现Runnable 接口的对象作为参数实例化该Thread 对象。<br />
-③ 调用Thread 的start()方法。</p>
-
-<p><strong>3.</strong> 利用递归方法求6!<br />
-<strong>4.</strong> 用Java 语言实现一个观察者模式。<br />
-答案：观察者模式（也被称为发布/订阅模式）提供了避免组件之间紧密耦合的另一种方法，它将观察者和被观察的对象分离开。在该模式中，一个对象通过添加一个方法（该方法允许另一个对象，即观察者注册自己）使本身变得可观察。当可观察的对象更改时，它会将消息发送到已注册的观察者。这些观察者收到消息后所执行的操作与可观察的对象无关，这种模式使得对象可以相互对话，而不必了解原因。Java 语言与C#语言的事件处理机制就是采用的此种设计模式。例如，用户界面（同一个数据可以有多种不同的显示方式）可以作为观察者，业务数据是被观察者，当数据有变化后会通知界面，界面收到通知后，会根据自己的显示方式修改界面的显示。面向对象设计的一个原则是：系统中的每个类将重点放在某一个功能上，而不是其他方面。一个对象只做一件事情，并且将它做好。观察者模式在模块之间划定了清晰的界限，提高了应用程序的可维护性和重用性。设计类图如图1 所示。【准备放图】下面给出一个观察者模式的示例代码，代码的主要功能是实现天气预报，同样的温度信息可以有多种不同的展示方式：</p>
-
-<p><strong>5.</strong> 一个有10 亿条记录的文本文件，已按照关键字排好序存储，请设计一个算法，可以从文件中快速查找指定关键字的记录。</p>
+<p>样例输入
+3
+1 2 3
+样例输出
+2</p>
 
 
         <!-- 来必力City版安装代码 -->
@@ -331,19 +237,12 @@ System.out.println(str1 == str2);
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2020/03/28/ocp-mock-test2-review/" data-toggle="tooltip" data-placement="top" title="OCP-1Z0-816模拟测试2回顾">
+                <a href="/2020/05/10/java-interview-test1/" data-toggle="tooltip" data-placement="top" title="Java笔试题1">
                 上一篇<br>
-                <span>OCP-1Z0-816模拟测试2回顾</span>
-                </a>
-            </li>
-            
-            
-            <li class="next">
-                <a href="/2020/05/16/interview-review/" data-toggle="tooltip" data-placement="top" title="Java笔试题1">
-                下一篇<br>
                 <span>Java笔试题1</span>
                 </a>
             </li>
+            
             
         </ul>
     </div>  

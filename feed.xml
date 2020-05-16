@@ -5,9 +5,39 @@
     <description></description>
     <link>https://zwt.io//</link>
     <atom:link href="https://zwt.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 12 May 2020 01:54:56 +0000</pubDate>
-    <lastBuildDate>Tue, 12 May 2020 01:54:56 +0000</lastBuildDate>
+    <pubDate>Sat, 16 May 2020 13:58:51 +0000</pubDate>
+    <lastBuildDate>Sat, 16 May 2020 13:58:51 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>Java笔试题1</title>
+        <description>&lt;p&gt;最大汉明距离
+给出 n 个数，求这 n 个数中两两最大的汉明距离
+两个数的汉明距离定义为两个数的二进制表示中不同的位数。
+例如 11 和 6 的汉明距离为 3， 因为 11 转换成为二进制后为 1011， 6 转换为二进制后为 0110， 他们的二进制第 1，3，4 位（从低位开始数）不同。&lt;/p&gt;
+
+&lt;p&gt;输入
+第一行一个数 n， 代表有 n 个数
+接下来 n 个数，描述这 n 个数 a1，a2, … , an
+1 &amp;lt;= n &amp;lt;= 100     1 &amp;lt;= ai &amp;lt;= 10000&lt;/p&gt;
+
+&lt;p&gt;输出
+一个数，最大的汉明距离&lt;/p&gt;
+
+&lt;p&gt;样例输入
+3
+1 2 3
+样例输出
+2&lt;/p&gt;
+</description>
+        <pubDate>Sat, 16 May 2020 12:30:00 +0000</pubDate>
+        <link>https://zwt.io//2020/05/16/interview-review/</link>
+        <guid isPermaLink="true">https://zwt.io//2020/05/16/interview-review/</guid>
+        
+        <category>Java 笔试</category>
+        
+        
+      </item>
     
       <item>
         <title>Java笔试题1</title>
@@ -95,11 +125,34 @@ System.out.println(str1 == str2);
 &lt;strong&gt;4.&lt;/strong&gt; 字符串分为两大类：一类是字符串常量（ String ）；另一类是字符串变量（ StringBuffer ）。&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;三、简答题&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;1.&lt;/strong&gt; 接口和抽象类有什么区别？&lt;br /&gt;
-&lt;strong&gt;2.&lt;/strong&gt; 实现多线程的方法有哪几种？&lt;br /&gt;
-&lt;strong&gt;3.&lt;/strong&gt; 利用递归方法求6!&lt;br /&gt;
+&lt;strong&gt;1.&lt;/strong&gt; 接口和抽象类有什么区别？&lt;/p&gt;
+
+&lt;p&gt;答案：接口（interface）和抽象类（abstract class）是支持抽象类定义的两种机制（注意，该句中前后两个抽象类的意义不一样，前者表示的是一个实体，后者表示的是一个概念）。&lt;br /&gt;
+两者具有很大的相似性，甚至有时候是可以互换的。但同时，两者也存在很大的区别。具体而言，接口是公开的，里面不能有私有的方法或变量，是用于让别人使用的，而抽象类是可以有私有方法或私有变量的，如果一个类中包含抽象方法，那么这个类就是抽象类。在Java 语言中，可以通过把类或者类中的某些方法声明为abstract（abstract 只能用来修饰类或者方法，不能用来修饰属性）来表示一个类是抽象类。接口就是指一个方法的集合，接口中的所有方法都没有方法体，在Java 语言中，接口是通过关键字interface 来实现的。包含一个或多个抽象方法的类就必须被声明为抽象类，抽象类可以声明方法的存在而不去实现它，被声明为抽象的方法不能包含方法体。在抽象类的子类中，实现方法必须含有相同的或者更低的访问级别（public-&amp;gt;protected-&amp;gt;private）。抽象类在使用的过程中不能被实例化，但是可以创建一个对象使其指向具体子类的一个实例。抽象类的子类为父类中所有的抽象方法提供具体的实现，否则，它们也是抽象类。接口可以被看作是抽象类的变体，接口中所有的方法都是抽象的，可以通过接口来间接地实现多重继承。接口中的成员变量都是static final
+类型，由于抽象类可以包含部分方法的实现，所以，在一些场合下抽象类比接口存在更多的优势。接口与抽象类的相同点如下：&lt;br /&gt;
+1）都不能被实例化。&lt;br /&gt;
+2）接口的实现类或抽象类的子类都只有实现了接口或抽象类中的方法后才能被实例化。&lt;br /&gt;
+接口与抽象类的不同点如下：&lt;br /&gt;
+1）接口只有定义，不能有方法的实现，而抽象类可以有定义与实现，即其方法可以在抽象类中被实现。&lt;br /&gt;
+2）实现接口的关键字为implements，继承抽象类的关键字为extends。一个类可以实现多个接口，但一个类只能继承一个抽象类，因此，使用接口可以间接地达到多重继承的目的。&lt;br /&gt;
+3）接口强调特定功能的实现，其设计理念是“has-a”关系，而抽象类强调所属关系，其设计理念为“is-a”关系。&lt;br /&gt;
+4）接口中定义的成员变量默认为public static final，只能够有静态的不能被修改的数据成员，而且，必须给其赋初值，其所有的成员方法都是public、abstract 的，而且只能被这两个关键字修饰。而抽象类可以有自己的数据成员变量，也可以有非抽象的成员方法，而且，抽象类中的成员变量默认为default，当然也可以被定义为private、protected 和public，这些成员变量可以在子类中被重新定义，也可以被重新赋值，抽象类中的抽象方法（其前有abstract修饰）不能用private、static、synchronized 和native 等访问修饰符修饰，同时方法必须以分号结尾，并且不带花括号{}。所以，当功能需要累积时，使用抽象类；不需要累积时，使用接口。&lt;br /&gt;
+5）接口被运用于实现比较常用的功能，便于日后维护或者添加删除方法，而抽象类更倾向于充当公共类的角色，不适用于日后重新对里面的代码进行修改。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; 实现多线程的方法有哪几种？&lt;/p&gt;
+
+&lt;p&gt;答案：Java 虚拟机（Java Virtual Machine，JVM，是运行所有Java 程序的抽象计算机，是Java 语言的运行环境）允许应用程序并发地运行多个线程。在Java 语言中，多线程的实现一般有以下三种方法：&lt;br /&gt;
+1）实现Runnable 接口，并实现该接口的run()方法。&lt;br /&gt;
+以下是主要步骤：
+① 自定义类并实现Runnable 接口，实现run()方法。&lt;br /&gt;
+② 创建Thread 对象，用实现Runnable 接口的对象作为参数实例化该Thread 对象。&lt;br /&gt;
+③ 调用Thread 的start()方法。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; 利用递归方法求6!&lt;br /&gt;
 &lt;strong&gt;4.&lt;/strong&gt; 用Java 语言实现一个观察者模式。&lt;br /&gt;
-&lt;strong&gt;5.&lt;/strong&gt; 一个有10 亿条记录的文本文件，已按照关键字排好序存储，请设计一个算法，可以从文件中快速查找指定关键字的记录。&lt;/p&gt;
+答案：观察者模式（也被称为发布/订阅模式）提供了避免组件之间紧密耦合的另一种方法，它将观察者和被观察的对象分离开。在该模式中，一个对象通过添加一个方法（该方法允许另一个对象，即观察者注册自己）使本身变得可观察。当可观察的对象更改时，它会将消息发送到已注册的观察者。这些观察者收到消息后所执行的操作与可观察的对象无关，这种模式使得对象可以相互对话，而不必了解原因。Java 语言与C#语言的事件处理机制就是采用的此种设计模式。例如，用户界面（同一个数据可以有多种不同的显示方式）可以作为观察者，业务数据是被观察者，当数据有变化后会通知界面，界面收到通知后，会根据自己的显示方式修改界面的显示。面向对象设计的一个原则是：系统中的每个类将重点放在某一个功能上，而不是其他方面。一个对象只做一件事情，并且将它做好。观察者模式在模块之间划定了清晰的界限，提高了应用程序的可维护性和重用性。设计类图如图1 所示。【准备放图】下面给出一个观察者模式的示例代码，代码的主要功能是实现天气预报，同样的温度信息可以有多种不同的展示方式：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt; 一个有10 亿条记录的文本文件，已按照关键字排好序存储，请设计一个算法，可以从文件中快速查找指定关键字的记录。&lt;/p&gt;
 </description>
         <pubDate>Sun, 10 May 2020 20:02:00 +0000</pubDate>
         <link>https://zwt.io//2020/05/10/java-interview-test1/</link>
@@ -5991,46 +6044,6 @@ public class PTest {
         <guid isPermaLink="true">https://zwt.io//2020/02/15/inner-class-exercises/</guid>
         
         <category>Java</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Travis CI上手</title>
-        <description>&lt;h3 id=&quot;配置文件&quot;&gt;配置文件&lt;/h3&gt;
-
-&lt;p&gt;我用于博客自动构建的&lt;code&gt;.travis.yml&lt;/code&gt;脚本：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-yaml&quot;&gt;language: ruby
-rvm:
-  - 2.6.3
-env:
-  global:
-  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-  - secure: D0RrVHHBEEJMyJK9OUUPM6Wms+D+zifJhHFl4BcmC0leSR0vANoQ6357Bl4miZL2flmnBU/1Z9WNzcDVM0JwQpF8ZVeEdMvgBY5+73Xjp8cIwYfWx8MAUB8J1Hug2aEiXw6KoSxjFOnUpSRnhCcWpviFNCZOa5XavMfe7+OHbNQT1U1xu+ZOmDG6Hrm3CMhfzu2cRPIfziAAgnWVfgtqA0STXnY9D0HvfsKPl6khy6VWkeF09Chqo/XVO/SV5LSgplkgXh1OzS6ITwT99UWDRqIeXYAvMJFyrHkzdxNgtAddYVxmx8WQqfqUFQ6A3HSnJy2Fq04H3gLszQxrVPzw8fNeOzBe7hIviaZdgRsglc26NO13EX//e4DA1ImiYKciFGvDNDBrqtv8u3XAG+8jVe/dLwKbBXnvi64udh2/H/lTBfWQ3eV08/R6m0m4aF8jbv0oBuXReyXuEy9D6xNm+yceekWzKAmTYPFb9W5XLveIgt8SIQO9P6tGuMWV6w7KRhgbpgI886ZeSVS3WcAGIr11SvSNa+x5WapOd/mizHrA8VvW4v8GjmYYwTOsmiLuYl2t1fWY76yYOOdSDLC9XhJN/mS3qxxX7WR4KCJgpstyzTVXj+uyuzi23sV1SdUvO35r3VkZk11ad9Qmp9WLXpdSQfMAKbu/lC7C9HfrGuM=
-cache:
-  bundler: true
-  directories:
-    - /home/travis/.rvm/
-install:
-- gem install bundler
-- bundle install
-script:
-- bundle exec rake deploy
-after_success:
-- bash &amp;lt;(curl -s https://codecov.io/bash)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;发现启用了 cache 之后，快很多了。搞到动图凑内容：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/cache_1581461859_5053.gif&quot; alt=&quot;cache_1581461859_5053&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;用来测试构建时长，哈哈哈哈！&lt;/p&gt;
-</description>
-        <pubDate>Wed, 12 Feb 2020 06:49:00 +0000</pubDate>
-        <link>https://zwt.io//2020/02/12/intro-to-travis/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/02/12/intro-to-travis/</guid>
-        
-        <category>持续集成</category>
         
         
       </item>
