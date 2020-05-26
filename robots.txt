@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-Allow: /sitemap.htm
-Sitemap: https://zwt.io/sitemap.xml
+Disallow: /
