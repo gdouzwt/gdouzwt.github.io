@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io//</link>
     <atom:link href="https://zwt.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 30 May 2020 20:33:09 +0000</pubDate>
-    <lastBuildDate>Sat, 30 May 2020 20:33:09 +0000</lastBuildDate>
+    <pubDate>Sat, 30 May 2020 20:45:01 +0000</pubDate>
+    <lastBuildDate>Sat, 30 May 2020 20:45:01 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -150,13 +150,13 @@ System.out.println(str1 == str2);
 
 &lt;p&gt;&lt;img src=&quot;/img/image-20200531042853475.png&quot; alt=&quot;image-20200531042853475&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;​																												图1&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;图1👆&lt;/div&gt;
 
 &lt;p&gt;具体的实现代码的继承关系如图2所示：&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/observer-pattern.png&quot; alt=&quot;observer-pattern&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;​																												图2&lt;/p&gt;
+&lt;div align=&quot;center&quot;&gt;图2👆&lt;/div&gt;
 
 &lt;p&gt;下面给出一个观察者模式的示例代码，代码的主要功能是实现天气预报，同样的温度信息可以有多种不同的展示方式：&lt;/p&gt;
 
@@ -264,6 +264,12 @@ public class WhetherDisplay2 implements Observer {
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt; 一个有10 亿条记录的文本文件，已按照关键字排好序存储，请设计一个算法，可以从文件中快速查找指定关键字的记录。&lt;/p&gt;
+
+&lt;p&gt;答案: 10 亿条记录对应的数量在 GB 量级,对于普通的计算机来讲,没有这么大的内存空间供使用,因此,无法一次把这些数据信息全部都读到内存中进行处理,需要对问题进行分解,例如把数据分成 100 份,每一份就是 100MB 量级,基本上放入内存无压力了.&lt;/p&gt;
+
+&lt;p&gt;把这 10 亿条记录,均分为 100 份, 把每份的第一条记录关键字和此纪录对应的文件偏移量先扫入内存(类似索引),这里需要磁盘随机 IO 100 次.&lt;/p&gt;
+
+&lt;p&gt;这样可以马上定位出指定关键字所在的记录块,把相应的记录块拿到内存,二分查找即可.&lt;/p&gt;
 </description>
         <pubDate>Sun, 10 May 2020 20:02:00 +0000</pubDate>
         <link>https://zwt.io//2020/05/10/java-interview-test1/</link>
