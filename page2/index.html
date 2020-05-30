@@ -176,51 +176,6 @@
             ">
             
 <div class="post-preview">
-    <a href="/2020/02/12/intro-to-travis/">
-        <h2 class="post-title">
-            Travis CI上手
-        </h2>
-        
-        <h3 class="post-subtitle">
-            玩下持续构建、持续集成&nbsp;&nbsp;2020年2月12日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="配置文件">配置文件</h3>
-
-<p>我用于博客自动构建的<code>.travis.yml</code>脚本：</p>
-<pre><code class="language-yaml">language: ruby
-rvm:
-  - 2.6.3
-env:
-  global:
-  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-  - secure: D0RrVHHBEEJMyJK9OUUPM6Wms+D+zifJhHFl4BcmC0leSR0vANoQ6357Bl4miZL2flmnBU/1Z9WNzcDVM0JwQpF8ZVeEdMvgBY5+73Xjp8cIwYfWx8MAUB8J1Hug2aEiXw6KoSxjFOnUpSRnhCcWpviFNCZOa5XavMfe7+OHbNQT1U1xu+ZOmDG6Hrm3CMhfzu2cRPIfziAAgnWVfgtqA0STXnY9D0HvfsKPl6khy6VWkeF09Chqo/XVO/SV5LSgplkgXh1OzS6ITwT99UWDRqIeXYAvMJFyrHkzdxNgtAddYVxmx8WQqfqUFQ6A3HSnJy2Fq04H3gLszQxrVPzw8fNeOzBe7hIviaZdgRsglc26NO13EX//e4DA1ImiYKciFGvDNDBrqtv8u3XAG+8jVe/dLwKbBXnvi64udh2/H/lTBfWQ3eV08/R6m0m4aF8jbv0oBuXReyXuEy9D6xNm+yceekWzKAmTYPFb9W5XLveIgt8SIQO9P6tGuMWV6w7KRhgbpgI886ZeSVS3WcAGIr11SvSNa+x5WapOd/mizHrA8VvW4v8GjmYYwTOsmiLuYl2t1fWY76yYOOdSDLC9XhJN/mS3qxxX7WR4KCJgpstyzTVXj+uyuzi23sV1SdUvO35r3VkZk11ad9Qmp9WLXpdSQfMAKbu/lC7C9HfrGuM=
-cache:
-  bundler: true
-  directories:
-    - /home/travis/.rvm/
-install:
-- gem install bundler
-- bundle install
-script:
-- bundle exec rake deploy
-after_success:
-- bash &lt;(curl -s https://codecov.io/bash)
-</code></pre>
-
-<p>发现启用了 cache 之后，快很多了。搞到动图凑内容：</p>
-
-<p><img src="/img/cache_1581461859_5053.gif" alt="cache_1581461859_5053" /></p>
-
-<p>用来测试构建时长，哈哈哈哈！</p>
- <a href="/2020/02/12/intro-to-travis/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2020/02/12/hello-asciidoctor/">
         <h2 class="post-title">
             AsciiDoc语法参考
@@ -553,6 +508,25 @@ System.out.println(
 
 <p>然后入正题:</p>
  <a href="/2020/01/24/java-virtual-method-invocation/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/22/java-modules/">
+        <h2 class="post-title">
+            Java模块化
+        </h2>
+        
+        <h3 class="post-subtitle">
+            学习Java 11模块化特性&nbsp;&nbsp;2020年1月22日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <p>为了准备 1Z0-816，要学习一下 Java 11 的基础部分。</p>
+
+ <a href="/2020/01/22/java-modules/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>

@@ -300,9 +300,150 @@ System.out.println(str1 == str2);
 ② 创建Thread 对象，用实现Runnable 接口的对象作为参数实例化该Thread 对象。<br />
 ③ 调用Thread 的start()方法。</p>
 
-<p><strong>3.</strong> 利用递归方法求6!<br />
-<strong>4.</strong> 用Java 语言实现一个观察者模式。<br />
-答案：观察者模式（也被称为发布/订阅模式）提供了避免组件之间紧密耦合的另一种方法，它将观察者和被观察的对象分离开。在该模式中，一个对象通过添加一个方法（该方法允许另一个对象，即观察者注册自己）使本身变得可观察。当可观察的对象更改时，它会将消息发送到已注册的观察者。这些观察者收到消息后所执行的操作与可观察的对象无关，这种模式使得对象可以相互对话，而不必了解原因。Java 语言与C#语言的事件处理机制就是采用的此种设计模式。例如，用户界面（同一个数据可以有多种不同的显示方式）可以作为观察者，业务数据是被观察者，当数据有变化后会通知界面，界面收到通知后，会根据自己的显示方式修改界面的显示。面向对象设计的一个原则是：系统中的每个类将重点放在某一个功能上，而不是其他方面。一个对象只做一件事情，并且将它做好。观察者模式在模块之间划定了清晰的界限，提高了应用程序的可维护性和重用性。设计类图如图1 所示。【准备放图】下面给出一个观察者模式的示例代码，代码的主要功能是实现天气预报，同样的温度信息可以有多种不同的展示方式：</p>
+<p><strong>3.</strong> 利用递归方法求6!</p>
+
+<p>答案：本题考查的是递归知识。</p>
+
+<p>使用递归时，关键问题是要明白递归表达式的含义以及递归的终止条件。</p>
+
+<p>实现代码如下：</p>
+
+<pre><code class="language-java">public class Test {
+    public static long fac(int n) {
+        if(n &gt; 1)
+            return (n * fac(n - 1));
+        else
+            return 1;
+    }
+    public static void main(String[] args) {
+        System.out.println(fac(6));
+    }
+}
+</code></pre>
+
+<p>程序运行的结果为</p>
+
+<blockquote>
+  <p>720</p>
+</blockquote>
+
+<p><strong>4.</strong> 用Java 语言实现一个观察者模式。<br />
+答案：观察者模式（也被称为发布/订阅模式）提供了避免组件之间紧密耦合的另一种方法，它将观察者和被观察的对象分离开。在该模式中，一个对象通过添加一个方法（该方法允许另一个对象，即观察者注册自己）使本身变得可观察。当可观察的对象更改时，它会将消息发送到已注册的观察者。这些观察者收到消息后所执行的操作与可观察的对象无关，这种模式使得对象可以相互对话，而不必了解原因。Java 语言与C#语言的事件处理机制就是采用的此种设计模式。例如，用户界面（同一个数据可以有多种不同的显示方式）可以作为观察者，业务数据是被观察者，当数据有变化后会通知界面，界面收到通知后，会根据自己的显示方式修改界面的显示。面向对象设计的一个原则是：系统中的每个类将重点放在某一个功能上，而不是其他方面。一个对象只做一件事情，并且将它做好。观察者模式在模块之间划定了清晰的界限，提高了应用程序的可维护性和重用性。设计类图如图1 所示。</p>
+
+<p><img src="/img/image-20200531042853475.png" alt="image-20200531042853475" /></p>
+
+<p>​																												图1</p>
+
+<p>具体的实现代码的继承关系如图2所示：</p>
+
+<p><img src="/img/observer-pattern.png" alt="observer-pattern" /></p>
+
+<p>​																												图2</p>
+
+<p>下面给出一个观察者模式的示例代码，代码的主要功能是实现天气预报，同样的温度信息可以有多种不同的展示方式：</p>
+
+<pre><code class="language-java">package io.zwt.observer;
+
+public interface Subject {
+    void registerObserver(Observer o);
+    void removeObserver(Observer o);
+    void notifyObservers();
+}
+</code></pre>
+
+<pre><code class="language-java">package io.zwt.observer;
+
+public interface Observer {
+
+    // 更新温度
+    void update(float temp);
+}
+</code></pre>
+
+<pre><code class="language-java">package io.zwt.observer;
+
+import java.util.ArrayList;
+
+public class Whether implements Subject {
+
+    private final ArrayList&lt;Observer&gt; observers = new ArrayList&lt;&gt;();
+    private float temperature;
+
+    @Override
+    public void registerObserver(Observer o) {
+        this.observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        this.observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : this.observers) {
+            observer.update(temperature);
+        }
+    }
+
+    public void whetherChange() {
+        this.notifyObservers();
+    }
+
+    public float getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(float temperature) {
+        this.temperature = temperature;
+        notifyObservers();
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">package io.zwt.observer;
+
+public class WhetherDisplay1 implements Observer {
+
+    private float temperature;
+
+    public WhetherDisplay1(Subject whether) {
+        whether.registerObserver(this);
+    }
+
+    @Override
+    public void update(float temp) {
+        this.temperature = temp;
+        display();
+    }
+
+    private void display() {
+        System.out.println("display1****:" + this.temperature);
+    }
+}
+</code></pre>
+
+<pre><code class="language-java">package io.zwt.observer;
+
+public class WhetherDisplay2 implements Observer {
+
+    private float temperature;
+
+    public WhetherDisplay2(Subject whether) {
+        whether.registerObserver(this);
+    }
+
+    @Override
+    public void update(float temp) {
+        this.temperature = temp;
+        display();
+    }
+
+    private void display() {
+        System.out.println("display1----:" + this.temperature);
+    }
+}
+</code></pre>
 
 <p><strong>5.</strong> 一个有10 亿条记录的文本文件，已按照关键字排好序存储，请设计一个算法，可以从文件中快速查找指定关键字的记录。</p>
 
@@ -337,13 +478,6 @@ System.out.println(str1 == str2);
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2020/05/16/interview-review/" data-toggle="tooltip" data-placement="top" title="Java笔试题1">
-                下一篇<br>
-                <span>Java笔试题1</span>
-                </a>
-            </li>
             
         </ul>
     </div>  
