@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>关于OCA的一些想法 - 招文桃 | 记录</title>
+    <title>回顾OCP 1Z0-816认证考试 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io//2019/09/25/thoughts-on-oca/">
+    <link rel="canonical" href="https://zwt.io//2020/05/31/Oracle-1Z0-816-exam-review/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -166,15 +166,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#OCA" title="OCA">OCA</a>
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#Certification" title="Certification">Certification</a>
                         
                     </div>
-                    <h1>关于OCA的一些想法</h1>
+                    <h1>回顾OCP 1Z0-816认证考试</h1>
                     
                     
-                    <h2 class="subheading">为什么要考OCA</h2>
+                    <h2 class="subheading"></h2>
                     
-                    <span class="meta">2019年9月25日发布📑</span>
+                    <span class="meta">2020年5月31日发布📑</span>
                     
                 </div>
             </div>
@@ -193,42 +195,68 @@
         col-md-10 col-md-offset-1
         post-container">
 
-        <h3 id="为什么考oca">为什么考OCA</h3>
+        <p>Today, I dedicate myself to write this review, hopefully get it done before I go to bed.
+I started with OCA Java SE 8 programmer I exam last year, it took me 12 days to prepared the OCA exam.
+It was relatively easy to pass the OCA exam, but it was much harder to pass the OCP 11 exam. It took me<br />
+roughly 3 months to get fully prepared for the ultimate 1Z0-816, namely Java SE 11 Programmer II exam,<br />
+for which response to the Oracle Certified Professional: Java SE 11 Developer certification.
+This is by far the most difficult Java certification exam from Oracle/Sun, not just because it covers topics
+such as modules, functional programming, concurrent programming, IO. But also it includes some new objectives,<br />
+like Java Secure Coding Guideline.<br />
+For those who plan on to take the Oracle Java Certification exam, I strongly recommend you to take a look the
+official exam objectives before you start your study plan. Buy a good book, I think Selikoff’s book is great,
+I use that book for my exam preparation. Study the book chapter by chapter, or by topic, or whatever you want.
+Be sure to do the exercises, it will help you to consolidate your knowledge. It also helpful to use flashcard<br />
+to aid the memorization process. Say some core APIs, or some syntax rules.<br />
+Don’t go directly into the quiz without studying the materials thoroughly, that will just a waste of time and energy.
+Because that’s very frustrated to see lots of errors.  Take your time, start slowly, and gradually level up the difficulty.</p>
 
-<p>简单地说就是通过考试驱动学习，这样目的性强，学起来比较专注，高效。 
-针对考试的学习，有时候也是很有用的。引用下面的话：</p>
+<p>now let’s break down the exam objectives by sections:</p>
 
-<blockquote>
-  <p>That’s not to say that preparing for the exam won’t help you become a better Java programmer!</p>
+<p>Oracle 的 Secure Coding Guidelines for Java SE 页面已经更新了，排版比较现代了，而且小标题改为Updated for Java SE 11 而不是 Java SE 13<br />
+<a href="https://www.oracle.com/java/technologies/javase/seccodeguide.html">Secure Coding Guidelines for Java SE</a><br />
+Updated for Java SE 11<br />
+Document version: 7.2<br />
+Published: 27 September 2018<br />
+Last updated: 7 May 2019</p>
 
-  <p>On the contrary, even the most experienced Java developers often claim that having to prepare for the certification exam made them for more knowledgeable and well-rounded programmers than they would have been without the exam-driven studying.</p>
-</blockquote>
+<p>Collection and Generics<br />
+IO and NIO 2</p>
 
-<p>不管怎么说，已经预约好考试了，一个月之后拿下考试，目标是 100% 的正确率。<!--more--></p>
+<p><a href="https://www.selikoff.net/2019/08/31/my-experience-taking-the-new-java-se-11-programmer-ii-1z0-816-exam/">Selikoff Java SE 11 experience</a></p>
 
-<h3 id="参考书的内容目录">参考书的内容目录</h3>
-
-<ol>
-  <li>Declaration and Access Control</li>
-  <li>Object Orientation</li>
-  <li>Assignments</li>
-  <li>Operators</li>
-  <li>Flow Control and Exception</li>
-  <li>Strings, Arrays, ArrayList, Dates, and Lambdas</li>
-</ol>
-
-<h3 id="阅读建议">阅读建议</h3>
+<p>While questions within a topic were relatively straight-forward, the amount of topics you had to know for the 1Z0-816 exam dwarfs the 1Z0-809 exam. Annotations, Security, Local Type Inference, Private/Static Interface Methods, and Modules are completely new.</p>
 
 <ul>
-  <li>留意那些 Two-Minute Drill 部分，多读几次。</li>
-  <li>重读所有 Exam Watch notes.</li>
-  <li>重做所有 Self Tests.</li>
-  <li>完成所有练习。</li>
-  <li>写很多很多 Java 代码。（不要用 IDE）</li>
+  <li>Book</li>
+  <li>Mock exam software</li>
+  <li>docs</li>
+  <li>jls</li>
 </ul>
 
-<p>可是后来我选择了 Scott 和 Jeanne 的书，后面的<a href="https://zwt.io/2019/10/25/oca-exam-prep-review/">文章</a>有提到。</p>
+<p><a href="https://players.brightcove.net/2985902027001/r1ZNvX6Ux_default/index.html?videoId=6151284095001">Get Ready for your Online Proctored Exam - Oracle Certification(Video)</a></p>
 
+<p><a href="https://home.pearsonvue.com/oracle/onvue">Oracle onvue</a></p>
+
+<p><a href="https://home.pearsonvue.com/oracle/op/faqs/">Online Proctoring FAQs</a></p>
+
+<p><a href="https://home.pearsonvue.com/Documents/Online-Proctored/online-proctored-policies.aspx">pearsonvue online-proctored-policies</a></p>
+
+<p><a href="https://education.oracle.com/home">甲骨文大学</a></p>
+
+<p>关于认证考试本身的信息，我建议你去Oracle University官方网站看看，考试的信息和认证路径的信息。</p>
+
+<p><a href="https://education.oracle.com/java-se-8-programmer-i/pexam_1Z0-808">OCA 808</a></p>
+
+<p><a href="https://blogs.oracle.com/certification/oracle-learning-subscription-eight-quick-tips">Oracle Learning Subscriptions Eight Quick Tips</a></p>
+
+<p><a href="https://youtu.be/Gm1PqdbwBP0">OnVUE Testing Experience</a></p>
+
+<p><a href="https://blogs.oracle.com/certification/oracle-certification-exams-are-more-accessible-than-ever-before">Oracle Certification Exams Are More Accessible Than Ever Before</a></p>
+
+<p><a href="https://blogs.oracle.com/certification/your-guide-to-oracle-certification-testing-anywhere">Your Guide to Oracle Certification Testing Anywhere</a></p>
+
+<p><a href="https://www.oracle.com/java/technologies/javase/seccodeguide.html">Secure Coding Guidelines for Java SE</a></p>
 
 
         <!-- 来必力City版安装代码 -->
@@ -255,19 +283,12 @@
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2019/09/25/spring-keywords/" data-toggle="tooltip" data-placement="top" title="Spring及其周边关键词">
+                <a href="/2020/05/10/java-interview-test1/" data-toggle="tooltip" data-placement="top" title="Java笔试题1">
                 上一篇<br>
-                <span>Spring及其周边关键词</span>
+                <span>Java笔试题1</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2019/09/26/exam-review/" data-toggle="tooltip" data-placement="top" title="笔试题目回顾">
-                下一篇<br>
-                <span>笔试题目回顾</span>
-                </a>
-            </li>
             
         </ul>
     </div>  

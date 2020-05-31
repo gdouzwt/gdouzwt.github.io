@@ -176,6 +176,81 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/05/31/Oracle-1Z0-816-exam-review/">
+        <h2 class="post-title">
+            回顾OCP 1Z0-816认证考试
+        </h2>
+        
+    </a>
+    <div class="post-content-preview">
+        <p>Today, I dedicate myself to write this review, hopefully get it done before I go to bed.
+I started with OCA Java SE 8 programmer I exam last year, it took me 12 days to prepared the OCA exam.
+It was relatively easy to pass the OCA exam, but it was much harder to pass the OCP 11 exam. It took me<br />
+roughly 3 months to get fully prepared for the ultimate 1Z0-816, namely Java SE 11 Programmer II exam,<br />
+for which response to the Oracle Certified Professional: Java SE 11 Developer certification.
+This is by far the most difficult Java certification exam from Oracle/Sun, not just because it covers topics
+such as modules, functional programming, concurrent programming, IO. But also it includes some new objectives,<br />
+like Java Secure Coding Guideline.<br />
+For those who plan on to take the Oracle Java Certification exam, I strongly recommend you to take a look the
+official exam objectives before you start your study plan. Buy a good book, I think Selikoff’s book is great,
+I use that book for my exam preparation. Study the book chapter by chapter, or by topic, or whatever you want.
+Be sure to do the exercises, it will help you to consolidate your knowledge. It also helpful to use flashcard<br />
+to aid the memorization process. Say some core APIs, or some syntax rules.<br />
+Don’t go directly into the quiz without studying the materials thoroughly, that will just a waste of time and energy.
+Because that’s very frustrated to see lots of errors.  Take your time, start slowly, and gradually level up the difficulty.</p>
+
+<p>now let’s break down the exam objectives by sections:</p>
+
+<p>Oracle 的 Secure Coding Guidelines for Java SE 页面已经更新了，排版比较现代了，而且小标题改为Updated for Java SE 11 而不是 Java SE 13<br />
+<a href="https://www.oracle.com/java/technologies/javase/seccodeguide.html">Secure Coding Guidelines for Java SE</a><br />
+Updated for Java SE 11<br />
+Document version: 7.2<br />
+Published: 27 September 2018<br />
+Last updated: 7 May 2019</p>
+
+<p>Collection and Generics<br />
+IO and NIO 2</p>
+
+<p><a href="https://www.selikoff.net/2019/08/31/my-experience-taking-the-new-java-se-11-programmer-ii-1z0-816-exam/">Selikoff Java SE 11 experience</a></p>
+
+<p>While questions within a topic were relatively straight-forward, the amount of topics you had to know for the 1Z0-816 exam dwarfs the 1Z0-809 exam. Annotations, Security, Local Type Inference, Private/Static Interface Methods, and Modules are completely new.</p>
+
+<ul>
+  <li>Book</li>
+  <li>Mock exam software</li>
+  <li>docs</li>
+  <li>jls</li>
+</ul>
+
+<p><a href="https://players.brightcove.net/2985902027001/r1ZNvX6Ux_default/index.html?videoId=6151284095001">Get Ready for your Online Proctored Exam - Oracle Certification(Video)</a></p>
+
+<p><a href="https://home.pearsonvue.com/oracle/onvue">Oracle onvue</a></p>
+
+<p><a href="https://home.pearsonvue.com/oracle/op/faqs/">Online Proctoring FAQs</a></p>
+
+<p><a href="https://home.pearsonvue.com/Documents/Online-Proctored/online-proctored-policies.aspx">pearsonvue online-proctored-policies</a></p>
+
+<p><a href="https://education.oracle.com/home">甲骨文大学</a></p>
+
+<p>关于认证考试本身的信息，我建议你去Oracle University官方网站看看，考试的信息和认证路径的信息。</p>
+
+<p><a href="https://education.oracle.com/java-se-8-programmer-i/pexam_1Z0-808">OCA 808</a></p>
+
+<p><a href="https://blogs.oracle.com/certification/oracle-learning-subscription-eight-quick-tips">Oracle Learning Subscriptions Eight Quick Tips</a></p>
+
+<p><a href="https://youtu.be/Gm1PqdbwBP0">OnVUE Testing Experience</a></p>
+
+<p><a href="https://blogs.oracle.com/certification/oracle-certification-exams-are-more-accessible-than-ever-before">Oracle Certification Exams Are More Accessible Than Ever Before</a></p>
+
+<p><a href="https://blogs.oracle.com/certification/your-guide-to-oracle-certification-testing-anywhere">Your Guide to Oracle Certification Testing Anywhere</a></p>
+
+<p><a href="https://www.oracle.com/java/technologies/javase/seccodeguide.html">Secure Coding Guidelines for Java SE</a></p>
+ <a href="/2020/05/31/Oracle-1Z0-816-exam-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/05/10/java-interview-test1/">
         <h2 class="post-title">
             Java笔试题1
@@ -591,51 +666,6 @@ A <code>HashMap</code> is a perfect choice because its methods are not synchroni
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/02/12/intro-to-travis/">
-        <h2 class="post-title">
-            Travis CI上手
-        </h2>
-        
-        <h3 class="post-subtitle">
-            玩下持续构建、持续集成&nbsp;&nbsp;2020年2月12日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="配置文件">配置文件</h3>
-
-<p>我用于博客自动构建的<code>.travis.yml</code>脚本：</p>
-<pre><code class="language-yaml">language: ruby
-rvm:
-  - 2.6.3
-env:
-  global:
-  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-  - secure: D0RrVHHBEEJMyJK9OUUPM6Wms+D+zifJhHFl4BcmC0leSR0vANoQ6357Bl4miZL2flmnBU/1Z9WNzcDVM0JwQpF8ZVeEdMvgBY5+73Xjp8cIwYfWx8MAUB8J1Hug2aEiXw6KoSxjFOnUpSRnhCcWpviFNCZOa5XavMfe7+OHbNQT1U1xu+ZOmDG6Hrm3CMhfzu2cRPIfziAAgnWVfgtqA0STXnY9D0HvfsKPl6khy6VWkeF09Chqo/XVO/SV5LSgplkgXh1OzS6ITwT99UWDRqIeXYAvMJFyrHkzdxNgtAddYVxmx8WQqfqUFQ6A3HSnJy2Fq04H3gLszQxrVPzw8fNeOzBe7hIviaZdgRsglc26NO13EX//e4DA1ImiYKciFGvDNDBrqtv8u3XAG+8jVe/dLwKbBXnvi64udh2/H/lTBfWQ3eV08/R6m0m4aF8jbv0oBuXReyXuEy9D6xNm+yceekWzKAmTYPFb9W5XLveIgt8SIQO9P6tGuMWV6w7KRhgbpgI886ZeSVS3WcAGIr11SvSNa+x5WapOd/mizHrA8VvW4v8GjmYYwTOsmiLuYl2t1fWY76yYOOdSDLC9XhJN/mS3qxxX7WR4KCJgpstyzTVXj+uyuzi23sV1SdUvO35r3VkZk11ad9Qmp9WLXpdSQfMAKbu/lC7C9HfrGuM=
-cache:
-  bundler: true
-  directories:
-    - /home/travis/.rvm/
-install:
-- gem install bundler
-- bundle install
-script:
-- bundle exec rake deploy
-after_success:
-- bash &lt;(curl -s https://codecov.io/bash)
-</code></pre>
-
-<p>发现启用了 cache 之后，快很多了。搞到动图凑内容：</p>
-
-<p><img src="/img/cache_1581461859_5053.gif" alt="cache_1581461859_5053" /></p>
-
-<p>用来测试构建时长，哈哈哈哈！</p>
- <a href="/2020/02/12/intro-to-travis/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -670,7 +700,7 @@ after_success:
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="31">
+                                <a href="/tags/#Java" title="Java" rel="32">
                                     Java
                                 </a>
                             
@@ -827,6 +857,8 @@ after_success:
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             
