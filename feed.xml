@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io//</link>
     <atom:link href="https://zwt.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 02 Jun 2020 03:41:45 +0000</pubDate>
-    <lastBuildDate>Tue, 02 Jun 2020 03:41:45 +0000</lastBuildDate>
+    <pubDate>Tue, 02 Jun 2020 03:52:55 +0000</pubDate>
+    <lastBuildDate>Tue, 02 Jun 2020 03:52:55 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -87,13 +87,13 @@ Last updated: 7 May 2019&lt;/p&gt;
 创建并使用 &lt;code&gt;final&lt;/code&gt; 类&lt;br /&gt;
 创建并使用内部，嵌套，以及匿名类&lt;br /&gt;
 创建并使用枚举&lt;br /&gt;
-&lt;strong&gt;Java 接口 **&lt;br /&gt;
+&lt;strong&gt;Java 接口&lt;/strong&gt;&lt;br /&gt;
 创建并使用带有默认方法的接口&lt;br /&gt;
 创建并使用带有私有方法的接口&lt;br /&gt;
 函数式接口与 Lambda 表达式&lt;br /&gt;
 定义并编写函数式接口&lt;br /&gt;
 创建并使用 Lambda 表达式，包括 Lambda 语句，局部变量作 lambda 参数&lt;br /&gt;
-**内置函数式接口&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;内置函数式接口&lt;/strong&gt;&lt;br /&gt;
 使用 &lt;code&gt;java.util.function&lt;/code&gt; 包里的接口&lt;br /&gt;
 使用核心函数式接口，包括 &lt;code&gt;Predicate&lt;/code&gt;, &lt;code&gt;Consumer&lt;/code&gt;, &lt;code&gt;Function&lt;/code&gt; 和 &lt;code&gt;Supplier&lt;/code&gt;&lt;br /&gt;
 使用 &lt;code&gt;java.util.function&lt;/code&gt; 包里基础接口的基本数据类型及二元变式&lt;br /&gt;
@@ -112,11 +112,11 @@ Last updated: 7 May 2019&lt;/p&gt;
 使用 &lt;code&gt;Path&lt;/code&gt; 接口操作文件和目录路径&lt;br /&gt;
 使用 &lt;code&gt;Files&lt;/code&gt; 类去检查、删除、复制或移动一个文件或目录&lt;br /&gt;
 结合 &lt;code&gt;Files&lt;/code&gt; 类使用 Stream API&lt;br /&gt;
-&lt;strong&gt;JDBC 数据库应用 **&lt;br /&gt;
+&lt;strong&gt;JDBC 数据库应用&lt;/strong&gt;&lt;br /&gt;
 使用 JDBC URLs 和 &lt;code&gt;DriverManager&lt;/code&gt; 连接到数据库&lt;br /&gt;
 使用 &lt;code&gt;PreparedStatement&lt;/code&gt; 去执行 CRUD 操作&lt;br /&gt;
 使用 &lt;code&gt;PreparedStatement&lt;/code&gt; 和 &lt;code&gt;CallableStatement&lt;/code&gt; APIs 去执行数据库操作&lt;br /&gt;
-**注解 **&lt;br /&gt;
+&lt;strong&gt;注解&lt;/strong&gt;&lt;br /&gt;
 表述注解的用途以及典型使用模式&lt;br /&gt;
 应用注解到类和方法&lt;br /&gt;
 描述 JDK 中常用的注解&lt;br /&gt;
@@ -125,13 +125,13 @@ Last updated: 7 May 2019&lt;/p&gt;
 使用 try-with-resources 结构&lt;br /&gt;
 创建并使用自定义异常类&lt;br /&gt;
 使用断言测试不变性&lt;br /&gt;
-**泛型与容器 **&lt;br /&gt;
+&lt;strong&gt;泛型与容器&lt;/strong&gt;&lt;br /&gt;
 使用包装类，自动装箱和自动拆箱&lt;br /&gt;
 用钻石记号和通配符创建并使用泛型类、方法&lt;br /&gt;
 描述容器框架并使用主要容器接口&lt;br /&gt;
 使用 &lt;code&gt;Comparator&lt;/code&gt; 和 &lt;code&gt;Comparable&lt;/code&gt; 接口&lt;br /&gt;
 创建并使用容器的便利方法&lt;br /&gt;
-**Java Stream API&lt;/strong&gt;&lt;br /&gt;
+&lt;strong&gt;Java Stream API&lt;/strong&gt;&lt;br /&gt;
 描述 Stream 接口和管道&lt;br /&gt;
 使用 lambda 表达式和方法引用&lt;br /&gt;
 Streams 上的 Lambda 操作&lt;br /&gt;
@@ -141,20 +141,20 @@ Streams 上的 Lambda 操作&lt;br /&gt;
 使用 &lt;code&gt;count&lt;/code&gt;, &lt;code&gt;max&lt;/code&gt;, &lt;code&gt;min&lt;/code&gt;, &lt;code&gt;average&lt;/code&gt; 和 &lt;code&gt;sum&lt;/code&gt; stream 操作执行计算&lt;br /&gt;
 使用 lambda 表达式对容器排序&lt;br /&gt;
 在 streams 使用 &lt;code&gt;Collectors&lt;/code&gt; ，包括 &lt;code&gt;groupingBy&lt;/code&gt; 和 &lt;code&gt;partitioningBy&lt;/code&gt; 操作&lt;br /&gt;
-**模块化应用中的服务 **&lt;br /&gt;
+&lt;strong&gt;模块化应用中的服务&lt;/strong&gt;&lt;br /&gt;
 描述服务的组件，包括指令&lt;br /&gt;
 设计一个服务类型，使用 &lt;code&gt;ServiceLoader&lt;/code&gt; 加载服务，检查服务的依赖，包括消费者和提供者模块&lt;br /&gt;
-**并行 Streams **&lt;br /&gt;
+&lt;strong&gt;并行 Streams&lt;/strong&gt;&lt;br /&gt;
 编写使用并行 streams 的代码&lt;br /&gt;
 用 streams 实现分解与归约操作&lt;br /&gt;
-**Java SE 应用安全编码 **&lt;br /&gt;
+&lt;strong&gt;Java SE 应用安全编码&lt;/strong&gt;&lt;br /&gt;
 在 Java 应用中预防拒绝服务&lt;br /&gt;
 在 Java 应用中保护机密信息&lt;br /&gt;
 实现数据一致性准则——注入和包含以及输入校验&lt;br /&gt;
 通过限制可访问性和可扩展性保护代码受外部攻击，妥善处理输入校验以及可变性&lt;br /&gt;
 安全地构建敏感对象&lt;br /&gt;
 保护序列化与反序列化&lt;br /&gt;
-**本地化 **&lt;br /&gt;
+&lt;strong&gt;本地化&lt;/strong&gt;&lt;br /&gt;
 使用 &lt;code&gt;Locale&lt;/code&gt; 类&lt;br /&gt;
 使用资源包&lt;br /&gt;
 使用 Java 格式化消息、日期和数字&lt;/p&gt;
