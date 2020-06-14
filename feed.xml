@@ -3,10 +3,10 @@
   <channel>
     <title>记录</title>
     <description></description>
-    <link>https://zwt.io//</link>
-    <atom:link href="https://zwt.io//feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 14 Jun 2020 21:30:53 +0000</pubDate>
-    <lastBuildDate>Sun, 14 Jun 2020 21:30:53 +0000</lastBuildDate>
+    <link>https://zwt.io/</link>
+    <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 14 Jun 2020 21:42:34 +0000</pubDate>
+    <lastBuildDate>Sun, 14 Jun 2020 21:42:34 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
     
       <item>
@@ -162,8 +162,8 @@ Streams 上的 Lambda 操作&lt;br /&gt;
 &lt;h3 id=&quot;其它有用的信息&quot;&gt;其它有用的信息&lt;/h3&gt;
 </description>
         <pubDate>Sun, 31 May 2020 06:32:00 +0000</pubDate>
-        <link>https://zwt.io//2020/05/31/Oracle-1Z0-816-exam-review/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/05/31/Oracle-1Z0-816-exam-review/</guid>
+        <link>https://zwt.io/2020/05/31/Oracle-1Z0-816-exam-review/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/05/31/Oracle-1Z0-816-exam-review/</guid>
         
         <category>Java</category>
         
@@ -435,8 +435,8 @@ public class WhetherDisplay2 implements Observer {
 &lt;p&gt;这样可以马上定位出指定关键字所在的记录块,把相应的记录块拿到内存,二分查找即可.&lt;/p&gt;
 </description>
         <pubDate>Sun, 10 May 2020 20:02:00 +0000</pubDate>
-        <link>https://zwt.io//2020/05/10/java-interview-test1/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/05/10/java-interview-test1/</guid>
+        <link>https://zwt.io/2020/05/10/java-interview-test1/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/05/10/java-interview-test1/</guid>
         
         <category>Java 笔试</category>
         
@@ -2962,8 +2962,8 @@ There are a few things to note in the question:&lt;/p&gt;
 &lt;p&gt;Based on the above, it is easy to see that only stmt is visible after the try block but it cannot be successfully used because the &lt;code&gt;Connection&lt;/code&gt; object from which it was retrieved has already been closed.&lt;/p&gt;
 </description>
         <pubDate>Sat, 28 Mar 2020 12:20:00 +0000</pubDate>
-        <link>https://zwt.io//2020/03/28/ocp-mock-test2-review/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/03/28/ocp-mock-test2-review/</guid>
+        <link>https://zwt.io/2020/03/28/ocp-mock-test2-review/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/03/28/ocp-mock-test2-review/</guid>
         
         <category>Java</category>
         
@@ -3040,8 +3040,8 @@ There are a few things to note in the question:&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;21.&lt;/strong&gt; G&lt;/p&gt;
 </description>
         <pubDate>Sun, 22 Mar 2020 18:42:00 +0000</pubDate>
-        <link>https://zwt.io//2020/03/22/chapter11-exam-review/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/03/22/chapter11-exam-review/</guid>
+        <link>https://zwt.io/2020/03/22/chapter11-exam-review/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/03/22/chapter11-exam-review/</guid>
         
         <category>Java</category>
         
@@ -3231,8 +3231,8 @@ class GreetingResponse {
 
 </description>
         <pubDate>Tue, 10 Mar 2020 21:00:00 +0000</pubDate>
-        <link>https://zwt.io//2020/03/10/spring-tips-rsocket-spring-security/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/03/10/spring-tips-rsocket-spring-security/</guid>
+        <link>https://zwt.io/2020/03/10/spring-tips-rsocket-spring-security/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/03/10/spring-tips-rsocket-spring-security/</guid>
         
         <category>RSocket</category>
         
@@ -3324,8 +3324,8 @@ class GreetingResponse {
 
 </description>
         <pubDate>Mon, 02 Mar 2020 19:30:00 +0000</pubDate>
-        <link>https://zwt.io//2020/03/02/web-scraping-notes/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/03/02/web-scraping-notes/</guid>
+        <link>https://zwt.io/2020/03/02/web-scraping-notes/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/03/02/web-scraping-notes/</guid>
         
         <category>Java</category>
         
@@ -4349,8 +4349,8 @@ By default, this method attempts to move the file to the target file, failing if
 &lt;hr /&gt;
 </description>
         <pubDate>Wed, 26 Feb 2020 15:15:00 +0000</pubDate>
-        <link>https://zwt.io//2020/02/26/ocp-mock-test1-review/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/02/26/ocp-mock-test1-review/</guid>
+        <link>https://zwt.io/2020/02/26/ocp-mock-test1-review/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/26/ocp-mock-test1-review/</guid>
         
         <category>Java</category>
         
@@ -4588,8 +4588,8 @@ The above command first enables assertions for all the classes in com as well as
 &lt;p&gt;Note that ** and * are not valid wildcards for including subpackages.&lt;/p&gt;
 </description>
         <pubDate>Wed, 26 Feb 2020 01:15:00 +0000</pubDate>
-        <link>https://zwt.io//2020/02/26/ocp-816-learning-points/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/02/26/ocp-816-learning-points/</guid>
+        <link>https://zwt.io/2020/02/26/ocp-816-learning-points/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/26/ocp-816-learning-points/</guid>
         
         <category>Java</category>
         
@@ -6027,8 +6027,8 @@ public class BeeperControl {
 &lt;/code&gt;&lt;/pre&gt;
 </description>
         <pubDate>Sat, 15 Feb 2020 22:10:00 +0000</pubDate>
-        <link>https://zwt.io//2020/02/15/foundation-test-review/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/02/15/foundation-test-review/</guid>
+        <link>https://zwt.io/2020/02/15/foundation-test-review/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/15/foundation-test-review/</guid>
         
         <category>Java 11</category>
         
@@ -6320,8 +6320,8 @@ public class PTest {
 
 </description>
         <pubDate>Sat, 15 Feb 2020 16:55:00 +0000</pubDate>
-        <link>https://zwt.io//2020/02/15/inner-class-exercises/</link>
-        <guid isPermaLink="true">https://zwt.io//2020/02/15/inner-class-exercises/</guid>
+        <link>https://zwt.io/2020/02/15/inner-class-exercises/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/02/15/inner-class-exercises/</guid>
         
         <category>Java</category>
         
