@@ -1,6 +1,4 @@
-User-agent: Googlebot
+User-agent: *
 Allow: /
 Sitemap: https://zwt.io/sitemap.xml
 
-User-agent: *
-Disallow: /
