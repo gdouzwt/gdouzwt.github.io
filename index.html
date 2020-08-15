@@ -175,6 +175,76 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/08/16/ds-ch15/">
+        <h2 class="post-title">
+            DS-ch15 Memory Management and B-Trees
+        </h2>
+        
+    </a>
+    <div class="post-content-preview">
+        <h1 id="155-exercises">15.5 Exercises</h1>
+
+<h3 id="reinforcement">Reinforcement</h3>
+
+<p><strong>R-15.1</strong> Julia just bought a new computer that uses 64-bit integers to address memory cells. Argue why Julia will never in her life be able to upgrade the main memory of her computer so that it is the maximum-size possible, assuming that you have to have distinct atoms to represent different bits.</p>
+
+<p><strong>R-15.2</strong> Consider an initially empty memory cache consisting of four pages. How many page misses does the LRU algorithm incur on the following page request sequence: (2,3,4,1,2,5,1,3,5,4,1,2,3)?</p>
+
+<p><strong>R-15.3</strong> Consider an initially empty memory cache consisting of four pages. How many page misses does the FIFO algorithm incur on the following page request sequence: (2,3,4,1,2,5,1,3,5,4,1,2,3)?</p>
+
+<p><strong>R-15.4</strong> Consider an initially empty memory cache consisting of four pages. What is the maximum number of page misses that the random algorithm incurs on the following page request sequence: (2,3,4,1,2,5,1,3,5,4,1,2,3)? Show all of the random choices the algorithm made in this case.</p>
+
+<p><strong>R-15.5</strong> Describe, in detail, algorithms for adding an item to, or deleting an item from, an $(a,b)$ tree.</p>
+
+<p><strong>R-15.6</strong> Suppose <em>T</em> is a multiway tree in which each internal node has at least five and at most eight children. For what values of <em>a</em> and <em>b</em> is $T$ a valid $(a,b)$ tree?</p>
+
+<p><strong>R-15.7</strong> For what values of d is the tree $T$ of the previous exercise an order-<em>d</em> B-tree?</p>
+
+<p><strong>R-15.8</strong> Draw the result of inserting, into an initially empty order-7 B-tree, entries with keys (4,40,23,50,11,34,62,78,66,22,90,59,25,72,64,77,39,12), in this order.</p>
+
+<h3 id="creativity">Creativity</h3>
+
+<p><strong>C-15.9</strong> Describe an efficient external-memory algorithm for removing all the duplicate entries in an array list of size <em>n</em>.</p>
+
+<p><strong>C-15.10</strong> Describe an external-memory data structure to implement the stack ADT so that the total number of disk transfers needed to process a sequence of <em>k</em> push and pop operations is $O(k/B)$.</p>
+
+<p><strong>C-15.11</strong> Describe an external-memory data structure to implement the queue ADT so that the total number of disk transfers needed to process a sequence of <em>k</em> enqueue and dequeue operations is $O(k/B)$.</p>
+
+<p><strong>C-15.12</strong> Describe an external-memory version of the <code>PositionalList</code> ADT (Section 7.3), with block size <em>B</em>, such that an iteration of a list of length n is completed using $O(n/B)$ transfers in the worst case, and all other methods of the ADT require only $O(1)$ transfers.</p>
+
+<p><strong>C-15.13</strong> Change the rules that define red-black trees so that each red-black tree <em>T</em> has a corresponding $(4,8)$ tree, and vice versa.</p>
+
+<p><strong>C-15.14</strong> Describe a modified version of the B-tree insertion algorithm so that each time we create an overflow because of a split of a node <em>w</em>, we redistribute keys among all of <em>w</em>’s siblings, so that each sibling holds roughly the same number of keys (possibly cascading the split up to the parent of <em>w</em>). What is the minimum fraction of each block that will always be filled using this scheme?</p>
+
+<p><strong>C-15.15</strong> Another possible external-memory map implementation is to use a skip list, but to collect consecutive groups of $O(B)$ nodes, in individual blocks, on any level in the skip list. In particular, we define an <strong><em>order-d B-skip list</em></strong> to be such a representation
+of a skip list structure, where each block contains at least $⌈d/2⌉$ list nodes and at most <em>d</em> list nodes. Let us also choose <em>d</em> in this case to be the maximum number of list nodes from a level of a skip list that can fit into one block. Describe how we should modify the skip-list insertion and removal algorithms for a <em>B</em>-skip list so that the expected height of the structure is $O(logn/logB)$.</p>
+
+<p><strong>C-15.16</strong> Describe how to use a B-tree to implement the Partition ADT (Section 14.7.3) so that the union and find operations each use at most $O(logn/logB)$ disk transfers.</p>
+
+<p><strong>C-15.17</strong> Suppose we are given a sequence <em>S</em> of <em>n</em> elements with integer keys such that some elements in <em>S</em> are colored “blue” and some elements in <em>S</em> are colored “red.” In addition, say that a red element <em>e</em> <strong><em>pairs</em></strong> with a blue element <em>f</em> if they have the same key value. Describe an efficient external-memory algorithm for finding all the red-blue pairs in <em>S</em>. How many disk transfers does your algorithm perform?</p>
+
+<p><strong>C-15.18</strong> Consider the page caching problem where the memory cache can hold <em>m</em> pages, and we are given a sequence <em>P</em> of <em>n</em> requests taken from a pool of $m + 1$ possible pages. Describe the optimal strategy for the offline algorithm and show that it
+causes at most $m + n/m$ page misses in total, starting from an empty cache.</p>
+
+<p><strong>C-15.19</strong> Describe an efficient external-memory algorithm that determines whether an array of <em>n</em> integers contains a value occurring more than <em>n/2</em> times.</p>
+
+<p><strong>C-15.20</strong> Consider the page caching strategy based on the <strong><em>least frequently used</em></strong> (LFU) rule, where the page in the cache that has been accessed the least often is the one that is evicted when a new page is requested. If there are ties, LFU evicts the least frequently used page that has been in the cache the longest. Show that there is a sequence P of n requests that causes LFU to miss $Ω(n)$ times for a cache of m pages, whereas the optimal algorithm will miss only $O(m)$ times.</p>
+
+<p><strong>C-15.21</strong> Suppose that instead of having the node-search function $f (d) = 1$ in an order-<em>d</em> B-tree <em>T</em> , we have $f (d) = logd$. What does the asymptotic running time of performing a search in <em>T</em> now become?</p>
+
+<h3 id="projects">Projects</h3>
+
+<p><strong>P-15.22</strong> Write a Java class that simulates the best-fit, worst-fit, first-fit, and next-fit algorithms for memory management. Determine experimentally which method is the best under various sequences of memory requests.</p>
+
+<p><strong>P-15.23</strong> Write a Java class that implements all the methods of the sorted map ADT by means of an $(a,b)$ tree, where <em>a</em> and <em>b</em> are integer constants passed as parameters to a constructor.</p>
+
+<p><strong>P-15.24</strong> Implement the B-tree data structure, assuming a block size of 1024 and integer keys. Test the number of “disk transfers” needed to process a sequence of map operations.</p>
+ <a href="/2020/08/16/ds-ch15/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/08/15/ds-ch01/">
         <h2 class="post-title">
             DS-ch01
@@ -599,67 +669,6 @@ The following is brief JavaDoc description for both the methods:<br />
 
 <p>The <code>copyOf</code>, on the other hand, accepts only a <code>Collection</code>. It iterates through the passed <code>Collection</code> and adds all the elements of that <code>Collection</code> in the returned list/set.</p>
  <a href="/2020/02/26/ocp-816-learning-points/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/02/15/foundation-test-review/">
-        <h2 class="post-title">
-            816基准测试回顾
-        </h2>
-        
-    </a>
-    <div class="post-content-preview">
-        <p><strong>1.</strong> Which of the following annotations are retained for run time?</p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@SuppressWarnings
-    <blockquote>
-      <p>It is defined with @Retention(SOURCE)</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@Override
-    <blockquote>
-      <p>It is defined with @Retention(SOURCE)</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@SafeVarargs
-    <blockquote>
-      <p>It is defined with @Retention(RUNTIME)</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@FunctionalInterface
-    <blockquote>
-      <p>It is defined with @Retention(RUNTIME)</p>
-    </blockquote>
-  </li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@Deprecated
-    <blockquote>
-      <p>It is defined with @Retention(RUNTIME)</p>
-    </blockquote>
-  </li>
-</ul>
-
-<hr />
-
-<p><strong>2.</strong> Your application needs to load a set of key value pairs from a database table which never changes. Multiple threads need to access this information but none of them changes it.<br />
-Which class would be the most appropriate to store such data if the values need not be kept in a sorted fashion?</p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Hashtable</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />HaspMap</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />TreeMap</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />List</li>
-</ul>
-
-<p><strong>Explanation</strong><br />
-You should know that all <code>Hashtable</code> methods are synchronized and this compromises its performance for simultaneous reads.<br />
-Since not thread modifies the data, it is not efficient to use a <code>Hashtable</code>.<br />
-A <code>HashMap</code> is a perfect choice because its methods are not synchronized and so it allows efficient multiple reads. TreeMap is used to keep the keys sorted which makes it a little bit slower than <code>HashMap</code>.<br />
-<code>Set</code> and <code>List</code> can’t be used since we need to store Key-value pairs.</p>
- <a href="/2020/02/15/foundation-test-review/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>

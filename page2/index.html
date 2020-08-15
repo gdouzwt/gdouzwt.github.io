@@ -175,6 +175,67 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/02/15/foundation-test-review/">
+        <h2 class="post-title">
+            816基准测试回顾
+        </h2>
+        
+    </a>
+    <div class="post-content-preview">
+        <p><strong>1.</strong> Which of the following annotations are retained for run time?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@SuppressWarnings
+    <blockquote>
+      <p>It is defined with @Retention(SOURCE)</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />@Override
+    <blockquote>
+      <p>It is defined with @Retention(SOURCE)</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@SafeVarargs
+    <blockquote>
+      <p>It is defined with @Retention(RUNTIME)</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@FunctionalInterface
+    <blockquote>
+      <p>It is defined with @Retention(RUNTIME)</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />@Deprecated
+    <blockquote>
+      <p>It is defined with @Retention(RUNTIME)</p>
+    </blockquote>
+  </li>
+</ul>
+
+<hr />
+
+<p><strong>2.</strong> Your application needs to load a set of key value pairs from a database table which never changes. Multiple threads need to access this information but none of them changes it.<br />
+Which class would be the most appropriate to store such data if the values need not be kept in a sorted fashion?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Hashtable</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />HaspMap</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Set</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />TreeMap</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />List</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+You should know that all <code>Hashtable</code> methods are synchronized and this compromises its performance for simultaneous reads.<br />
+Since not thread modifies the data, it is not efficient to use a <code>Hashtable</code>.<br />
+A <code>HashMap</code> is a perfect choice because its methods are not synchronized and so it allows efficient multiple reads. TreeMap is used to keep the keys sorted which makes it a little bit slower than <code>HashMap</code>.<br />
+<code>Set</code> and <code>List</code> can’t be used since we need to store Key-value pairs.</p>
+ <a href="/2020/02/15/foundation-test-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/02/15/inner-class-exercises/">
         <h2 class="post-title">
             Exercises for Inner class
@@ -488,48 +549,6 @@ Another common use case is setting active profiles and default properties to set
 
 <p><img src="/img/Compartments_and_watertight_subdivision_of_a_ship's_hull_(Seaman's_Pocket-Book,_1943).jpg" alt="水密壁舱" /></p>
  <a href="/2020/01/29/bulkhead-pattern/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/01/25/java-streams-vs-reative-streams/">
-        <h2 class="post-title">
-            Java Streams vs. Reactive Streams
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Which, When, How, and Why? 学习记录&nbsp;&nbsp;2020年1月25日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="java-imperative--object-oriented">Java: imperative + object-oriented</h3>
-
-<p>Michael Feather:</p>
-
-<p>​	“In OPP we encapsulate the moving parts; in FP we eliminate the moving parts.”</p>
-
-<pre><code class="language-java">List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-
-//double of even numbers
-List&lt;Integer&gt; doubled = new ArrayList&lt;&gt;();
-
-for (int i = 0; i &lt; numbers.size(); i++) {
-	if (numbers.get(i) % 2 == 0) {
-		doubled.add(numbers.get(i) * 2);
-	}
-}
-System.out.println(doubled);
-
-System.out.println(
-	numbers.stream()	
-		.filter( e -&gt; e % 2 == 0)
-		.map( e -&gt; e * 2)
-		.collect(toList()));
-</code></pre>
-
- <a href="/2020/01/25/java-streams-vs-reative-streams/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>

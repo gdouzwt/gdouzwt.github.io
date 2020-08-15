@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>DS-ch01 - 招文桃 | 记录</title>
+    <title>DS-ch15 Memory Management and B-Trees - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io/2020/08/15/ds-ch01/">
+    <link rel="canonical" href="https://zwt.io/2020/08/16/ds-ch15/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -169,12 +169,12 @@
                         <a class="tag" href="/tags/#Data Structure" title="Data Structure">Data Structure</a>
                         
                     </div>
-                    <h1>DS-ch01</h1>
+                    <h1>DS-ch15 Memory Management and B-Trees</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">2020年8月15日发布📑</span>
+                    <span class="meta">2020年8月16日发布📑</span>
                     
                 </div>
             </div>
@@ -193,76 +193,63 @@
         col-md-10 col-md-offset-1
         post-container">
 
-        <h1 id="110-exercises">1.10 Exercises</h1>
+        <h1 id="155-exercises">15.5 Exercises</h1>
 
 <h3 id="reinforcement">Reinforcement</h3>
 
-<p><strong>R-1.1</strong> Write a short Java method, <code>inputAllBaseTypes</code>, that inputs a different value of each base type from the standard 
-input device and prints it back to the standard output device.</p>
+<p><strong>R-15.1</strong> Julia just bought a new computer that uses 64-bit integers to address memory cells. Argue why Julia will never in her life be able to upgrade the main memory of her computer so that it is the maximum-size possible, assuming that you have to have distinct atoms to represent different bits.</p>
 
-<p><strong>R-1.2</strong> Suppose that we create an array <code>A</code> of <code>GameEntry</code> objects, which has an integer <code>scores</code> field, and we clone <code>A</code> and 
-store the result in an array <code>B</code>. If we then immediately set <code>A[4].scores</code> equal to 550, what is the score value of the 
-<code>GameEntry</code> object referenced by <code>B[4]</code>?</p>
+<p><strong>R-15.2</strong> Consider an initially empty memory cache consisting of four pages. How many page misses does the LRU algorithm incur on the following page request sequence: (2,3,4,1,2,5,1,3,5,4,1,2,3)?</p>
 
-<p><strong>R-1.3</strong> Write a short Java method, <code>isMultiple</code>, that takes two <code>long</code> values, <em>n</em> and <em>m</em>, and returns true if and only if <em>n</em> is a multiple of <em>m</em>, that is, $n = mi$ for some integer <em>i</em>.</p>
+<p><strong>R-15.3</strong> Consider an initially empty memory cache consisting of four pages. How many page misses does the FIFO algorithm incur on the following page request sequence: (2,3,4,1,2,5,1,3,5,4,1,2,3)?</p>
 
-<p><strong>R-1.4</strong> Write a short Java method, <code>isEven</code>, that takes an int i and returns true if and only if i is even. Your method cannot use the multiplication, modulus, or division operators, however.</p>
+<p><strong>R-15.4</strong> Consider an initially empty memory cache consisting of four pages. What is the maximum number of page misses that the random algorithm incurs on the following page request sequence: (2,3,4,1,2,5,1,3,5,4,1,2,3)? Show all of the random choices the algorithm made in this case.</p>
 
-<p><strong>R-1.5</strong> Write a short Java method that takes an integer n and returns the sum of all positive integers less than or equal to n.</p>
+<p><strong>R-15.5</strong> Describe, in detail, algorithms for adding an item to, or deleting an item from, an $(a,b)$ tree.</p>
 
-<p><strong>R-1.6</strong> Write a short Java method that takes an integer n and returns the sum of  all the odd positive integers less than or equal to n.<br />
-<strong>R-1.7</strong> Write a short Java method that takes an integer n and returns the sum of the squares of all positive integers less than or equal to n.</p>
+<p><strong>R-15.6</strong> Suppose <em>T</em> is a multiway tree in which each internal node has at least five and at most eight children. For what values of <em>a</em> and <em>b</em> is $T$ a valid $(a,b)$ tree?</p>
 
-<p><strong>R-1.8</strong> Write a short Java method that counts the number of vowel in a given character string.</p>
+<p><strong>R-15.7</strong> For what values of d is the tree $T$ of the previous exercise an order-<em>d</em> B-tree?</p>
 
-<p><strong>R-1.9</strong> Write a short Java method that uses a <code>StringBuilder</code> instance to remove all the punctuation from a string s storing a sentence, for example, transforming the string “Let’s try, Mike!” to “Lets try Mike”.</p>
-
-<p><strong>R-1.10</strong> Write a Java class, Flower, that has three instance variables of type <code>String</code>, <code>int</code>, and <code>float</code>, which respectively represent the name of the flower, its number of petals, and price. Your class must include a constructor method that initializes each variable to an appropriate value, and your class should include methods for setting the value of each type, and getting the value of each type.</p>
-
-<p><strong>R-1.11</strong> Modify the <code>CreditCard</code> class from Code Fragment 1.5 to include a method that updates the credit limit.</p>
-
-<p><strong>R-1.12</strong> Modify the <code>CreditCard</code> class from Code Fragment 1.5 so that it ignores any request to process a negative payment amount.</p>
-
-<p><strong>R-1.13</strong> Modify the declaration of the first for loop in the main method in Code Fragment 1.6 so that its charges will cause exactly one of the three credit cards to attempt to go over its credit limit. Which credit card is it?</p>
+<p><strong>R-15.8</strong> Draw the result of inserting, into an initially empty order-7 B-tree, entries with keys (4,40,23,50,11,34,62,78,66,22,90,59,25,72,64,77,39,12), in this order.</p>
 
 <h3 id="creativity">Creativity</h3>
 
-<p><strong>C-1.14</strong> Write a pseudocode description of a method that reverses an array of n integers, so that the numbers are listed in the opposite order than they were before, and compare this method to an equivalent Java method for doing the same thing.</p>
+<p><strong>C-15.9</strong> Describe an efficient external-memory algorithm for removing all the duplicate entries in an array list of size <em>n</em>.</p>
 
-<p><strong>C-1.15</strong> Write a pseudocode description of a method for finding the smallest and largest numbers in an array of integers and compare that to a Java method that would do the same thing.</p>
+<p><strong>C-15.10</strong> Describe an external-memory data structure to implement the stack ADT so that the total number of disk transfers needed to process a sequence of <em>k</em> push and pop operations is $O(k/B)$.</p>
 
-<p><strong>C-1.16</strong> Write a short program that takes as input three integers, a, b, and c, from the Java console and determines if they can be used in a correct arithmetic formula (in the given order), like “a+b = c,” “a = b - c,” or “a ∗ b = c.”</p>
+<p><strong>C-15.11</strong> Describe an external-memory data structure to implement the queue ADT so that the total number of disk transfers needed to process a sequence of <em>k</em> enqueue and dequeue operations is $O(k/B)$.</p>
 
-<p><strong>C-1.17</strong> Write a short Java method that takes an array of int values and determines if there is a pair of distinct elements of the array whose product is even.</p>
+<p><strong>C-15.12</strong> Describe an external-memory version of the <code>PositionalList</code> ADT (Section 7.3), with block size <em>B</em>, such that an iteration of a list of length n is completed using $O(n/B)$ transfers in the worst case, and all other methods of the ADT require only $O(1)$ transfers.</p>
 
-<p><strong>C-1.18</strong> The p-norm of a vector v = (v1,v2,…,vn) in n-dimensional space is defined as kvk = qp v1p +v2p +···+vnp. For the special case of p = 2, this results in the traditional Euclidean norm, which represents the length of the vector. For example, the Euclidean norm of a two-dimensional vector with coordinates (4,3) has a Euclidean norm of √42 +32 = √16+9 = √25 = 5. Give an implementation of a method named norm such that norm(v, p) returns the p-norm value of v and norm(v) returns the Euclidean norm of v, where v is represented as an array of coordinates.</p>
+<p><strong>C-15.13</strong> Change the rules that define red-black trees so that each red-black tree <em>T</em> has a corresponding $(4,8)$ tree, and vice versa.</p>
 
-<p><strong>C-1.19</strong> Write a Java program that can take a positive integer greater than 2 as input and write out the number of times one must repeatedly divide this number by 2 before getting a value less than 2.</p>
+<p><strong>C-15.14</strong> Describe a modified version of the B-tree insertion algorithm so that each time we create an overflow because of a split of a node <em>w</em>, we redistribute keys among all of <em>w</em>’s siblings, so that each sibling holds roughly the same number of keys (possibly cascading the split up to the parent of <em>w</em>). What is the minimum fraction of each block that will always be filled using this scheme?</p>
 
-<p><strong>C-1.20</strong> Write a Java method that takes an array of float values and determines if all the numbers are different from each other (that is, they are distinct).</p>
+<p><strong>C-15.15</strong> Another possible external-memory map implementation is to use a skip list, but to collect consecutive groups of $O(B)$ nodes, in individual blocks, on any level in the skip list. In particular, we define an <strong><em>order-d B-skip list</em></strong> to be such a representation
+of a skip list structure, where each block contains at least $⌈d/2⌉$ list nodes and at most <em>d</em> list nodes. Let us also choose <em>d</em> in this case to be the maximum number of list nodes from a level of a skip list that can fit into one block. Describe how we should modify the skip-list insertion and removal algorithms for a <em>B</em>-skip list so that the expected height of the structure is $O(logn/logB)$.</p>
 
-<p><strong>C-1.21</strong> Write a Java method that takes an array containing the set of all integers in the range 1 to 52 and shuffles it into random order. Your method should output each possible order with equal probability.</p>
+<p><strong>C-15.16</strong> Describe how to use a B-tree to implement the Partition ADT (Section 14.7.3) so that the union and find operations each use at most $O(logn/logB)$ disk transfers.</p>
 
-<p><strong>C-1.22</strong> Write a short Java program that outputs all possible strings formed by using the characters ‘c’, ‘a’, ‘t’, ‘d’, ‘o’, and ‘g’ exactly once.</p>
+<p><strong>C-15.17</strong> Suppose we are given a sequence <em>S</em> of <em>n</em> elements with integer keys such that some elements in <em>S</em> are colored “blue” and some elements in <em>S</em> are colored “red.” In addition, say that a red element <em>e</em> <strong><em>pairs</em></strong> with a blue element <em>f</em> if they have the same key value. Describe an efficient external-memory algorithm for finding all the red-blue pairs in <em>S</em>. How many disk transfers does your algorithm perform?</p>
 
-<p><strong>C-1.23</strong> Write a short Java program that takes two arrays a and b of length n storing int values, and returns the dot product of a and b. That is, it returns an array c of length n such that c[i] = a[i]· b[i], for i = 0,…,n - 1.</p>
+<p><strong>C-15.18</strong> Consider the page caching problem where the memory cache can hold <em>m</em> pages, and we are given a sequence <em>P</em> of <em>n</em> requests taken from a pool of $m + 1$ possible pages. Describe the optimal strategy for the offline algorithm and show that it
+causes at most $m + n/m$ page misses in total, starting from an empty cache.</p>
 
-<p><strong>C-1.24</strong> Modify the <code>CreditCard</code> class from Code Fragment 1.5 so that printSummary becomes a nonstatic method, and modify the main method from Code Fragment 1.6 accordingly.</p>
+<p><strong>C-15.19</strong> Describe an efficient external-memory algorithm that determines whether an array of <em>n</em> integers contains a value occurring more than <em>n/2</em> times.</p>
 
-<p><strong>C-1.25</strong> Modify the <code>CreditCard</code> class to add a toString() method that returns a String representation of the card (rather than printing it to the console, as done by printSummary). Modify the main method from Code Fragment 1.6 accordingly to use the standard println command.</p>
+<p><strong>C-15.20</strong> Consider the page caching strategy based on the <strong><em>least frequently used</em></strong> (LFU) rule, where the page in the cache that has been accessed the least often is the one that is evicted when a new page is requested. If there are ties, LFU evicts the least frequently used page that has been in the cache the longest. Show that there is a sequence P of n requests that causes LFU to miss $Ω(n)$ times for a cache of m pages, whereas the optimal algorithm will miss only $O(m)$ times.</p>
+
+<p><strong>C-15.21</strong> Suppose that instead of having the node-search function $f (d) = 1$ in an order-<em>d</em> B-tree <em>T</em> , we have $f (d) = logd$. What does the asymptotic running time of performing a search in <em>T</em> now become?</p>
 
 <h3 id="projects">Projects</h3>
 
-<p><strong>P-1.26</strong> Write a short Java program that takes all the lines input to standard input and writes them to standard output in reverse order. That is, each line is output in the correct order, but the ordering of the lines is reversed.</p>
+<p><strong>P-15.22</strong> Write a Java class that simulates the best-fit, worst-fit, first-fit, and next-fit algorithms for memory management. Determine experimentally which method is the best under various sequences of memory requests.</p>
 
-<p><strong>P-1.27</strong> Write a Java program that can simulate a simple calculator, using the Java console as the exclusive input and output device. That is, each input to the calculator, be it a number, like 12.34 or 1034, or an operator, like + or =, can be done on a
-separate line. After each such input, you should output to the Java console what would be displayed on your calculator.</p>
+<p><strong>P-15.23</strong> Write a Java class that implements all the methods of the sorted map ADT by means of an $(a,b)$ tree, where <em>a</em> and <em>b</em> are integer constants passed as parameters to a constructor.</p>
 
-<p><strong>P-1.28</strong> A common punishment for school children is to write out a sentence multiple times. Write a Java stand-alone program that will write out the following sentence one hundred times: “I will never spam my friends again.” Your program should number each of the sentences and it should make eight different random looking typos.</p>
-
-<p><strong>P-1.29</strong> The birthday paradox says that the probability that two people in a room will have the same birthday is more than half, provided n, the number of people in the room, is more than 23. This property is not really a paradox, but many people find it surprising. Design a Java program that can test this paradox by a series of experiments on randomly generated birthdays, which test this paradox for n = 5,10,15,20,…,100.</p>
-
-<p><strong>P-1.30</strong> (For those who know Java graphical user interface methods:) Define a <code>GraphicalTest</code> class that tests the functionality of the <code>CreditCard</code> class from Code Fragment 1.5 using text fields and buttons.</p>
+<p><strong>P-15.24</strong> Implement the B-tree data structure, assuming a block size of 1024 and integer keys. Test the number of “disk transfers” needed to process a sequence of map operations.</p>
 
 
         <!-- 来必力City版安装代码 -->
@@ -289,19 +276,12 @@ separate line. After each such input, you should output to the Java console what
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2020/05/31/Oracle-1Z0-816-exam-review/" data-toggle="tooltip" data-placement="top" title="回顾OCP 1Z0-816认证考试">
+                <a href="/2020/08/15/ds-ch01/" data-toggle="tooltip" data-placement="top" title="DS-ch01">
                 上一篇<br>
-                <span>回顾OCP 1Z0-816认证考试</span>
+                <span>DS-ch01</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2020/08/16/ds-ch15/" data-toggle="tooltip" data-placement="top" title="DS-ch15 Memory Management and B-Trees">
-                下一篇<br>
-                <span>DS-ch15 Memory Management and B-Trees</span>
-                </a>
-            </li>
             
         </ul>
     </div>  
