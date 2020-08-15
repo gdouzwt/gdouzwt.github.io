@@ -175,6 +175,33 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程2
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Java REST客户端&nbsp;&nbsp;2020年1月7日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年11月4日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-a-rest-client-for-reactive-streams/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>这是第二步，演示如何创建一个 Java 客户端连接到一个发送一系列服务端发送事件的流。我们将使用测试驱动开发来进行开发客户端并进行测试。<a href="https://www.bilibili.com/video/av81233693">视频在 B 站</a></p>
+
+<p>本教程是一系列视频，概述了构建完整的Spring Boot的许多步骤，具有 Kotlin 服务后端，Java 客户端和 JavaFX 用户界面的应用程序。</p>
+
+<p>第二个视频将展示如何创建。一个响应式Spring Java客户端，连接到每秒流式传输股票价格的REST服务。</p>
+
+ <a href="/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/01/06/reactivce-spring-boot-tutorial/">
         <h2 class="post-title">
             响应式Spring Boot系列教程
@@ -212,7 +239,8 @@
 
 <h4 id="一填空题">一、填空题</h4>
 
-<p><strong>1.</strong>  若函数 \(f(x) =\begin{cases}a + x, x &gt; 0 \\ e^{-x},\space\space\space x &lt; 0 \end{cases}\) 在点 $x = 0$ 处连续，则 $a = $ <em>__</em> .</p>
+<p><strong>1.</strong>  若函数 <script type="math/tex">% <![CDATA[
+f(x) =\begin{cases}a + x, x > 0 \\ e^{-x},\space\space\space x < 0 \end{cases} %]]></script> 在点 $x = 0$ 处连续，则 $a = $ <em>__</em> .</p>
 
 <p><strong>2.</strong>  若 $f(x) = e^{-x}$，则 $f^{(n)}(x) = $ <em>__</em> .</p>
 
@@ -249,7 +277,7 @@
 
 <h4 id="一填空21-分每小题-3-分">一、填空（21 分，每小题 3 分）</h4>
 
-<p><strong>1.</strong>  函数 \(y =\begin{cases}x^2 + 1, x &gt; 0 \\ ae^x, \space\space\space\space\space x \le 0\end{cases}\) 在 $x = 0$ 点连续，则 $a = $ <em>__</em> .</p>
+<p><strong>1.</strong>  函数 <script type="math/tex">y =\begin{cases}x^2 + 1, x > 0 \\ ae^x, \space\space\space\space\space x \le 0\end{cases}</script> 在 $x = 0$ 点连续，则 $a = $ <em>__</em> .</p>
 
 <p><strong>2.</strong>  当 $x\to 0$ 时，$\displaystyle ax - 3 \sin x$ 与 $x$ 等价，则 $a= $ <em>__</em></p>
 
@@ -435,60 +463,6 @@
 
 <p>属于 “创建和销毁对象” 那章。静态工厂方法跟“四人帮”设计模式里面的<em>工厂方法</em>模式是不同的。</p>
  <a href="/2019/11/17/effective-java-item1-notes/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/11/15/concurrency/">
-        <h2 class="post-title">
-            Java 并发
-        </h2>
-        
-        <h3 class="post-subtitle">
-            基础内容&nbsp;&nbsp;2019年11月15日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="concurrency-并发">Concurrency 并发</h2>
-
-<h3 id="synchronized-语句块">Synchronized 语句块</h3>
-
-<pre><code class="language-java">package synchronizing;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-public class SheepManager {
-	
-	private int sheepCount = 0;
-	
-	// private void incrementAndReport() {
-	private void incrementAndReport() {
-		synchronized(this) {
-        System.out.print((++sheepCount)+" ");
-        }
-	}
-
-	public static void main(String[] args) {
-
-		ExecutorService service = null;
-		try {
-			service = Executors.newFixedThreadPool(20);
-			
-			SheepManager manager = new SheepManager();
-			for(int i = 0; i &lt; 10; i++) 
-				service.submit(()-&gt; manager.incrementAndReport());
-			} finally {
-				if (service != null) service.shutdown();
-			}
-	}
-}
-</code></pre>
-
-<p>使用 Monitor 或称为 Lock，使用 synchronized 的时候，注意🔒的对象是那个。保证同步，就要去要锁同一个对象。</p>
- <a href="/2019/11/15/concurrency/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
@@ -688,6 +662,8 @@ public class SheepManager {
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             

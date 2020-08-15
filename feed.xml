@@ -5,9 +5,91 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 08 Aug 2020 02:23:15 +0000</pubDate>
-    <lastBuildDate>Sat, 08 Aug 2020 02:23:15 +0000</lastBuildDate>
+    <pubDate>Sat, 15 Aug 2020 17:43:22 +0000</pubDate>
+    <lastBuildDate>Sat, 15 Aug 2020 17:43:22 +0000</lastBuildDate>
     <generator>Jekyll v4.0.0</generator>
+    
+      <item>
+        <title>DS-ch01</title>
+        <description>&lt;h1 id=&quot;110-exercises&quot;&gt;1.10 Exercises&lt;/h1&gt;
+
+&lt;h3 id=&quot;reinforcement&quot;&gt;Reinforcement&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.1&lt;/strong&gt; Write a short Java method, &lt;code&gt;inputAllBaseTypes&lt;/code&gt;, that inputs a different value of each base type from the standard 
+input device and prints it back to the standard output device.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.2&lt;/strong&gt; Suppose that we create an array &lt;code&gt;A&lt;/code&gt; of &lt;code&gt;GameEntry&lt;/code&gt; objects, which has an integer &lt;code&gt;scores&lt;/code&gt; field, and we clone &lt;code&gt;A&lt;/code&gt; and 
+store the result in an array &lt;code&gt;B&lt;/code&gt;. If we then immediately set &lt;code&gt;A[4].scores&lt;/code&gt; equal to 550, what is the score value of the 
+&lt;code&gt;GameEntry&lt;/code&gt; object referenced by &lt;code&gt;B[4]&lt;/code&gt;?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.3&lt;/strong&gt; Write a short Java method, &lt;code&gt;isMultiple&lt;/code&gt;, that takes two &lt;code&gt;long&lt;/code&gt; values, &lt;em&gt;n&lt;/em&gt; and &lt;em&gt;m&lt;/em&gt;, and returns true if and only if &lt;em&gt;n&lt;/em&gt; is a multiple of &lt;em&gt;m&lt;/em&gt;, that is, $n = mi$ for some integer &lt;em&gt;i&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.4&lt;/strong&gt; Write a short Java method, &lt;code&gt;isEven&lt;/code&gt;, that takes an int i and returns true if and only if i is even. Your method cannot use the multiplication, modulus, or division operators, however.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.5&lt;/strong&gt; Write a short Java method that takes an integer n and returns the sum of all positive integers less than or equal to n.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.6&lt;/strong&gt; Write a short Java method that takes an integer n and returns the sum of  all the odd positive integers less than or equal to n.&lt;br /&gt;
+&lt;strong&gt;R-1.7&lt;/strong&gt; Write a short Java method that takes an integer n and returns the sum of the squares of all positive integers less than or equal to n.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.8&lt;/strong&gt; Write a short Java method that counts the number of vowel in a given character string.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.9&lt;/strong&gt; Write a short Java method that uses a &lt;code&gt;StringBuilder&lt;/code&gt; instance to remove all the punctuation from a string s storing a sentence, for example, transforming the string “Let’s try, Mike!” to “Lets try Mike”.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.10&lt;/strong&gt; Write a Java class, Flower, that has three instance variables of type &lt;code&gt;String&lt;/code&gt;, &lt;code&gt;int&lt;/code&gt;, and &lt;code&gt;float&lt;/code&gt;, which respectively represent the name of the flower, its number of petals, and price. Your class must include a constructor method that initializes each variable to an appropriate value, and your class should include methods for setting the value of each type, and getting the value of each type.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.11&lt;/strong&gt; Modify the &lt;code&gt;CreditCard&lt;/code&gt; class from Code Fragment 1.5 to include a method that updates the credit limit.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.12&lt;/strong&gt; Modify the &lt;code&gt;CreditCard&lt;/code&gt; class from Code Fragment 1.5 so that it ignores any request to process a negative payment amount.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;R-1.13&lt;/strong&gt; Modify the declaration of the first for loop in the main method in Code Fragment 1.6 so that its charges will cause exactly one of the three credit cards to attempt to go over its credit limit. Which credit card is it?&lt;/p&gt;
+
+&lt;h3 id=&quot;creativity&quot;&gt;Creativity&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.14&lt;/strong&gt; Write a pseudocode description of a method that reverses an array of n integers, so that the numbers are listed in the opposite order than they were before, and compare this method to an equivalent Java method for doing the same thing.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.15&lt;/strong&gt; Write a pseudocode description of a method for finding the smallest and largest numbers in an array of integers and compare that to a Java method that would do the same thing.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.16&lt;/strong&gt; Write a short program that takes as input three integers, a, b, and c, from the Java console and determines if they can be used in a correct arithmetic formula (in the given order), like “a+b = c,” “a = b - c,” or “a ∗ b = c.”&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.17&lt;/strong&gt; Write a short Java method that takes an array of int values and determines if there is a pair of distinct elements of the array whose product is even.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.18&lt;/strong&gt; The p-norm of a vector v = (v1,v2,…,vn) in n-dimensional space is defined as kvk = qp v1p +v2p +···+vnp. For the special case of p = 2, this results in the traditional Euclidean norm, which represents the length of the vector. For example, the Euclidean norm of a two-dimensional vector with coordinates (4,3) has a Euclidean norm of √42 +32 = √16+9 = √25 = 5. Give an implementation of a method named norm such that norm(v, p) returns the p-norm value of v and norm(v) returns the Euclidean norm of v, where v is represented as an array of coordinates.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.19&lt;/strong&gt; Write a Java program that can take a positive integer greater than 2 as input and write out the number of times one must repeatedly divide this number by 2 before getting a value less than 2.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.20&lt;/strong&gt; Write a Java method that takes an array of float values and determines if all the numbers are different from each other (that is, they are distinct).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.21&lt;/strong&gt; Write a Java method that takes an array containing the set of all integers in the range 1 to 52 and shuffles it into random order. Your method should output each possible order with equal probability.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.22&lt;/strong&gt; Write a short Java program that outputs all possible strings formed by using the characters ‘c’, ‘a’, ‘t’, ‘d’, ‘o’, and ‘g’ exactly once.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.23&lt;/strong&gt; Write a short Java program that takes two arrays a and b of length n storing int values, and returns the dot product of a and b. That is, it returns an array c of length n such that c[i] = a[i]· b[i], for i = 0,…,n - 1.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.24&lt;/strong&gt; Modify the &lt;code&gt;CreditCard&lt;/code&gt; class from Code Fragment 1.5 so that printSummary becomes a nonstatic method, and modify the main method from Code Fragment 1.6 accordingly.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;C-1.25&lt;/strong&gt; Modify the &lt;code&gt;CreditCard&lt;/code&gt; class to add a toString() method that returns a String representation of the card (rather than printing it to the console, as done by printSummary). Modify the main method from Code Fragment 1.6 accordingly to use the standard println command.&lt;/p&gt;
+
+&lt;h3 id=&quot;projects&quot;&gt;Projects&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;P-1.26&lt;/strong&gt; Write a short Java program that takes all the lines input to standard input and writes them to standard output in reverse order. That is, each line is output in the correct order, but the ordering of the lines is reversed.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;P-1.27&lt;/strong&gt; Write a Java program that can simulate a simple calculator, using the Java console as the exclusive input and output device. That is, each input to the calculator, be it a number, like 12.34 or 1034, or an operator, like + or =, can be done on a
+separate line. After each such input, you should output to the Java console what would be displayed on your calculator.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;P-1.28&lt;/strong&gt; A common punishment for school children is to write out a sentence multiple times. Write a Java stand-alone program that will write out the following sentence one hundred times: “I will never spam my friends again.” Your program should number each of the sentences and it should make eight different random looking typos.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;P-1.29&lt;/strong&gt; The birthday paradox says that the probability that two people in a room will have the same birthday is more than half, provided n, the number of people in the room, is more than 23. This property is not really a paradox, but many people find it surprising. Design a Java program that can test this paradox by a series of experiments on randomly generated birthdays, which test this paradox for n = 5,10,15,20,…,100.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;P-1.30&lt;/strong&gt; (For those who know Java graphical user interface methods:) Define a &lt;code&gt;GraphicalTest&lt;/code&gt; class that tests the functionality of the &lt;code&gt;CreditCard&lt;/code&gt; class from Code Fragment 1.5 using text fields and buttons.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
+        <link>https://zwt.io/2020/08/15/ds-ch01/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/08/15/ds-ch01/</guid>
+        
+        <category>Data Structure</category>
+        
+        
+      </item>
     
       <item>
         <title>回顾OCP 1Z0-816认证考试</title>
@@ -6035,295 +6117,6 @@ public class BeeperControl {
         <category>OCP 11</category>
         
         <category>1Z0-816</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>Exercises for Inner class</title>
-        <description>&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;What is an inner class? Differentiate between member, local, and anonymous inner classes.&lt;/p&gt;
-
-    &lt;p&gt;An inner class declares inside a top-level class without a static modifier. Inner classes that declared at member level are called member inner classes, local to the method, or instance initialization block are local inner class. And local inner classes that have no name are anonymous inner classes.&lt;!--more--&gt;&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;An inner class is a class declared inside the  body of another class. A member inner class is declared inside a class. It can be declared as public, private, protected, or package-level. A local inner class is declared inside a block. Its scope is limited to the block in which it is declared. An anonymous inner class is the same as  local inner class, but has no name. It is declared and an object of the class is created at the same time.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;What is the fully qualified name of the inner class B, which is declared as follows?&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// A.java
-package io.zwt.innerclasses.exercises;
-   
-public class A {
-    public class B {
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;p&gt;That will be :  &lt;code&gt;io.zwt.innerclasses.exercises.A.B&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Consider the following declaration for top-level class named Cup and a member inner class named Handle:&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// Cup.java
-package io.zwt.innerclasses.exercises;
-   
-public class Cup {
-    public class Handle {
-        public Handle() {
-            System.out.println(&quot;Created a handle for the cup&quot;);
-        }
-    }
-       
-    public Cup() {
-        System.out.println(&quot;Created a cup&quot;);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;p&gt;Compile the in the main() method for the following CupTest class that will create an instance of the Cup.Handle inner class:&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// CupTest.java
-package io.zwt.innerclasses.exercises;
-public class CupTest {
-    public static void main(String[] args) {
-        // Create a Cup
-        Cup c = new Cup();
-           
-        // Create a Handle
-        // Cup.Handle h = / * You code goes here */;
-        Cup.Handle h = c.new Handle();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;What will be the output when the following Outer class is run?&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// Outer.java
-package io.zwt.innerclasses.exercises;
-   
-public class Outer {
-    private final int value = 19680112;
-       
-    public class Inner {
-        private final int value = 19690919;
-        public void print() {
-            System.out.println(&quot;Inner: value = &quot; + value);
-            System.out.println(&quot;Inner: this.value = &quot; + this.value);
-            System.out.println(&quot;Inner: Inner.this.value = &quot; + 
-                              Inner.this.value);
-            System.out.println(&quot;Inner: Outer.this.value = &quot; + 
-                              Outer.this.value);
-        }
-    }
-       
-    public void print() {
-        System.out.println(&quot;Outer: value = &quot; + value);
-        System.out.println(&quot;Outer: this.value = &quot; + this.value);
-        System.out.println(&quot;Outer: Outer.this.value = &quot; + 
-                          Outer.this.value);
-    }
-       
-    public static void main(String[] args) {
-        Outer out = new Outer();
-        Inner in = out.new Inner();
-        out.print();
-        in.print();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;19680112&lt;/p&gt;
-
-      &lt;p&gt;19680112&lt;/p&gt;
-
-      &lt;p&gt;19680112&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;19690919&lt;/p&gt;
-
-      &lt;p&gt;19690919&lt;/p&gt;
-
-      &lt;p&gt;19690919&lt;/p&gt;
-
-      &lt;p&gt;19680112&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The following declaration of an AnonymousTest class does not compile. Describe the reasons and steps you might take to fix the error.&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// AnonymousTest
-package io.zwt.innerclasses.exercises;
-   
-public class AnonymousTest {
-    public static void main(String[] args) {
-        int x = 100;
-           
-        Object obj = new Object() {
-            {
-                System.out.println(&quot;Inside.x = &quot; + x);
-            }
-        };
-        x = 300;
-        System.out.println(&quot;Outside.x = &quot; + x);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;x is not effectively final, make that effectively final by removing assignment x = 300;&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Consider the following declaration for a top-level class A and a member inner class B:&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;package io.zwt.innerclasses.exercises;
-   
-public class A {
-    public class B {
-        public B() {
-            System.out.println(&quot;B is created.&quot;);
-        }
-    }
-    public A() {
-        System.out.println(&quot;A is created.&quot;);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;p&gt;Consider the following incomplete declaration of class C, which inherits from the inner class A.B:&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// C.java
-package io.zwt.innerclasses.exercises;
-   
-public class C extends A.B {
-    /* Define a constructor for class C here */
-    public C(A a) {
-        a.super();
-        System.out.println(&quot;C is created.&quot;)
-    }
-       
-    public static void main(String[] args) {
-        C c = new C(new A())/* Your code goes here */;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;p&gt;Add an appropriate constructor for class C and complete the statement in the main() method. When class C is run, it should print the following to the standard output:&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code&gt;A is created.
-B is created.
-C is created.
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Which of the following is true about an anonymous inner class?&lt;/p&gt;
-
-    &lt;p&gt;a. It can inherit from one class and implement one interface.&lt;/p&gt;
-
-    &lt;p&gt;b. It can inherit from one class and implement multiple interfaces.&lt;/p&gt;
-
-    &lt;p&gt;c. It can inherit from one class or implement one interface. ✔&lt;/p&gt;
-
-    &lt;p&gt;d. It can implement multiple interfaces, but inherits from only one class.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;How many class files will be generated when the following declaration of the Computer class is compiled? List the names of all generated class files.&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// Computer.java
-package io.zwt.innerclasses.exercises;
-   
-public class Computer {
-    public class Mouse {
-        public class Button {
-        }
-    }
-       
-    public static void main(String[] args) {
-        Object obj = new Object() {
-        };
-           
-        System.out.println(obj.hasCode());
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;4&lt;/p&gt;
-
-      &lt;p&gt;Computer.class&lt;/p&gt;
-
-      &lt;p&gt;Computer$Mouse.class&lt;/p&gt;
-
-      &lt;p&gt;Computer$Mouse.Button.class&lt;/p&gt;
-
-      &lt;p&gt;Computer$1.class&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The following declaration of class H does not compile. Point out the problem and suggest a solution.&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// H.java
-package io.zwt.innerclasses.exercises;
-   
-public class H {
-    private int x = 100;
-       
-    public static class J {
-        private int y = x * 2;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Declare x as static, or declare J as non-static.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Consider the following declaration of a top-level class P and a nested static class Q:&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// P.java
-package io.zwt.innerclasses.exercises;
-    
-public class P {
-    public static class Q {
-        {
-            System.out.println(&quot;Hello from Q.&quot;);
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;p&gt;Complete the main() method of the following PTest class that will create an object of the nested static class Q. When class PTest is run, it should print a message “Hello from Q.” to the standard output.&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// PTest.java
-package io.zwt.innerclasses.exercises;
-    
-public class PTest {
-    public static void main(String[] args) {
-        P.Q q = /* Your code goes here */ new P.Q();
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;P served as namespace.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-</description>
-        <pubDate>Sat, 15 Feb 2020 16:55:00 +0000</pubDate>
-        <link>https://zwt.io/2020/02/15/inner-class-exercises/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/02/15/inner-class-exercises/</guid>
-        
-        <category>Java</category>
         
         
       </item>
