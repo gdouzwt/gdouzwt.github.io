@@ -5,23 +5,23 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Nov 2020 03:00:45 +0000</pubDate>
-    <lastBuildDate>Mon, 23 Nov 2020 03:00:45 +0000</lastBuildDate>
+    <pubDate>Mon, 23 Nov 2020 04:15:13 +0000</pubDate>
+    <lastBuildDate>Mon, 23 Nov 2020 04:15:13 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
         <title>水塔液位自动控制装置</title>
         <description>&lt;p&gt;前段时间做了点小东西，随缘记录一下。&lt;br /&gt;
 在家里日常生活用水是用水塔，通过水泵将水从水井抽到楼顶的水塔用的。这在很常见，通常这些水塔都会有自动液位控制的，一般是一个浮球，机械式的开关。但家里的水塔比较旧没有安装水位控制装置，所以我一直想在水塔添加这样的功能。因为不想用浮球式液位控制，主要是想趁机折腾一下，玩一下技术。最初有些不太实际的脑洞，例如，可不可以通过测量液位变化时水塔的电容反映水位变化；还有根据水压变化计算出液面高度……  因为不想安装水压测量到水管里，而且还要设法与水泵开关联动，麻烦。大概五年前，上大二的时候，刚学单片机，就想着用 51 做一个东西去根据水塔液位变化自动控制水泵开关。&lt;br /&gt;
-&lt;img src=&quot;/water-tank.png&quot; alt=&quot;水塔液位控制&quot; /&gt;
+&lt;img src=&quot;/img/water-tank.png&quot; alt=&quot;水塔液位控制&quot; /&gt;
 大概就是这么一个东西，当初用 51 接一个超声波测距模块，还有继电器，联合起来控制水泵。测得距离大于某个值，说明水位低于某个值，就打开水泵抽水，直到距离小于某个值就关掉水泵停止抽水，逻辑很简单的。&lt;br /&gt;
 不过当时程序可能写得不太好，硬件也没有弄得很好，因为用洞洞板焊接的。那东西在一次暴雨天后就坏了，我弟以为那是遭雷击了，我也不太清楚，反正就坏了。 然后半个月前，我闲着又再次折腾起这东西。这次硬件上使用 Arduino + ESP8266 + 小米路由器 + 小米智能网关 + 加个小米 ZigBee 版智能插座。超声波测距模块由Arduino 驱动，再通过串口发送距离数据到 ESP8266，通过 WiFi TCP 传到小米路由器（跑 OpenWRT)，在小米路由器上的 Linux 写了个程序，基于 ubox (epoll) 的 TCP 和 UDP 客户端。其中 TCP 接收来自 ESP8266 的液位数据，UDP 客户端用于与小米智能网关交互。当水塔液位低于某个水平，这个程序就会向小米智能网关发送命令，去控制米家智能插座打开。这个插座接着水泵，就相当于初版里边的继电器。&lt;br /&gt;
 之前还弄了个可视化监控的东西，但是后来 PC 机做的服务器崩了，就没有继续玩下去。本来还有个基于 JavaFX 的图形界面，可以查看液位，手动控制开关之类的。
 Docker Mosquitto NodeRed Grafana InfluxDB Telegraf adafruit IO&lt;/p&gt;
 </description>
-        <pubDate>Mon, 16 Nov 2020 10:43:00 +0000</pubDate>
-        <link>https://zwt.io/2020/11/16/water-tank-level-control-automation/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/11/16/water-tank-level-control-automation/</guid>
+        <pubDate>Mon, 23 Nov 2020 12:13:00 +0000</pubDate>
+        <link>https://zwt.io/2020/11/23/water-tank-level-control-automation/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/11/23/water-tank-level-control-automation/</guid>
         
         <category>Personal</category>
         
