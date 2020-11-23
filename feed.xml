@@ -5,12 +5,38 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Nov 2020 02:02:05 +0000</pubDate>
-    <lastBuildDate>Mon, 23 Nov 2020 02:02:05 +0000</lastBuildDate>
+    <pubDate>Mon, 23 Nov 2020 02:50:40 +0000</pubDate>
+    <lastBuildDate>Mon, 23 Nov 2020 02:50:40 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
-        <title>Spring Singleton Vs Singleton Pattern</title>
+        <title>Spring001</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;状态： 草稿
+前段时间做了点小东西，随缘记录一下。&lt;br /&gt;
+在家里日常生活用水是用水塔，通过水泵将水从水井抽到楼顶的水塔用的。这在很常见，通常这些水塔都会有自动液位控制的，一般是一个浮球，机械式的开关。但家里的水塔比较旧没有安装水位控制装置，所以我一直想在水塔添加这样的功能。因为不想用浮球式液位控制，主要是想趁机折腾一下，玩一下技术。最初有些不太实际的脑洞，例如，可不可以通过测量液位变化时水塔的电容反映水位变化；还有根据水压变化计算出液面高度……  因为不想安装水压测量到水管里，而且还要设法与水泵开关联动，麻烦。大概五年前，上大二的时候，刚学单片机，就想着用 51 做一个东西去根据水塔液位变化自动控制水泵开关。&lt;br /&gt;
+&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/5775982-81c34f5e127455d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;image.png&quot; /&gt;
+大概就是这么一个东西，当初用 51 接一个超声波测距模块，还有继电器，联合起来控制水泵。测得距离大于某个值，说明水位低于某个值，就打开水泵抽水，直到距离小于某个值就关掉水泵停止抽水，逻辑很简单的。&lt;br /&gt;
+不过当时程序可能写得不太好，硬件也没有弄得很好，因为用洞洞板焊接的。那东西在一次暴雨天后就坏了，我弟以为那是遭雷击了，我也不太清楚，反正就坏了。 然后半个月前，我闲着又再次折腾起这东西。这次硬件上使用 Arduino + ESP8266 + 小米路由器 + 小米智能网关 + 加个小米 ZigBee 版智能插座。超声波测距模块由Arduino 驱动，再通过串口发送距离数据到 ESP8266，通过 WiFi TCP 传到小米路由器（跑 OpenWRT)，在小米路由器上的 Linux 写了个程序，基于 ubox (epoll) 的 TCP 和 UDP 客户端。其中 TCP 接收来自 ESP8266 的液位数据，UDP 客户端用于与小米智能网关交互。当水塔液位低于某个水平，这个程序就会向小米智能网关发送命令，去控制米家智能插座打开。这个插座接着水泵，就相当于初版里边的继电器。&lt;br /&gt;
+之前还弄了个可视化监控的东西，但是后来 PC 机做的服务器崩了，就没有继续玩下去。本来还有个基于 JavaFX 的图形界面，可以查看液位，手动控制开关之类的。
+Docker Mosquitto NodeRed Grafana InfluxDB Telegraf adafruit IO&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Mon, 16 Nov 2020 10:43:00 +0000</pubDate>
+        <link>https://zwt.io/2020/11/16/water-tank-level-control-automation/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/11/16/water-tank-level-control-automation/</guid>
+        
+        <category>Personal</category>
+        
+        <category>Draft</category>
+        
+        <category>Notes</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Spring单例与单例模式</title>
         <description>&lt;blockquote&gt;
   &lt;p&gt;Spring 单例不是 Java 单例。本文讨论 Spring 的单例与单例模式的区别。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -121,9 +147,13 @@ Spring 的 bean 定义就像键值对那样，bean id 就是 key，bean 的实�
 &lt;h3 id=&quot;总结&quot;&gt;总结&lt;/h3&gt;
 &lt;p&gt;Spring 单例跟传统的单例模式是不同的。Spring 确保在每个容器对给定 bean id 定义只创建一个 bean 实例。 传统单例模式是保证给定一个类加载器所加载的某个类只有唯一的一个实例。&lt;/p&gt;
 </description>
-        <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+        <pubDate>Mon, 02 Nov 2020 02:04:00 +0000</pubDate>
         <link>https://zwt.io/2020/11/02/Spring-singleton-vs-Singleton-pattern/</link>
         <guid isPermaLink="true">https://zwt.io/2020/11/02/Spring-singleton-vs-Singleton-pattern/</guid>
+        
+        <category>Personal</category>
+        
+        <category>Notes</category>
         
         
       </item>
@@ -3569,99 +3599,6 @@ class GreetingResponse {
         <category>Spring Security</category>
         
         <category>Authentication</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>网络爬虫学习笔记</title>
-        <description>&lt;h3 id=&quot;课程计划&quot;&gt;课程计划&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;入门&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;HttpClient&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Jsoup&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;案例&lt;/p&gt;
-
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;dependencies {
-    implementation('org.jsoup:jsoup:1.12.2')
-    implementation('org.apache.httpcomponents:httpclient:4.5.2')
-  
-    testImplementation('org.slf4j:slf4j-log4j12:1.7.25')
-    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
-}
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;爬虫功能&quot;&gt;爬虫功能&lt;/h3&gt;
-
-&lt;p&gt;从功能上来讲，爬虫一般分为数据采集，处理，存储三个部分。爬虫从一个或若干个初始页面的URL开始，获得初始页面上的URL，在抓取页面的过程中，不断从当前页面抽取新的URL放入队列，直到满足系统的一定停止条件。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;数据采集&lt;/li&gt;
-  &lt;li&gt;处理&lt;/li&gt;
-  &lt;li&gt;存储&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;从初始页面开始，爬取这个页面里面的详细页面连接，接着是下一页，等等。&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;为什么学习网络爬虫&quot;&gt;为什么学习网络爬虫&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;可以实现搜索引擎&lt;/p&gt;
-
-    &lt;p&gt;搜集，自己感兴趣的数据。做好玩的事情。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;大数据时代，获取更多数据源，人工智能&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;数据分析&lt;/li&gt;
-      &lt;li&gt;数据挖掘&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;搜索引擎优化，网站推广，研究规则&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;就业，数据工程师，爬虫工程师， Microsoft Health,  Data mining&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;带参数的-get-请求&quot;&gt;带参数的 GET 请求&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;HttpGet&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;post-请求&quot;&gt;POST 请求&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;HttpPost 不带参数&lt;/li&gt;
-  &lt;li&gt;带参数&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;[To be continued!]&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 02 Mar 2020 19:30:00 +0000</pubDate>
-        <link>https://zwt.io/2020/03/02/web-scraping-notes/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/03/02/web-scraping-notes/</guid>
-        
-        <category>Java</category>
-        
-        <category>爬虫</category>
-        
-        <category>scraping</category>
         
         
       </item>

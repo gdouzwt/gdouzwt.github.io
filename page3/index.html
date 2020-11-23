@@ -175,6 +175,36 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/02/01/spring-boot-messaging/">
+        <h2 class="post-title">
+            Spring Boot 消息
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Messaging简单笔记&nbsp;&nbsp;2020年2月1日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="消息通信">消息通信</h2>
+
+<p><img src="/img/messaging.png" alt="messaging" /></p>
+
+<p>最简单的消息机制，从A点到B点，通过某种信道传递消息，可以使一个简单的函数调用，一个socket连接，或者是一个HTTP请求。主要目的是发送端发送消息给接收端消费。</p>
+
+<h3 id="消息通信使用场景">消息通信使用场景</h3>
+
+<p>下面列出一些消息通信常见的使用场景：</p>
+
+<h4 id="可靠送达">可靠送达</h4>
+
+<p>通常需要一些消息确认机制，如果中间有个Broker，消息生产者要通过一些确认，了解Broker确实收到了消息。同理在消费者段也需要给Broker确认已经收到消息。通常支付、股票交易等系统会使用这种模式。</p>
+ <a href="/2020/02/01/spring-boot-messaging/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/01/30/java-thread-communication/">
         <h2 class="post-title">
             Java线程间通信
@@ -427,31 +457,6 @@ System.out.println(
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程6
-        </h2>
-        
-        <h3 class="post-subtitle">
-            显示响应式数据&nbsp;&nbsp;2020年1月9日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在当地时间2019年11月29日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-displaying-reactive-data/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>在这一节，我们看一下如何连接JavaFX折线图到Kotlin Spring Boot服务以实时显示股票价格数据。</p>
-
-<p>在第四步，我们创建了一个JavaFX Spring Boot应用程序显示一个空的折线图。在上一步（第五步），我们整合了WebClientStockClient去连接到股票价格服务。在这一步我们要让折线图实时显示来自Kotlin Spring Boot服务的股票价格数据。</p>
-
- <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -630,6 +635,10 @@ System.out.println(
                             
                         
                             
+                                <a href="/tags/#Notes" title="Notes" rel="5">
+                                    Notes
+                                </a>
+                            
                         
                             
                         
@@ -647,6 +656,8 @@ System.out.println(
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             

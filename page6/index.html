@@ -175,6 +175,32 @@
             ">
             
 <div class="post-preview">
+    <a href="/2019/11/04/java-generic-revisited/">
+        <h2 class="post-title">
+            Java 泛型回顾
+        </h2>
+        
+        <h3 class="post-subtitle">
+            深入理解泛型&nbsp;&nbsp;2019年11月4日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h1 id="generics">Generics</h1>
+
+<p>JDK 1.5 版本开始引入，加强了<strong>类型安全（Type safety）</strong>，强化了语言本身，更加强化了集合框架（Collections Framework）。Java 8 开始加入 Lambda、Stream 更加进一步增强了语言的表达能力。</p>
+
+<h3 id="什么是泛型">什么是泛型？</h3>
+
+<p>泛型（Generics）意思是参数化类型（Parameterized types）。泛型允许在创建类、接口和方法的时候，以提供参数的形式指定其能操作的数据类型。它的对象是类、接口、方法。这三者都可以泛型化。</p>
+
+<p>在没有泛型特性之前，可以通过 Object 类实现泛型编程，但是不能保证类型安全。</p>
+ <a href="/2019/11/04/java-generic-revisited/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2019/11/02/java-protected-access-modifier-revisited/">
         <h2 class="post-title">
             回顾 protected 访问修饰符
@@ -437,55 +463,6 @@ public class ReverseInt {
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2019/10/13/oca-guide-intro-test-review/">
-        <h2 class="post-title">
-            OCA 自测回顾
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Assessment Test&nbsp;&nbsp;2019年10月13日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="oca-自测题回顾">OCA 自测题回顾</h2>
-
-<ol>
-  <li>What is the output of the following code? (Choose all that apply)
-    <pre><code class="language-java">interface HasTail { int getTailLength(); } 
-abstract class Puma implements HasTail { 
-    protected int getTailLength() {return 4;} 
-} 
-public class Cougar extends Puma { 
-    public static void main(String[] args) { 
-        Puma puma = new Puma(); 
-        System.out.println(puma.getTailLength()); 
- } 
-       
-    public int getTailLength(int length) {return 2;} 
-} 
-</code></pre>
-    <blockquote>
-      <p><strong>A.</strong> 2</p>
-
-      <p><strong>B.</strong> 4</p>
-
-      <p><strong>C.</strong> The code will not compile because of line 3.</p>
-
-      <p><strong>D.</strong> The code will not compile because of line 5.</p>
-
-      <p><strong>E.</strong> The code will not compile because of line 7.</p>
-
-      <p><strong>F.</strong> The output cannot be determined from the code provided.</p>
-    </blockquote>
-  </li>
-</ol>
- <a href="/2019/10/13/oca-guide-intro-test-review/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -664,6 +641,10 @@ public class Cougar extends Puma {
                             
                         
                             
+                                <a href="/tags/#Notes" title="Notes" rel="5">
+                                    Notes
+                                </a>
+                            
                         
                             
                         
@@ -681,6 +662,8 @@ public class Cougar extends Puma {
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             
