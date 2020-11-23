@@ -175,6 +175,26 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/02/26/ocp-816-learning-points/">
+        <h2 class="post-title">
+            816考点速记
+        </h2>
+        
+    </a>
+    <div class="post-content-preview">
+        <h4 id="1-unmodifiable-collections-using-ofcopyof-and-collectionsunmodifiablexxx-methods">1. Unmodifiable collections using of/copyOf and Collections.unmodifiableXXX methods</h4>
+
+<p><code>java.util.List</code> and <code>java.util.Set</code> have <code>of</code> and <code>copyOf</code> static factory methods that provide a convenient way to create unmodifiable lists/sets.</p>
+
+<p>The of methods accept either an array or multiple individual parameters. If you pass it a collection, it will be treated as a regular object i.e. it will return a list/set containing the same collection object instead of returning a list/set containing the objects that the passed collection contains.</p>
+
+<p>The <code>copyOf</code>, on the other hand, accepts only a <code>Collection</code>. It iterates through the passed <code>Collection</code> and adds all the elements of that <code>Collection</code> in the returned list/set.</p>
+ <a href="/2020/02/26/ocp-816-learning-points/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/02/15/foundation-test-review/">
         <h2 class="post-title">
             816基准测试回顾
@@ -533,26 +553,6 @@ Another common use case is setting active profiles and default properties to set
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/01/29/bulkhead-pattern/">
-        <h2 class="post-title">
-            水密舱壁模式
-        </h2>
-        
-        <h3 class="post-subtitle">
-            云原生微服务模式系列&nbsp;&nbsp;2020年1月29日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <p>水密舱壁模式是一类容错的应用程序设计。在水密舱壁模式架构中，应用程序的个组成元素被分隔到隔舱中，这样一旦其中一个出故障，其它部分仍能够运行。这是命名来自船体当中的分隔区域（水密舱壁）。如果一艘船的水密隔舱坏了，那么只是受损部位会进水（其它部分被隔开了），这样能够防止沉船。</p>
-
-<p><img src="/img/Compartments_and_watertight_subdivision_of_a_ship's_hull_(Seaman's_Pocket-Book,_1943).jpg" alt="水密壁舱" /></p>
- <a href="/2020/01/29/bulkhead-pattern/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -748,6 +748,8 @@ Another common use case is setting active profiles and default properties to set
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             

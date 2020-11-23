@@ -5,9 +5,61 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 18 Aug 2020 00:03:34 +0000</pubDate>
-    <lastBuildDate>Tue, 18 Aug 2020 00:03:34 +0000</lastBuildDate>
-    <generator>Jekyll v4.0.0</generator>
+    <pubDate>Mon, 23 Nov 2020 01:26:19 +0000</pubDate>
+    <lastBuildDate>Mon, 23 Nov 2020 01:26:19 +0000</lastBuildDate>
+    <generator>Jekyll v4.1.1</generator>
+    
+      <item>
+        <title>Spring001</title>
+        <description>&lt;p&gt;又再开始读 Spring 源码，做一下笔记，方便自己回顾。&lt;/p&gt;
+
+&lt;p&gt;最基础的，关于 &lt;code&gt;BeanFactory&lt;/code&gt; 接口，可以认为是容器的根基，其它功能更多的接口都是从这里扩展而来。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@Test
+public void testSimpleLoad() {
+    BeanFactory bf = new XmlBeanFactory(new ClassPathResource(&quot;spring.xml&quot;));
+    MyTestBean bean = (MyTestBean) bf.getBean(&quot;myTestBean&quot;);
+    Assertions.assertEquals(&quot;testString&quot;, bean.getTestStr());
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面代码就是最基本的使用。&lt;/p&gt;
+
+&lt;p&gt;而对应的 xml 配置文件是这样的:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-xml&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt;
+&amp;lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&amp;gt;
+    &amp;lt;bean id=&quot;myTestBean&quot; class=&quot;io.zwt.spring001.MyTestBean&quot;/&amp;gt;
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;至于 &lt;code&gt;MyTestBean&lt;/code&gt; 只是一个简单的 POJO 就不列出来了。&lt;/p&gt;
+
+&lt;p&gt;实际开发中，很少会直接使用 &lt;code&gt;BeanFactory&lt;/code&gt; 接口，一般使用 &lt;code&gt;ApplicationContext&lt;/code&gt; 等。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;从配置文件，到可以使用的 Bean，这个过程里边主要有以下一些步骤：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;读取配置文件。&lt;/li&gt;
+  &lt;li&gt;根据配置文件找到对应的类，并进行实例化。&lt;/li&gt;
+  &lt;li&gt;调用实例化后的实例。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 15 Oct 2020 02:04:00 +0000</pubDate>
+        <link>https://zwt.io/2020/10/15/Spring001/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/10/15/Spring001/</guid>
+        
+        <category>Personal</category>
+        
+        <category>Notes</category>
+        
+        
+      </item>
     
       <item>
         <title>DS-ch15 Memory Management and B-Trees</title>
@@ -162,7 +214,15 @@ separate line. After each such input, you should output to the Java console what
     
       <item>
         <title>回顾OCP 1Z0-816认证考试</title>
-        <description>&lt;p&gt;I started with OCA Java SE 8 Programmer I exam last year, it took me 12 days to prepare the OCA exam. It was relatively easy to pass the OCA exam, but it was much harder to pass the OCP 11 exam. It took me roughly 3 months to get fully prepared for the ultimate 1Z0-816, namely Java SE 11 Programmer II exam, for which response to the Oracle Certified Professional: Java SE 11 Developer certification. This is by far the most difficult Java certification exam from Oracle/Sun, not just because it covers topics such as modules, functional programming, concurrent programming, IO. But also it includes some new objectives, like Java Secure Coding Guideline. For those who plan on taking the Oracle Java Certification exam, I strongly recommend you take a look at the official exam objectives before you start your study plan. Buy a good book, I think Selikoff’s book is great, I use that book for my exam preparation. Study the book chapter by chapter, or by topic, or whatever you want. Be sure to do the exercises, it will help you to consolidate your knowledge. It is also helpful to use flashcards to aid the memorization process, for example,  some core APIs or some syntax rules. Don’t go directly into the quiz without studying the materials thoroughly, that will just a waste of time and energy. Because that’s very frustrating to see lots of errors. Take your time, start slowly, and gradually level up the difficulty.  Below are some useful references.&lt;/p&gt;
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;群&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;h3 id=&quot;ocaocp-考试交流qq群-157563860&quot;&gt;OCA/OCP 考试交流QQ群 &lt;strong&gt;157563860&lt;/strong&gt;&lt;/h3&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;I started with OCA Java SE 8 Programmer I exam last year, it took me 12 days to prepare the OCA exam. It was relatively easy to pass the OCA exam, but it was much harder to pass the OCP 11 exam. It took me roughly 3 months to get fully prepared for the ultimate 1Z0-816, namely Java SE 11 Programmer II exam, for which response to the Oracle Certified Professional: Java SE 11 Developer certification. This is by far the most difficult Java certification exam from Oracle/Sun, not just because it covers topics such as modules, functional programming, concurrent programming, IO. But also it includes some new objectives, like Java Secure Coding Guideline. For those who plan on taking the Oracle Java Certification exam, I strongly recommend you take a look at the official exam objectives before you start your study plan. Buy a good book, I think Selikoff’s book is great, I use that book for my exam preparation. Study the book chapter by chapter, or by topic, or whatever you want. Be sure to do the exercises, it will help you to consolidate your knowledge. It is also helpful to use flashcards to aid the memorization process, for example,  some core APIs or some syntax rules. Don’t go directly into the quiz without studying the materials thoroughly, that will just a waste of time and energy. Because that’s very frustrating to see lots of errors. Take your time, start slowly, and gradually level up the difficulty.  Below are some useful references.&lt;/p&gt;
 
 &lt;p&gt;&lt;!--more--&gt;&lt;/p&gt;
 
@@ -4502,245 +4562,6 @@ By default, this method attempts to move the file to the target file, failing if
         <pubDate>Wed, 26 Feb 2020 15:15:00 +0000</pubDate>
         <link>https://zwt.io/2020/02/26/ocp-mock-test1-review/</link>
         <guid isPermaLink="true">https://zwt.io/2020/02/26/ocp-mock-test1-review/</guid>
-        
-        <category>Java</category>
-        
-        <category>1Z0-816</category>
-        
-        <category>认证考试</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>816考点速记</title>
-        <description>&lt;h4 id=&quot;1-unmodifiable-collections-using-ofcopyof-and-collectionsunmodifiablexxx-methods&quot;&gt;1. Unmodifiable collections using of/copyOf and Collections.unmodifiableXXX methods&lt;/h4&gt;
-
-&lt;p&gt;&lt;code&gt;java.util.List&lt;/code&gt; and &lt;code&gt;java.util.Set&lt;/code&gt; have &lt;code&gt;of&lt;/code&gt; and &lt;code&gt;copyOf&lt;/code&gt; static factory methods that provide a convenient way to create unmodifiable lists/sets.&lt;/p&gt;
-
-&lt;p&gt;The of methods accept either an array or multiple individual parameters. If you pass it a collection, it will be treated as a regular object i.e. it will return a list/set containing the same collection object instead of returning a list/set containing the objects that the passed collection contains.&lt;/p&gt;
-
-&lt;p&gt;The &lt;code&gt;copyOf&lt;/code&gt;, on the other hand, accepts only a &lt;code&gt;Collection&lt;/code&gt;. It iterates through the passed &lt;code&gt;Collection&lt;/code&gt; and adds all the elements of that &lt;code&gt;Collection&lt;/code&gt; in the returned list/set. &lt;!--more--&gt;&lt;/p&gt;
-
-&lt;p&gt;Here are a few important points about these methods:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;They return unmodifiable copies of the original List/Set. Thus, any operation that tries to modify the returned list throws an &lt;code&gt;java.lang.UnsupportedOperationException&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;The list/set returned by the &lt;code&gt;of/copyOf&lt;/code&gt; methods is completely independent of the original collection. Thus, if you modify the original collection after passing it to &lt;code&gt;of/copyOf&lt;/code&gt; methods, those changes will not be reflected in the list returned by the &lt;code&gt;of/copyOf&lt;/code&gt; methods.&lt;/li&gt;
-  &lt;li&gt;They do not support &lt;code&gt;null&lt;/code&gt; elements. Thus, if your array contains a &lt;code&gt;null&lt;/code&gt; and if you try to create a &lt;code&gt;List&lt;/code&gt; using &lt;code&gt;List.of&lt;/code&gt;, it will throw a &lt;code&gt;NullPointerException&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;code&gt;Collections.unmodifiableXXX&lt;/code&gt; methods&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;java.utils.Collections&lt;/code&gt; class also has several variations of &lt;code&gt;unmodifiableXXX&lt;/code&gt; static methods (such as &lt;code&gt;unmodifiableList(List )&lt;/code&gt;, &lt;code&gt;unmodifiableSet(Set )&lt;/code&gt;, and &lt;code&gt;unmodifiableMap(Map )&lt;/code&gt; ). These method return an unmodifiable view of the underlying collection. The fundamental difference between &lt;code&gt;Collections.unmodifiableXXX&lt;/code&gt; and &lt;code&gt;List.of/copyOf&lt;/code&gt; methods is that &lt;code&gt;Collections.unmodifiableList&lt;/code&gt; returns a view (instead of a copy) into the underlying list. Which means, if you make any changes to the underlying list after creating the view, those changes will be visible in the view. Further, &lt;code&gt;Collections.unmodifiableList&lt;/code&gt; has no problem with nulls.&lt;/p&gt;
-
-&lt;p&gt;The word unmodifiable in &lt;code&gt;unmodifiableXXX&lt;/code&gt; method name refers to the fact that you cannot modify the view using a reference to view.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;2-top-down-approach-for-modularizing-an-application&quot;&gt;2. Top Down Approach for modularizing an application&lt;/h4&gt;
-
-&lt;p&gt;While modularizing an app in a top-down approach, you need to remember the following points -&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Any jar file can be converted into an automatic module by simply putting that jar on the module-path instead of the classpath. Java automatically derives the name of this module from the name of the jar file.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Any jar that is put on classpath (instead of module-path) is loaded as a part of the “unnamed” module.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;An explicitly named module (which means, a module that has an explicitly defined name in its module-info.java file) can specify dependency on an automatic module just like it does for any other module i.e. by adding a requires &lt;code&gt;&amp;lt;module-name&amp;gt;;&lt;/code&gt; clause in its module info but it cannot do so for the unnamed module because there is no way to write a requires clause without a name. In other words, a named module can access classes present in an automatic module but not in the unnamed module.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Automatic modules are given access to classes in the unnamed module (even though there is no explicitly defined module-info and requires clause in an automatic module). In other words, a class from an automatic module will be able to read a class in the unnamed module without doing anything special.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;An automatic module exports all its packages and is allowed to read all packages exported by other modules. Thus, an automatic module can access: all packages of all other automatic modules + all packages exported by all explicitly named modules + all packages of the unnamed module (i.e. classes loaded from the classpath).&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Thus, if your application jar &lt;strong&gt;A&lt;/strong&gt; directly uses a class from another jar &lt;strong&gt;B&lt;/strong&gt;, then you would have to convert &lt;strong&gt;B&lt;/strong&gt; into a module (either named or automatic). If &lt;strong&gt;B&lt;/strong&gt; uses another jar &lt;strong&gt;C&lt;/strong&gt;, then you can leave &lt;strong&gt;C&lt;/strong&gt; on the class path if &lt;strong&gt;B&lt;/strong&gt; hasn’t yet been migrated into a named module. Otherwise, you would have to convert &lt;strong&gt;C&lt;/strong&gt; into an automatic module as well.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;&lt;br /&gt;
-There are two possible ways for an automatic module to get its name:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;When an Automatic-Module-Name entry is available in the manifest, its value is the name of the automatic module.&lt;/li&gt;
-  &lt;li&gt;Otherwise, a name is derived from the JAR filename (see the ModuleFinder JavaDoc for the derivation algorithm) - Basically, hyphens are converted into dots and the version number part is ignored. So, for example, if you put mysql-connector-java-8.0.11.jar on module path, its module name would be mysql.connector.java&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;3-bottom-up-approach-for-modularizing-an-application&quot;&gt;3. Bottom Up Approach for modularizing an application&lt;/h4&gt;
-
-&lt;p&gt;While modularizing an app using the bottom-up approach, you basically need to convert lower level libraries into modular jars before you can convert the higher level libraries. For example, if a class in &lt;strong&gt;A.jar&lt;/strong&gt; directly uses a class from &lt;strong&gt;B.jar&lt;/strong&gt;, and a class in &lt;strong&gt;B.jar&lt;/strong&gt; directly uses a class from &lt;strong&gt;C.jar&lt;/strong&gt;, you need to first modularize &lt;strong&gt;C.jar&lt;/strong&gt; and then &lt;strong&gt;B.jar&lt;/strong&gt; before you can modularize &lt;strong&gt;A.jar&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Thus, bottom up approach is possible only when the dependent libraries are modularized already.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;4-java-module-execution-options&quot;&gt;4. Java Module Execution Options&lt;/h4&gt;
-
-&lt;p&gt;You need to know about three command line options for running a class that is contained in a module:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;–module-path&lt;/strong&gt; or -p: This option specifies the location(s) of the module(s) that are required for execution. This option is very versatile. You can specify exploded module directories, directories containing modular jars, or even specific modular or non-modular jars here. The path can be absolute or relative to the current directory. For example, –module-path c:/javatest/output/mathutils.jar or –module-path mathutils.jar&lt;br /&gt;
-You can also specify the location where the module’s files are located. For example, if your module is named abc.math.utils and this module is stored in c:\javatest\output, then you can use: –module-path c:/javatest/output. Remember that c:\javatest\output directory must contain abc.math.utils directory and the module files (including module-info.class) must be present in their appropriate directory structure under abc.math.utils directory.&lt;br /&gt;
-You can specify as many jar files or module locations separated by path separator (; on windows and : on *nix) as required.&lt;br /&gt;
-NOTE: -p is the short form for –module-path.(Observe the single and double dashes).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;–module&lt;/strong&gt; or &lt;strong&gt;-m&lt;/strong&gt;: This option specifies the module that you want to run. For example, if you want to run abc.utils.Main class of abc.math.utils module, you should write –module abc.math.utils/abc.utils.Main&lt;br /&gt;
-If a module jar specifies the Main-Class property its MANIFEST.MF file, you can omit the main class name from –module option.&lt;br /&gt;
-For example, you can write, –module abc.math.utils instead of –module abc.math.utils/abc.utils.Main.&lt;br /&gt;
-NOTE: -m is the short form for –module.(Observe the single and double dashes).&lt;br /&gt;
-Thus,&lt;br /&gt;
-&lt;code&gt;java --module-path mathutils.jar --module abc.math.utils/abc.utils.Main&lt;/code&gt; is same as&lt;br /&gt;
-&lt;code&gt;java -p mathutils.jar -m abc.math.utils/abc.utils.Main&lt;/code&gt;&lt;br /&gt;
-NOTE: It is possible to treat modular code as non-modular by ignoring module options altogether. For example, if you want to run the same class using the older classpath option, you can do it like this:&lt;br /&gt;
-java -classpath mathutils.jar abc.utils.Main&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;-classpath&lt;/strong&gt;: Remember that modular code cannot access code present on the -classpath but “automatic modules” are an exception to this rule. When a non-modular jar is put on –module-path, it becomes an “automatic module” but it can still access all the modular as well as non-modular code. In other words, a class from an automatic module can access classes present on –module-path as well as on -classpath without having any “requires” clause (remember that there is no module-info in automatic modules).
-Thus, if your modular jar A depends on a non-modular jar B, you have to put that non-modular jar B on –module-path. You must also add appropriate requires clause in your module A’s module-info otherwise compilation of your module will not succeed. Further, if the non-modular jar B depends on another non-modular jar C, then the non-modular jar C may be put on the classpath or module-path.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;5-java-module-compilation-options&quot;&gt;5. Java Module Compilation Options&lt;/h4&gt;
-
-&lt;p&gt;For compiling a Java class that is part of a module, you need to remember the following five command line options:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;–module-source-path: This option is used to specify the location of the module source files. It should point to the parent directory of the directory where module-info.java of the module is stored. For example, if your module name is moduleA, then the module-info.java for this module would be in moduleA directory and if moduleA directory exists in src directory, then –module-source-path should contain the src directory i.e. –module-source-path src&lt;br /&gt;
-If moduleA depends on another module named moduleB, and if moduleB directory exists in src2 directory, you can add this directory in –module-source-path as well i.e. –module-source-path src;src2. javac will compile the required files of src2 as well if the source code of moduleB is organized under src2 correctly.&lt;/li&gt;
-  &lt;li&gt;-d: This option is required when you use the –module-source-path option. It is used to specify the output directory. This is the directory where javac will generate the module’s package driven directory structure and the class files for the sources. For example, if you specify out as the output directory, javac will create a directory under out with the same name as the name of the module and will create class files with appropriate package driven directory structure under that directory.&lt;/li&gt;
-  &lt;li&gt;–module or -m: This option is used when you want to compile all the source files of a particular module. This option is helpful when you want to compile all the files at once without listing any of the source files of a module individually in the command.&lt;br /&gt;
-For example, if you have two java files in moduleA, stored under moduleA\a\A1.java and moduleA\a\A2.java, you can compile both of them at the same time using the command: java –module-source-path src -d out –module moduleA&lt;br /&gt;
-Javac will find out all the java source files under moduleA and compile all of them. It will create the class files under the output directory specified in -d option i.e. out. Thus, the out directory will now have two class files - moduleA/a/A1.class and moduleA/a/A2.class.&lt;/li&gt;
-  &lt;li&gt;–module-path or -p: This option specifies the location(s) of any other module upon which the module to be compiled depends and is very versatile. You can specify the exploded module directories, directories containing modular jars, or specific modular jars here. For example, if you want to compile moduleA and it depends on another module named abc.util packaged as utils.jar located in thirdpartymodules directory then your module-path can be thirdpartymodules or thirdpartymodules/utils.jar. That both the following two commands will work:&lt;br /&gt;
-&lt;code&gt;javac --module-source-path src --module-path thirdpartymodules -d out --module moduleA&lt;/code&gt; and&lt;br /&gt;
-&lt;code&gt;javac --module-source-path src --module-path thirdpartymodules\utils.jar -d out --module moduleA&lt;/code&gt;&lt;br /&gt;
-&lt;strong&gt;Note:&lt;/strong&gt;If your module depends on a non-modular third party jar, you need to do two things -Put that third party jar in –module-path.&lt;br /&gt;
-Putting a non-modular jar in –module-path causes that jar to be loaded as an “automatic module”. The name of this module is assumed to be same as the name of the jar minus any version numbers. For example, if you put mysql-driver-6.0.jar in –module-path, it will be loaded as an automatic module with name mysql.driver. Name derivation is explained in detail in java.lang.module.ModuleFinder JavaDoc but for the exam, just remember that hyphens are converted into dots and the version number and extension part is removed.&lt;br /&gt;
-It is also possible for a non-modular jar to specify its module name using Automatic-Module-Name: &lt;code&gt;&amp;lt;module name&amp;gt;&lt;/code&gt; entry to the jar’s MANIFEST.MF.Add a requires &lt;code&gt;&amp;lt;module-name&amp;gt;;&lt;/code&gt; clause in module-info of your module.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;-classpath&lt;/strong&gt;: This option is used for compilation of non-modular code. If you are compiling regular non-modular code but that code depends on some classes, then you can put those classes or jars on the classpath using -classpath option.&lt;br /&gt;
-&lt;strong&gt;Note:&lt;/strong&gt; This option is not helpful for compilation of modular code because classes of a modular cannot see classes on classpath. Modular code can only see other modular code. That is why, non-modular classes have to be converted into “automatic modules” and put on –module-path as explained above.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;6-enum-points&quot;&gt;6. enum points&lt;/h4&gt;
-
-&lt;p&gt;You need to know the following facts about enums:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Enum constructor is always private. You cannot make it public or protected. If an enum type has no constructor declarations, then a private constructor that takes no parameters is automatically provided.&lt;/li&gt;
-  &lt;li&gt;An enum is implicitly final, which means you cannot extend it.&lt;/li&gt;
-  &lt;li&gt;You cannot extend an enum from another enum or class because an enum implicitly extends java.lang.Enum. But an enum can implement interfaces.&lt;/li&gt;
-  &lt;li&gt;Since enum maintains exactly one instance of its constants, you cannot clone it. You cannot even override the clone method in an enum because java.lang.Enum makes it final.&lt;/li&gt;
-  &lt;li&gt;Compiler provides an enum with two public static methods automatically - values() and valueOf(String). The values() method returns an array of its constants and valueOf() method tries to match the String argument exactly (i.e. case sensitive) with an enum constant and returns that constant if successful otherwise it throws java.lang.IllegalArgumentException.&lt;/li&gt;
-  &lt;li&gt;By default, an enum’s toString() prints the enum name but you can override it to print anything you want.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;The following are a few more important facts about java.lang.Enum which you should know:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;It implements java.lang.Comparable (thus, an enum can be added to sorted collections such as SortedSet, TreeSet, and TreeMap).&lt;/li&gt;
-  &lt;li&gt;It has a method ordinal(), which returns the index (starting with 0) of that constant i.e. the position of that constant in its enum declaration.&lt;/li&gt;
-  &lt;li&gt;It has a method name(), which returns the name of this enum constant, exactly as declared in its enum declaration.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;7-autocloseable-points&quot;&gt;7. AutoCloseable points&lt;/h4&gt;
-
-&lt;p&gt;You need to know the following points regarding try-with-resources statement for the exam:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;The resource class must implement java.lang.AutoCloseable interface. Many standard JDK classes such as implement java.io.Closeable interface, which extends java.lang.AutoCloseable.&lt;/li&gt;
-  &lt;li&gt;AutoCloseable has only one method - public void close() throws Exception.&lt;/li&gt;
-  &lt;li&gt;Resources are closed at the end of the try block and before any catch or finally block.&lt;/li&gt;
-  &lt;li&gt;Resources are not even accessible in the catch or finally block. For example:
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;try(Device d = new Device())
-{
-   d.read();
-}finally{
-   d.close(); //This will not compile because d is not accessible here.
-}
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;p&gt;Note that the try-with-resource was enhanced in Java 9 and it now allows you to use a variable declared before the try statement in the try-with-resource block. In this case, of course, the variable is accessible after the try block but the object referred to by it has been closed. For example, the following is valid since Java 9:&lt;/p&gt;
-    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;Device d = new Device();
-try(d){ //valid since Java 9
-  ...
-}finally{
-   d.close(); //this will compile but may not work correctly because the object referred to by d has already been closed.
-}
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Resources are closed in the reverse order of their creation.&lt;/li&gt;
-  &lt;li&gt;Resources are closed even if the code in the try block throws an exception.&lt;/li&gt;
-  &lt;li&gt;java.lang.AutoCloseable’s close() throws Exception but java.io.Closeable’s close() throws IOException.&lt;/li&gt;
-  &lt;li&gt;If code in try block throws exception and an exception also thrown while closing is resource, the exception thrown while closing the resource is suppressed. The caller gets the exception thrown in the try block.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;8-jdbc-url&quot;&gt;8. JDBC URL&lt;/h4&gt;
-
-&lt;p&gt;The format of a JDBC URL is : &lt;code&gt;jdbc:&amp;lt;subprotocol&amp;gt;:&amp;lt;subname&amp;gt;&lt;/code&gt;&lt;br /&gt;
-where subprotocol defines the kind of database connectivity mechanism that may be supported by one or more drivers. The contents and syntax of the subname will depend on the subprotocol.&lt;br /&gt;
-Here are a few examples of commonly used urls for connecting to derby db (the Java database that comes bundled with various IDEs such as NetBeans) and MySQL:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;jdbc:derby:sample&lt;br /&gt;
-jdbc:derby://localhost:1527/sample&lt;br /&gt;
-jdbc:mysql://localhost:1527/sample&lt;br /&gt;
-jdbc:mysql://192.168.0.100:3306/testdb&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Observe that a JDBC url always starts with jdbc: and has at least three components separated by a two colons.&lt;br /&gt;
-It also usually includes the hostname or address and the port number on which the database is listening for the requests but that is not necessary.&lt;br /&gt;
-Most drivers allow adding more options to the URL in the subname part, for example the following JDBC url for Oracle DB specifies the type of the jdbc driver :&lt;br /&gt;
-&lt;code&gt;jdbc:oracle:thin:@localhost:1521:testdb&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Userid and password are usually supplied separately from the URL but some drivers allow them to be specified in the URL itself. For example:&lt;br /&gt;
-&lt;code&gt;jdbc:oracle:thin:scott/mypassword@//myhost:1521/orcl&lt;/code&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h4 id=&quot;9-command-line-switches-for-assertions&quot;&gt;9. Command Line Switches for Assertions&lt;/h4&gt;
-
-&lt;p&gt;Although not explicitly mentioned in the exam objectives, OCP Java 11 Part 2 Exam requires you to know about the switches used to enable and disable assertions. Here are a few important points that you should know:&lt;br /&gt;
-Assertions can be enabled or disabled for specific classes and/or packages. To specify a class, use the class name. To specify a package, use the package name followed by “…” (three dots also known as ellipses):&lt;br /&gt;
-&lt;code&gt;java -ea:&amp;lt;class&amp;gt; myPackage.myProgram&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;java -da:&amp;lt;package&amp;gt;... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;You can have multiple -ea/-da flags on the command line. For example, multiple flags allow you to enable assertions in general, but disable them in a particular package.&lt;br /&gt;
-&lt;code&gt;java -ea -da:com.xyz... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;The above command enables assertions for all classes in all packages, but then the subsequent -da switch disables them for the com.xyz package and its subpackages.&lt;br /&gt;
-To enable assertion for one package and disable for other you can use:&lt;br /&gt;
-&lt;code&gt;java -ea:&amp;lt;package1&amp;gt;... -da:&amp;lt;package2&amp;gt;... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;You can enable or disable assertions in the unnamed root package (i.e. the default package) using the following commands:&lt;br /&gt;
-&lt;code&gt;java -ea:... myPackage.myProgram&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;java -da:... myPackage.myProgram&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Note that when you use a package name in the ea or da flag, the flag applies to that package as well as its subpackages. For example,&lt;br /&gt;
-&lt;code&gt;java -ea:com... -da:com.enthuware... com.enthuware.Main&lt;/code&gt;&lt;br /&gt;
-The above command first enables assertions for all the classes in com as well as for the classes in the subpackages of com. It then disables assertions for classes in package com.enthuware and its subpackages.&lt;/p&gt;
-
-&lt;p&gt;Another thing is that &lt;code&gt;-ea/-da&lt;/code&gt; do not apply to system classes. For system classes (i.e. the classes that come bundled with the JDK/JRE), you need to use &lt;code&gt;-enablesystemassertions/-esa&lt;/code&gt; or &lt;code&gt;-disablesystemassertions/-dsa&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Note that ** and * are not valid wildcards for including subpackages.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 26 Feb 2020 01:15:00 +0000</pubDate>
-        <link>https://zwt.io/2020/02/26/ocp-816-learning-points/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/02/26/ocp-816-learning-points/</guid>
         
         <category>Java</category>
         

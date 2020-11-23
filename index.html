@@ -175,6 +175,57 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/10/15/Spring001/">
+        <h2 class="post-title">
+            Spring001
+        </h2>
+        
+    </a>
+    <div class="post-content-preview">
+        <p>又再开始读 Spring 源码，做一下笔记，方便自己回顾。</p>
+
+<p>最基础的，关于 <code>BeanFactory</code> 接口，可以认为是容器的根基，其它功能更多的接口都是从这里扩展而来。</p>
+
+<pre><code class="language-java">@Test
+public void testSimpleLoad() {
+    BeanFactory bf = new XmlBeanFactory(new ClassPathResource("spring.xml"));
+    MyTestBean bean = (MyTestBean) bf.getBean("myTestBean");
+    Assertions.assertEquals("testString", bean.getTestStr());
+}
+</code></pre>
+
+<p>上面代码就是最基本的使用。</p>
+
+<p>而对应的 xml 配置文件是这样的:</p>
+
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd"&gt;
+    &lt;bean id="myTestBean" class="io.zwt.spring001.MyTestBean"/&gt;
+&lt;/beans&gt;
+</code></pre>
+
+<p>至于 <code>MyTestBean</code> 只是一个简单的 POJO 就不列出来了。</p>
+
+<p>实际开发中，很少会直接使用 <code>BeanFactory</code> 接口，一般使用 <code>ApplicationContext</code> 等。</p>
+
+<hr />
+
+<p>从配置文件，到可以使用的 Bean，这个过程里边主要有以下一些步骤：</p>
+
+<ul>
+  <li>读取配置文件。</li>
+  <li>根据配置文件找到对应的类，并进行实例化。</li>
+  <li>调用实例化后的实例。</li>
+</ul>
+ <a href="/2020/10/15/Spring001/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/08/16/ds-ch15/">
         <h2 class="post-title">
             DS-ch15 Memory Management and B-Trees
@@ -335,7 +386,15 @@ separate line. After each such input, you should output to the Java console what
         
     </a>
     <div class="post-content-preview">
-        <p>I started with OCA Java SE 8 Programmer I exam last year, it took me 12 days to prepare the OCA exam. It was relatively easy to pass the OCA exam, but it was much harder to pass the OCP 11 exam. It took me roughly 3 months to get fully prepared for the ultimate 1Z0-816, namely Java SE 11 Programmer II exam, for which response to the Oracle Certified Professional: Java SE 11 Developer certification. This is by far the most difficult Java certification exam from Oracle/Sun, not just because it covers topics such as modules, functional programming, concurrent programming, IO. But also it includes some new objectives, like Java Secure Coding Guideline. For those who plan on taking the Oracle Java Certification exam, I strongly recommend you take a look at the official exam objectives before you start your study plan. Buy a good book, I think Selikoff’s book is great, I use that book for my exam preparation. Study the book chapter by chapter, or by topic, or whatever you want. Be sure to do the exercises, it will help you to consolidate your knowledge. It is also helpful to use flashcards to aid the memorization process, for example,  some core APIs or some syntax rules. Don’t go directly into the quiz without studying the materials thoroughly, that will just a waste of time and energy. Because that’s very frustrating to see lots of errors. Take your time, start slowly, and gradually level up the difficulty.  Below are some useful references.</p>
+        <blockquote>
+  <p>群</p>
+</blockquote>
+
+<blockquote>
+  <h3 id="ocaocp-考试交流qq群-157563860">OCA/OCP 考试交流QQ群 <strong>157563860</strong></h3>
+</blockquote>
+
+<p>I started with OCA Java SE 8 Programmer I exam last year, it took me 12 days to prepare the OCA exam. It was relatively easy to pass the OCA exam, but it was much harder to pass the OCP 11 exam. It took me roughly 3 months to get fully prepared for the ultimate 1Z0-816, namely Java SE 11 Programmer II exam, for which response to the Oracle Certified Professional: Java SE 11 Developer certification. This is by far the most difficult Java certification exam from Oracle/Sun, not just because it covers topics such as modules, functional programming, concurrent programming, IO. But also it includes some new objectives, like Java Secure Coding Guideline. For those who plan on taking the Oracle Java Certification exam, I strongly recommend you take a look at the official exam objectives before you start your study plan. Buy a good book, I think Selikoff’s book is great, I use that book for my exam preparation. Study the book chapter by chapter, or by topic, or whatever you want. Be sure to do the exercises, it will help you to consolidate your knowledge. It is also helpful to use flashcards to aid the memorization process, for example,  some core APIs or some syntax rules. Don’t go directly into the quiz without studying the materials thoroughly, that will just a waste of time and energy. Because that’s very frustrating to see lots of errors. Take your time, start slowly, and gradually level up the difficulty.  Below are some useful references.</p>
 
  <a href="/2020/05/31/Oracle-1Z0-816-exam-review/"><b>阅读更多📰</b></a>
     </div>
@@ -653,26 +712,6 @@ The following is brief JavaDoc description for both the methods:<br />
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/02/26/ocp-816-learning-points/">
-        <h2 class="post-title">
-            816考点速记
-        </h2>
-        
-    </a>
-    <div class="post-content-preview">
-        <h4 id="1-unmodifiable-collections-using-ofcopyof-and-collectionsunmodifiablexxx-methods">1. Unmodifiable collections using of/copyOf and Collections.unmodifiableXXX methods</h4>
-
-<p><code>java.util.List</code> and <code>java.util.Set</code> have <code>of</code> and <code>copyOf</code> static factory methods that provide a convenient way to create unmodifiable lists/sets.</p>
-
-<p>The of methods accept either an array or multiple individual parameters. If you pass it a collection, it will be treated as a regular object i.e. it will return a list/set containing the same collection object instead of returning a list/set containing the objects that the passed collection contains.</p>
-
-<p>The <code>copyOf</code>, on the other hand, accepts only a <code>Collection</code>. It iterates through the passed <code>Collection</code> and adds all the elements of that <code>Collection</code> in the returned list/set.</p>
- <a href="/2020/02/26/ocp-816-learning-points/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -864,6 +903,8 @@ The following is brief JavaDoc description for both the methods:<br />
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             

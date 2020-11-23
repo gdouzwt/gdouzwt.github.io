@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>作品链接 - 招文桃 | 记录</title>
+    <title>Spring001 - 招文桃 | 记录</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io/2019/09/14/what-I-had-done/">
+    <link rel="canonical" href="https://zwt.io/2020/10/15/Spring001/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,13 +147,13 @@
 
 <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-desk.jpg" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/post-bg-desk.jpg')
+        background-image: url('/img/leimu.jpg')
     }
 
     
@@ -166,21 +166,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#参考" title="参考">参考</a>
+                        <a class="tag" href="/tags/#Personal" title="Personal">Personal</a>
                         
-                        <a class="tag" href="/tags/#facts" title="facts">facts</a>
-                        
-                        <a class="tag" href="/tags/#cv" title="cv">cv</a>
+                        <a class="tag" href="/tags/#Notes" title="Notes">Notes</a>
                         
                     </div>
-                    <h1>作品链接</h1>
+                    <h1>Spring001</h1>
                     
                     
-                    <h2 class="subheading">简历信息补充</h2>
+                    <h2 class="subheading"></h2>
                     
-                    <span class="meta">2019年9月14日发布📑</span>
-                    
-                    <span class="meta">2020年4月24日更新🚀</span>
+                    <span class="meta">2020年10月15日发布📑</span>
                     
                 </div>
             </div>
@@ -199,46 +195,44 @@
         col-md-10 col-md-offset-1
         post-container">
 
-        <h3 id="翻译和视频制作">翻译和视频制作</h3>
+        <p>又再开始读 Spring 源码，做一下笔记，方便自己回顾。</p>
 
-<p>2015年翻译制作了一套Android Studio的视频教程字幕，最初发布在旧博客(wen-tao.com)<br />
-服务器到期，没有继续。内容被转载到了Android Studio中文社区<a href="http://ask.android-studio.org/?/explore/category-video">Android Studio中文社区</a></p>
+<p>最基础的，关于 <code>BeanFactory</code> 接口，可以认为是容器的根基，其它功能更多的接口都是从这里扩展而来。</p>
 
-<p>B站空间名称为：<a href="https://space.bilibili.com/86621709">Spring微服务</a>,近期更新内容主要涉及：<br />
-<a href="https://spring.io/">Spring</a>, Spring Boot, <a href="https://www.reactive-streams.org/">Reactive Stream</a>, <a href="https://rsocket.io/">RSocket</a>, WebFlux, Spring Cloud, <a href="https://jhipster.tech/">JHipster</a></p>
+<pre><code class="language-java">@Test
+public void testSimpleLoad() {
+    BeanFactory bf = new XmlBeanFactory(new ClassPathResource("spring.xml"));
+    MyTestBean bean = (MyTestBean) bf.getBean("myTestBean");
+    Assertions.assertEquals("testString", bean.getTestStr());
+}
+</code></pre>
 
-<p>近期翻译了:<br />
-JetBrains Developer Advocate, Trisha Gee 的一个简单的<a href="https://www.bilibili.com/medialist/detail/ml796846209?type=1">响应式（Reactive）Spring Boot 视频教程</a><br />
-Josh Long(龙之春) 2019 年 Devoxx 的演讲——<a href="https://www.bilibili.com/video/BV1gJ411n7Ev">响应式变革(Reactive Evolution)</a></p>
+<p>上面代码就是最基本的使用。</p>
 
-<!--more-->
-<h3 id="近期项目">近期项目</h3>
+<p>而对应的 xml 配置文件是这样的:</p>
 
-<p>广东海洋大学体育馆管理系统: <a href="https://gdougym.cn/">https://gdougym.cn/</a></p>
+<pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd"&gt;
+    &lt;bean id="myTestBean" class="io.zwt.spring001.MyTestBean"/&gt;
+&lt;/beans&gt;
+</code></pre>
 
-<h3 id="资格认证">资格认证</h3>
+<p>至于 <code>MyTestBean</code> 只是一个简单的 POJO 就不列出来了。</p>
 
-<p>2020年3月31日<br />
-通过了 <a href="https://education.oracle.com/java-se-11-programmer-ii/pexam_1Z0-816">Oracle 1Z0-816(Java SE 11 Programmer II) 考试</a><br />
-成为 <a href="https://www.youracclaim.com/badges/56b26c5b-8356-4de6-a1ec-4120b3d2027c/public_url">Oracle认证专家：Java SE 11 开发者</a><br />
-(Oracle Certified Professional: Java SE 11 Developer)</p>
+<p>实际开发中，很少会直接使用 <code>BeanFactory</code> 接口，一般使用 <code>ApplicationContext</code> 等。</p>
 
-<p>2019年10月25日<br />
-通过了 <a href="https://education.oracle.com/java-se-8-programmer-i/pexam_1Z0-808">Oracle 1Z0-808(Java SE 8 Programmer I) 考试</a><br />
-成为 <a href="https://www.youracclaim.com/badges/dee74bd5-6ec6-455a-b28b-c125291b7232">Oracle认证助理，Java SE 8 程序员</a><br />
-(Oracle Certified Associate, Java SE 8 Programmer)</p>
+<hr />
 
-<h3 id="竞赛">竞赛</h3>
+<p>从配置文件，到可以使用的 Bean，这个过程里边主要有以下一些步骤：</p>
 
-<p>2018.08 <a href="http://cxcy.cnsoftbei.com/index.php?m=content&amp;c=index&amp;a=show&amp;catid=6&amp;id=59">“中国软件杯”双创大赛中获决赛三等奖(互联网加养老-老人社区)</a><br />
-2017.12 <a href="http://www.apmcm.org/certificate/result/17ACHRSXY026">APMCM亚太地区大学生数学建模竞赛三等奖</a><br />
-2017.09 <a href="http://219.136.187.205/notice/showOpen/10471356">2017年广东众创杯大学生启航赛暨“赢在广州”第六届大学生创业大赛中荣获项目创新奖（大圣拼车新型公共运输信息平台）</a><br />
-2015.06.17 <a href="http://www.techshine.com/bsb/xw_view.asp?id=104">2015年第十届“毕昇杯”全国电子创新设计暨物联网应用系统设计竞赛获一等奖（旅行智能助载系统）</a><br />
-2015.06.07 <a href="http://news.gdou.edu.cn/show.php?contentid=18526">2015年“粤嵌杯”广东省首届大学生物联网和大数据创新应用大赛获一等奖（基于蓝牙4.0的智能跟踪行李箱）</a></p>
-
-<h3 id="读书">读书</h3>
-
-<p><a href="https://book.douban.com/people/gdouzwt/do">豆瓣在读的书列表</a></p>
+<ul>
+  <li>读取配置文件。</li>
+  <li>根据配置文件找到对应的类，并进行实例化。</li>
+  <li>调用实例化后的实例。</li>
+</ul>
 
 
         <!-- 来必力City版安装代码 -->
@@ -265,19 +259,12 @@ Josh Long(龙之春) 2019 年 Devoxx 的演讲——<a href="https://www.bilibil
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2019/09/05/java-is-pass-by-value/" data-toggle="tooltip" data-placement="top" title="Java是值传递">
+                <a href="/2020/08/16/ds-ch15/" data-toggle="tooltip" data-placement="top" title="DS-ch15 Memory Management and B-Trees">
                 上一篇<br>
-                <span>Java是值传递</span>
+                <span>DS-ch15 Memory Management and B-Trees</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2019/09/17/data-structure-001/" data-toggle="tooltip" data-placement="top" title="数据结构001">
-                下一篇<br>
-                <span>数据结构001</span>
-                </a>
-            </li>
             
         </ul>
     </div>  
