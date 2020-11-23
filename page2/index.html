@@ -175,6 +175,51 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/02/26/ocp-mock-test1-review/">
+        <h2 class="post-title">
+            OCP-1Z0-816 模拟测试1回顾
+        </h2>
+        
+        <h3 class="post-subtitle">
+            题目比较多&nbsp;&nbsp;2020年2月26日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <p><strong>4.</strong> Given:</p>
+
+<pre><code class="language-java">Path p1 = Paths.get("c:\\temp\\test1.txt");
+Path p2 = Paths.get("c:\\temp\\test2.txt");
+</code></pre>
+
+<p>Which of the following code fragments moves the file test1.txt to test2.txt, even if test2.txt exists?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Files.move(p1, p2);
+    <blockquote>
+      <p>This will throw a <code>java.nio.file.FileAlreadyExistsException</code> if the file already exists.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Files.move(p1, p2, StandardCopyOption.REPLACE_EXISTING);</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />try(Files.move(p1, p2)) { }
+    <blockquote>
+      <p><code>Files.move</code> returns a <code>Path</code> object (of the destination file), which is not a resource that can be closed because it does not implement <code>AutoCloseable</code> interface. So this will not compile.</p>
+    </blockquote>
+  </li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />try(Files.copy(p1, p2, StandardCopyOption.REPLACE_EXISTING)) { Files.delete(p1); }</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Files.copy(p1, p2, StandardCopyOption.REPLACE_EXISTING); Files.delete(p1);</li>
+</ul>
+
+<p><strong>Explanation</strong><br />
+Files.copy method will copy the test1.txt into test2.txt. If test2.txt doesn’t exist, it will be created. However, Files.isSameFile method doesn’t check the contents of the file. It is meant to check if the two path objects resolve to the same file or not. In this case, they are not, and so, it will return false.<br />
+The following is brief JavaDoc description for both the methods:<br />
+<code>public static Path copy(Path source, Path target, CopyOption... option) throws IOException</code></p>
+ <a href="/2020/02/26/ocp-mock-test1-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/02/26/ocp-816-learning-points/">
         <h2 class="post-title">
             816考点速记
@@ -525,30 +570,6 @@ Another common use case is setting active profiles and default properties to set
 
 <p>通常需要一些消息确认机制，如果中间有个Broker，消息生产者要通过一些确认，了解Broker确实收到了消息。同理在消费者段也需要给Broker确认已经收到消息。通常支付、股票交易等系统会使用这种模式。</p>
  <a href="/2020/02/01/spring-boot-messaging/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/01/30/java-thread-communication/">
-        <h2 class="post-title">
-            Java线程间通信
-        </h2>
-        
-        <h3 class="post-subtitle">
-            生产者与消费者例子&nbsp;&nbsp;2020年1月30日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="生产者与消费者">生产者与消费者</h3>
-
-<p>一种典型的线程间通信的例子是涉及到生产者线程与消费者线程之间的关系。生产者生产数据项被消费者消费，每个被生产出的数据项被存放在共享的变量中。</p>
-
-<p>想象线程以不同的速度运行，消费者可能来不及处理掉生产者之前生产出来并放到共享变量中的数据项。还有可能就是消费者消费速度太快了，未等到生产者产生数据就去取了。</p>
-
-<p>为了克服这类问题，生产者线程必须等到它被通知之前生产的数据项已经被消费掉了才继续生产，而消费者线程必须等到它被通知已经有新的数据项产生了才取消费。下面代码展示如何通过使用 <code>wait()</code> 和 <code>notify()</code> 完整这样的任务。</p>
- <a href="/2020/01/30/java-thread-communication/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>

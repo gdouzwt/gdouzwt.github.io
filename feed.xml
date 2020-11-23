@@ -5,9 +5,128 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Nov 2020 01:26:19 +0000</pubDate>
-    <lastBuildDate>Mon, 23 Nov 2020 01:26:19 +0000</lastBuildDate>
+    <pubDate>Mon, 23 Nov 2020 02:02:05 +0000</pubDate>
+    <lastBuildDate>Mon, 23 Nov 2020 02:02:05 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
+    
+      <item>
+        <title>Spring Singleton Vs Singleton Pattern</title>
+        <description>&lt;blockquote&gt;
+  &lt;p&gt;Spring 单例不是 Java 单例。本文讨论 Spring 的单例与单例模式的区别。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
+&lt;p&gt;单例是 Spring 当中 bean 的默认范围(Scope)。Spring 容器会为某个 bean 定义对象创建唯一的实例，很多时候我们会将这种设计跟《设计模式》(GoF) 书中定义的单例模式作比较。&lt;/p&gt;
+
+&lt;h3 id=&quot;1-单例范围-vs-单例模式&quot;&gt;1. 单例范围 vs 单例模式&lt;/h3&gt;
+&lt;p&gt;Spring 当中的单例范围跟单例模式不是同一个东西。其中的两点差异如下：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;单例模式确保某个类加载器的某个类只有一个实例&lt;/li&gt;
+  &lt;li&gt;而 Spring 单例范围是每个容器的每个bean
+    &lt;h4 id=&quot;11-单例范围的例子&quot;&gt;1.1 单例范围的例子&lt;/h4&gt;
+    &lt;p&gt;Spring 的单例实例会被放在缓存中，下次再访问那个命名的 bean 的时候就会从缓存里面取。下边看看例子。&lt;/p&gt;
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class Account {
+
+  private String name;
+
+  public Account() {
+  }
+
+  public Account(String name) {
+      this.name = name;
+  }
+
+  public String getName() {
+      return name;
+  }
+
+  @Override
+  public String toString() {
+      return &quot;Account{&quot; +
+              &quot;name='&quot; + name + '\'' +
+              '}';
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;Spring Boot 的 main 方法：&lt;/p&gt;
+    &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@SpringBootApplication
+@SpringBootApplication
+public class SpringSingletonApp {
+
+  public static void main(String[] args) {
+      SpringApplication.run(SpringSingletonApp.class, args);
+  }
+
+  @Bean(name = &quot;bean1&quot;)
+  public Account account() {
+      return new Account(&quot;Test User 1&quot;);
+  }
+
+  @Bean(name = &quot;bean2&quot;)
+  public Account account1() {
+      return new Account(&quot;Test User 2&quot;);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;理解上面的代码：&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;我们创建了同一个类的 2 个实例，并有不同的 bean id。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;那么上面代码中 Spring 的 IoC 容器创建了多少个实例？&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;2 个不同的实例，在容器中分别绑定到它们的 id？&lt;/li&gt;
+  &lt;li&gt;还是 1 个实例绑定到 2 个 bean id？&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;12-测试用例&quot;&gt;1.2 测试用例&lt;/h4&gt;
+&lt;p&gt;我们使用单元测试找出答案。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@SpringBootTest
+class SpringSingletonAppTests {
+
+    private static final Logger log = LoggerFactory.getLogger(SpringSingletonAppTests.class);
+
+    @Resource(name = &quot;bean1&quot;)
+    Account account1;
+
+    @Resource(name = &quot;bean1&quot;)
+    Account duplicateAccount;
+
+    @Resource(name = &quot;bean2&quot;)
+    Account account2;
+
+    @Test
+    public void testSingletonScope() {
+        log.info(account1.getName());
+        log.info(account2.getName());
+
+        log.info(&quot;Accounts are equal -&amp;gt; {}&quot;, account1 == account2);
+        log.info(&quot;Duplicate account  -&amp;gt; {}&quot;, account1 == duplicateAccount);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;输出为：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;20:06:31.165 [main] INFO  i.z.s.SpringSingletonAppTests - Test User 1
+20:06:31.165 [main] INFO  i.z.s.SpringSingletonAppTests - Test User 2
+20:06:31.165 [main] INFO  i.z.s.SpringSingletonAppTests - Accounts are equal -&amp;gt; false
+20:06:31.167 [main] INFO  i.z.s.SpringSingletonAppTests - Duplicate account  -&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;从上面的输出我们发现：
+Spring 返回了两个不同的实例，单例范围的同一个类可以有多于一个的对象实例。&lt;/p&gt;
+
+&lt;p&gt;对于某个 bean id，Spring 容器仅维护唯一的共享单例 bean，在我们上面的例子中，Spring IoC 容器基于同一个类的 bean 定义创建了两个实例，并将它们绑定到对应的 id。
+Spring 的 bean 定义就像键值对那样，bean id 就是 key，bean 的实例就是 value。每个 key 引用都会返回同一个 bean 实例（例如 bean1 引用始终返回 id 为 bean1 的 bean）&lt;/p&gt;
+
+&lt;h3 id=&quot;总结&quot;&gt;总结&lt;/h3&gt;
+&lt;p&gt;Spring 单例跟传统的单例模式是不同的。Spring 确保在每个容器对给定 bean id 定义只创建一个 bean 实例。 传统单例模式是保证给定一个类加载器所加载的某个类只有唯一的一个实例。&lt;/p&gt;
+</description>
+        <pubDate>Mon, 02 Nov 2020 00:00:00 +0000</pubDate>
+        <link>https://zwt.io/2020/11/02/Spring-singleton-vs-Singleton-pattern/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/11/02/Spring-singleton-vs-Singleton-pattern/</guid>
+        
+        
+      </item>
     
       <item>
         <title>Spring001</title>
@@ -3543,1031 +3662,6 @@ class GreetingResponse {
         <category>爬虫</category>
         
         <category>scraping</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>OCP-1Z0-816 模拟测试1回顾</title>
-        <description>&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; Given:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;Path p1 = Paths.get(&quot;c:\\temp\\test1.txt&quot;);
-Path p2 = Paths.get(&quot;c:\\temp\\test2.txt&quot;);
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Which of the following code fragments moves the file test1.txt to test2.txt, even if test2.txt exists?&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Files.move(p1, p2);
-    &lt;blockquote&gt;
-      &lt;p&gt;This will throw a &lt;code&gt;java.nio.file.FileAlreadyExistsException&lt;/code&gt; if the file already exists.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Files.move(p1, p2, StandardCopyOption.REPLACE_EXISTING);&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;try(Files.move(p1, p2)) { }
-    &lt;blockquote&gt;
-      &lt;p&gt;&lt;code&gt;Files.move&lt;/code&gt; returns a &lt;code&gt;Path&lt;/code&gt; object (of the destination file), which is not a resource that can be closed because it does not implement &lt;code&gt;AutoCloseable&lt;/code&gt; interface. So this will not compile.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;try(Files.copy(p1, p2, StandardCopyOption.REPLACE_EXISTING)) { Files.delete(p1); }&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Files.copy(p1, p2, StandardCopyOption.REPLACE_EXISTING); Files.delete(p1);&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-Files.copy method will copy the test1.txt into test2.txt. If test2.txt doesn’t exist, it will be created. However, Files.isSameFile method doesn’t check the contents of the file. It is meant to check if the two path objects resolve to the same file or not. In this case, they are not, and so, it will return false.&lt;br /&gt;
-The following is brief JavaDoc description for both the methods:&lt;br /&gt;
-&lt;code&gt;public static Path copy(Path source, Path target, CopyOption... option) throws IOException&lt;/code&gt;  &lt;!--more--&gt;
-Copy a file to a target file.&lt;br /&gt;
-This method copies a file to the target file with the options parameter specifying how the copy is performed. By default, the copy fails if the target file already exists or is a symbolic link, except if the source are the same file, in which case the method completes without copying the file.&lt;br /&gt;
-File attributes are not required to be copied to the target file. If symbolic links are supported, and the file is a symbolic link, then the final target of the link is copied. If the file is a directory in the target location(entries in the directory are not copies).&lt;br /&gt;
-The options parameter may include any of the following:&lt;br /&gt;
-&lt;strong&gt;REPLACE_EXISTING&lt;/strong&gt; If the target file exists, then the target file is replaced if it is not a non-empty directory. If the target file exists and is a symbolic link, then the symbolic link itself, not the target of the link, is replaced.&lt;br /&gt;
-&lt;strong&gt;COPY_ATTRIBUTES&lt;/strong&gt; Attempts to copy the file attributes associated with this file to the target file. The exact file attributes that are copied is platform and file system dependent and therefore unspecified. Minimally, the last-modified-time is copied to the target file if supported by both the source and target file store. Copying of file timestamps may result in precision loss.&lt;br /&gt;
-&lt;strong&gt;NOFOLLOW_LINKS&lt;/strong&gt; Symbolic links are not followed. If the file is a symbolic link, then the symbolic link itself, not the target of the link, is copied. It is implementation specific if file attributes can be copied to the new link. In other words, the &lt;strong&gt;COPY_ATTRIBUTES&lt;/strong&gt; option may be ignored when copying a symbolic link.&lt;br /&gt;
-An implementation of this interface may support additional implementation specific options.&lt;br /&gt;
-Copying a file is not an atomic operation. If an &lt;code&gt;IOException&lt;/code&gt; is thrown then it possible that the target file is incomplete or some of its file attributes have not been copied from the source file. When the &lt;code&gt;REPLACE_EXISTING&lt;/code&gt; option is specified and the target file exists, then the target file is replaced. The check for the existence of the file and the creation of the new file may not be atomic with respect to other file system activities.&lt;br /&gt;
-&lt;code&gt;public static Path move(Path source, Path target, CopyOption... options) throws IOException&lt;/code&gt;&lt;br /&gt;
-Move or rename a file to a target file.&lt;br /&gt;
-By default, this method attempts to move the file to the target file, failing if the target file exists except if the source and target are the same file, in which case this method has no effect. If the file is a symbolic link then the symbolic link itself, not the target of the link, is moved. This method may be invoked to move an empty directory. In some implementations a directory has entries for special files or links that are created when the directory is created. In such implementations a directory is considered empty when only the special entries exist. When invoked to move a directory that is not empty then the directory is moved if it does not require moving the entries in the directory. For example, renaming a directory on the same FileStore will usually not require moving the entries in the directory. When moving a directory requires that its entries be moved then this method fails (by throwing an &lt;code&gt;IOException&lt;/code&gt;). To move a file tree may involve copying rather than moving directories and this can be done using the copy method in conjunction with the Files.walkFileTree utility method.&lt;br /&gt;
-The options parameter may include any of the following:&lt;br /&gt;
-&lt;strong&gt;REPLACE_EXISTING&lt;/strong&gt;  If the target file exists, then the target file is replaced if it is not a non-empty directory. If the target file exists and is a symbolic link, then the symbolic link itself, not the target of the link, is replaced.
-&lt;strong&gt;ATOMIC_MOVE&lt;/strong&gt; The move is performed as an atomic file system operation and all other options are ignored. If the target file exists then it is implementation specific if the existing file is replaced or this method fails by throwing an &lt;code&gt;IOException&lt;/code&gt;. If the move cannot be performed as an atomic file system operation then &lt;code&gt;AtomicMoveNotSupportedException&lt;/code&gt; is thrown. This can arise, for example, when the target location is on a different FileStore and would require that the file be copied, or target location is associated with a different provider to this object. An implementation of this interface may support additional implementation specific options.&lt;br /&gt;
-Where the move requires that the file be copied then the last-modified-time is copied to the new file. An implementation may also attempt to copy other file attributes but is not required to fail if the file attributes cannot be copied. When the move is performed as a non-atomic operation, and a IOException is thrown, then the state of the files is not defined. The original file and the target file may both exist, the target file may be incomplete or some of its file attributes may not been copied from the original file.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt; Consider the following code:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;class LowBalanceException extends ____ {  // 1
-    public LowBalanceException(String msg) { super(msg); }
-}
-
-class WithdrawalException extends ____ { // 2 
-    public WithdrawalException(String msg) { super(msg); }
-}
-
-class Account {
-    double balance;
-    public void withdraw(double amount) throws WithdrawalException {
-        try {
-            throw new RuntimeException(&quot;Not Implemented&quot;);
-        } catch (Exception e) {
-            throw new LowBalanceException( e.getMessage());
-        }
-    }
-    public static void main(String[] args) {
-        try {
-            Account a = new Account();
-            a.withdraw(100.0);
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;What can be inserted at // 1 and // 2 so that the above code will prints Not Implemented?&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Exception Exception&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Exception LowBalanceException&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;WithdrawalException Exception&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;WithdrawalException RuntimeException&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;1.&lt;/strong&gt; The withdraw method declares that it throws &lt;code&gt;WithdrawalException&lt;/code&gt;. This means that the only exceptions that can come out of this method are WithdrawalExceptions (which means &lt;code&gt;WithdrawalException&lt;/code&gt; or its subclasses) or RuntimeExceptions.&lt;br /&gt;
-&lt;strong&gt;2.&lt;/strong&gt; The try block in withdraw method throws a &lt;code&gt;RuntimeException&lt;/code&gt;. It will be caught by the &lt;code&gt;catch(Exception)&lt;/code&gt; block because &lt;code&gt;RuntimeException&lt;/code&gt; is-a &lt;code&gt;Exception&lt;/code&gt;. The code in the catch block throws a LowBalanceException, which is not caught. Thus, it will be thrown out of this method, which means LowBalanceException must either be a &lt;code&gt;RuntimeException&lt;/code&gt; or be a &lt;code&gt;WithdrawalException&lt;/code&gt; (i.e. must extend &lt;code&gt;WithdrawalException&lt;/code&gt;) to satisfy the throws clause of the withdraw method.&lt;br /&gt;
-&lt;strong&gt;3.&lt;/strong&gt; The &lt;code&gt;main()&lt;/code&gt; method does not have a throws clause but the call to &lt;code&gt;withdraw()&lt;/code&gt; is enclosed within a try block with &lt;code&gt;catch(Exception)&lt;/code&gt;. Thus, &lt;code&gt;WithdrawalException&lt;/code&gt; can extend either &lt;code&gt;Exception&lt;/code&gt; or &lt;code&gt;RuntimeException&lt;/code&gt;.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;6.&lt;/strong&gt; Which of the following lines will cause the compilation to fail?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public enum EnumA{ A, AA, AAA};  //1
-
-public class TestClass //2
-{
-  public enum EnumB { B, BB, BBB }; //3
-  public static enum EnumC { C, CC, CCC }; //4
-  public TestClass()
-  {
-    enum EnumD { D, DD, DDD } //5
-  }
-  public void methodX()
-  {
-    public enum EnumE{ E, EE, EEE } //6
-  }
-  public static void main(String[] args) //7
-  {
-    enum EnumF {F, FF, FFF }; //8
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;1,2, or both depending on the file name.
-    &lt;blockquote&gt;
-      &lt;p&gt;Since both EnumA and TestClass are public, they must be defined in a file with a name of EnumA.java and TestClass.java respectively.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;3
-    &lt;blockquote&gt;
-      &lt;p&gt;A public (or non-public) enum can be defined inside any class.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;4
-    &lt;blockquote&gt;
-      &lt;p&gt;A enum can be defined as a static member of any class. You can also have multiple public enums with in the same class.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;5
-    &lt;blockquote&gt;
-      &lt;p&gt;An enum cannot be defined inside any method or constructor&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;6
-    &lt;blockquote&gt;
-      &lt;p&gt;An enum cannot be defined inside any method or constructor&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;7
-    &lt;blockquote&gt;
-      &lt;p&gt;There is nothing wrong with this line.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;8
-    &lt;blockquote&gt;
-      &lt;p&gt;An enum cannot be defined inside any method or constructor&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-You need to know the following facts about enums:&lt;br /&gt;
-&lt;strong&gt;1.&lt;/strong&gt; Enum constructor is always private. You cannot make it public or protected. If an enum type has no constructor declarations, then a private constructor that takes no parameters is automatically provided.&lt;br /&gt;
-&lt;strong&gt;2.&lt;/strong&gt; An enum is implicitly final, which means you cannot extend it.&lt;br /&gt;
-&lt;strong&gt;3.&lt;/strong&gt; You cannot extend an enum from another enum or class because an enum implicitly extends java.lang.Enum. But an enum can implement interfaces.&lt;br /&gt;
-&lt;strong&gt;4.&lt;/strong&gt; Since enum maintains exactly one instance of its constants, you cannot clone it. You cannot even override the clone method in an enum because java.lang.Enum makes it final.&lt;br /&gt;
-&lt;strong&gt;5.&lt;/strong&gt; Compiler provides an enum with two public static methods automatically - &lt;code&gt;values()&lt;/code&gt; and &lt;code&gt;valueOf(String)&lt;/code&gt;. The &lt;code&gt;values()&lt;/code&gt; method returns an array of its constants and &lt;code&gt;valueOf()&lt;/code&gt; method tries to match the String argument exactly (i.e. case sensitive) with an enum constant and returns that constant if successful otherwise it throws &lt;code&gt;java.lang.IllegalArgumentException&lt;/code&gt;.&lt;br /&gt;
-&lt;strong&gt;6.&lt;/strong&gt; By default, an enum’s &lt;code&gt;toString()&lt;/code&gt; prints the enum name but you can override it to print anything you want.&lt;br /&gt;
-The following are a few more important facts about &lt;code&gt;java.lang.Enum&lt;/code&gt; which you should know:&lt;br /&gt;
-&lt;strong&gt;1.&lt;/strong&gt; It implements &lt;code&gt;java.lang.Comparable&lt;/code&gt; (thus, an enum can be added to sorted collections such as &lt;code&gt;SortedSet&lt;/code&gt;, &lt;code&gt;TreeSet&lt;/code&gt;, and &lt;code&gt;TreeMap&lt;/code&gt;).&lt;br /&gt;
-&lt;strong&gt;2.&lt;/strong&gt; It has a method &lt;code&gt;ordinal()&lt;/code&gt;, which returns the index (starting with 0) of that constant i.e. the position of that constant in its enum declaration.&lt;br /&gt;
-&lt;strong&gt;3.&lt;/strong&gt; It has a method &lt;code&gt;name()&lt;/code&gt;, which returns the name of this enum constant, exactly as declared in its enum declaration.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;8.&lt;/strong&gt; Which statements about the following code are correct?&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;interface House{
-  public default String getAddress() {
-    return &quot;101 Main Str&quot;;
-  }
-}
-interface Office {
-  public static String getAddress() {
-    return &quot;101 Smart Str&quot;;
-  }
-}
-interface WFH extends House, Office {
-  private boolean isOffice() {
-    return true;
-  }
-}
-class HomeOffice implements House, Office {
-  public String getAddress() {
-    return &quot;R No 1, Home&quot;;
-  }
-}
-public class TestClass {
-  public static void main(String[] args) {
-    Office off = new HomeOffice(); //1
-    System.out.println(off.getAddress()); //2
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Code for class HomeOffice will cause compilation to fail.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Code for interface WFH will cause compilation to fail.
-    &lt;blockquote&gt;
-      &lt;p&gt;Since Java 9, an interface is allowed to have private(but not protected) static as well as instance methods.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;It will compile fine and print R No 1, Home when run.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Line at //1 will cause compilation to fail.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Line at //2 will cause compilation to fail.
-    &lt;blockquote&gt;
-      &lt;p&gt;Since the declared type of variable off is Office, compiler will check the call to getAddress against Office interface. However, getAddress in Office is static and Java 8 requires static interface method to be invoked using the interface name instead of a reference variable. That is why, the compiler will raise the following error message:&lt;br /&gt;
-TestClass.java:26 error: illegal static interface method call&lt;br /&gt;
-   System.out.println(h.getAddress()); //2&lt;br /&gt;
-the receiver expression should be replaced with the type qualifier ‘Office’
-1 error&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;9.&lt;/strong&gt; Given:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;class Booby {
-}
-class Dooby extends Booby {
-}
-class Tooby extends Dooby {
-}
-
-and the following declarations:  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;List&amp;lt;? super Booby&amp;gt; bV = null;&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;List&amp;lt;? extends Tooby&amp;gt; tV = null;&lt;/code&gt;&lt;br /&gt;
-Which of the following statements will compile without any error?&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;11.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;14.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;15.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;17.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;20.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;21.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;25.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;27.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;29.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;30.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;31.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;32.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;33.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;34.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;35.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;36.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;39.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;41.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;42.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;43.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;45.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;46.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;48.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;49.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;50.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;51.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;53.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;57.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;58.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;60.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;61.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;63.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;64.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;65.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;66.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;67.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;70.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;71.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;73.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;78.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;80.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;81.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;82.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;83.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;How many methods have to be provided by a class that is not abstract and that implements Serializable interface?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;0
-    &lt;blockquote&gt;
-      &lt;p&gt;Serializable interface does not declare any methods. That is why is also called as a “marker” interface.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;1&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;2&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;3&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Given that a code fragment has just created a JDBC Connection and has executed an update statement, which of the following statements is correct?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Changes to the database are pending a commit call on the connection.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Changes to the database will be rolled back if another update is executed without committing the previous update.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Changes to the database will be committed right after the update statement has completed execution.
-    &lt;blockquote&gt;
-      &lt;p&gt;A Connection is always in auto-commit mode when it is created. As per the problem statement, an update was fired without explicitly disabling the auto-commit mode, the changes will be committed right after the update statement has finished execution.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Changes to the database will be committed when another query (update or select) is fired using the connection.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-When a connection is created, it is in auto-commit mode. i.e. auto-commit is enabled. This means that each individual SQL statement is treated as a transaction and is automatically committed right after it is completed. (A statement is completed when all of its result sets and update counts have been retrieved. In almost all cases, however, a statement is completed, and therefore committed, right after it is executed.)&lt;/p&gt;
-
-&lt;p&gt;The way to allow two or more statements to be grouped into a transaction is to disable the auto-commit mode. Since it is enabled by default, you have to explicitly disable it after creating a connection by calling &lt;code&gt;con.setAutoCommit(false);&lt;/code&gt;  &lt;!--more--&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Which interfaces does java.util.NavigableMap extend directly or indirectly?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java.util.SortedSet&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;java.util.Map&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;java.util.SortedMap&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java.util.TreeMap&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;&lt;code&gt;TreeMap&lt;/code&gt; is a class that implements &lt;code&gt;NavigableMap&lt;/code&gt; interface. &lt;code&gt;ConcurrentSkipListMap&lt;/code&gt; is the other such class.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java.util.List&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-A &lt;code&gt;NavigableMap&lt;/code&gt; is a &lt;code&gt;SortedMap&lt;/code&gt; (which in turn extends Map) extended with navigation methods returning the closest matches for given search targets. Methods &lt;code&gt;lowerEntry&lt;/code&gt;, &lt;code&gt;floorEntry&lt;/code&gt;, &lt;code&gt;ceilingEntry&lt;/code&gt;, and &lt;code&gt;higherEntry&lt;/code&gt; return Map. Entry objects associated with keys respectively less than, less than or equal, greater than or equal, and greater than a give key, returning null if there is no such key. Similarly, methods &lt;code&gt;lowerKey&lt;/code&gt;, &lt;code&gt;ceilingKey&lt;/code&gt;, and &lt;code&gt;higherKey&lt;/code&gt; return only the associated keys.&lt;/p&gt;
-
-&lt;p&gt;All of these methods are designed for locating, not traversing entries.&lt;/p&gt;
-
-&lt;p&gt;A &lt;code&gt;NavigableMap&lt;/code&gt; may be accessed and traversed in either ascending or descending key order. The &lt;code&gt;descendingMap&lt;/code&gt; method returns a view of the map with the senses of all relational and directional methods inverted. The performance of ascending operations and views is likely to be faster than that of descending ones. Methods &lt;code&gt;subMap&lt;/code&gt;, &lt;code&gt;headMap&lt;/code&gt;, and &lt;code&gt;tailMap&lt;/code&gt; differ from the like-named &lt;code&gt;SortedMap&lt;/code&gt; methods in accepting additional arguments describing whether lower and upper bounds are inclusive versus exclusive. Submaps of any NavigableMap must implement the NavigableMap interface.&lt;/p&gt;
-
-&lt;p&gt;This interface additionally defines methods &lt;code&gt;firstEntry&lt;/code&gt;, &lt;code&gt;pollFirstEntry&lt;/code&gt;, &lt;code&gt;lastEntry&lt;/code&gt;, and &lt;code&gt;pollLastEntry&lt;/code&gt; that return and/or remove the least and greatest mapping, if any exist, else returning null.&lt;/p&gt;
-
-&lt;p&gt;Implementations of entry-returning methods are expected to return &lt;code&gt;Map.Entry&lt;/code&gt; pairs representing snapshots of mappings at the time they were produced, and thus generally do not support the optional &lt;code&gt;Entry.setValue&lt;/code&gt; method. Note however that it is possible to change mappings in the associated map using method put.&lt;/p&gt;
-
-&lt;p&gt;Methods &lt;code&gt;subMap(K, K)&lt;/code&gt;, &lt;code&gt;headMap(K)&lt;/code&gt;, and &lt;code&gt;tailMap(K)&lt;/code&gt; are specified to return &lt;code&gt;SortedMap&lt;/code&gt; to allow existing implementations of &lt;code&gt;SortedMap&lt;/code&gt; to be compatibly retrofitted to implement &lt;code&gt;NavigableMap&lt;/code&gt;, but extensions and implementations of this interface are encouraged to override these methods to return &lt;code&gt;NavigableMap&lt;/code&gt;. Similarly, &lt;code&gt;SortedMap.keySet()&lt;/code&gt; can be overridden to return &lt;code&gt;NavigableSet&lt;/code&gt;.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;In which of the following cases can the Console object be acquired?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;When the JVM is started from an interactive command line with explicitly redirecting the standard input and output streams to Console.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;When the JVM is started from an interactive command line without redirecting the standard input and output streams.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;When the JVM is started in the background with the standard input and output streams directed to Console.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;When the JVM is started in the background without redirecting the standard input and output streams.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-Whether a virtual machine has a console is dependent upon the underlying platform and also upon the manner in which the virtual machine is invoked. If the virtual machine is started from an interactive command line without redirecting the standard input and output streams then its console will exist and will typically be connected to the keyboard and display from which the virtual machine was launched. If the virtual machine is started automatically, for example by a background job scheduler, then it will typically not have a console.&lt;/p&gt;
-
-&lt;p&gt;If this virtual machine has a console then it is represented by a unique instance of this class which can be obtained by invoking the &lt;code&gt;System.console()&lt;/code&gt; method. If no console device is available then an invocation of that method will return null.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Which of the following are wrapper classes for primitive types?&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java.lang.String&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java.lang.Void&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;There is Void class but it does not wrap any primitive type.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java.lang.Null&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;There is no Null class in java.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java.lang.Object&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;None of the above&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-Frequently it is necessary to represent a value of primitive type as if it were an object. There are following wrapper classes for this purpose:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Byte&lt;/code&gt;, &lt;code&gt;Char&lt;/code&gt;, &lt;code&gt;Character&lt;/code&gt;, &lt;code&gt;Short&lt;/code&gt;, &lt;code&gt;Integer&lt;/code&gt;, &lt;code&gt;Long&lt;/code&gt;, &lt;code&gt;Float&lt;/code&gt;, and &lt;code&gt;Double&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Note that Byte, Short, Integer, Long, Float and Double extend from Number which is an abstract class. An object of type Double, for example, contains a field whose type is double, representing that value in such a way that a reference to it can be stored in a variable of reference type. These classes also provide a number of methods for converting among primitive values, as well as supporting such standard methods as &lt;code&gt;equals&lt;/code&gt; and &lt;code&gt;hasCode&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;It is important to understand that objects of wrapper classes are immutable.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;Which of the following standard functional interface returns void?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;Supplier&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;It takes no argument and returns an object.&lt;br /&gt;
-&lt;code&gt;T get()&lt;/code&gt;&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;Function&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;Represents a function that accepts one argument and produces a result.&lt;br /&gt;
-&lt;code&gt;R apply(T t)&lt;/code&gt;&lt;br /&gt;
-Applies this function to the given argument.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;Predicate&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;It takes and argument and returns a boolean:&lt;br /&gt;
-&lt;code&gt;boolean test(T t)&lt;/code&gt;&lt;br /&gt;
-Evaluates this predicate on the given argument.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;Consumer&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;Its functional method is:&lt;br /&gt;
-&lt;code&gt;void accept(T t)&lt;/code&gt;&lt;br /&gt;
-Performs this operation on the given argument.&lt;br /&gt;
-It also has the following default method:&lt;br /&gt;
-&lt;code&gt;default Consumer&amp;lt;T&amp;gt; andThen(Consumer&amp;lt;? super T&amp;gt; after)&lt;/code&gt;&lt;br /&gt;
-Returns a composed &lt;code&gt;Consumer&lt;/code&gt; that performs, in sequence, this operation followed by the after operation.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;UnaryOperator&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;Represents an operation on a single operand that produces a result of the same type as its operand. This is a specialization of &lt;code&gt;Function&lt;/code&gt; for the case where the operand and result are of the same type.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-You should go through the description of all the functional interfaces given &lt;strong&gt;&lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html&quot;&gt;here&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Which of the following switches is/are used for controlling the execution of assertions at run time?&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;-ua&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;-da&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;It is a short form for ‘disable assertions’.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;-enableassertions&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;-assert&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;-keepassertions&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-Although not explicitly mentioned in the exam objectives, OCP Java 11 Part 2 Exam requires you to know about the switches used to enable and disable assertions. Here are a few important points that you should know:&lt;br /&gt;
-Assertions can be enabled or disabled for specific classes and/or packages. To specify a class, use the class name. To specify a package, use the package name followed by “…“(three dots also known as ellipses):&lt;br /&gt;
-&lt;code&gt;java -ea:&amp;lt;class&amp;gt; myPackage.myProgram&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;java -da:&amp;lt;package&amp;gt;... myPackage.myProgram&lt;/code&gt;&lt;br /&gt;
-You can have multiple &lt;code&gt;-ea/-da&lt;/code&gt; flags on the command line. For example, multiple flags allow you to enable assertions in general, but disable them in a particular package.&lt;br /&gt;
-&lt;code&gt;java -ea -da:com.xyz... myPackage.myProgram&lt;/code&gt;&lt;br /&gt;
-The above command enables assertions for all classes  in all packages, but then the subsequent &lt;code&gt;-da&lt;/code&gt; switch disables them for the &lt;code&gt;com.xyz&lt;/code&gt; package and its subpackages.&lt;br /&gt;
-To enable assertion for one package and disable for other you can use:&lt;br /&gt;
-&lt;code&gt;java -ea:&amp;lt;package1&amp;gt;... -da:&amp;lt;package2&amp;gt;... myPackage.myProgram&lt;/code&gt;&lt;br /&gt;
-You can enable or disable assertions in the unnamed root package (i.e. the default package) using the following commands:&lt;br /&gt;
-&lt;code&gt;java -ea:... myPackage.myProgram&lt;/code&gt;&lt;br /&gt;
-&lt;code&gt;java -da:... myPackage.myProgram&lt;/code&gt;&lt;br /&gt;
-Note that when you use a package name in the &lt;code&gt;ea&lt;/code&gt; or &lt;code&gt;da&lt;/code&gt; flag, the flag applies to that package as well as its subpackages. For example,&lt;br /&gt;
-&lt;code&gt;java -ea:com... -da:com.enthuware... com.enthuware.Main&lt;/code&gt;&lt;br /&gt;
-The above command first enables assertions for all the classes in &lt;code&gt;com&lt;/code&gt; as well as for the classes in the subpackages of &lt;code&gt;com&lt;/code&gt;. It then disables assertions for classes in package &lt;code&gt;com.enthuware&lt;/code&gt; and its subpackages.&lt;br /&gt;
-Another thing is that -ea/-da do not apply to system classes. For system classes (i.e. the classes that com bundled with the JDK/JRE), you need to use &lt;code&gt;-enablesystemassertions/-esa&lt;/code&gt; or &lt;code&gt;-disablesystemassertions/-dsa&lt;/code&gt;&lt;br /&gt;
-Note that * and ** are not valid wildcards for including subpackages.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;Which of these statements concerning the use of standard collection interfaces are true?&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;None of the standard collection classes are thread safe.
-    &lt;blockquote&gt;
-      &lt;p&gt;Vector and Hashtable are.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;class HashSet implements SortedSet.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Collection classes implementing List cannot have duplicate elements.
-    &lt;blockquote&gt;
-      &lt;p&gt;List is meant for ordering of elements. Duplicates are allowed.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;ArrayList can only accommodate a fixed number of elements.
-    &lt;blockquote&gt;
-      &lt;p&gt;It grows as more elements are added.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;Some operations may throw an UnsupportedOperationException.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-Some operations may throw an UnsupportedOperationException. This exception type is unchecked, and code calling these operations is not required to explicitly handle exceptions of this type.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;Which of the following are standard annotations used to suppress various warnings generated by the compiler?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@SuppressWarning(&quot;rawtypes&quot;)&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@SuppressWarning( {&quot;deprecation&quot;, &quot;unchecked&quot;} )&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@SuppressWarning(&quot;deprecation&quot;, &quot;unchecked&quot;)&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;Syntax is incorrect because this annotation takes only one value type String array. So, if you want to pass multiple string values, you must pass an array containing those values.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@SafeVarargs&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;This can be used on a constructor or a method. If a constructor or a method tries to perform unsafe operations involving a var args parameter and a parameterized collection, a warning is generated. This annotation suppresses that warning. Example:&lt;/p&gt;
-
-      &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;@SafeVarargs // Not actually safe but still suppresses the warning
-static void m(List&amp;lt;String&amp;gt;... stringList) {
-    Object[] array = stringLists;
-    List&amp;lt;Integer&amp;gt; temList = Arrays.asList(42);
-    array[0] = temList; // Semantically invalid, but compiles without warnings because of the annotation
-    String s = stringLists[0].get(0);  // Oh no, ClassCastException at runtime!
-}
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@Override&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;This annotation is used only on methods. It causes a warning to be generated if a method does not actually override any method from the base class. It does not suppress any warning.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@Deprecated&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;This annotation causes a warning to be generated. It does not suppress any warning.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-As per JLS 11 section 9.6.4.5, &lt;code&gt;@SuppressWarning&lt;/code&gt; must support three values: &lt;code&gt;unchecked&lt;/code&gt;, &lt;code&gt;deprecation&lt;/code&gt;, and &lt;code&gt;removal&lt;/code&gt;. However, it is not an error if you use a value that is not supported by the compiler. A compiler simply ignores it.&lt;/p&gt;
-
-&lt;p&gt;Different compilers may support more values. For example, Oracle’s javac compiler supports a large number of values (https://docs.oracle.com/en/java/javase/11/tools/javac.html). The ones that you should be aware of for the exam are: &lt;code&gt;none&lt;/code&gt;, &lt;code&gt;rawtypes&lt;/code&gt;, &lt;code&gt;serial&lt;/code&gt;, and &lt;code&gt;varargs&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;This annotation is not repeatable. Therefore, you cannot use it twice on the same type. However, you can specify multiple values like this: &lt;code&gt;@SuppressWarning({ &quot;deprecation&quot;, &quot;unchecked&quot;} )&lt;/code&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;You are implementing a special sorting algorithm that can sort objects of different classes. Which of the following class declarations will you use?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;
-    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
-public class SpecialSorter&amp;lt;&amp;gt; {
-    ...
-}
-&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;
-    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;java
-public class SpecialSorter&amp;lt;K&amp;gt; {
-    ...
-}
-&lt;/code&gt;&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;This is the correct way to define a generic class. Within the class, you can use K as a type, for example:&lt;/p&gt;
-
-      &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public class SpecialSorter&amp;lt;K&amp;gt; {
-    public void sort(ArrayList&amp;lt;K&amp;gt; items) {
-        K item = items.get(0);
-        // ...
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;
-    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
-public class &amp;lt;SpecialSorter&amp;gt; {
-    ...
-}
-&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;
-    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
-public class SpecialSorter(K) {
-    ...
-}
-&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;Code that uses generic collection classes can interoperate with code that uses raw collections classes because of?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;type erasure
-    &lt;blockquote&gt;
-      &lt;p&gt;Type erasure means that a compiled java class does not contain any of the generic information that is present in the java file. In other words, the compiler removes the generic information from a java class when it compile it into byte code. For example, &lt;code&gt;List&amp;lt;String&amp;gt; list;&lt;/code&gt; and &lt;code&gt;List list;&lt;/code&gt; are compiled to the same byte code. Therefore, at run time, it does not matter whether you’ve used generic classes or not and this kinds of classes to interoperate because they are essentially the same class to the JVM.&lt;br /&gt;
-Type erasure ensure that no new classes are created for parameterized types; consequently, generics incur no runtime overhead.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;reification
-    &lt;blockquote&gt;
-      &lt;p&gt;This is just the opposite of type erasure. Here, all the type information is preserved in the byte code. In Java, arrays are reified. For example,&lt;/p&gt;
-
-      &lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;ArrayList[] alArray = new ArrayList[1];
-Collection[] cArray = alArray;
-cArray[0] = new HashSet();
-&lt;/code&gt;&lt;/pre&gt;
-
-      &lt;p&gt;The above code will compile fine. But it will throw an &lt;code&gt;java.lang.ArrayStoreException&lt;/code&gt; at run time because the byte code contains the information that &lt;code&gt;cArray&lt;/code&gt; actually points to an array of &lt;code&gt;ArrayList&lt;/code&gt;s and not of &lt;code&gt;HasSet&lt;/code&gt;s.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;just in time compilation&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;byte code instrumentation&lt;br /&gt;
-字节码操作好像有点意思。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;Which of the following is/are valid functional interface?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;
-    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
-interface F {
-    default void m() {}
-}
-&lt;/code&gt;&lt;/p&gt;
-
-    &lt;p&gt;It is not a valid functional interface because it does not have an abstract method.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;
-    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
-interface F {
-    default void m() {}
-    static void n() {}
-}
-&lt;/code&gt;&lt;/p&gt;
-
-    &lt;p&gt;It is not a valid functional interface because it does not have an abstract method.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;
-    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
-interface F {
-    void m();
-    void n();
-}
-&lt;/code&gt;&lt;/p&gt;
-
-    &lt;p&gt;It is not a valid functional interface because it has more than one abstract methods.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;
-    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;java
-interface F {
-    default void m() { }
-    abstract void n();
-}
-&lt;/code&gt;&lt;/p&gt;
-
-    &lt;p&gt;The use of abstract keyword is redundant here, but it legal.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;
-    &lt;p&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;java
-interface F {
-    void m() {}
-}
-&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This will not compile because the method has a body but it lacks the keyword default.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-A functional interface is an interface that contains exactly one abstract method. It may contain zero or more default methods and/or static methods in addition to the abstract method. Because a functional interface contains exactly one abstract method, you can omit the name of that method when you implement it using a lambda expression. For example, consider the following interface -&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;interface Predicate&amp;lt;T&amp;gt; {
-    boolean test(T t);
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The purpose of this interface is to provide a method that operates on an object of class T and return a boolean.&lt;/p&gt;
-
-&lt;p&gt;You could have a method that takes an instance of class that  implements this interface defined like this -&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public void printImportantData(ArrayList&amp;lt;Data&amp;gt; dataList, Predicate&amp;lt;Data&amp;gt; p) {
-    for (Data d: dataList) {
-        if (p.test(d)) System.out.println(d);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;where Data class could be as simple as &lt;code&gt;public class Data { public int value; }&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Now, you can call the above method as follows:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;printImportantData(al, (Data d) -&amp;gt; { return d.value &amp;gt; 1; } );&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Notice the lack of method name here. This is possible because the interface has only one abstract method so the compiler can figure out the name. This can be shortened to:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;printImportantData(al, d -&amp;gt; d.value &amp;gt; 1);&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Notice that there is no declaration of d! The compiler can figure out all information it needs because the interface has only one abstract method and that method has only one parameter. So you don’t need to write all those things in your code.&lt;/p&gt;
-
-&lt;p&gt;Compare the above approach to the old style using an inner class that does the same thing -&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;printImportantData(al, new Predicate&amp;lt;Data&amp;gt;() {
-    public boolean test(Data d) {
-        return d.value &amp;gt; 1;
-    }
-});
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &lt;code&gt;Predicate&lt;/code&gt; interface described above can be used anywhere there is a need to “do something with an object and return a boolean” and is actually provided by the standard java library in &lt;code&gt;java.util.function&lt;/code&gt; package. This package provides a few other useful functional interfaces.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Predicate&amp;lt;T&amp;gt;&lt;/code&gt; Represents a predicate (boolean-valued function) of one argument of type T.&lt;br /&gt;
-&lt;code&gt;Consumer&amp;lt;T&amp;gt;&lt;/code&gt; Represents an operation that accepts a single input argument of type T and returns no result.&lt;br /&gt;
-&lt;code&gt;Function&amp;lt;T, R&amp;gt;&lt;/code&gt; Represents a function that accepts one argument of type T and produces a result of type R&lt;br /&gt;
-&lt;code&gt;Supplier&amp;lt;T&amp;gt;&lt;/code&gt; Represents a supplier of results of type T.&lt;/p&gt;
-
-&lt;p&gt;Please see &lt;a href=&quot;http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html&quot;&gt;http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html&lt;/a&gt; for learning Lambda expressions in Java.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;看段代码，判断输出：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;import java.util.HashSet;
-
-enum SIZE {
-    TALL, GRANDE, JUMBO;
-}
-
-public class CoffeeMug {
-    public static void main(String[] args) {
-        HashSet&amp;lt;SIZE&amp;gt; hs = new HashSet&amp;lt;&amp;gt;();
-        hs.add(SIZE.TALL); hs.add(SIZE.JUMBO); hs.add(SIZE.GRANDE);
-        hs.add(SIZE.TALL); hs.add(SIZE.TALL); hs.add(SIZE.JUMBO);
-        for(SIZE s: hs) System.out.println(s);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There are two concepts involved in this question:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;A &lt;code&gt;Set&lt;/code&gt; (such as a &lt;code&gt;HashSet&lt;/code&gt;) does not allow duplicate elements. If you add a duplicate element, it is ignored. Thus, only three unique &lt;code&gt;SIZE&lt;/code&gt; elements are stored.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;It is important to understand how the &lt;code&gt;add()&lt;/code&gt; method of a Set works :&lt;br /&gt;
-&lt;code&gt;boolean add(E o)&lt;/code&gt;
-    Adds the specified element to this set if it is not already present (optional operation). More formally, adds the specified element, o, to this set if this set contains no element e such that &lt;code&gt;(o==null ? e==null : o.equals(e))&lt;/code&gt;. If this set already contains the specified element, the call leaves this set unchanged and returns false. In combination with the restriction on constructors, this ensures that sets never contain duplicate elements.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;The order of elements is not defined in &lt;code&gt;HashSet&lt;/code&gt;. So while retrieving elements, it can return them in any order.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Remember that, &lt;code&gt;TreeSet&lt;/code&gt; does store elements in their &lt;strong&gt;natural sorted order&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Also remember that the order of Enums is the order in which they are defined. It is not necessarily same as alphabetical order of their names.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;Which of the following annotations are retained for run time?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@SuppressWarnings&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;It is defined with &lt;code&gt;@Retention(SOURCE)&lt;/code&gt;&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;@Override&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;It is defined with &lt;code&gt;@Retention(SOURCE)&lt;/code&gt;&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;@SafeVarargs&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;It is defined with &lt;code&gt;@Retention(RUNTIME)&lt;/code&gt;&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;@FunctionalInterface&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;It is defined with &lt;code&gt;@Retention(RUNTIME)&lt;/code&gt;&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;@Deprecated&lt;/code&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;It is defined with &lt;code&gt;@Retention(RUNTIME)&lt;/code&gt;&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;Your application needs to load a set of key value pairs from a database table which never changes. Multiple threads need to access this information but none of them changes it.  Which class would be the most appropriate to store such data if the values need not be keep in a sorted fashion?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;Hashtable&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; checked=&quot;checked&quot; /&gt;&lt;code&gt;HashMap&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;Set&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;TreeMap&lt;/code&gt;&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;&lt;code&gt;List&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-You should know that all &lt;code&gt;Hashtable&lt;/code&gt; methods are synchronized and this compromises its performance for simultaneous reads.&lt;br /&gt;
-Since no thread modifies the data, it is not efficient to use a &lt;code&gt;Hashtable&lt;/code&gt;.&lt;br /&gt;
-A &lt;code&gt;HashMap&lt;/code&gt; is perfect choice because its methods are not synchronized and so it allows efficient multiple reads. &lt;code&gt;TreeMap&lt;/code&gt; is used to keep the keys sorted which makes it a little bit slower than &lt;code&gt;HashMap&lt;/code&gt;.&lt;br /&gt;
-&lt;code&gt;Set&lt;/code&gt; and &lt;code&gt;List&lt;/code&gt; can’t be used since we need to store Key-value pairs.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;A programmer has written the following code to ensure that the phone number is not null and is of 10 characters:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public void processPhoneNumber(String number) {
-    assert number != null &amp;amp;&amp;amp; number.length() == 10 : &quot;Invalid phone number&quot;;
-    ...
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Which of the given statements regarding the above code are correct?&lt;/p&gt;
-
-&lt;ul class=&quot;task-list&quot;&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;This is an appropriate use of assertions.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;This code will not work  in all situations.
-    &lt;blockquote&gt;
-      &lt;p&gt;It will not work if assertions are disabled.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;The given code is syntactically correct.&lt;/li&gt;
-  &lt;li class=&quot;task-list-item&quot;&gt;&lt;input type=&quot;checkbox&quot; class=&quot;task-list-item-checkbox&quot; disabled=&quot;disabled&quot; /&gt;Constrains on input parameters should be enforced using assertions.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Explanation&lt;/strong&gt;&lt;br /&gt;
-As a rule, assertions should not be used to assert the validity of input parameters of a public method. Since assertions may be disabled at the wish of the user of the program, input validation will not occur when assertions are disabled. A public method should ensure in all situations(whether assertions are enabled or disabled) that the input parameters are valid before proceeding with the rest of the code. For this reason, input validation should always be done using the standard exception mechanism:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;if(number == null || number.length() != 10) throw new RuntimeException(&quot;Invalid phone number&quot;);&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;However, assertions may be used to validate the input parameters of a private method. This is because private methods are called only by the developer of the class. Therefore, if a private method is called with an invalid parameter, this problem should be rectified at the development stage itself. It cannot occur in the production stage, so there is not need to throw an explicit exception.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&quot;nio-2-files-class&quot;&gt;NIO 2 Files class&lt;/h3&gt;
-
-&lt;p&gt;文件操作， &lt;code&gt;Files.copy&lt;/code&gt;方法&lt;/p&gt;
-
-&lt;p&gt;However, &lt;code&gt;Files.isSameFile&lt;/code&gt; method doesn’t check the contents of the file. It is meant to check if the two path objects resolve to the same file or not. In this case, they are not, and so, it will return false.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public static Path copy(Path source, Path target, CopyOption... options) throws IOException
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;选项参数（options parameter)可以包括以下：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;REPLACE_EXISTING&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;​      If the target file exists, then the target file is replaced if it is not a non-empty directory. If the target file exists and is a symbolic link, then the symbolic link itself, not the target of the link, is replaced.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;COPY_ATTRIBUTES&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;​      Attempts to copy the file attributes associated with this file to the target file. The exact file attributes that are copied is platform and file system dependent and therefore unspecified. Minimally, the last-modified-time is copied to the target file if supported by both the source and target file store. Copying of file timestamps may result in precision loss.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;NOFOLLOW_LINKS&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;​      Symbolic links are not followed. If the file is a symbolic link, then the symbolic link itself, not the target of the link, is copied. It is implementation specific if file attributes can be copied to the new link.  In other words, the COPY_ATTRIBUTES option may be ignored when copying a symbolic link.&lt;br /&gt;
-An implementation of this interface may support additional implementation specific options.
-Coping a file is not an atomic operation. If an &lt;code&gt;IOException&lt;/code&gt; is thrown then it’s possible that the target file is incomplete or some of its file attributes have not been copied from the source file. When the REPLACE_EXISTING option is specified and the target file exists, then the target file is replaced. The check for the existence of the creation of the new file may not be atomic with respect to other file system activities.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public static Path move(Path source, Path target, CopyOption... options) throws IOException
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Move or rename a file to a target file.
-By default, this method attempts to move the file to the target file, failing if the target file exists except if the source and target are the same file, in which case this method has no effect. If the file is a symbolic link then the symbolic link itself, not the target of the link, is moved. This method may be invoked to move an empty directory. In some implementations a directory has entries for special files or links that are created when the directory is created. In such implementations a directory is considered empty when only the special entries exist. When invoked to move a directory that is not empty then the directory is moved if it does not require moving the entries in the directory. For example, renaming a directory on the same FileStore will usually not required moving the entries in the directory. When moving a directory requires that its entries be moved then this method fails (by throwing an &lt;code&gt;IOException&lt;/code&gt;). To move a file tree may involve copying rather than moving directories and this can be done using the copy method in conjunction with the &lt;code&gt;Files.walkFileTree&lt;/code&gt; utility method.&lt;/p&gt;
-
-&lt;p&gt;The options parameter may include any of the following:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;REPLACE_EXISTING&lt;/strong&gt; If the target file exists, then the target file is replaced if it is not a non-empty directory. If the target file exists and is a symbolic link, then the symbolic link itself, not the target of the link, is replaced.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ATOMIC_MOVE&lt;/strong&gt; The move is performed as an atomic file system operation and all other options are ignored. If the target file exists then it is implementation specific if the existing file is replaced or this method fails by throwing an &lt;code&gt;IOException&lt;/code&gt;. If the move cannot be performed as an atomic file system operation then &lt;code&gt;AtomicMoveNotSupportedException&lt;/code&gt; is thrown. This can arise, for example, when the target location is on a different FileStore and would require that the file be copied, or target location is associated with a different provider to this object. An implementation of this interface may support additional implementation specific options.&lt;/p&gt;
-
-&lt;p&gt;Where the move requires that the file be copied then the last-modified-time is copied to the new file. An implementation may also attempt to copy other file attributes but is not required to fail if the file attributes cannot be copied. When the move is performed as a non-atomic operation, and an &lt;code&gt;IOException&lt;/code&gt; is thrown, then the state of the files is not defined. The original file and the target file may both exist, the target file may be incomplete or some of its file attributes may not been copied from the original file.&lt;/p&gt;
-
-&lt;hr /&gt;
-</description>
-        <pubDate>Wed, 26 Feb 2020 15:15:00 +0000</pubDate>
-        <link>https://zwt.io/2020/02/26/ocp-mock-test1-review/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/02/26/ocp-mock-test1-review/</guid>
-        
-        <category>Java</category>
-        
-        <category>1Z0-816</category>
-        
-        <category>认证考试</category>
         
         
       </item>

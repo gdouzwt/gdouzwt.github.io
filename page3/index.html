@@ -175,6 +175,30 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/01/30/java-thread-communication/">
+        <h2 class="post-title">
+            Java线程间通信
+        </h2>
+        
+        <h3 class="post-subtitle">
+            生产者与消费者例子&nbsp;&nbsp;2020年1月30日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="生产者与消费者">生产者与消费者</h3>
+
+<p>一种典型的线程间通信的例子是涉及到生产者线程与消费者线程之间的关系。生产者生产数据项被消费者消费，每个被生产出的数据项被存放在共享的变量中。</p>
+
+<p>想象线程以不同的速度运行，消费者可能来不及处理掉生产者之前生产出来并放到共享变量中的数据项。还有可能就是消费者消费速度太快了，未等到生产者产生数据就去取了。</p>
+
+<p>为了克服这类问题，生产者线程必须等到它被通知之前生产的数据项已经被消费掉了才继续生产，而消费者线程必须等到它被通知已经有新的数据项产生了才取消费。下面代码展示如何通过使用 <code>wait()</code> 和 <code>notify()</code> 完整这样的任务。</p>
+ <a href="/2020/01/30/java-thread-communication/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/01/29/bulkhead-pattern/">
         <h2 class="post-title">
             水密舱壁模式
@@ -424,31 +448,6 @@ System.out.println(
 <p>在第四步，我们创建了一个JavaFX Spring Boot应用程序显示一个空的折线图。在上一步（第五步），我们整合了WebClientStockClient去连接到股票价格服务。在这一步我们要让折线图实时显示来自Kotlin Spring Boot服务的股票价格数据。</p>
 
  <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程5
-        </h2>
-        
-        <h3 class="post-subtitle">
-            共享Bean的自动装配&nbsp;&nbsp;2020年1月9日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在当地时间2019年11月25日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-auto-configuration-for-shared-beans/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>这一节我们看一下如何在一个模块中使用另一个不同的模块中的Spring Beans，通过使用自动装配。</p>
-
-<p>在上一节 ，我们创建了一个JavaFX Spring Boot应用程序显示一个空的折线图。在这篇文章，我们要看一下如何为 Spring Beans设置自动装配，以便我们可以在stock-ui模块里面使用在stock-client定义的Beans。</p>
-
- <a href="/2020/01/09/reactive-spring-boot-part5-auto-configuration-for-shared-beans/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
