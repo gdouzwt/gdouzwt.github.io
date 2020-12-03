@@ -175,6 +175,131 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/12/03/binary-path-sum/">
+        <h2 class="post-title">
+            剑指Offer 面试题 34
+        </h2>
+        
+        <h3 class="post-subtitle">
+            二叉树中和为某一值的路径&nbsp;&nbsp;2020年12月3日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="题目">题目</h3>
+
+<p>书中原题目是：</p>
+<blockquote>
+  <p>题目：输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。二叉树节点的定义如下：</p>
+</blockquote>
+
+<pre><code class="language-cpp">struct BinaryTreeNode
+{
+  int               m_nValue;
+  BinaryTreeNode    m_pLeft;
+  BinaryTreeNode    m_pRight;
+}
+</code></pre>
+
+<p>不过牛客网上的题目，稍微有点不同：</p>
+
+<blockquote>
+  <p>输入一颗二叉树的根节点和一个整数，按字典序打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。</p>
+</blockquote>
+
+<p>题目是要求返回 <code>ArrayList&lt;ArrayList&lt;Integer&gt;&gt;</code>，还有那个按字典序打印。</p>
+
+<p>这道题主要是对树进行前序遍历，访问到某个节点时累加起来，直到叶子节点，判断路径节点值之和是否为要求的整数。思路相对来说比较简单和直接，但是需要注意实现采用的数据结构的细节。<br />
+首先，从一个具体例如入手分析，输入下图 1 中二叉树和整数 22<br />
+<img src="/img/binary-tree.png" alt="二叉树" /></p>
+
+<p>从根节点 10 开始按前序遍历，下一个节点是 5，此时路径包含两个节点，分别是 10，5。接下来将访问到 4 这个节点，这时候已经达到叶子节点，但路径上的节点值之和是 19，不等于 22，所以不符合要求。之后回溯到父子点 5，接着再去访问右节点 7，此时路径中的节点的值 10，5，7之和刚好是 22，符合要求。<br />
+其中的规律是，当用前序遍历的方式访问到某一节点时，我们把该节点添加到路径上，并累加该节点的值。如果该节点为叶节点，并且路径中节点值的和刚好等于输入的整数，则当前路径符合要求，我们把它添加到<code>ArrayList</code>里边。如果当前节点不是叶节点，则继续访问它的子节点。当前节点访问结束后，递归方法将自动回到它的父节点。因此，我们在方法退回之前在路径上删除当前节点并减去当前节点的值，以确保返回父节点时路径刚好是从根节点到父节点。可以看出保存路径的数据结构实际上是一个栈，因为路径要与递归调用状态一致，而递归调用的本质就是一个压栈和出栈的过程。这里的内容基本跟书里的讲解差不多，只不过按牛客网的题目要求，并且用 Java 实现的话，我自己的做法是使用了集合框架里的 <code>Deque</code> 接口，一个双端队列。因为这样子，可以保证队列的顺序符合最终要求返回的路径内节点的顺序，同时也可以当作一个栈在队尾（相当于栈顶）操作。具体代码如下：</p>
+
+<pre><code class="language-java">package io.zwt.ch4;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+
+/**
+ * 输入一颗二叉树的根节点和一个整数，
+ * 按字典序打印出二叉树中结点值的和为输入整数的所有路径。
+ * 路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。
+ */
+public class FindPathSum {
+
+    private final ArrayList&lt;ArrayList&lt;Integer&gt;&gt; lists;
+
+    public FindPathSum() {
+        this.lists = new ArrayList&lt;&gt;();
+    }
+
+    public static class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
+
+        public TreeNode(int val) {
+            this.val = val;
+        }
+    }
+
+    /**
+     * @param root   输入的二叉树的根节点
+     * @param target 预期路径节点值之和
+     * @return 路径组成的 List
+     */
+    public ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindPath(TreeNode root, int target) {
+        if (root == null) {
+            return new ArrayList&lt;&gt;();
+        }
+        Deque&lt;Integer&gt; path = new ArrayDeque&lt;&gt;();  // 一个双端队列存储路径
+        int currentSum = 0;
+        return findPath(root, target, path, currentSum);
+    }
+
+    /**
+     * @param root       当前节点
+     * @param target     路径节点值之和
+     * @param path       路径
+     * @param currentSum 当前路径值之和
+     * @return 返回多少路径
+     */
+    private ArrayList&lt;ArrayList&lt;Integer&gt;&gt; findPath(TreeNode root, int target, Deque&lt;Integer&gt; path, int currentSum) {
+
+        currentSum += root.val;
+        path.offer(root.val);  // 放入队列
+
+        // 如果是叶节点，并且路径上节点值的和等于输入的值，
+        // 则将这条路径添加到 ArrayList
+        boolean isLeaf = root.left == null &amp;&amp; root.right == null;  // 递归结束条件
+        if (currentSum == target &amp;&amp; isLeaf) {
+            lists.add(new ArrayList&lt;&gt;(path));
+        }
+
+        // 如果不是叶节点，则遍历它的子节点
+        if (root.left != null) {
+            findPath(root.left, target, path, currentSum);
+        }
+        if (root.right != null) {
+            findPath(root.right, target, path, currentSum);
+        }
+
+        // 在返回父节点之前，在路径上删除当前节点
+        path.pollLast();
+        return lists;
+
+    }
+}
+
+</code></pre>
+ <a href="/2020/12/03/binary-path-sum/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/11/23/water-tank-level-control-automation/">
         <h2 class="post-title">
             水塔液位自动控制装置
@@ -207,71 +332,82 @@ Docker Mosquitto NodeRed Grafana InfluxDB Telegraf adafruit IO</p>
 </blockquote>
 
 <h3 id="前言">前言</h3>
+
 <p>单例是 Spring 当中 bean 的默认范围(Scope)。Spring 容器会为某个 bean 定义对象创建唯一的实例，很多时候我们会将这种设计跟《设计模式》(GoF) 书中定义的单例模式作比较。</p>
 
 <h3 id="1-单例范围-vs-单例模式">1. 单例范围 vs 单例模式</h3>
+
 <p>Spring 当中的单例范围跟单例模式不是同一个东西。其中的两点差异如下：</p>
+
 <ul>
   <li>单例模式确保某个类加载器的某个类只有一个实例</li>
-  <li>而 Spring 单例范围是每个容器的每个bean
-    <h4 id="11-单例范围的例子">1.1 单例范围的例子</h4>
-    <p>Spring 的单例实例会被放在缓存中，下次再访问那个命名的 bean 的时候就会从缓存里面取。下边看看例子。</p>
-    <pre><code class="language-java">public class Account {
+  <li>而 Spring 单例范围是每个容器的每个bean</li>
+</ul>
 
-  private String name;
+<h4 id="11-单例范围的例子">1.1 单例范围的例子</h4>
 
-  public Account() {
-  }
+<p>Spring 的单例实例会被放在缓存中，下次再访问那个命名的 bean 的时候就会从缓存里面取。下边看看例子。</p>
 
-  public Account(String name) {
-      this.name = name;
-  }
+<pre><code class="language-java">public class Account {
 
-  public String getName() {
-      return name;
-  }
+    private String name;
 
-  @Override
-  public String toString() {
-      return "Account{" +
-              "name='" + name + '\'' +
-              '}';
-  }
+    public Account() {
+    }
+
+    public Account(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
 </code></pre>
-    <p>Spring Boot 的 main 方法：</p>
-    <pre><code class="language-java">@SpringBootApplication
+
+<p>Spring Boot 的 main 方法：</p>
+
+<pre><code class="language-java">@SpringBootApplication
 @SpringBootApplication
 public class SpringSingletonApp {
 
-  public static void main(String[] args) {
-      SpringApplication.run(SpringSingletonApp.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(SpringSingletonApp.class, args);
+    }
 
-  @Bean(name = "bean1")
-  public Account account() {
-      return new Account("Test User 1");
-  }
+    @Bean(name = "bean1")
+    public Account account() {
+        return new Account("Test User 1");
+    }
 
-  @Bean(name = "bean2")
-  public Account account1() {
-      return new Account("Test User 2");
-  }
+    @Bean(name = "bean2")
+    public Account account1() {
+        return new Account("Test User 2");
+    }
 }
 </code></pre>
-    <p>理解上面的代码：</p>
-  </li>
-  <li>我们创建了同一个类的 2 个实例，并有不同的 bean id。</li>
-</ul>
 
-<p>那么上面代码中 Spring 的 IoC 容器创建了多少个实例？</p>
+<p>理解上面的代码：</p>
+
 <ul>
+  <li>
+    <p>我们创建了同一个类的 2 个实例，并有不同的 bean id。那么上面代码中 Spring 的 IoC 容器创建了多少个实例？</p>
+  </li>
   <li>2 个不同的实例，在容器中分别绑定到它们的 id？</li>
   <li>还是 1 个实例绑定到 2 个 bean id？</li>
 </ul>
 
 <h4 id="12-测试用例">1.2 测试用例</h4>
+
 <p>我们使用单元测试找出答案。</p>
+
 <pre><code class="language-java">@SpringBootTest
 class SpringSingletonAppTests {
 
@@ -296,7 +432,9 @@ class SpringSingletonAppTests {
     }
 }
 </code></pre>
+
 <p>输出为：</p>
+
 <pre><code class="language-bash">20:06:31.165 [main] INFO  i.z.s.SpringSingletonAppTests - Test User 1
 20:06:31.165 [main] INFO  i.z.s.SpringSingletonAppTests - Test User 2
 20:06:31.165 [main] INFO  i.z.s.SpringSingletonAppTests - Accounts are equal -&gt; false
@@ -310,6 +448,7 @@ Spring 返回了两个不同的实例，单例范围的同一个类可以有多�
 Spring 的 bean 定义就像键值对那样，bean id 就是 key，bean 的实例就是 value。每个 key 引用都会返回同一个 bean 实例（例如 bean1 引用始终返回 id 为 bean1 的 bean）</p>
 
 <h3 id="总结">总结</h3>
+
 <p>Spring 单例跟传统的单例模式是不同的。Spring 确保在每个容器对给定 bean id 定义只创建一个 bean 实例。 传统单例模式是保证给定一个类加载器所加载的某个类只有唯一的一个实例。</p>
  <a href="/2020/11/02/Spring-singleton-vs-Singleton-pattern/"><b>阅读更多📰</b></a>
     </div>
@@ -704,57 +843,6 @@ A type argument $T_1$ is said to contain another type argument $T_2$, written $T
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/03/10/spring-tips-rsocket-spring-security/">
-        <h2 class="post-title">
-            RSocket与Spring Security简单整合
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Spring Tips 学习记录&nbsp;&nbsp;2020年3月10日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="创建工程">创建工程</h3>
-
-<ul>
-  <li>
-    <p>greetings-service</p>
-
-    <blockquote>
-      <p>在 start.spring.io 选择 2.3.0 M2 版本 Spring Boot，依赖项如下</p>
-
-      <p>Lombok</p>
-
-      <p>RSocket</p>
-
-      <p>Spring Security</p>
-    </blockquote>
-  </li>
-  <li>
-    <p>greetings-client</p>
-
-    <blockquote>
-      <p>客户端的依赖项也是</p>
-
-      <p>Lombok</p>
-
-      <p>RSocket</p>
-
-      <p>Spring Security</p>
-    </blockquote>
-  </li>
-</ul>
-
-<h4 id="服务端应用">服务端应用</h4>
-
-<p>GreetingsServiceApplication.java</p>
- <a href="/2020/03/10/spring-tips-rsocket-spring-security/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -789,7 +877,7 @@ A type argument $T_1$ is said to contain another type argument $T_2$, written $T
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="32">
+                                <a href="/tags/#Java" title="Java" rel="33">
                                     Java
                                 </a>
                             
@@ -950,6 +1038,8 @@ A type argument $T_1$ is said to contain another type argument $T_2$, written $T
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             

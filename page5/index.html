@@ -175,6 +175,57 @@
             ">
             
 <div class="post-preview">
+    <a href="/2019/12/16/cracking-android-device/">
+        <h2 class="post-title">
+            刷机过程记录
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Redmi Note 4X（高通平台）&nbsp;&nbsp;2019年12月16日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <p>LineageOS Android Distribution https://lineageos.org/</p>
+
+<p>https://download.lineageos.org/extras</p>
+
+<p>https://wiki.lineageos.org/devices/mido/install</p>
+
+<p>Resurrection Remix OS https://www.resurrectionremix.com/</p>
+
+<p>mido https://get.resurrectionremix.com/?dir=mido</p>
+
+<p><a href="https://twrp.me/">TeamWin - TWRP</a></p>
+
+<h3 id="download-twrp-331-0-midoimg"><a href="https://dl.twrp.me/mido/twrp-3.3.1-0-mido.img">Download twrp-3.3.1-0-mido.img</a></h3>
+
+<p>OpenGAPPS</p>
+
+<p>https://opengapps.org/#aboutsection</p>
+
+<p>音量键下 + 开机键进入recovery，然后输入以下命令：</p>
+
+<pre><code>fastboot flash recovery twrp-3.3.1-0-mido.img
+</code></pre>
+
+<p>接着</p>
+
+<pre><code>fastboot boot twrp-3.3.1-0-mido.img
+</code></pre>
+
+<p>一番wipe 之后，sideload，使用以下命令</p>
+
+<pre><code>adb sideload lineage-16.0-20191215-nightly-mido-signed.zip
+</code></pre>
+
+<p>明天早详细整理（忘记了）</p>
+ <a href="/2019/12/16/cracking-android-device/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2019/12/03/reactive-evolution-part2/">
         <h2 class="post-title">
             响应式变革 Reactive Evolution 第 2 部分
@@ -428,43 +479,6 @@ public class SheepManager {
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2019/11/06/java-lambda-revisited/">
-        <h2 class="post-title">
-            Java Lambda 表达式
-        </h2>
-        
-        <h3 class="post-subtitle">
-            深入理解 Lambda&nbsp;&nbsp;2019年11月6日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="lambda-expressions">Lambda Expressions</h2>
-
-<h4 id="introducing-lambda-expressions">Introducing Lambda Expressions</h4>
-
-<h5 id="lambda-expression-基础">Lambda Expression 基础</h5>
-
-<h5 id="函数式接口">函数式接口</h5>
-
-<h5 id="一些函数表达式例子">一些函数表达式例子</h5>
-<p>演示一个简单的 Lambda 表达式</p>
-
-<pre><code class="language-java">// Demonstrate a simple lambda expression. 
- 
-// A functional interface. 
-interface MyNumber { 
-  double getValue();  
-}
-</code></pre>
-
-<p>使用 Lambda 表达式</p>
- <a href="/2019/11/06/java-lambda-revisited/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -503,7 +517,7 @@ interface MyNumber {
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="32">
+                                <a href="/tags/#Java" title="Java" rel="33">
                                     Java
                                 </a>
                             
@@ -664,6 +678,8 @@ interface MyNumber {
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             

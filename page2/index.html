@@ -175,6 +175,57 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/03/10/spring-tips-rsocket-spring-security/">
+        <h2 class="post-title">
+            RSocket与Spring Security简单整合
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Spring Tips 学习记录&nbsp;&nbsp;2020年3月10日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="创建工程">创建工程</h3>
+
+<ul>
+  <li>
+    <p>greetings-service</p>
+
+    <blockquote>
+      <p>在 start.spring.io 选择 2.3.0 M2 版本 Spring Boot，依赖项如下</p>
+
+      <p>Lombok</p>
+
+      <p>RSocket</p>
+
+      <p>Spring Security</p>
+    </blockquote>
+  </li>
+  <li>
+    <p>greetings-client</p>
+
+    <blockquote>
+      <p>客户端的依赖项也是</p>
+
+      <p>Lombok</p>
+
+      <p>RSocket</p>
+
+      <p>Spring Security</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h4 id="服务端应用">服务端应用</h4>
+
+<p>GreetingsServiceApplication.java</p>
+ <a href="/2020/03/10/spring-tips-rsocket-spring-security/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/03/02/web-scraping-notes/">
         <h2 class="post-title">
             网络爬虫学习笔记
@@ -563,41 +614,6 @@ public class Outer {
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/02/01/spring-classes/">
-        <h2 class="post-title">
-            Spring Boot的类
-        </h2>
-        
-        <h3 class="post-subtitle">
-            学习笔记&nbsp;&nbsp;2020年2月1日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="常见类的用途">常见类的用途</h2>
-
-<h3 id="springapplicationbuilder">SpringApplicationBuilder</h3>
-
-<p><code>java.lang.Object</code><br />
-​	<code>org.springframework.boot.builder.SpringApplicationBuilder</code></p>
-
-<p>Builder for <code>SpringApplication</code> and <code>ApplicationContext</code> instances with convenient fluent API and context hierarchy support. Simple example of a context hierarchy:<br />
-<code>new SpringApplicationBuider(ParentConfig.class).child(ChildConfig.class).run(args);</code><br />
-Another common use case is setting active profiles and default properties to set up the environment for an application:</p>
-
-<pre><code class="language-java">new SpringApplicationBuilder(Application.class).profiles("server")
-    			.properties("transport=local").run(args);
-</code></pre>
-
-<p>If your needs are simpler, consider using the static convenience methods in SpringApplication instead.</p>
-
-<p>(org.springframework.boot:spring-boot:2.2.4.RELEASE)</p>
- <a href="/2020/02/01/spring-classes/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -636,7 +652,7 @@ Another common use case is setting active profiles and default properties to set
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="32">
+                                <a href="/tags/#Java" title="Java" rel="33">
                                     Java
                                 </a>
                             
@@ -797,6 +813,8 @@ Another common use case is setting active profiles and default properties to set
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             

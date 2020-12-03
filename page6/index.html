@@ -175,6 +175,43 @@
             ">
             
 <div class="post-preview">
+    <a href="/2019/11/06/java-lambda-revisited/">
+        <h2 class="post-title">
+            Java Lambda 表达式
+        </h2>
+        
+        <h3 class="post-subtitle">
+            深入理解 Lambda&nbsp;&nbsp;2019年11月6日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="lambda-expressions">Lambda Expressions</h2>
+
+<h4 id="introducing-lambda-expressions">Introducing Lambda Expressions</h4>
+
+<h5 id="lambda-expression-基础">Lambda Expression 基础</h5>
+
+<h5 id="函数式接口">函数式接口</h5>
+
+<h5 id="一些函数表达式例子">一些函数表达式例子</h5>
+<p>演示一个简单的 Lambda 表达式</p>
+
+<pre><code class="language-java">// Demonstrate a simple lambda expression. 
+ 
+// A functional interface. 
+interface MyNumber { 
+  double getValue();  
+}
+</code></pre>
+
+<p>使用 Lambda 表达式</p>
+ <a href="/2019/11/06/java-lambda-revisited/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2019/11/04/java-generic-revisited/">
         <h2 class="post-title">
             Java 泛型回顾
@@ -423,46 +460,6 @@ public class JustLooping {
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2019/10/14/do1-cloud-test-review/">
-        <h2 class="post-title">
-            相反顺序输出一个整数
-        </h2>
-        
-        <h3 class="post-subtitle">
-            笔试编程题&nbsp;&nbsp;2019年10月14日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h5 id="起初">起初</h5>
-
-<p>编写程序，对输入的一个整数，按相反顺序输出该数。</p>
-
-<pre><code class="language-java">// ReverseInt.java
-import java.util.Scanner;
-public class ReverseInt {
-	public static void main(String[] args) {
-		System.out.println("请输入一个整数：");
-		Scanner input = new Scanner(System.in);
-		String value = "" + input.nextBigInteger();
-		input.close();
-		String reversed = "";
-		for (int i = value.length() - 1; i &gt;= 0; i--) {
-			reversed = reversed + value.charAt(i);
-		}
-		System.out.println(reversed);
-	}
-}
-</code></pre>
-<p>当时手写代码，<code>for</code> 循环的控制条件边界写错了，当时写成了 <code>for (int i = value.length(); i &gt; 0; i--)</code>  结果数组越界了。应该是 <code>for (int i = value.length() - 1; i &gt;= 0; i--)</code> 的。</p>
-
-<p>换成 <code>input.nextBigInteger();</code> 好一点。</p>
- <a href="/2019/10/14/do1-cloud-test-review/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -501,7 +498,7 @@ public class ReverseInt {
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="32">
+                                <a href="/tags/#Java" title="Java" rel="33">
                                     Java
                                 </a>
                             
@@ -662,6 +659,8 @@ public class ReverseInt {
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
                             
                         
                             
