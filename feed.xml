@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>记录</title>
+    <title></title>
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 03 Dec 2020 15:51:27 +0000</pubDate>
-    <lastBuildDate>Thu, 03 Dec 2020 15:51:27 +0000</lastBuildDate>
+    <pubDate>Thu, 03 Dec 2020 20:49:03 +0000</pubDate>
+    <lastBuildDate>Thu, 03 Dec 2020 20:49:03 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -35,7 +35,7 @@
 &lt;p&gt;题目是要求返回 &lt;code&gt;ArrayList&amp;lt;ArrayList&amp;lt;Integer&amp;gt;&amp;gt;&lt;/code&gt;，还有那个按字典序打印。&lt;/p&gt;
 
 &lt;p&gt;这道题主要是对树进行前序遍历，访问到某个节点时累加起来，直到叶子节点，判断路径节点值之和是否为要求的整数。思路相对来说比较简单和直接，但是需要注意实现采用的数据结构的细节。&lt;br /&gt;
-首先，从一个具体例如入手分析，输入下图 1 中二叉树和整数 22&lt;br /&gt;
+首先，从一个具体例如入手分析，输入下图 1 中二叉树和整数 22  &lt;!--more--&gt;
 &lt;img src=&quot;/img/binary-tree.png&quot; alt=&quot;二叉树&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;从根节点 10 开始按前序遍历，下一个节点是 5，此时路径包含两个节点，分别是 10，5。接下来将访问到 4 这个节点，这时候已经达到叶子节点，但路径上的节点值之和是 19，不等于 22，所以不符合要求。之后回溯到父子点 5，接着再去访问右节点 7，此时路径中的节点的值 10，5，7之和刚好是 22，符合要求。&lt;br /&gt;
@@ -134,7 +134,7 @@ public class FindPathSum {
       <item>
         <title>水塔液位自动控制装置</title>
         <description>&lt;p&gt;前段时间做了点小东西，随缘记录一下。&lt;br /&gt;
-在家里日常生活用水是用水塔，通过水泵将水从水井抽到楼顶的水塔用的。这在很常见，通常这些水塔都会有自动液位控制的，一般是一个浮球，机械式的开关。但家里的水塔比较旧没有安装水位控制装置，所以我一直想在水塔添加这样的功能。因为不想用浮球式液位控制，主要是想趁机折腾一下，玩一下技术。最初有些不太实际的脑洞，例如，可不可以通过测量液位变化时水塔的电容反映水位变化；还有根据水压变化计算出液面高度……  因为不想安装水压测量到水管里，而且还要设法与水泵开关联动，麻烦。大概五年前，上大二的时候，刚学单片机，就想着用 51 做一个东西去根据水塔液位变化自动控制水泵开关。&lt;br /&gt;
+在家里日常生活用水是用水塔，通过水泵将水从水井抽到楼顶的水塔用的。这在很常见，通常这些水塔都会有自动液位控制的，一般是一个浮球，机械式的开关。但家里的水塔比较旧没有安装水位控制装置，所以我一直想在水塔添加这样的功能。因为不想用浮球式液位控制，主要是想趁机折腾一下，玩一下技术。最初有些不太实际的脑洞，例如，可不可以通过测量液位变化时水塔的电容反映水位变化；还有根据水压变化计算出液面高度……  因为不想安装水压测量到水管里，而且还要设法与水泵开关联动，麻烦。大概五年前，上大二的时候，刚学单片机，就想着用 51 做一个东西去根据水塔液位变化自动控制水泵开关。  &lt;!--more--&gt;
 &lt;img src=&quot;/img/water-tank.png&quot; alt=&quot;水塔液位控制&quot; /&gt;
 大概就是这么一个东西，当初用 51 接一个超声波测距模块，还有继电器，联合起来控制水泵。测得距离大于某个值，说明水位低于某个值，就打开水泵抽水，直到距离小于某个值就关掉水泵停止抽水，逻辑很简单的。&lt;br /&gt;
 不过当时程序可能写得不太好，硬件也没有弄得很好，因为用洞洞板焊接的。那东西在一次暴雨天后就坏了，我弟以为那是遭雷击了，我也不太清楚，反正就坏了。 然后半个月前，我闲着又再次折腾起这东西。这次硬件上使用 Arduino + ESP8266 + 小米路由器 + 小米智能网关 + 加个小米 ZigBee 版智能插座。超声波测距模块由Arduino 驱动，再通过串口发送距离数据到 ESP8266，通过 WiFi TCP 传到小米路由器（跑 OpenWRT)，在小米路由器上的 Linux 写了个程序，基于 ubox (epoll) 的 TCP 和 UDP 客户端。其中 TCP 接收来自 ESP8266 的液位数据，UDP 客户端用于与小米智能网关交互。当水塔液位低于某个水平，这个程序就会向小米智能网关发送命令，去控制米家智能插座打开。这个插座接着水泵，就相当于初版里边的继电器。&lt;br /&gt;
@@ -170,7 +170,7 @@ Docker Mosquitto NodeRed Grafana InfluxDB Telegraf adafruit IO&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;单例模式确保某个类加载器的某个类只有一个实例&lt;/li&gt;
-  &lt;li&gt;而 Spring 单例范围是每个容器的每个bean&lt;/li&gt;
+  &lt;li&gt;而 Spring 单例范围是每个容器的每个bean  &lt;!--more--&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;11-单例范围的例子&quot;&gt;1.1 单例范围的例子&lt;/h4&gt;
@@ -305,7 +305,7 @@ public void testSimpleLoad() {
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;上面代码就是最基本的使用。&lt;/p&gt;
+&lt;p&gt;上面代码就是最基本的使用。  &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;而对应的 xml 配置文件是这样的:&lt;/p&gt;
 
@@ -363,7 +363,7 @@ public void testSimpleLoad() {
 
 &lt;p&gt;&lt;strong&gt;R-15.7&lt;/strong&gt; For what values of d is the tree $T$ of the previous exercise an order-&lt;em&gt;d&lt;/em&gt; B-tree?&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;R-15.8&lt;/strong&gt; Draw the result of inserting, into an initially empty order-7 B-tree, entries with keys (4,40,23,50,11,34,62,78,66,22,90,59,25,72,64,77,39,12), in this order.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;R-15.8&lt;/strong&gt; Draw the result of inserting, into an initially empty order-7 B-tree, entries with keys (4,40,23,50,11,34,62,78,66,22,90,59,25,72,64,77,39,12), in this order.  &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;creativity&quot;&gt;Creativity&lt;/h3&gt;
 
@@ -444,7 +444,7 @@ store the result in an array &lt;code&gt;B&lt;/code&gt;. If we then immediately 
 
 &lt;p&gt;&lt;strong&gt;R-1.12&lt;/strong&gt; Modify the &lt;code&gt;CreditCard&lt;/code&gt; class from Code Fragment 1.5 so that it ignores any request to process a negative payment amount.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;R-1.13&lt;/strong&gt; Modify the declaration of the first for loop in the main method in Code Fragment 1.6 so that its charges will cause exactly one of the three credit cards to attempt to go over its credit limit. Which credit card is it?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;R-1.13&lt;/strong&gt; Modify the declaration of the first for loop in the main method in Code Fragment 1.6 so that its charges will cause exactly one of the three credit cards to attempt to go over its credit limit. Which credit card is it?  &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;creativity&quot;&gt;Creativity&lt;/h3&gt;
 
@@ -497,14 +497,11 @@ separate line. After each such input, you should output to the Java console what
       <item>
         <title>回顾OCP 1Z0-816认证考试</title>
         <description>&lt;blockquote&gt;
-  &lt;p&gt;群&lt;/p&gt;
+  &lt;p&gt;群 OCA/OCP 考试交流QQ群 &lt;strong&gt;157563860&lt;/strong&gt;&lt;br /&gt;
+其实这篇文章起源于 Twitter 上以为委瑞内拉小哥问我关于 OCP 考试的问题，我只好写这个作为回应。但中英夹杂，如果是国内读者看起来可能有点难受，改天再更新整理一下。 注意，现在 1Z0-816 考试已经没有了，只有 1Z0-819 考试。 另外前段时间我录了个视频，放在&lt;a href=&quot;https://www.bilibili.com/video/BV1ma4y1p7Dy&quot;&gt;B站小号这里&lt;/a&gt;，讲了一些关于考试的。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;blockquote&gt;
-  &lt;h3 id=&quot;ocaocp-考试交流qq群-157563860&quot;&gt;OCA/OCP 考试交流QQ群 &lt;strong&gt;157563860&lt;/strong&gt;&lt;/h3&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;I started with OCA Java SE 8 Programmer I exam last year, it took me 12 days to prepare the OCA exam. It was relatively easy to pass the OCA exam, but it was much harder to pass the OCP 11 exam. It took me roughly 3 months to get fully prepared for the ultimate 1Z0-816, namely Java SE 11 Programmer II exam, for which response to the Oracle Certified Professional: Java SE 11 Developer certification. This is by far the most difficult Java certification exam from Oracle/Sun, not just because it covers topics such as modules, functional programming, concurrent programming, IO. But also it includes some new objectives, like Java Secure Coding Guideline. For those who plan on taking the Oracle Java Certification exam, I strongly recommend you take a look at the official exam objectives before you start your study plan. Buy a good book, I think Selikoff’s book is great, I use that book for my exam preparation. Study the book chapter by chapter, or by topic, or whatever you want. Be sure to do the exercises, it will help you to consolidate your knowledge. It is also helpful to use flashcards to aid the memorization process, for example,  some core APIs or some syntax rules. Don’t go directly into the quiz without studying the materials thoroughly, that will just a waste of time and energy. Because that’s very frustrating to see lots of errors. Take your time, start slowly, and gradually level up the difficulty.  Below are some useful references.&lt;/p&gt;
+&lt;p&gt;I started with OCA Java SE 8 Programmer I exam last year, it took me 12 days to prepare the OCA exam. It was relatively easy to pass the OCA exam, but it was much harder to pass the OCP 11 exam. It took me roughly 3 months to get fully prepared for the ultimate 1Z0-816, namely Java SE 11 Programmer II exam, for which response to the Oracle Certified Professional: Java SE 11 Developer certification. This is by far the most difficult Java certification exam from Oracle/Sun, not just because it covers topics such as modules, functional programming, concurrent programming, IO. But also it includes some new objectives, like Java Secure Coding Guideline. For those who plan on taking the Oracle Java Certification exam, I strongly recommend you take a look at the official exam objectives before you start your study plan. Buy a good book, I think Selikoff’s book is great, I use that book for my exam preparation. Study the book chapter by chapter, or by topic, or whatever you want. Be sure to do the exercises, it will help you to consolidate your knowledge. It is also helpful to use flashcards to aid the memorization process, for example,  some core APIs or some syntax rules. Don’t go directly into the quiz without studying the materials thoroughly, that will be just a waste of time and energy. Because that’s very frustrating to see lots of errors. Take your time, start slowly, and gradually level up the difficulty.  Below are some useful references.&lt;/p&gt;
 
 &lt;p&gt;&lt;!--more--&gt;&lt;/p&gt;
 

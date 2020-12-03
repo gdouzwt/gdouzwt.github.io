@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>剑指Offer 面试题 34 - 招文桃 | 记录</title>
+    <title>剑指Offer 面试题 34 - 招文桃</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -219,7 +219,7 @@
 <p>题目是要求返回 <code>ArrayList&lt;ArrayList&lt;Integer&gt;&gt;</code>，还有那个按字典序打印。</p>
 
 <p>这道题主要是对树进行前序遍历，访问到某个节点时累加起来，直到叶子节点，判断路径节点值之和是否为要求的整数。思路相对来说比较简单和直接，但是需要注意实现采用的数据结构的细节。<br />
-首先，从一个具体例如入手分析，输入下图 1 中二叉树和整数 22<br />
+首先，从一个具体例如入手分析，输入下图 1 中二叉树和整数 22  <!--more-->
 <img src="/img/binary-tree.png" alt="二叉树" /></p>
 
 <p>从根节点 10 开始按前序遍历，下一个节点是 5，此时路径包含两个节点，分别是 10，5。接下来将访问到 4 这个节点，这时候已经达到叶子节点，但路径上的节点值之和是 19，不等于 22，所以不符合要求。之后回溯到父子点 5，接着再去访问右节点 7，此时路径中的节点的值 10，5，7之和刚好是 22，符合要求。<br />
