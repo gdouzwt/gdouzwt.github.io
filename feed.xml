@@ -5,13 +5,159 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 03 Dec 2020 23:57:07 +0000</pubDate>
-    <lastBuildDate>Thu, 03 Dec 2020 23:57:07 +0000</lastBuildDate>
+    <pubDate>Sun, 06 Dec 2020 22:46:48 +0000</pubDate>
+    <lastBuildDate>Sun, 06 Dec 2020 22:46:48 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
+        <title>剑指Offer 面试题 3</title>
+        <description>&lt;h4 id=&quot;题目&quot;&gt;题目&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在一个长度为n的数组里的所有数字都在 0 到 n-1 的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中第一个重复的数字。 例如，如果输入长度为7的数组{2 ,3, 1, 0, 2, 5, 3}，那么对应的输出是第一个重复的数字 2。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这个题目在牛客网是&lt;strong&gt;请找出数组中第一个重复的数字&lt;/strong&gt;，书中是“请找出数组中&lt;strong&gt;任意一个&lt;/strong&gt;重复的数字”。如果直接按照书中的代码，那就不能通过牛客网的全部测试用例，这就有点搞了。不过还是先讲一下解题思路吧。&lt;/p&gt;
+
+&lt;h5 id=&quot;先排序再扫描&quot;&gt;先排序，再扫描&lt;/h5&gt;
+
+&lt;p&gt;排序后的数组很容易可以找出重复数字，从头到尾扫描一遍，发现相邻两个数相等的情况即找到了重复数字。时间复杂度为 $O(nlogn)$&lt;/p&gt;
+
+&lt;h5 id=&quot;利用哈希表&quot;&gt;利用哈希表&lt;/h5&gt;
+
+&lt;p&gt;从头到尾扫描一遍数组，如果哈希表中没有这个数字，就将它加入哈希表，如果该数字已存在，则找到了重复数字。这个方法可以用 $O(1)$ 的时间来判断哈希表是否包含当前扫描到的数字，整个算法的时间复杂度是 $O(n)$ ，但代价是需要一个 $O(n)$ 大小的哈希表。&lt;/p&gt;
+
+&lt;h5 id=&quot;利用数组下标&quot;&gt;利用数组下标&lt;/h5&gt;
+
+&lt;p&gt;因为数组中所有数字都在0~n-1范围内，如果数组没有重复数字，那么数组排序后里面数字应该与它对应的下标相等。但因为数组中数字有重复，所以某个位置上的数字应该会出现多于一次。其实说的是，某个下标对应着的与下标相等的数字可能出现多次。原书中那句话是，“由于数组中有重复的素质，有些位置可能存在多个数字，同时有些位置可能没有数字。”，当时看到这句话有点懵，难道数组的一个位置还可以挤下两个数字？后来知道他所指的“位置”是指，下标值与数值相等的这种情况。说起位置，就有点想起 &lt;code&gt;PositionalList&lt;/code&gt; …&lt;/p&gt;
+
+&lt;p&gt;清楚了上面的情况，那么怎么可以找出重复数字？书中也是一段文字描述，按照里边描述的确可以找出重复数字，但看起来有点不直观，所以画个流程图看看。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/image-20201207035713049.png&quot; alt=&quot;image-20201207035713049&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这实际上是一个 &lt;strong&gt;in-place&lt;/strong&gt; 的排序操作，一边排序同时判断是否有重复数字。上图中 &lt;em&gt;i&lt;/em&gt; 表示数组的下标值，&lt;em&gt;m&lt;/em&gt; 表示数字值。我们开始从头到尾依次扫描这个数组，当扫描到下标为 &lt;em&gt;i&lt;/em&gt; 的数字时，首先比较这个数字(&lt;em&gt;m&lt;/em&gt;)是否等于 &lt;em&gt;i&lt;/em&gt;。如果是，就扫描下一个数字；如果不等，则将该数字与第 &lt;em&gt;m&lt;/em&gt; 个数字进行比较（即与下标值等于 &lt;em&gt;m&lt;/em&gt; 的那个数比较）。此时，如果它和第 &lt;em&gt;m&lt;/em&gt; 个数字相等，则找到了一个重复数字，因为这个数字在下标值为 &lt;em&gt;i&lt;/em&gt; 和 &lt;em&gt;m&lt;/em&gt; 的位置都出现了。如果它和第 &lt;em&gt;m&lt;/em&gt; 个数字不相等，就将第 &lt;em&gt;i&lt;/em&gt; 个数字和第 &lt;em&gt;m&lt;/em&gt; 个数字交换，这个操作就是将 &lt;em&gt;m&lt;/em&gt; 放到下标值等于其数值的位置，放在它该出现的位置上。这个过程其实就是一个插入排序（Insertion Sort），利用了数组下标有序，in-place 操作做到空间复杂度为 $O(1)$ ，每个数字最多只要交换两次就可以找到它自己的位置，因此总的时间复杂度是 $O(n)$，代码如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;/**
+ * @param numbers     输入的数组
+ * @param length      数组的长度
+ * @param duplication 原书中的是 C/C++ 的一个指针，用于返回数组中重复的数字，
+                      在这里可能只是为了统一，将重复数字存在数组第一个位置
+ * @return            true 如果有重复，否则 false
+ */
+public boolean duplicate(int numbers[], int length, int[] duplication) {
+    // 判空
+    if (numbers == null || length &amp;lt;= 0) {
+        return false;
+    }
+
+    // 判断是否数组内数字是否符合题目要求范围
+    for (int i = 0; i &amp;lt; length; i++) {
+        if (numbers[i] &amp;lt; 0 || numbers[i] &amp;gt; length - 1) {
+            return false;
+        }
+    }
+
+    for (int i = 0; i &amp;lt; length; i++) {
+        while(numbers[i] != i) {  // 原题是找到任意一个重复数字，但这样做不符合牛客网的要求
+        // if (numbers[i] != i) {  // 改为 if 可以通过牛客网题目测试，但题解不正确，因为测试用例有问题，奇怪。
+            if (numbers[i] == numbers[numbers[i]]) {
+                duplication[0] = numbers[i];
+                return true;
+            }
+
+            // swap numbers[i] and numbers[numbers[i]]
+            int temp = numbers[i];
+            numbers[i] = numbers[temp];
+            numbers[temp] = temp;
+        }
+    }
+    return false;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以通过测试的一种解法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;public boolean duplicate(int[] numbers, int length, int[] duplication) {
+
+    if (numbers == null || length &amp;lt;= 0) {
+        return false;
+    }
+
+    Set&amp;lt;Integer&amp;gt; values = new HashSet&amp;lt;&amp;gt;();
+    for (int i = 0; i &amp;lt; length; i++) {
+        if (numbers[i] &amp;lt; 0 || numbers[i] &amp;gt; length - 1) {
+            return false;
+        }
+    }
+
+    int[] cloned = Arrays.copyOf(numbers, numbers.length);
+
+    for (int i = 0; i &amp;lt; length; i++) {
+        while (numbers[i] != i) {  //原题是找到任意一个重复数字
+            if (numbers[i] == numbers[numbers[i]]) {
+                //duplication[0] = numbers[i];
+                values.add(numbers[i]);
+                break;
+            }
+
+            // swap numbers[i] and numbers[numbers[i]]
+            int temp = numbers[i];
+            numbers[i] = numbers[temp];
+            numbers[temp] = temp;
+        }
+    }
+
+    if (!values.isEmpty()) {
+        for (int i : cloned) {
+            if (values.contains(i)) {
+                duplication[0] = i;
+                break;
+            }
+        }
+    }
+
+    return !values.isEmpty();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改成这样还不如下面这种方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;// 使用临时数组
+public boolean duplicate(int numbers[], int length, int[] duplication) {
+    if (numbers == null || numbers.length == 0)
+        return false;
+    int[] temp = new int[length];
+    for (int i = 0; i &amp;lt; length; i++) {
+        temp[numbers[i]]++;
+        if (temp[numbers[i]] &amp;gt; 1) {
+            duplication[0] = numbers[i];
+            return true;
+        }
+    }
+    return false;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上面这个方法参考自：&lt;a href=&quot;https://blog.nowcoder.net/n/1fe32887be5c453aae05429990659f52&quot;&gt;牛客网的一个解题&lt;/a&gt;&lt;/p&gt;
+
+&lt;h5 id=&quot;结束了&quot;&gt;结束了&lt;/h5&gt;
+
+&lt;p&gt;这个题是剑指 Offer 开局的第一题，有点经典，到此为止。时间不太够，要继续刷其它题了。&lt;/p&gt;
+</description>
+        <pubDate>Mon, 07 Dec 2020 03:03:00 +0000</pubDate>
+        <link>https://zwt.io/2020/12/07/find-duplicate-number-in-array/</link>
+        <guid isPermaLink="true">https://zwt.io/2020/12/07/find-duplicate-number-in-array/</guid>
+        
+        <category>Java</category>
+        
+        <category>面试</category>
+        
+        
+      </item>
+    
+      <item>
         <title>剑指Offer 面试题 34</title>
-        <description>&lt;h3 id=&quot;题目&quot;&gt;题目&lt;/h3&gt;
+        <description>&lt;h4 id=&quot;题目&quot;&gt;题目&lt;/h4&gt;
 
 &lt;p&gt;书中原题目是：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -134,7 +280,7 @@ public class FindPathSum {
       <item>
         <title>水塔液位自动控制装置</title>
         <description>&lt;p&gt;前段时间做了点小东西，随缘记录一下。&lt;br /&gt;
-在家里日常生活用水是用水塔，通过水泵将水从水井抽到楼顶的水塔用的。这在很常见，通常这些水塔都会有自动液位控制的，一般是一个浮球，机械式的开关。但家里的水塔比较旧没有安装水位控制装置，所以我一直想在水塔添加这样的功能。因为不想用浮球式液位控制，主要是想趁机折腾一下，玩一下技术。最初有些不太实际的脑洞，例如，可不可以通过测量液位变化时水塔的电容反映水位变化；还有根据水压变化计算出液面高度……  因为不想安装水压测量到水管里，而且还要设法与水泵开关联动，麻烦。大概五年前，上大二的时候，刚学单片机，就想着用 51 做一个东西去根据水塔液位变化自动控制水泵开关。  &lt;!--more--&gt;
+在家里日常生活用水是用水塔，通过水泵将水从水井抽到楼顶的水塔用的。通常这些水塔都会有自动液位控制的，一般是一个浮球，机械式的开关。但家里的水塔比较旧没有安装水位控制装置，所以我一直想在水塔添加这样的功能。因为不想用浮球式液位控制，主要是想趁机折腾一下，玩一下技术。最初有些不太实际的脑洞，例如，可不可以通过测量液位变化时水塔的电容反映水位变化；还有根据水压变化计算出液面高度……  因为不想安装水压测量到水管里，而且还要设法与水泵开关联动，麻烦。大概五年前，上大二的时候，刚学单片机，就想着用 51 做一个东西去根据水塔液位变化自动控制水泵开关。  &lt;!--more--&gt;
 &lt;img src=&quot;/img/water-tank.png&quot; alt=&quot;水塔液位控制&quot; /&gt;
 大概就是这么一个东西，当初用 51 接一个超声波测距模块，还有继电器，联合起来控制水泵。测得距离大于某个值，说明水位低于某个值，就打开水泵抽水，直到距离小于某个值就关掉水泵停止抽水，逻辑很简单的。&lt;br /&gt;
 不过当时程序可能写得不太好，硬件也没有弄得很好，因为用洞洞板焊接的。那东西在一次暴雨天后就坏了，我弟以为那是遭雷击了，我也不太清楚，反正就坏了。 然后半个月前，我闲着又再次折腾起这东西。这次硬件上使用 Arduino + ESP8266 + 小米路由器 + 小米智能网关 + 加个小米 ZigBee 版智能插座。超声波测距模块由Arduino 驱动，再通过串口发送距离数据到 ESP8266，通过 WiFi TCP 传到小米路由器（跑 OpenWRT)，在小米路由器上的 Linux 写了个程序，基于 ubox (epoll) 的 TCP 和 UDP 客户端。其中 TCP 接收来自 ESP8266 的液位数据，UDP 客户端用于与小米智能网关交互。当水塔液位低于某个水平，这个程序就会向小米智能网关发送命令，去控制米家智能插座打开。这个插座接着水泵，就相当于初版里边的继电器。&lt;br /&gt;
@@ -3460,82 +3606,6 @@ There are a few things to note in the question:&lt;/p&gt;
         <category>1Z0-816</category>
         
         <category>认证考试</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>第11章练习回顾</title>
-        <description>&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; Which of the following is an advantage of the Java Platform Module System? &lt;strong&gt;B&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;A.&lt;/strong&gt; A central repository of all modules&lt;br /&gt;
-&lt;strong&gt;B.&lt;/strong&gt; Encapsulating packages&lt;br /&gt;
-&lt;strong&gt;C.&lt;/strong&gt; Encapsulating objects&lt;br /&gt;
-&lt;strong&gt;D.&lt;/strong&gt; No defined types&lt;br /&gt;
-&lt;strong&gt;E.&lt;/strong&gt; Platform independence&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; Which statement is true of the following module? &lt;strong&gt;D&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-none&quot;&gt;zoo.staff
-|---zoo
-|-- staff
-|-- Vet.java
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;A.&lt;/strong&gt; The directory structure shown is a valid module.&lt;br /&gt;
-&lt;strong&gt;B.&lt;/strong&gt; The directory structure would be a valid module if module.java were added directly underneath zoo.staff.&lt;br /&gt;
-&lt;strong&gt;C.&lt;/strong&gt; The directory structure would be a valid module if module.java were added directly underneath zoo.&lt;br /&gt;
-&lt;strong&gt;D.&lt;/strong&gt; The directory structure would be a valid module if module-info.java were added directly underneath zoo.staff.&lt;br /&gt;
-&lt;strong&gt;E.&lt;/strong&gt; The directory structure would be a valid module if module-info.java were added directly underneath zoo.&lt;br /&gt;
-&lt;strong&gt;F.&lt;/strong&gt; None of these changes would make this directory structure a valid module.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;解释：&lt;/strong&gt;  Modules are required to have a module-info.java file at the root directory of the module. Option D matches this requirement.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; B&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; D -&amp;gt; G The -m or –module option is used to specify the module and class name. The -p or -module-path option is used to specify the location of the modules. Option D would be correct if the rest of the command were correct. However, running a program requires specifying the package name with periods (.) instead of slashes. Since the command is incorrect, option G is correct.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt; AF -&amp;gt; AFG Options C and D are incorrect because there is no use keyword. Options A and F are correct because opens is for reflection and uses declares an API that consumes a service. Option G is also correct as the file can be completely empty. This is just something you have to memorize.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;6.&lt;/strong&gt; BDF -&amp;gt; BC Packages inside a module are not exported by default, making option B correct and option A incorrect. Exporting is necessary for other code to use the packages; it is not necessary to call the main() method at the command line, making option C correct and option D incorrect. The module-info.java file has the correct name and compiles, making options E and F incorrect.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;7.&lt;/strong&gt; EF -&amp;gt; DG Options A, B, E, and F are incorrect because they refer to keywords that don’t exist. The requires transitive keyword is used when specifying a module to be used by the requesting module and any other modules that use the requesting module. Therefore, dog needs to specify the transitive relationship, and option G is correct. The module puppy just needs to require dog, and it gets the transitive dependencies, making option D correct.&lt;!--more--&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;8.&lt;/strong&gt; ABCD -&amp;gt; ABD Options A and B are correct because the -p (–module-path) option can be passed when compiling or running a program. Option D is also correct because jdeps can use the –module-path option when listing dependency information.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;9.&lt;/strong&gt; AEF -&amp;gt; AB The -p specifies the module path. This is just a directory, so all of the options have a legal module path. The -m specifies the module, which has two parts separated by a slash. Options E and F are incorrect since there is no slash. The first part is the module name. It is separated by periods (.) rather than dashes (-), making option C incorrect. The second part is the package and class name, again separated by periods. The package and class names must be legal Java identifiers. Dashes (-) are not allowed, ruling out option D. This leaves options A and B as the correct answers.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;10.&lt;/strong&gt; B&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;11.&lt;/strong&gt; ABD -&amp;gt; BDEF This is another question you just have to memorize. The jmod command has five modes you need to be able to list: create, extract, describe, list, and hash. The hash operation is not an answer choice. The other four are making options B, D, E, and F correct.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;12.&lt;/strong&gt; A -&amp;gt; B The java command uses this option to print information when the program loads. You might think jar does the same thing since it runs a program too. Alas, this parameter does not exist on jar.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;13.&lt;/strong&gt; AD -&amp;gt; E There is a trick here. A module definition uses the keyword module rather than class. Since the code does not compile, option E is correct. If the code did compile, options A and D would be correct.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;14.&lt;/strong&gt; A&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;15.&lt;/strong&gt; AD -&amp;gt; BD The java command has an –add-exports option that allows exporting a package at runtime. However, it is not encouraged to use it, making options B and D the answer.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;16.&lt;/strong&gt; BC&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;17.&lt;/strong&gt; D -&amp;gt; E&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;18.&lt;/strong&gt; AC&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;19.&lt;/strong&gt; BC&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;20.&lt;/strong&gt; BE&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;21.&lt;/strong&gt; G&lt;/p&gt;
-</description>
-        <pubDate>Sun, 22 Mar 2020 18:42:00 +0000</pubDate>
-        <link>https://zwt.io/2020/03/22/chapter11-exam-review/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/03/22/chapter11-exam-review/</guid>
-        
-        <category>Java</category>
-        
-        <category>OCP</category>
         
         
       </item>

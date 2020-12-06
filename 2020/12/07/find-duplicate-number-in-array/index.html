@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>响应式Spring Boot系列教程2 - 招文桃</title>
+    <title>剑指Offer 面试题 3 - 招文桃</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io/2020/01/07/reactive-spring-boot-part2-a-rest-client-for-reactive-streams/">
+    <link rel="canonical" href="https://zwt.io/2020/12/07/find-duplicate-number-in-array/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -166,21 +166,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Spring Boot" title="Spring Boot">Spring Boot</a>
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
                         
-                        <a class="tag" href="/tags/#Reactive" title="Reactive">Reactive</a>
-                        
-                        <a class="tag" href="/tags/#教程" title="教程">教程</a>
-                        
-                        <a class="tag" href="/tags/#翻译" title="翻译">翻译</a>
+                        <a class="tag" href="/tags/#面试" title="面试">面试</a>
                         
                     </div>
-                    <h1>响应式Spring Boot系列教程2</h1>
+                    <h1>剑指Offer 面试题 3</h1>
                     
                     
-                    <h2 class="subheading">Java REST客户端</h2>
+                    <h2 class="subheading">数组中重复的数字</h2>
                     
-                    <span class="meta">2020年1月7日发布📑</span>
+                    <span class="meta">2020年12月7日发布📑</span>
                     
                 </div>
             </div>
@@ -199,294 +195,138 @@
         col-md-10 col-md-offset-1
         post-container">
 
-        <blockquote>
-  <p>原文由 Trisha Gee 在当地时间2019年11月4日发布在 <a href="https://blog.jetbrains.com/idea/2019/11/tutorial-reactive-spring-boot-a-rest-client-for-reactive-streams/">INTELLIJ IDEA BLOG</a></p>
+        <h4 id="题目">题目</h4>
+
+<blockquote>
+  <p>在一个长度为n的数组里的所有数字都在 0 到 n-1 的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中第一个重复的数字。 例如，如果输入长度为7的数组{2 ,3, 1, 0, 2, 5, 3}，那么对应的输出是第一个重复的数字 2。</p>
 </blockquote>
 
-<p>这是第二步，演示如何创建一个 Java 客户端连接到一个发送一系列服务端发送事件的流。我们将使用测试驱动开发来进行开发客户端并进行测试。<a href="https://www.bilibili.com/video/av81233693">视频在 B 站</a></p>
+<p>这个题目在牛客网是<strong>请找出数组中第一个重复的数字</strong>，书中是“请找出数组中<strong>任意一个</strong>重复的数字”。如果直接按照书中的代码，那就不能通过牛客网的全部测试用例，这就有点搞了。不过还是先讲一下解题思路吧。</p>
 
-<p>本教程是一系列视频，概述了构建完整的Spring Boot的许多步骤，具有 Kotlin 服务后端，Java 客户端和 JavaFX 用户界面的应用程序。</p>
+<h5 id="先排序再扫描">先排序，再扫描</h5>
 
-<p>第二个视频将展示如何创建。一个响应式Spring Java客户端，连接到每秒流式传输股票价格的REST服务。</p>
+<p>排序后的数组很容易可以找出重复数字，从头到尾扫描一遍，发现相邻两个数相等的情况即找到了重复数字。时间复杂度为 $O(nlogn)$</p>
 
-<!--more-->
+<h5 id="利用哈希表">利用哈希表</h5>
 
-<h3 id="创建客户端工程">创建客户端工程</h3>
+<p>从头到尾扫描一遍数组，如果哈希表中没有这个数字，就将它加入哈希表，如果该数字已存在，则找到了重复数字。这个方法可以用 $O(1)$ 的时间来判断哈希表是否包含当前扫描到的数字，整个算法的时间复杂度是 $O(n)$ ，但代价是需要一个 $O(n)$ 大小的哈希表。</p>
 
-<p>我们将为这客户端创建一个新工程，我们希望将客户端和服务器代码完全分开，因为它们应该完全独立运行的。</p>
+<h5 id="利用数组下标">利用数组下标</h5>
 
-<ol>
-  <li>这个工程包含多个模块，所以开始的时候选择创建空工程。</li>
-  <li>将工程命名为 stock-client 按 Finish</li>
-  <li>默认情况下，当创建一个新的空 Project 时，IntelliJ IDEA显示 Project Structure 对话框的，Modules 部分。我们将在此处添加一个新模块，这将是一个 Spring Boot模块，因此我们选择左边的 Spring Initializr。</li>
-  <li>SDK我们使用 Java 13，但没有使用新的特性。</li>
-  <li>输入组和工件的详细信息，我们称此模块为stock-client。</li>
-  <li>我们将为模块填入一个有用的描述，以便清楚了解此代码的用途。</li>
-  <li>我们将保留默认使用Java创建Maven项目</li>
-  <li>选择Java 11作为版本，因为这是当前的长期支持版本。</li>
-  <li>我们可以选择更改默认的包结构。</li>
-</ol>
+<p>因为数组中所有数字都在0~n-1范围内，如果数组没有重复数字，那么数组排序后里面数字应该与它对应的下标相等。但因为数组中数字有重复，所以某个位置上的数字应该会出现多于一次。其实说的是，某个下标对应着的与下标相等的数字可能出现多次。原书中那句话是，“由于数组中有重复的素质，有些位置可能存在多个数字，同时有些位置可能没有数字。”，当时看到这句话有点懵，难道数组的一个位置还可以挤下两个数字？后来知道他所指的“位置”是指，下标值与数值相等的这种情况。说起位置，就有点想起 <code>PositionalList</code> …</p>
 
-<p>接下来选择所选的 Spring Boot Starter</p>
+<p>清楚了上面的情况，那么怎么可以找出重复数字？书中也是一段文字描述，按照里边描述的确可以找出重复数字，但看起来有点不直观，所以画个流程图看看。</p>
 
-<ol>
-  <li>使用Spring Boot 2.2.0 RC1</li>
-  <li>选择Spring Reactive Web Starter，然后也选择Lombok。</li>
-  <li>默认模块名称和位置没问题, 保留不变。</li>
-</ol>
+<p><img src="/img/image-20201207035713049.png" alt="image-20201207035713049" /></p>
 
-<p>IntelliJ IDEA 从 Spring Initializr 获取工程，并适当地设置IDE。选择 enable auto-import</p>
+<p>这实际上是一个 <strong>in-place</strong> 的排序操作，一边排序同时判断是否有重复数字。上图中 <em>i</em> 表示数组的下标值，<em>m</em> 表示数字值。我们开始从头到尾依次扫描这个数组，当扫描到下标为 <em>i</em> 的数字时，首先比较这个数字(<em>m</em>)是否等于 <em>i</em>。如果是，就扫描下一个数字；如果不等，则将该数字与第 <em>m</em> 个数字进行比较（即与下标值等于 <em>m</em> 的那个数比较）。此时，如果它和第 <em>m</em> 个数字相等，则找到了一个重复数字，因为这个数字在下标值为 <em>i</em> 和 <em>m</em> 的位置都出现了。如果它和第 <em>m</em> 个数字不相等，就将第 <em>i</em> 个数字和第 <em>m</em> 个数字交换，这个操作就是将 <em>m</em> 放到下标值等于其数值的位置，放在它该出现的位置上。这个过程其实就是一个插入排序（Insertion Sort），利用了数组下标有序，in-place 操作做到空间复杂度为 $O(1)$ ，每个数字最多只要交换两次就可以找到它自己的位置，因此总的时间复杂度是 $O(n)$，代码如下：</p>
 
-<h3 id="创建客户端类">创建客户端类</h3>
-
-<ol>
-  <li>删除Spring Initializr为我们创建的<code>StockClientApplication</code>，在这个模块我们不需要它，因为该模块将成为其他模块的库。</li>
-  <li>创建一个类WebClientStockClient。它将使用Spring的WebClient来，连接到股票价格服务。</li>
-</ol>
-
-<pre><code class="language-java">public class WebClientStockClient {
-
-}
-</code></pre>
-
-<h3 id="创建客户端的测试">创建客户端的测试</h3>
-
-<p>驱动客户端需求并验证可行性的方法之一是，是以测试驱动的方式进行开发。</p>
-
-<ol>
-  <li>Windows 或 Linux 使用 Ctrl+Shift+T (macOS 使用⇧⌘T ) 我们可以导航到某个类的测试。 在 <code>WebClientStockClient</code> 这个类还没有测试 所以让我们创建一个。</li>
-  <li>选择 JUnit 5 作为测试框架。</li>
-  <li>这实际上会是一个端到端测试，所以填入 <code>WebClientStockClientIntegrationTest</code> 作为类名。</li>
-  <li>用快捷键 Alt+Insert (⌘N) 生成测试的方法，在生成菜单中选择 “Test Method” 。</li>
-  <li>这不会是测试驱动开发的完美示例，因为我们只是创建一个只测试最佳情况的测试，有时称为快乐路径测试。将测试命名为像 <code>shouldRetrieveStockPricesFromTheService</code></li>
-  <li>为测试创建一个 <code>WebClientStockClient</code> 实例</li>
-</ol>
-
-<pre><code class="language-java">class WebClientStockClientIntegrationTest {
-    @Test
-    void shouldRetrieveStockPricesFromTheService() {
-        WebClientStockClient webClientStockClient = new WebClientStockClient();
+<pre><code class="language-java">/**
+ * @param numbers     输入的数组
+ * @param length      数组的长度
+ * @param duplication 原书中的是 C/C++ 的一个指针，用于返回数组中重复的数字，
+                      在这里可能只是为了统一，将重复数字存在数组第一个位置
+ * @return            true 如果有重复，否则 false
+ */
+public boolean duplicate(int numbers[], int length, int[] duplication) {
+    // 判空
+    if (numbers == null || length &lt;= 0) {
+        return false;
     }
-}
-</code></pre>
 
-<p>我们可以通过测试驱动来做的其中之一，是按照我们想要的API进行编码，而不是测试我们已经创建的东西。IntelliJ IDEA 使得这样的操作更加容易，因为我们可以创建我们想要的测试，并为其生成代码，通常是使用 Alt + Enter</p>
-
-<ol>
-  <li>在测试代码中，在 WebClientStockClient 上调用 pricesFor 方法。 这个方法需要一个 String 类型的参数表示想要了解其价格股票的代码。</li>
-</ol>
-
-<pre><code class="language-java">void shouldRetrieveStockPricesFromTheService() {
-    WebClientStockClient webClientStockClient = new WebClientStockClient();
-    webClientStockClient.pricesFor("SYMBOL");
-}
-</code></pre>
-
-<p>（注意：此代码当前未能通过编译）</p>
-
-<h3 id="在客户端中创建一个基本的价格方法">在客户端中创建一个基本的价格方法</h3>
-
-<ol>
-  <li>（提示：在红色的 pricesFor 方法上按下 Alt + Enter 去让 IntelliJ IDEA 在 <code>WebClientStockClient</code> 里边创建这个方法，并有符合预期的签名。）</li>
-  <li>将 WebClientStockClient 里的方法返回值类改成 <code>Flux&lt;StockPrice&gt;</code>  <a href="https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html">Flux</a></li>
-  <li>最简单地创建可编译、测试的方法是，让此方法返回空的Flux：</li>
-</ol>
-
-<pre><code class="language-java">public class WebClientStockClient {
-    public Flux&lt;StockPrice&gt; pricesFor(String symbol) {
-        return Flux.fromArray(new StockPrice[0]);
+    // 判断是否数组内数字是否符合题目要求范围
+    for (int i = 0; i &lt; length; i++) {
+        if (numbers[i] &lt; 0 || numbers[i] &gt; length - 1) {
+            return false;
+        }
     }
-}
-</code></pre>
 
-<p>（注意：此代码当前未能通过编译）</p>
+    for (int i = 0; i &lt; length; i++) {
+        while(numbers[i] != i) {  // 原题是找到任意一个重复数字，但这样做不符合牛客网的要求
+        // if (numbers[i] != i) {  // 改为 if 可以通过牛客网题目测试，但题解不正确，因为测试用例有问题，奇怪。
+            if (numbers[i] == numbers[numbers[i]]) {
+                duplication[0] = numbers[i];
+                return true;
+            }
 
-<h3 id="创建一个类保存股票价格">创建一个类保存股票价格</h3>
-
-<ol>
-  <li>（提示：最简单的方法是使用Alt + Enter让IntelliJ IDEA创建类）</li>
-  <li>在与 WebClientStockClient 的包里创建 StockPrice</li>
-</ol>
-
-<p>这就是我们要使用Lombok的地方，使用Lombok的@Data注解，我们可以创建类似于第一个视频中的Kotlin数据类。通过使用@Data注解，我们只需要使用字段定义该类的属性，getters,setters,equals,hashCode，以及toString方法均由Lombok提供。</p>
-
-<p>使用Lombok IntelliJ IDEA插件获得代码补全和其他有用的功能。</p>
-
-<ol>
-  <li>
-    <p>添加 String symbol，Double price 以及 LocalDateTime time 到 StockPrice 类。</p>
-  </li>
-  <li>
-    <p>通过Lombok添加@AllArgsConstructor和@NoArgsConstructor，这对于我们的代码是必需的</p>
-
-    <p>并用于JSON序列化。</p>
-  </li>
-</ol>
-
-<pre><code class="language-java">@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class StockPrice {
-    private String symbol;
-    private Double price;
-    private LocalDateTime time;
-}
-</code></pre>
-
-<h3 id="为测试添加断言">为测试添加断言</h3>
-
-<p>我们回到 WebClientStockClientIntegrationTest 并添加一些断言， 我们需要检查<code>Flux&lt;StockPrice&gt;</code>是否符合预期。</p>
-
-<ol>
-  <li>将返回的 Flux 保存到 prices 局部变量。</li>
-  <li>添加此为非空的断言。</li>
-  <li>添加一个断言，如果如果我们从Flux中取出五个价格，我们不止得到一个价格。</li>
-</ol>
-
-<pre><code class="language-java">@Test
-void shouldRetrieveStockPricesFromTheService() {
-    // given
-    WebClientStockClient webClientStockClient = new WebClientStockClient(webClient);
- 
-    // when
-    Flux&lt;StockPrice&gt; prices = webClientStockClient.pricesFor("SYMBOL");
- 
-    // then
-    Assertions.assertNotNull(prices);
-    Assertions.assertTrue(prices.take(5).count().block() &gt; 0);
-}
-</code></pre>
-
-<p>当我们运行此测试时，我们看到它失败了，它失败是因为Flux中包含零个元素，因为这是我们硬编码的内容。</p>
-
-<h3 id="将客户端连接到真实的服务">将客户端连接到真实的服务</h3>
-
-<p>让我们回到 WebClientStockClient 并写入实现。</p>
-
-<ol>
-  <li>我们要使用WebClient去连接服务。我们将其创建为一个字段，并添加为构造函数参数，以便Spring自动注入。</li>
-</ol>
-
-<pre><code class="language-java">public class WebClientStockClient {
-    private WebClient webClient;
- 
-    public WebClientStockClient(WebClient webClient) {
-        this.webClient = webClient;
+            // swap numbers[i] and numbers[numbers[i]]
+            int temp = numbers[i];
+            numbers[i] = numbers[temp];
+            numbers[temp] = temp;
+        }
     }
-// ...rest of the class here
-</code></pre>
-
-<p>现在我们想要使用 WebClient 在我们的方法中调用 REST 服务。</p>
-
-<ol>
-  <li>移除来自priceFor方法中的桩代码（即删除 <code>return Flux.fromArray(new StockPrice[0]);</code>）</li>
-  <li>我们使用WebClient发出 GET 请求 (<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/reactive/function/client/WebClient.html#get--">get()</a>).</li>
-  <li>传入服务的 URI (http://localhost:8080/stocks/{symbol}) 并传入股票代码（symbol）</li>
-  <li>调用 <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/reactive/function/client/WebClient.RequestHeadersSpec.html#retrieve--">retrieve()</a>.</li>
-  <li>我们要指定如何将这个调用的响应转换为某种类型的 Flux，使用bodyToFlux并将数据类 StockPrice.class 作为参数。</li>
-</ol>
-
-<pre><code class="language-java">public Flux&lt;StockPrice&gt; pricesFor(String symbol) {
-    return webClient.get()
-                    .uri("http://localhost:8080/stocks/{symbol}", symbol)
-                    .retrieve()
-                    .bodyToFlux(StockPrice.class);
+    return false;
 }
 </code></pre>
 
-<p>这些是要获得来自GET调用的响应流的最基本的要求，但我们还可以定义诸如retry和backoff策略，请记住了解从发布者到消费者的数据流，是创建成功的响应式应用程序的重要部分。</p>
+<p>可以通过测试的一种解法</p>
 
-<p>我们还可以定义抛出特定异常时的处理方式。例如，我们可以说 当我们看到IOException时 我们想记录它。 我们将使用Lombok的Log4j2注解，使我们能够访问日志并记录错误。</p>
+<pre><code class="language-java">public boolean duplicate(int[] numbers, int length, int[] duplication) {
 
-<p>这不是处理错误的最可靠的方式，这只是表明我们可以认为异常在响应流中是数据。</p>
-
-<pre><code class="language-java">import lombok.extern.log4j.Log4j2;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
- 
-import java.io.IOException;
-import java.time.Duration;
- 
-@Log4j2
-public class WebClientStockClient {
-    private WebClient webClient;
- 
-    public WebClientStockClient(WebClient webClient) {
-        this.webClient = webClient;
+    if (numbers == null || length &lt;= 0) {
+        return false;
     }
- 
-    public Flux&lt;StockPrice&gt; pricesFor(String symbol) {
-        return webClient.get()
-                        .uri("http://localhost:8080/stocks/{symbol}", symbol)
-                        .retrieve()
-                        .bodyToFlux(StockPrice.class)
-                        .retryBackoff(5, Duration.ofSeconds(1), Duration.ofSeconds(20))
-                        .doOnError(IOException.class, e -&gt; log.error(e.getMessage()));
+
+    Set&lt;Integer&gt; values = new HashSet&lt;&gt;();
+    for (int i = 0; i &lt; length; i++) {
+        if (numbers[i] &lt; 0 || numbers[i] &gt; length - 1) {
+            return false;
+        }
     }
+
+    int[] cloned = Arrays.copyOf(numbers, numbers.length);
+
+    for (int i = 0; i &lt; length; i++) {
+        while (numbers[i] != i) {  //原题是找到任意一个重复数字
+            if (numbers[i] == numbers[numbers[i]]) {
+                //duplication[0] = numbers[i];
+                values.add(numbers[i]);
+                break;
+            }
+
+            // swap numbers[i] and numbers[numbers[i]]
+            int temp = numbers[i];
+            numbers[i] = numbers[temp];
+            numbers[temp] = temp;
+        }
+    }
+
+    if (!values.isEmpty()) {
+        for (int i : cloned) {
+            if (values.contains(i)) {
+                duplication[0] = i;
+                break;
+            }
+        }
+    }
+
+    return !values.isEmpty();
 }
 </code></pre>
 
-<h3 id="运行集成测试">运行集成测试</h3>
+<p>改成这样还不如下面这种方法：</p>
 
-<p>回到 <code>WebClientStockClientIntegrationTest</code>，可以看到有些需要修复的东西。</p>
-
-<ol>
-  <li>我们现在需要给客户端一个 <code>WebClient</code>， 在测试中将其创建为字段。</li>
-  <li>（使用智能补全 <code>Ctrl+Shift+空格</code>， IntelliJ IDEA 甚至可以建议创建 <code>WebClient</code> 实例的完整语句）</li>
-</ol>
-
-<pre><code class="language-java">class WebClientStockClientIntegrationTest {
-    private WebClient webClient = WebClient.builder().build();
- 
-    @Test
-    void shouldRetrieveStockPricesFromTheService() {
-        WebClientStockClient webClientStockClient = new WebClientStockClient(webClient);
- 
-// ...其余代码
-</code></pre>
-
-<ol>
-  <li>为了进行集成测试，REST 服务必须要运行。回到上一个期创建的 <code>StockServiceApplication</code> 并运行起来。</li>
-  <li>运行 <code>WebClientStockClientIntegrationTest</code>。 你可以用边栏上的图标或使用快捷键 <code>Ctrl+Shift+F10</code> (macOS 快捷键是 ⌃⇧R ) ，或者双击 <code>Ctrl</code> (“run anything”) 然后输入测试的名称。</li>
-</ol>
-
-<p>现在我们应该可以看到测试为绿色通过。如果我们看一下输出，可以看到我们正在解码带有符号的 <code>StockPrice</code> 对象，随机价格和时间。</p>
-
-<h3 id="更多关于在集成测试中使用断言">更多关于在集成测试中使用断言</h3>
-
-<p>这不是最彻底的测试，所以让我们为的断言添加更多细节，以确保客户端符合我们预期。让我们更改断言为要获取五个价格时要求有五个价格，并确保某股票价格的代号是我们所期望的。</p>
-
-<pre><code class="language-java">import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
- 
-class WebClientStockClientIntegrationTest {
-    private WebClient webClient = WebClient.builder().build();
- 
-    @Test
-    void shouldRetrieveStockPricesFromTheService() {
-        // given
-        WebClientStockClient webClientStockClient = new WebClientStockClient(webClient);
- 
-        // when
-        Flux&lt;StockPrice&gt; prices = webClientStockClient.pricesFor("SYMBOL");
- 
-        // then
-        Assertions.assertNotNull(prices);
-        Flux&lt;StockPrice&gt; fivePrices = prices.take(5);
-        Assertions.assertEquals(5, fivePrices.count().block());
-        Assertions.assertEquals("SYMBOL", fivePrices.blockFirst().getSymbol());
+<pre><code class="language-java">// 使用临时数组
+public boolean duplicate(int numbers[], int length, int[] duplication) {
+    if (numbers == null || numbers.length == 0)
+        return false;
+    int[] temp = new int[length];
+    for (int i = 0; i &lt; length; i++) {
+        temp[numbers[i]]++;
+        if (temp[numbers[i]] &gt; 1) {
+            duplication[0] = numbers[i];
+            return true;
+        }
     }
+    return false;
 }
 </code></pre>
 
-<h3 id="总结">总结</h3>
+<p>上面这个方法参考自：<a href="https://blog.nowcoder.net/n/1fe32887be5c453aae05429990659f52">牛客网的一个解题</a></p>
 
-<p>测试响应式应用程序是一项技能，而且还有比我们所展示的更好的方法。但是，我们已经成功地使用了集成测试来驱动股票价格客户端的API和功能，该客户端连接到发出服务器发送事件，并返回<code>Flux&lt;StockPrice&gt;</code>对象可被其他服务消费的端点。在本教程的后续视频中，我们将展示如何执行此操作。</p>
+<h5 id="结束了">结束了</h5>
 
-<p><a href="https://github.com/zwt-io/rsb/">全部代码在 GitHub</a></p>
-
+<p>这个题是剑指 Offer 开局的第一题，有点经典，到此为止。时间不太够，要继续刷其它题了。</p>
 
 
         <!-- 来必力City版安装代码 -->
@@ -513,19 +353,12 @@ class WebClientStockClientIntegrationTest {
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2020/01/06/reactivce-spring-boot-tutorial/" data-toggle="tooltip" data-placement="top" title="响应式Spring Boot系列教程">
+                <a href="/2020/12/03/binary-path-sum/" data-toggle="tooltip" data-placement="top" title="剑指Offer 面试题 34">
                 上一篇<br>
-                <span>响应式Spring Boot系列教程</span>
+                <span>剑指Offer 面试题 34</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2020/01/09/reactive-spring-boot-part3-a-javafx-spring-boot-application/" data-toggle="tooltip" data-placement="top" title="响应式Spring Boot系列教程3">
-                下一篇<br>
-                <span>响应式Spring Boot系列教程3</span>
-                </a>
-            </li>
             
         </ul>
     </div>  

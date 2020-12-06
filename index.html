@@ -175,6 +175,155 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/12/07/find-duplicate-number-in-array/">
+        <h2 class="post-title">
+            剑指Offer 面试题 3
+        </h2>
+        
+        <h3 class="post-subtitle">
+            数组中重复的数字&nbsp;&nbsp;2020年12月7日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h4 id="题目">题目</h4>
+
+<blockquote>
+  <p>在一个长度为n的数组里的所有数字都在 0 到 n-1 的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中第一个重复的数字。 例如，如果输入长度为7的数组{2 ,3, 1, 0, 2, 5, 3}，那么对应的输出是第一个重复的数字 2。</p>
+</blockquote>
+
+<p>这个题目在牛客网是<strong>请找出数组中第一个重复的数字</strong>，书中是“请找出数组中<strong>任意一个</strong>重复的数字”。如果直接按照书中的代码，那就不能通过牛客网的全部测试用例，这就有点搞了。不过还是先讲一下解题思路吧。</p>
+
+<h5 id="先排序再扫描">先排序，再扫描</h5>
+
+<p>排序后的数组很容易可以找出重复数字，从头到尾扫描一遍，发现相邻两个数相等的情况即找到了重复数字。时间复杂度为 $O(nlogn)$</p>
+
+<h5 id="利用哈希表">利用哈希表</h5>
+
+<p>从头到尾扫描一遍数组，如果哈希表中没有这个数字，就将它加入哈希表，如果该数字已存在，则找到了重复数字。这个方法可以用 $O(1)$ 的时间来判断哈希表是否包含当前扫描到的数字，整个算法的时间复杂度是 $O(n)$ ，但代价是需要一个 $O(n)$ 大小的哈希表。</p>
+
+<h5 id="利用数组下标">利用数组下标</h5>
+
+<p>因为数组中所有数字都在0~n-1范围内，如果数组没有重复数字，那么数组排序后里面数字应该与它对应的下标相等。但因为数组中数字有重复，所以某个位置上的数字应该会出现多于一次。其实说的是，某个下标对应着的与下标相等的数字可能出现多次。原书中那句话是，“由于数组中有重复的素质，有些位置可能存在多个数字，同时有些位置可能没有数字。”，当时看到这句话有点懵，难道数组的一个位置还可以挤下两个数字？后来知道他所指的“位置”是指，下标值与数值相等的这种情况。说起位置，就有点想起 <code>PositionalList</code> …</p>
+
+<p>清楚了上面的情况，那么怎么可以找出重复数字？书中也是一段文字描述，按照里边描述的确可以找出重复数字，但看起来有点不直观，所以画个流程图看看。</p>
+
+<p><img src="/img/image-20201207035713049.png" alt="image-20201207035713049" /></p>
+
+<p>这实际上是一个 <strong>in-place</strong> 的排序操作，一边排序同时判断是否有重复数字。上图中 <em>i</em> 表示数组的下标值，<em>m</em> 表示数字值。我们开始从头到尾依次扫描这个数组，当扫描到下标为 <em>i</em> 的数字时，首先比较这个数字(<em>m</em>)是否等于 <em>i</em>。如果是，就扫描下一个数字；如果不等，则将该数字与第 <em>m</em> 个数字进行比较（即与下标值等于 <em>m</em> 的那个数比较）。此时，如果它和第 <em>m</em> 个数字相等，则找到了一个重复数字，因为这个数字在下标值为 <em>i</em> 和 <em>m</em> 的位置都出现了。如果它和第 <em>m</em> 个数字不相等，就将第 <em>i</em> 个数字和第 <em>m</em> 个数字交换，这个操作就是将 <em>m</em> 放到下标值等于其数值的位置，放在它该出现的位置上。这个过程其实就是一个插入排序（Insertion Sort），利用了数组下标有序，in-place 操作做到空间复杂度为 $O(1)$ ，每个数字最多只要交换两次就可以找到它自己的位置，因此总的时间复杂度是 $O(n)$，代码如下：</p>
+
+<pre><code class="language-java">/**
+ * @param numbers     输入的数组
+ * @param length      数组的长度
+ * @param duplication 原书中的是 C/C++ 的一个指针，用于返回数组中重复的数字，
+                      在这里可能只是为了统一，将重复数字存在数组第一个位置
+ * @return            true 如果有重复，否则 false
+ */
+public boolean duplicate(int numbers[], int length, int[] duplication) {
+    // 判空
+    if (numbers == null || length &lt;= 0) {
+        return false;
+    }
+
+    // 判断是否数组内数字是否符合题目要求范围
+    for (int i = 0; i &lt; length; i++) {
+        if (numbers[i] &lt; 0 || numbers[i] &gt; length - 1) {
+            return false;
+        }
+    }
+
+    for (int i = 0; i &lt; length; i++) {
+        while(numbers[i] != i) {  // 原题是找到任意一个重复数字，但这样做不符合牛客网的要求
+        // if (numbers[i] != i) {  // 改为 if 可以通过牛客网题目测试，但题解不正确，因为测试用例有问题，奇怪。
+            if (numbers[i] == numbers[numbers[i]]) {
+                duplication[0] = numbers[i];
+                return true;
+            }
+
+            // swap numbers[i] and numbers[numbers[i]]
+            int temp = numbers[i];
+            numbers[i] = numbers[temp];
+            numbers[temp] = temp;
+        }
+    }
+    return false;
+}
+</code></pre>
+
+<p>可以通过测试的一种解法</p>
+
+<pre><code class="language-java">public boolean duplicate(int[] numbers, int length, int[] duplication) {
+
+    if (numbers == null || length &lt;= 0) {
+        return false;
+    }
+
+    Set&lt;Integer&gt; values = new HashSet&lt;&gt;();
+    for (int i = 0; i &lt; length; i++) {
+        if (numbers[i] &lt; 0 || numbers[i] &gt; length - 1) {
+            return false;
+        }
+    }
+
+    int[] cloned = Arrays.copyOf(numbers, numbers.length);
+
+    for (int i = 0; i &lt; length; i++) {
+        while (numbers[i] != i) {  //原题是找到任意一个重复数字
+            if (numbers[i] == numbers[numbers[i]]) {
+                //duplication[0] = numbers[i];
+                values.add(numbers[i]);
+                break;
+            }
+
+            // swap numbers[i] and numbers[numbers[i]]
+            int temp = numbers[i];
+            numbers[i] = numbers[temp];
+            numbers[temp] = temp;
+        }
+    }
+
+    if (!values.isEmpty()) {
+        for (int i : cloned) {
+            if (values.contains(i)) {
+                duplication[0] = i;
+                break;
+            }
+        }
+    }
+
+    return !values.isEmpty();
+}
+</code></pre>
+
+<p>改成这样还不如下面这种方法：</p>
+
+<pre><code class="language-java">// 使用临时数组
+public boolean duplicate(int numbers[], int length, int[] duplication) {
+    if (numbers == null || numbers.length == 0)
+        return false;
+    int[] temp = new int[length];
+    for (int i = 0; i &lt; length; i++) {
+        temp[numbers[i]]++;
+        if (temp[numbers[i]] &gt; 1) {
+            duplication[0] = numbers[i];
+            return true;
+        }
+    }
+    return false;
+}
+</code></pre>
+
+<p>上面这个方法参考自：<a href="https://blog.nowcoder.net/n/1fe32887be5c453aae05429990659f52">牛客网的一个解题</a></p>
+
+<h5 id="结束了">结束了</h5>
+
+<p>这个题是剑指 Offer 开局的第一题，有点经典，到此为止。时间不太够，要继续刷其它题了。</p>
+ <a href="/2020/12/07/find-duplicate-number-in-array/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/12/03/binary-path-sum/">
         <h2 class="post-title">
             剑指Offer 面试题 34
@@ -186,7 +335,7 @@
         
     </a>
     <div class="post-content-preview">
-        <h3 id="题目">题目</h3>
+        <h4 id="题目">题目</h4>
 
 <p>书中原题目是：</p>
 <blockquote>
@@ -225,7 +374,7 @@
     </a>
     <div class="post-content-preview">
         <p>前段时间做了点小东西，随缘记录一下。<br />
-在家里日常生活用水是用水塔，通过水泵将水从水井抽到楼顶的水塔用的。这在很常见，通常这些水塔都会有自动液位控制的，一般是一个浮球，机械式的开关。但家里的水塔比较旧没有安装水位控制装置，所以我一直想在水塔添加这样的功能。因为不想用浮球式液位控制，主要是想趁机折腾一下，玩一下技术。最初有些不太实际的脑洞，例如，可不可以通过测量液位变化时水塔的电容反映水位变化；还有根据水压变化计算出液面高度……  因为不想安装水压测量到水管里，而且还要设法与水泵开关联动，麻烦。大概五年前，上大二的时候，刚学单片机，就想着用 51 做一个东西去根据水塔液位变化自动控制水泵开关。</p>
+在家里日常生活用水是用水塔，通过水泵将水从水井抽到楼顶的水塔用的。通常这些水塔都会有自动液位控制的，一般是一个浮球，机械式的开关。但家里的水塔比较旧没有安装水位控制装置，所以我一直想在水塔添加这样的功能。因为不想用浮球式液位控制，主要是想趁机折腾一下，玩一下技术。最初有些不太实际的脑洞，例如，可不可以通过测量液位变化时水塔的电容反映水位变化；还有根据水压变化计算出液面高度……  因为不想安装水压测量到水管里，而且还要设法与水泵开关联动，麻烦。大概五年前，上大二的时候，刚学单片机，就想着用 51 做一个东西去根据水塔液位变化自动控制水泵开关。</p>
  <a href="/2020/11/23/water-tank-level-control-automation/"><b>阅读更多📰</b></a>
     </div>
 </div>
@@ -492,57 +641,6 @@ A type argument $T_1$ is said to contain another type argument $T_2$, written $T
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/03/22/chapter11-exam-review/">
-        <h2 class="post-title">
-            第11章练习回顾
-        </h2>
-        
-        <h3 class="post-subtitle">
-            OCP 11-1 Book&nbsp;&nbsp;2020年3月22日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <p><strong>1.</strong> Which of the following is an advantage of the Java Platform Module System? <strong>B</strong></p>
-
-<p><strong>A.</strong> A central repository of all modules<br />
-<strong>B.</strong> Encapsulating packages<br />
-<strong>C.</strong> Encapsulating objects<br />
-<strong>D.</strong> No defined types<br />
-<strong>E.</strong> Platform independence</p>
-
-<p><strong>2.</strong> Which statement is true of the following module? <strong>D</strong></p>
-
-<pre><code class="language-none">zoo.staff
-|---zoo
-|-- staff
-|-- Vet.java
-</code></pre>
-
-<p><strong>A.</strong> The directory structure shown is a valid module.<br />
-<strong>B.</strong> The directory structure would be a valid module if module.java were added directly underneath zoo.staff.<br />
-<strong>C.</strong> The directory structure would be a valid module if module.java were added directly underneath zoo.<br />
-<strong>D.</strong> The directory structure would be a valid module if module-info.java were added directly underneath zoo.staff.<br />
-<strong>E.</strong> The directory structure would be a valid module if module-info.java were added directly underneath zoo.<br />
-<strong>F.</strong> None of these changes would make this directory structure a valid module.</p>
-
-<p><strong>解释：</strong>  Modules are required to have a module-info.java file at the root directory of the module. Option D matches this requirement.</p>
-
-<p><strong>3.</strong> B</p>
-
-<p><strong>4.</strong> D -&gt; G The -m or –module option is used to specify the module and class name. The -p or -module-path option is used to specify the location of the modules. Option D would be correct if the rest of the command were correct. However, running a program requires specifying the package name with periods (.) instead of slashes. Since the command is incorrect, option G is correct.</p>
-
-<p><strong>5.</strong> AF -&gt; AFG Options C and D are incorrect because there is no use keyword. Options A and F are correct because opens is for reflection and uses declares an API that consumes a service. Option G is also correct as the file can be completely empty. This is just something you have to memorize.</p>
-
-<p><strong>6.</strong> BDF -&gt; BC Packages inside a module are not exported by default, making option B correct and option A incorrect. Exporting is necessary for other code to use the packages; it is not necessary to call the main() method at the command line, making option C correct and option D incorrect. The module-info.java file has the correct name and compiles, making options E and F incorrect.</p>
-
-<p><strong>7.</strong> EF -&gt; DG Options A, B, E, and F are incorrect because they refer to keywords that don’t exist. The requires transitive keyword is used when specifying a module to be used by the requesting module and any other modules that use the requesting module. Therefore, dog needs to specify the transitive relationship, and option G is correct. The module puppy just needs to require dog, and it gets the transitive dependencies, making option D correct.</p>
- <a href="/2020/03/22/chapter11-exam-review/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -577,7 +675,7 @@ A type argument $T_1$ is said to contain another type argument $T_2$, written $T
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="33">
+                                <a href="/tags/#Java" title="Java" rel="34">
                                     Java
                                 </a>
                             

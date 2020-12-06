@@ -175,6 +175,57 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/03/22/chapter11-exam-review/">
+        <h2 class="post-title">
+            第11章练习回顾
+        </h2>
+        
+        <h3 class="post-subtitle">
+            OCP 11-1 Book&nbsp;&nbsp;2020年3月22日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <p><strong>1.</strong> Which of the following is an advantage of the Java Platform Module System? <strong>B</strong></p>
+
+<p><strong>A.</strong> A central repository of all modules<br />
+<strong>B.</strong> Encapsulating packages<br />
+<strong>C.</strong> Encapsulating objects<br />
+<strong>D.</strong> No defined types<br />
+<strong>E.</strong> Platform independence</p>
+
+<p><strong>2.</strong> Which statement is true of the following module? <strong>D</strong></p>
+
+<pre><code class="language-none">zoo.staff
+|---zoo
+|-- staff
+|-- Vet.java
+</code></pre>
+
+<p><strong>A.</strong> The directory structure shown is a valid module.<br />
+<strong>B.</strong> The directory structure would be a valid module if module.java were added directly underneath zoo.staff.<br />
+<strong>C.</strong> The directory structure would be a valid module if module.java were added directly underneath zoo.<br />
+<strong>D.</strong> The directory structure would be a valid module if module-info.java were added directly underneath zoo.staff.<br />
+<strong>E.</strong> The directory structure would be a valid module if module-info.java were added directly underneath zoo.<br />
+<strong>F.</strong> None of these changes would make this directory structure a valid module.</p>
+
+<p><strong>解释：</strong>  Modules are required to have a module-info.java file at the root directory of the module. Option D matches this requirement.</p>
+
+<p><strong>3.</strong> B</p>
+
+<p><strong>4.</strong> D -&gt; G The -m or –module option is used to specify the module and class name. The -p or -module-path option is used to specify the location of the modules. Option D would be correct if the rest of the command were correct. However, running a program requires specifying the package name with periods (.) instead of slashes. Since the command is incorrect, option G is correct.</p>
+
+<p><strong>5.</strong> AF -&gt; AFG Options C and D are incorrect because there is no use keyword. Options A and F are correct because opens is for reflection and uses declares an API that consumes a service. Option G is also correct as the file can be completely empty. This is just something you have to memorize.</p>
+
+<p><strong>6.</strong> BDF -&gt; BC Packages inside a module are not exported by default, making option B correct and option A incorrect. Exporting is necessary for other code to use the packages; it is not necessary to call the main() method at the command line, making option C correct and option D incorrect. The module-info.java file has the correct name and compiles, making options E and F incorrect.</p>
+
+<p><strong>7.</strong> EF -&gt; DG Options A, B, E, and F are incorrect because they refer to keywords that don’t exist. The requires transitive keyword is used when specifying a module to be used by the requesting module and any other modules that use the requesting module. Therefore, dog needs to specify the transitive relationship, and option G is correct. The module puppy just needs to require dog, and it gets the transitive dependencies, making option D correct.</p>
+ <a href="/2020/03/22/chapter11-exam-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/03/10/spring-tips-rsocket-spring-security/">
         <h2 class="post-title">
             RSocket与Spring Security简单整合
@@ -588,32 +639,6 @@ public class Outer {
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/02/02/builder-pattern-in-depth/">
-        <h2 class="post-title">
-            深入生成器设计模式
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Builder Pattern in Depth&nbsp;&nbsp;2020年2月2日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="gof-定义">GoF 定义</h3>
-
-<blockquote>
-  <p>Separate the construction of a complex object from its representation so that the same construction processes can create different representations.</p>
-
-  <p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同表示。（中文版书里的翻译）</p>
-</blockquote>
-
-<p>Builder 在《设计模式》的中文版里边翻译为“生成器”，那我就按这个译法吧。生成器模式属于创建型模式（Creational patterns），它关注如何创建对象。当需要构建的对象比较复杂，由多个部分组成，也就说它的构造方法会有很多参数，就可以考虑使用这种模式。生成器模式认为对象的构建机制应该独立于它的组成部分（也就是属性），对象的<strong>构建过程</strong>不关注对象的<strong>组成部分</strong>。所以同一个构建过程可以构建出不同表示（属性）的对象（通过<strong>改变构建步骤</strong>）。</p>
- <a href="/2020/02/02/builder-pattern-in-depth/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -652,7 +677,7 @@ public class Outer {
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="33">
+                                <a href="/tags/#Java" title="Java" rel="34">
                                     Java
                                 </a>
                             
