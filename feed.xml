@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 06 Dec 2020 22:46:48 +0000</pubDate>
-    <lastBuildDate>Sun, 06 Dec 2020 22:46:48 +0000</lastBuildDate>
+    <pubDate>Sun, 06 Dec 2020 22:55:52 +0000</pubDate>
+    <lastBuildDate>Sun, 06 Dec 2020 22:55:52 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -31,7 +31,7 @@
 
 &lt;p&gt;因为数组中所有数字都在0~n-1范围内，如果数组没有重复数字，那么数组排序后里面数字应该与它对应的下标相等。但因为数组中数字有重复，所以某个位置上的数字应该会出现多于一次。其实说的是，某个下标对应着的与下标相等的数字可能出现多次。原书中那句话是，“由于数组中有重复的素质，有些位置可能存在多个数字，同时有些位置可能没有数字。”，当时看到这句话有点懵，难道数组的一个位置还可以挤下两个数字？后来知道他所指的“位置”是指，下标值与数值相等的这种情况。说起位置，就有点想起 &lt;code&gt;PositionalList&lt;/code&gt; …&lt;/p&gt;
 
-&lt;p&gt;清楚了上面的情况，那么怎么可以找出重复数字？书中也是一段文字描述，按照里边描述的确可以找出重复数字，但看起来有点不直观，所以画个流程图看看。&lt;/p&gt;
+&lt;p&gt;清楚了上面的情况，那么怎么可以找出重复数字？书中也是一段文字描述，按照里边描述的确可以找出重复数字，但看起来有点不直观，所以画个流程图看看。&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/image-20201207035713049.png&quot; alt=&quot;image-20201207035713049&quot; /&gt;&lt;/p&gt;
 
