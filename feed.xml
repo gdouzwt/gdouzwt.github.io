@@ -5,8 +5,8 @@
     <description></description>
     <link>https://zwt.io/</link>
     <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 04 Mar 2021 19:40:20 +0000</pubDate>
-    <lastBuildDate>Thu, 04 Mar 2021 19:40:20 +0000</lastBuildDate>
+    <pubDate>Thu, 04 Mar 2021 22:27:34 +0000</pubDate>
+    <lastBuildDate>Thu, 04 Mar 2021 22:27:34 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -54,12 +54,44 @@
 
 &lt;h5 id=&quot;安装并配置-mosquitto&quot;&gt;安装并配置 Mosquitto&lt;/h5&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo docker pull eclipse-mosquitto
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;docker pull eclipse-mosquitto
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;一款开源的 MQTT broker，然后运行它。&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo docker run -it -p 1883:1883 -p 9001:9001 eclipse-mosquitto
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -it -p 1883:1883 -p 9001:9001 eclipse-mosquitto
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&quot;安装并配置-influxdb&quot;&gt;安装并配置 InfluxDB&lt;/h5&gt;
+
+&lt;p&gt;InfluxBD 是一款时间序列数据库，可以用于存储与时间相关的数据，适合存传感器收集到的数据。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;docker pull influxdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;运行 InfluxDB&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;docker run -d -p 8086:8086 -v influxdb:/var/lib/influxdb --name influxdb influxdb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这里是将influxdb作为守护进程启动，并创建了卷用于存储数据在 &lt;code&gt;/var/lib/influxdb&lt;/code&gt;&lt;/p&gt;
+
+&lt;h6 id=&quot;如何创建-influxdb-数据库和用户&quot;&gt;如何创建 InfluxDB 数据库和用户&lt;/h6&gt;
+
+&lt;p&gt;这里需要创建数据库和用户，后面 Telegraf 需要访问数据库，以存储来自 MQTT 的数据。&lt;/p&gt;
+
+&lt;p&gt;首先打开 InfluxDB CLI：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker exec -it influxdb influx
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;接下来创建数据库和用户：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;create database sensors
+
+create user &quot;telegraf&quot; with password &quot;telegraf&quot;
+
+grant all on sensors to telegraf
 &lt;/code&gt;&lt;/pre&gt;
 
 </description>
