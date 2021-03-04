@@ -175,6 +175,47 @@
             ">
             
 <div class="post-preview">
+    <a href="/2019/09/05/java-is-pass-by-value/">
+        <h2 class="post-title">
+            Java是值传递
+        </h2>
+        
+        <h3 class="post-subtitle">
+            搞清楚Java是值传递还是引用传递&nbsp;&nbsp;2019年9月5日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h1 id="java是值传递">Java是值传递</h1>
+
+<p>在一本Java面试参考书里面看到一个题目，有如下代码：</p>
+<pre><code class="language-java">public class Test {
+
+    private void change(String str, char[] ch) {
+        str = "test ok";
+        ch[0] = 'g';
+    }
+    public static void main(String[] args) {
+        String str = new String("good");
+        char[] ch = {'a', 'b', 'c'};
+        Test ex = new Test();
+        ex.change(str, ch);
+        System.out.print(str + " and ");
+        System.out.print(ch);
+    }
+}
+</code></pre>
+<p>问上面程序运行的结果是（）<br />
+A. good and abc<br />
+B. good and gbc<br />
+C. test ok and abc<br />
+D. test ok and gbc</p>
+ <a href="/2019/09/05/java-is-pass-by-value/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2019/07/10/compilation/">
         <h2 class="post-title">
             编译器构造—编译
@@ -462,6 +503,14 @@
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             

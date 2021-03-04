@@ -9,7 +9,7 @@
     <meta name="keywords" content="ZWT, Blog, Spring 微服务, 招文桃, Spring Boot, gdouzwt">
     <meta name="theme-color" content="#000000">
 
-    <title>数据结构001 - 招文桃</title>
+    <title>基于Grafana的物联网可视化仪表盘 - 招文桃</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -21,7 +21,7 @@
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://zwt.io/2019/09/17/data-structure-001/">
+    <link rel="canonical" href="https://zwt.io/2021/03/05/grafana-iot-visualization-dashboard/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -147,13 +147,13 @@
 
 <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
-<!-- <img src="/img/post-bg-desk.jpg" width="0" height="0"> -->
+<!-- <img src="/img/leimu.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/post-bg-desk.jpg')
+        background-image: url('/img/leimu.jpg')
     }
 
     
@@ -166,15 +166,21 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#数据结构" title="数据结构">数据结构</a>
+                        <a class="tag" href="/tags/#IoT" title="IoT">IoT</a>
+                        
+                        <a class="tag" href="/tags/#可视化" title="可视化">可视化</a>
+                        
+                        <a class="tag" href="/tags/#物联网" title="物联网">物联网</a>
+                        
+                        <a class="tag" href="/tags/#传感器" title="传感器">传感器</a>
                         
                     </div>
-                    <h1>数据结构001</h1>
+                    <h1>基于Grafana的物联网可视化仪表盘</h1>
                     
                     
-                    <h2 class="subheading">复习</h2>
+                    <h2 class="subheading">设置过程记录</h2>
                     
-                    <span class="meta">2019年9月17日发布📑</span>
+                    <span class="meta">2021年3月5日发布📑</span>
                     
                 </div>
             </div>
@@ -193,42 +199,31 @@
         col-md-10 col-md-offset-1
         post-container">
 
-        <h2 id="编程遇到的实际问题">编程遇到的实际问题</h2>
+        <blockquote>
+  <p>本文介绍如何在Ubuntu Server 20.04.2 LTS 服务器设置一个物联网可视化仪表盘。用到的技术包括 Docker, InfluxDB, MQTT, Grafana, Telegraf, NodeRed
+硬件方面采用 ESP8266、Arduino 或者其它任何兼容它的。本系统用于监控物联网设备的情况。其中 InfluxBD 用于存储来自传感器的数据。</p>
+</blockquote>
 
-<h3 id="字符串替换问题">字符串替换问题</h3>
+<p><img src="/img/image-20210305030358768.png" alt="image-20210305030358768" /></p>
 
-<h3 id="五子棋问题">五子棋问题</h3>
+<h4 id="服务器">服务器</h4>
 
-<pre><code>- 二维数组
-- 稀疏数组
+<p>我的服务器用的是旧的台式电脑安装 Ubuntu Server 20.04.2 LTS 操作系统，然后安装 Docker Engine。根据 Docker <a href="https://docs.docker.com/engine/install/ubuntu/">官网文档提供的方法</a></p>
+
+<p>先安装一些必要的包（如还没有）：</p>
+
+<pre><code class="language-bash">sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg
 </code></pre>
 
-<h3 id="约瑟夫问题丢手帕问题-单项环形链表">约瑟夫问题（丢手帕问题） 单项环形链表</h3>
+<p>接下来：</p>
 
-<p>修路问题 树（加权值） + 普里姆算法</p>
+<pre><code class="language-bash">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+</code></pre>
 
-<p>最短路径问题 图 + 弗洛伊德算法</p>
-
-<p>汉诺塔 分治算法</p>
-
-<p>八皇后 回溯法<!--more--></p>
-
-<h3 id="线性结构与非线性结构">线性结构与非线性结构</h3>
-
-<p>顺序存储和链式存储</p>
-
-<p>线性结构常见的有： 数组、队列、链表和栈。</p>
-
-<p>非线性结构包括： 二维数组，多维数组，广义表，树结构，图结构</p>
-
-<p>稀疏数组，当一个数组中大部分元素为0，或者为同一个值的数组是，可以使用稀疏数组来保存这个数组。</p>
-
-<ol>
-  <li>记录数组一共有几行几列，有多少个不同的值</li>
-  <li>把具有不同值的元素的行列及值记录在一个小规模的数组中，从而缩小程序的规模。</li>
-</ol>
-
-<p>二维数组 转 稀疏数组的思路， 之后稀疏数组还要恢复到二维数组。</p>
 
 
         <!-- 来必力City版安装代码 -->
@@ -255,19 +250,12 @@
         <ul class="pager">
             
             <li class="previous">
-                <a href="/2019/09/14/what-I-had-done/" data-toggle="tooltip" data-placement="top" title="作品链接">
+                <a href="/2020/12/07/find-duplicate-number-in-array/" data-toggle="tooltip" data-placement="top" title="剑指Offer 面试题 3">
                 上一篇<br>
-                <span>作品链接</span>
+                <span>剑指Offer 面试题 3</span>
                 </a>
             </li>
             
-            
-            <li class="next">
-                <a href="/2019/09/18/bbk-test-review/" data-toggle="tooltip" data-placement="top" title="一次笔试总结">
-                下一篇<br>
-                <span>一次笔试总结</span>
-                </a>
-            </li>
             
         </ul>
     </div>  

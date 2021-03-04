@@ -175,6 +175,75 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/02/04/inner-class/">
+        <h2 class="post-title">
+            Java 内部类
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Inner Class&nbsp;&nbsp;2020年2月4日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <blockquote>
+  <p>在这一篇文章，你将会学习到：</p>
+
+  <ul>
+    <li>内部类是什么</li>
+    <li>如何声明内部类</li>
+    <li>如何声明成员、局部，以及匿名内部类</li>
+    <li>如何创建内部类的对象</li>
+  </ul>
+</blockquote>
+
+<h3 id="什么是内部类">什么是内部类？</h3>
+
+<p>我们知道类（class）是包（package）的成员（member）。即顶层类，直接放在包下面的类。例如以下这段代码：</p>
+
+<pre><code class="language-java">// TopLevel.java
+package io.zwt.innerclasses;
+
+public class TopLevel {
+    private int value = 101;
+    
+    public int getValue() {
+        return value;
+    }
+    
+    public void setValue(int value) {
+        this.value = value;
+    }
+}
+</code></pre>
+
+<p>上面的 <code>TopLevel</code> 类是 <code>io.zwt.innerclasses</code> 包的成员。 这个里有三个成员：</p>
+
+<ul>
+  <li>一个实例变量（instance variable）：<code>value</code></li>
+  <li>两个方法（method）：<code>getValue()</code> and <code>setValue()</code></li>
+</ul>
+
+<p>一个类也可以声明在另一个类里面。这种类称为<em>内部类</em>。如果定义在另一个类中的类显式或隐式被声明为static，则它被称为嵌套类，而不是内部类。包含内部类的类称为<em>外层类</em>或<em>外部类</em>。看一下下面的 <code>Outer</code> 和 <code>Inner</code> 类声明：</p>
+
+<pre><code class="language-java">// Outer.java
+pakcage io.zwt.innerclasses;
+
+public class Outer {
+	public class Inner {
+		// 内部类的成员在这里
+	}
+	// 外部类的其它成员在这里
+}
+</code></pre>
+
+<p>一个内部类实例只能存在于其外部类实例内。也就是说，你在创建内部类实例之前必须要有一个外部类的实例。这个规则在规范一个对象不能脱离另一个对象而存在这方面很有用。内部类可以完全访问到它的外部类的所有成员，包括私有成员。</p>
+ <a href="/2020/02/04/inner-class/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/02/02/builder-pattern-in-depth/">
         <h2 class="post-title">
             深入生成器设计模式
@@ -441,31 +510,6 @@ System.out.println(
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程9
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Java RSocket客户端&nbsp;&nbsp;2020年1月9日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在2019年12月13日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-java-rsocket-client/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>在这一节，我们添加一个RSocket客户端，用来连接上一节创建的RSocket服务器。</p>
-
-<p>现在，我们有了一个使用Spring WebClient的端到端应用程序。在上一节中，我们介绍了一个新的RSocket服务器，在这节，我们将看到如何创建一个客户端来连接它</p>
-
- <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -665,6 +709,14 @@ System.out.println(
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             

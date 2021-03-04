@@ -175,6 +175,88 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/03/28/ocp-mock-test2-review/">
+        <h2 class="post-title">
+            OCP-1Z0-816模拟测试2回顾
+        </h2>
+        
+    </a>
+    <div class="post-content-preview">
+        <p><strong>1.</strong> Given</p>
+
+<pre><code class="language-java">class Booby {
+}
+class Dooby extends Booby {
+}
+class Tooby extends Dooby {
+}
+
+public class TestClass {
+  Booby b = new Booby();
+  Tooby t = new Tooby();
+  public void do1(List&lt;? super Dooby&gt; dataList) {
+    //1 INSERT CODE HERE
+  }
+  public void do2(List&lt;? extends Dooby&gt; dataList) {
+    //2 INSERT CODE HERE
+  }
+}
+</code></pre>
+
+<p>and the following four statements:</p>
+
+<ol>
+  <li>b = dataList.get(0);</li>
+  <li>t = dataList.get(0);</li>
+  <li>dataList.add(b);</li>
+  <li>dataList.add(t);</li>
+</ol>
+
+<p>What can be inserted in the above code?</p>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 1 and 3 can inserted at //1 and Statements 2 and 4 can be inserted at //2.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Statement 4 can inserted at //1 and Statement 1 can be inserted at //2.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 3 and 4 can inserted at //1 and Statements 1 and 2 can be inserted at //2.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 1 and 2 can inserted at //1 and Statements 3 and 4 can be inserted at //2.</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statement 1 can inserted at //1 and Statement 4 can be inserted at //2.</li>
+</ul>
+
+<p><strong>Explanation</strong></p>
+
+<ol>
+  <li>
+    <p><code>addData1(List&lt;? super Dooby&gt; dataList)</code><br />
+This means that dataList is a List whose elements are of a class that is either Dooby or a super class of Dooby. We don’t know which super class of Dooby. Thus, if you try to add any object to dataList, it has to be a assignable to Dooby.<br />
+Thus, <code>dataList.add(b);</code> will be invalid because b is not assignable to Dooby.<br />
+Further, if you try to take some object out of dataList, that object will be of a class that is either Dooby or a Superclass of Dooby. Only way you can declare a variable that can be assigned the object retrieved from dataList is Object obj. Thus, <code>t = dataList.get(0);</code> and <code>b = dataList.get(0);</code> are both invalid.</p>
+  </li>
+  <li>
+    <p><code>addData2(List&lt;? extends Dooby&gt; dataList)</code><br />
+This means that dataList is a List whose elements are of a class that is either Dooby or a subclass of Dooby. Since we don’t know which subclass of Dooby is the list composed of, there is no way you can add any object to this list.<br />
+If you try to take some object out of dataList, that object will be of a class that is either Dooby or a subclass of Dooby and thus it can be assigned to a variable of class Dooby or its superclass.. Thus, <code>t = dataList.get(0);</code> is invalid.</p>
+  </li>
+</ol>
+
+<p><strong>泛型规则（JLS）</strong><br />
+A type argument $T_1$ is said to contain another type argument $T_2$, written $T_2 &lt;= T_1$, is the set of types denoted by $T_2$ is provably a subset of the set of types denoted by $T_1$ under the reflexive and transitive closure of the following rules(where $&lt;:$ denotes subtyping($\S4.10$)):</p>
+
+<ul>
+  <li>$?\space extends\space T&lt;=\space ?\space extends \space S$ if $T &lt;: S$</li>
+  <li>$?\space extends \space T&lt;=\space ?$</li>
+  <li>$?\space super \space T&lt;=\space ?\space super \space S$  if $T &lt;: S$</li>
+  <li>$?\space super \space T&lt;=\space ?$</li>
+  <li>$?\space super \space T&lt;=\space ? \space extends \space Object$</li>
+  <li>$ T&lt;=\space T$</li>
+  <li>$T &lt;= \space ? \space extends \space T$</li>
+  <li>$T &lt;= \space ? \space super \space T$</li>
+</ul>
+ <a href="/2020/03/28/ocp-mock-test2-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/03/22/chapter11-exam-review/">
         <h2 class="post-title">
             第11章练习回顾
@@ -570,75 +652,6 @@ after_success:
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/02/04/inner-class/">
-        <h2 class="post-title">
-            Java 内部类
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Inner Class&nbsp;&nbsp;2020年2月4日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>在这一篇文章，你将会学习到：</p>
-
-  <ul>
-    <li>内部类是什么</li>
-    <li>如何声明内部类</li>
-    <li>如何声明成员、局部，以及匿名内部类</li>
-    <li>如何创建内部类的对象</li>
-  </ul>
-</blockquote>
-
-<h3 id="什么是内部类">什么是内部类？</h3>
-
-<p>我们知道类（class）是包（package）的成员（member）。即顶层类，直接放在包下面的类。例如以下这段代码：</p>
-
-<pre><code class="language-java">// TopLevel.java
-package io.zwt.innerclasses;
-
-public class TopLevel {
-    private int value = 101;
-    
-    public int getValue() {
-        return value;
-    }
-    
-    public void setValue(int value) {
-        this.value = value;
-    }
-}
-</code></pre>
-
-<p>上面的 <code>TopLevel</code> 类是 <code>io.zwt.innerclasses</code> 包的成员。 这个里有三个成员：</p>
-
-<ul>
-  <li>一个实例变量（instance variable）：<code>value</code></li>
-  <li>两个方法（method）：<code>getValue()</code> and <code>setValue()</code></li>
-</ul>
-
-<p>一个类也可以声明在另一个类里面。这种类称为<em>内部类</em>。如果定义在另一个类中的类显式或隐式被声明为static，则它被称为嵌套类，而不是内部类。包含内部类的类称为<em>外层类</em>或<em>外部类</em>。看一下下面的 <code>Outer</code> 和 <code>Inner</code> 类声明：</p>
-
-<pre><code class="language-java">// Outer.java
-pakcage io.zwt.innerclasses;
-
-public class Outer {
-	public class Inner {
-		// 内部类的成员在这里
-	}
-	// 外部类的其它成员在这里
-}
-</code></pre>
-
-<p>一个内部类实例只能存在于其外部类实例内。也就是说，你在创建内部类实例之前必须要有一个外部类的实例。这个规则在规范一个对象不能脱离另一个对象而存在这方面很有用。内部类可以完全访问到它的外部类的所有成员，包括私有成员。</p>
- <a href="/2020/02/04/inner-class/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -838,6 +851,14 @@ public class Outer {
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             
