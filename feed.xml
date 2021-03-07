@@ -3,10 +3,10 @@
   <channel>
     <title></title>
     <description></description>
-    <link>https://zwt.io/</link>
-    <atom:link href="https://zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 07 Mar 2021 11:11:58 +0000</pubDate>
-    <lastBuildDate>Sun, 07 Mar 2021 11:11:58 +0000</lastBuildDate>
+    <link>https://blog.zwt.io/</link>
+    <atom:link href="https://blog.zwt.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 07 Mar 2021 11:18:09 +0000</pubDate>
+    <lastBuildDate>Sun, 07 Mar 2021 11:18:09 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -96,8 +96,8 @@ grant all on sensors to telegraf
 
 </description>
         <pubDate>Fri, 05 Mar 2021 02:45:00 +0000</pubDate>
-        <link>https://zwt.io/2021/03/05/grafana-iot-visualization-dashboard/</link>
-        <guid isPermaLink="true">https://zwt.io/2021/03/05/grafana-iot-visualization-dashboard/</guid>
+        <link>https://blog.zwt.io/2021/03/05/grafana-iot-visualization-dashboard/</link>
+        <guid isPermaLink="true">https://blog.zwt.io/2021/03/05/grafana-iot-visualization-dashboard/</guid>
         
         <category>IoT</category>
         
@@ -246,8 +246,8 @@ public boolean duplicate(int numbers[], int length, int[] duplication) {
 &lt;p&gt;这个题是剑指 Offer 开局的第一题，有点经典，除了上面主要着重分析的方法，还有其它各种解法，但传统解题以点到为止。时间不太够，要继续刷其它题了。&lt;/p&gt;
 </description>
         <pubDate>Mon, 07 Dec 2020 03:03:00 +0000</pubDate>
-        <link>https://zwt.io/2020/12/07/find-duplicate-number-in-array/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/12/07/find-duplicate-number-in-array/</guid>
+        <link>https://blog.zwt.io/2020/12/07/find-duplicate-number-in-array/</link>
+        <guid isPermaLink="true">https://blog.zwt.io/2020/12/07/find-duplicate-number-in-array/</guid>
         
         <category>Java</category>
         
@@ -368,8 +368,8 @@ public class FindPathSum {
 &lt;/code&gt;&lt;/pre&gt;
 </description>
         <pubDate>Thu, 03 Dec 2020 21:40:00 +0000</pubDate>
-        <link>https://zwt.io/2020/12/03/binary-path-sum/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/12/03/binary-path-sum/</guid>
+        <link>https://blog.zwt.io/2020/12/03/binary-path-sum/</link>
+        <guid isPermaLink="true">https://blog.zwt.io/2020/12/03/binary-path-sum/</guid>
         
         <category>Java</category>
         
@@ -391,11 +391,11 @@ public class FindPathSum {
 
 &lt;p&gt;更新了。上周换了一个防水的超声波模块，因为考虑到我不在老家的时候，如果用那种普通的 HC-SR04，不防水，一两个月就坏，没有空维修就麻烦。所以换了一个防水的，贵很多，但估计会比较耐用、稳定。录了个视频大概聊了一下: &lt;a href=&quot;https://www.bilibili.com/video/BV1b5411N7UX&quot;&gt;BV1b5411N7UX&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;然后关于可视化监控的，见另外一篇文章的介绍 &lt;a href=&quot;https://zwt.io/2021/03/05/grafana-iot-visualization-dashboard/&quot;&gt;基于Grafana的物联网可视化仪表盘&lt;/a&gt; 。&lt;/p&gt;
+&lt;p&gt;然后关于可视化监控的，见另外一篇文章的介绍 &lt;a href=&quot;/2021/03/05/grafana-iot-visualization-dashboard/&quot;&gt;基于Grafana的物联网可视化仪表盘&lt;/a&gt; 。&lt;/p&gt;
 </description>
         <pubDate>Mon, 23 Nov 2020 12:13:00 +0000</pubDate>
-        <link>https://zwt.io/2020/11/23/water-tank-level-control-automation/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/11/23/water-tank-level-control-automation/</guid>
+        <link>https://blog.zwt.io/2020/11/23/water-tank-level-control-automation/</link>
+        <guid isPermaLink="true">https://blog.zwt.io/2020/11/23/water-tank-level-control-automation/</guid>
         
         <category>Personal</category>
         
@@ -533,8 +533,8 @@ Spring 的 bean 定义就像键值对那样，bean id 就是 key，bean 的实�
 &lt;p&gt;Spring 单例跟传统的单例模式是不同的。Spring 确保在每个容器对给定 bean id 定义只创建一个 bean 实例。 传统单例模式是保证给定一个类加载器所加载的某个类只有唯一的一个实例。&lt;/p&gt;
 </description>
         <pubDate>Mon, 02 Nov 2020 02:04:00 +0000</pubDate>
-        <link>https://zwt.io/2020/11/02/Spring-singleton-vs-Singleton-pattern/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/11/02/Spring-singleton-vs-Singleton-pattern/</guid>
+        <link>https://blog.zwt.io/2020/11/02/Spring-singleton-vs-Singleton-pattern/</link>
+        <guid isPermaLink="true">https://blog.zwt.io/2020/11/02/Spring-singleton-vs-Singleton-pattern/</guid>
         
         <category>Personal</category>
         
@@ -585,8 +585,8 @@ public void testSimpleLoad() {
 &lt;/ul&gt;
 </description>
         <pubDate>Thu, 15 Oct 2020 02:04:00 +0000</pubDate>
-        <link>https://zwt.io/2020/10/15/Spring001/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/10/15/Spring001/</guid>
+        <link>https://blog.zwt.io/2020/10/15/Spring001/</link>
+        <guid isPermaLink="true">https://blog.zwt.io/2020/10/15/Spring001/</guid>
         
         <category>Personal</category>
         
@@ -656,8 +656,8 @@ causes at most $m + n/m$ page misses in total, starting from an empty cache.&lt;
 &lt;p&gt;&lt;strong&gt;P-15.24&lt;/strong&gt; Implement the B-tree data structure, assuming a block size of 1024 and integer keys. Test the number of “disk transfers” needed to process a sequence of map operations.&lt;/p&gt;
 </description>
         <pubDate>Sun, 16 Aug 2020 02:36:00 +0000</pubDate>
-        <link>https://zwt.io/2020/08/16/ds-ch15/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/08/16/ds-ch15/</guid>
+        <link>https://blog.zwt.io/2020/08/16/ds-ch15/</link>
+        <guid isPermaLink="true">https://blog.zwt.io/2020/08/16/ds-ch15/</guid>
         
         <category>Data Structure</category>
         
@@ -738,8 +738,8 @@ separate line. After each such input, you should output to the Java console what
 &lt;p&gt;&lt;strong&gt;P-1.30&lt;/strong&gt; (For those who know Java graphical user interface methods:) Define a &lt;code&gt;GraphicalTest&lt;/code&gt; class that tests the functionality of the &lt;code&gt;CreditCard&lt;/code&gt; class from Code Fragment 1.5 using text fields and buttons.&lt;/p&gt;
 </description>
         <pubDate>Sat, 15 Aug 2020 00:00:00 +0000</pubDate>
-        <link>https://zwt.io/2020/08/15/ds-ch01/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/08/15/ds-ch01/</guid>
+        <link>https://blog.zwt.io/2020/08/15/ds-ch01/</link>
+        <guid isPermaLink="true">https://blog.zwt.io/2020/08/15/ds-ch01/</guid>
         
         <category>Data Structure</category>
         
@@ -904,8 +904,8 @@ Streams 上的 Lambda 操作&lt;br /&gt;
 使用 Java 格式化消息、日期和数字&lt;/p&gt;
 </description>
         <pubDate>Sun, 31 May 2020 06:32:00 +0000</pubDate>
-        <link>https://zwt.io/2020/05/31/Oracle-1Z0-816-exam-review/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/05/31/Oracle-1Z0-816-exam-review/</guid>
+        <link>https://blog.zwt.io/2020/05/31/Oracle-1Z0-816-exam-review/</link>
+        <guid isPermaLink="true">https://blog.zwt.io/2020/05/31/Oracle-1Z0-816-exam-review/</guid>
         
         <category>Java</category>
         
@@ -1177,8 +1177,8 @@ public class WhetherDisplay2 implements Observer {
 &lt;p&gt;这样可以马上定位出指定关键字所在的记录块,把相应的记录块拿到内存,二分查找即可.&lt;/p&gt;
 </description>
         <pubDate>Sun, 10 May 2020 20:02:00 +0000</pubDate>
-        <link>https://zwt.io/2020/05/10/java-interview-test1/</link>
-        <guid isPermaLink="true">https://zwt.io/2020/05/10/java-interview-test1/</guid>
+        <link>https://blog.zwt.io/2020/05/10/java-interview-test1/</link>
+        <guid isPermaLink="true">https://blog.zwt.io/2020/05/10/java-interview-test1/</guid>
         
         <category>Java 笔试</category>
         
