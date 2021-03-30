@@ -175,136 +175,6 @@
             ">
             
 <div class="post-preview">
-    <a href="/2020/02/04/inner-class/">
-        <h2 class="post-title">
-            Java 内部类
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Inner Class&nbsp;&nbsp;2020年2月4日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>在这一篇文章，你将会学习到：</p>
-
-  <ul>
-    <li>内部类是什么</li>
-    <li>如何声明内部类</li>
-    <li>如何声明成员、局部，以及匿名内部类</li>
-    <li>如何创建内部类的对象</li>
-  </ul>
-</blockquote>
-
-<h3 id="什么是内部类">什么是内部类？</h3>
-
-<p>我们知道类（class）是包（package）的成员（member）。即顶层类，直接放在包下面的类。例如以下这段代码：</p>
-
-<pre><code class="language-java">// TopLevel.java
-package io.zwt.innerclasses;
-
-public class TopLevel {
-    private int value = 101;
-    
-    public int getValue() {
-        return value;
-    }
-    
-    public void setValue(int value) {
-        this.value = value;
-    }
-}
-</code></pre>
-
-<p>上面的 <code>TopLevel</code> 类是 <code>io.zwt.innerclasses</code> 包的成员。 这个里有三个成员：</p>
-
-<ul>
-  <li>一个实例变量（instance variable）：<code>value</code></li>
-  <li>两个方法（method）：<code>getValue()</code> and <code>setValue()</code></li>
-</ul>
-
-<p>一个类也可以声明在另一个类里面。这种类称为<em>内部类</em>。如果定义在另一个类中的类显式或隐式被声明为static，则它被称为嵌套类，而不是内部类。包含内部类的类称为<em>外层类</em>或<em>外部类</em>。看一下下面的 <code>Outer</code> 和 <code>Inner</code> 类声明：</p>
-
-<pre><code class="language-java">// Outer.java
-pakcage io.zwt.innerclasses;
-
-public class Outer {
-	public class Inner {
-		// 内部类的成员在这里
-	}
-	// 外部类的其它成员在这里
-}
-</code></pre>
-
-<p>一个内部类实例只能存在于其外部类实例内。也就是说，你在创建内部类实例之前必须要有一个外部类的实例。这个规则在规范一个对象不能脱离另一个对象而存在这方面很有用。内部类可以完全访问到它的外部类的所有成员，包括私有成员。</p>
- <a href="/2020/02/04/inner-class/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/02/02/builder-pattern-in-depth/">
-        <h2 class="post-title">
-            深入生成器设计模式
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Builder Pattern in Depth&nbsp;&nbsp;2020年2月2日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="gof-定义">GoF 定义</h3>
-
-<blockquote>
-  <p>Separate the construction of a complex object from its representation so that the same construction processes can create different representations.</p>
-
-  <p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同表示。（中文版书里的翻译）</p>
-</blockquote>
-
-<p>Builder 在《设计模式》的中文版里边翻译为“生成器”，那我就按这个译法吧。生成器模式属于创建型模式（Creational patterns），它关注如何创建对象。当需要构建的对象比较复杂，由多个部分组成，也就说它的构造方法会有很多参数，就可以考虑使用这种模式。生成器模式认为对象的构建机制应该独立于它的组成部分（也就是属性），对象的<strong>构建过程</strong>不关注对象的<strong>组成部分</strong>。所以同一个构建过程可以构建出不同表示（属性）的对象（通过<strong>改变构建步骤</strong>）。</p>
- <a href="/2020/02/02/builder-pattern-in-depth/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/02/01/spring-classes/">
-        <h2 class="post-title">
-            Spring Boot的类
-        </h2>
-        
-        <h3 class="post-subtitle">
-            学习笔记&nbsp;&nbsp;2020年2月1日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="常见类的用途">常见类的用途</h2>
-
-<h3 id="springapplicationbuilder">SpringApplicationBuilder</h3>
-
-<p><code>java.lang.Object</code><br />
-​	<code>org.springframework.boot.builder.SpringApplicationBuilder</code></p>
-
-<p>Builder for <code>SpringApplication</code> and <code>ApplicationContext</code> instances with convenient fluent API and context hierarchy support. Simple example of a context hierarchy:<br />
-<code>new SpringApplicationBuider(ParentConfig.class).child(ChildConfig.class).run(args);</code><br />
-Another common use case is setting active profiles and default properties to set up the environment for an application:</p>
-
-<pre><code class="language-java">new SpringApplicationBuilder(Application.class).profiles("server")
-    			.properties("transport=local").run(args);
-</code></pre>
-
-<p>If your needs are simpler, consider using the static convenience methods in SpringApplication instead.</p>
-
-<p>(org.springframework.boot:spring-boot:2.2.4.RELEASE)</p>
- <a href="/2020/02/01/spring-classes/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2020/02/01/spring-boot-messaging/">
         <h2 class="post-title">
             Spring Boot 消息
@@ -510,6 +380,83 @@ System.out.println(
 </div>
 <hr>
 
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程9
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Java RSocket客户端&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <blockquote>
+  <p>原文由 Trisha Gee 在2019年12月13日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-java-rsocket-client/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一节，我们添加一个RSocket客户端，用来连接上一节创建的RSocket服务器。</p>
+
+<p>现在，我们有了一个使用Spring WebClient的端到端应用程序。在上一节中，我们介绍了一个新的RSocket服务器，在这节，我们将看到如何创建一个客户端来连接它</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程8
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Kotlin RSocket服务器&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年12月9日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-kotlin-rsocket-server/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一节，我们将给Kotlin后端添加一个新的服务，这次是通过RSocket，一种为响应式数据流而生的协议，发送价格数据。</p>
+
+<p>目前为止，我们以及成功地创建了一个端到端的应用程序，从Kotlin Spring Boot后端发送价格数据，并且将它们展示到一个JavaFX折线图上。那用的是HTTP的服务器发送事件。 但是，既然我们这个是响应式应用程序，我们可能想要选择一种更加适合流式数据的协议。</p>
+
+<p>在这一步，我们要创建一个通过RSocket协议发送价格数据的服务</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程7
+        </h2>
+        
+        <h3 class="post-subtitle">
+            订阅多个消费者&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年12月2日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-subscribing-multiple-consumers/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一节，我们更新实时更新图表显示多于一种股票价格，也就意味着订阅多于一个消费者到我们的响应式价格数据流。</p>
+
+<p>在上一步，我们让JavaFX折线图订阅到来自响应式Spring Boot的服务，并实时显示它们。在这一步，我们要更新图表，让它能多次订阅并在同一个图表显示多组数据。</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
 
 <!-- Pager -->
 
@@ -548,21 +495,13 @@ System.out.println(
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="34">
+                                <a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                                <a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                <a href="/tags/#笔试面试" title="笔试面试" rel="5">
                                     笔试面试
                                 </a>
                             
@@ -654,21 +593,9 @@ System.out.println(
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
                                 <a href="/tags/#RSocket" title="RSocket" rel="5">
                                     RSocket
                                 </a>
-                            
-                        
-                            
-                        
-                            
-                        
                             
                         
                             
@@ -688,11 +615,9 @@ System.out.println(
                             
                         
                             
-                                <a href="/tags/#Notes" title="Notes" rel="5">
+                                <a href="/tags/#Notes" title="Notes" rel="4">
                                     Notes
                                 </a>
-                            
-                        
                             
                         
                             
@@ -709,10 +634,6 @@ System.out.println(
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
-                            
-                        
-                            
-                        
                             
                         
                             

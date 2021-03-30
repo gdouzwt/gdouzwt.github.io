@@ -175,88 +175,6 @@
             ">
             
 <div class="post-preview">
-    <a href="/2020/03/28/ocp-mock-test2-review/">
-        <h2 class="post-title">
-            OCP-1Z0-816模拟测试2回顾
-        </h2>
-        
-    </a>
-    <div class="post-content-preview">
-        <p><strong>1.</strong> Given</p>
-
-<pre><code class="language-java">class Booby {
-}
-class Dooby extends Booby {
-}
-class Tooby extends Dooby {
-}
-
-public class TestClass {
-  Booby b = new Booby();
-  Tooby t = new Tooby();
-  public void do1(List&lt;? super Dooby&gt; dataList) {
-    //1 INSERT CODE HERE
-  }
-  public void do2(List&lt;? extends Dooby&gt; dataList) {
-    //2 INSERT CODE HERE
-  }
-}
-</code></pre>
-
-<p>and the following four statements:</p>
-
-<ol>
-  <li>b = dataList.get(0);</li>
-  <li>t = dataList.get(0);</li>
-  <li>dataList.add(b);</li>
-  <li>dataList.add(t);</li>
-</ol>
-
-<p>What can be inserted in the above code?</p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 1 and 3 can inserted at //1 and Statements 2 and 4 can be inserted at //2.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Statement 4 can inserted at //1 and Statement 1 can be inserted at //2.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 3 and 4 can inserted at //1 and Statements 1 and 2 can be inserted at //2.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 1 and 2 can inserted at //1 and Statements 3 and 4 can be inserted at //2.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statement 1 can inserted at //1 and Statement 4 can be inserted at //2.</li>
-</ul>
-
-<p><strong>Explanation</strong></p>
-
-<ol>
-  <li>
-    <p><code>addData1(List&lt;? super Dooby&gt; dataList)</code><br />
-This means that dataList is a List whose elements are of a class that is either Dooby or a super class of Dooby. We don’t know which super class of Dooby. Thus, if you try to add any object to dataList, it has to be a assignable to Dooby.<br />
-Thus, <code>dataList.add(b);</code> will be invalid because b is not assignable to Dooby.<br />
-Further, if you try to take some object out of dataList, that object will be of a class that is either Dooby or a Superclass of Dooby. Only way you can declare a variable that can be assigned the object retrieved from dataList is Object obj. Thus, <code>t = dataList.get(0);</code> and <code>b = dataList.get(0);</code> are both invalid.</p>
-  </li>
-  <li>
-    <p><code>addData2(List&lt;? extends Dooby&gt; dataList)</code><br />
-This means that dataList is a List whose elements are of a class that is either Dooby or a subclass of Dooby. Since we don’t know which subclass of Dooby is the list composed of, there is no way you can add any object to this list.<br />
-If you try to take some object out of dataList, that object will be of a class that is either Dooby or a subclass of Dooby and thus it can be assigned to a variable of class Dooby or its superclass.. Thus, <code>t = dataList.get(0);</code> is invalid.</p>
-  </li>
-</ol>
-
-<p><strong>泛型规则（JLS）</strong><br />
-A type argument $T_1$ is said to contain another type argument $T_2$, written $T_2 &lt;= T_1$, is the set of types denoted by $T_2$ is provably a subset of the set of types denoted by $T_1$ under the reflexive and transitive closure of the following rules(where $&lt;:$ denotes subtyping($\S4.10$)):</p>
-
-<ul>
-  <li>$?\space extends\space T&lt;=\space ?\space extends \space S$ if $T &lt;: S$</li>
-  <li>$?\space extends \space T&lt;=\space ?$</li>
-  <li>$?\space super \space T&lt;=\space ?\space super \space S$  if $T &lt;: S$</li>
-  <li>$?\space super \space T&lt;=\space ?$</li>
-  <li>$?\space super \space T&lt;=\space ? \space extends \space Object$</li>
-  <li>$ T&lt;=\space T$</li>
-  <li>$T &lt;= \space ? \space extends \space T$</li>
-  <li>$T &lt;= \space ? \space super \space T$</li>
-</ul>
- <a href="/2020/03/28/ocp-mock-test2-review/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2020/03/22/chapter11-exam-review/">
         <h2 class="post-title">
             第11章练习回顾
@@ -354,60 +272,6 @@ A type argument $T_1$ is said to contain another type argument $T_2$, written $T
 
 <p>GreetingsServiceApplication.java</p>
  <a href="/2020/03/10/spring-tips-rsocket-spring-security/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/03/02/web-scraping-notes/">
-        <h2 class="post-title">
-            网络爬虫学习笔记
-        </h2>
-        
-        <h3 class="post-subtitle">
-            scraping the web for fun and for profit&nbsp;&nbsp;2020年3月2日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="课程计划">课程计划</h3>
-
-<ul>
-  <li>
-    <p>入门</p>
-  </li>
-  <li>
-    <p>HttpClient</p>
-  </li>
-  <li>
-    <p>Jsoup</p>
-  </li>
-  <li>
-    <p>案例</p>
-
-    <pre><code class="language-java">dependencies {
-    implementation('org.jsoup:jsoup:1.12.2')
-    implementation('org.apache.httpcomponents:httpclient:4.5.2')
-  
-    testImplementation('org.slf4j:slf4j-log4j12:1.7.25')
-    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
-}
-</code></pre>
-  </li>
-</ul>
-
-<h3 id="爬虫功能">爬虫功能</h3>
-
-<p>从功能上来讲，爬虫一般分为数据采集，处理，存储三个部分。爬虫从一个或若干个初始页面的URL开始，获得初始页面上的URL，在抓取页面的过程中，不断从当前页面抽取新的URL放入队列，直到满足系统的一定停止条件。</p>
-
-<ul>
-  <li>数据采集</li>
-  <li>处理</li>
-  <li>存储</li>
-</ul>
-
-<p>从初始页面开始，爬取这个页面里面的详细页面连接，接着是下一页，等等。</p>
- <a href="/2020/03/02/web-scraping-notes/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
@@ -563,51 +427,6 @@ A <code>HashMap</code> is a perfect choice because its methods are not synchroni
 <hr>
 
 <div class="post-preview">
-    <a href="/2020/02/12/intro-to-travis/">
-        <h2 class="post-title">
-            Travis CI上手
-        </h2>
-        
-        <h3 class="post-subtitle">
-            玩下持续构建、持续集成&nbsp;&nbsp;2020年2月12日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="配置文件">配置文件</h3>
-
-<p>我用于博客自动构建的<code>.travis.yml</code>脚本：</p>
-<pre><code class="language-yaml">language: ruby
-rvm:
-  - 2.6.3
-env:
-  global:
-  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-  - secure: D0RrVHHBEEJMyJK9OUUPM6Wms+D+zifJhHFl4BcmC0leSR0vANoQ6357Bl4miZL2flmnBU/1Z9WNzcDVM0JwQpF8ZVeEdMvgBY5+73Xjp8cIwYfWx8MAUB8J1Hug2aEiXw6KoSxjFOnUpSRnhCcWpviFNCZOa5XavMfe7+OHbNQT1U1xu+ZOmDG6Hrm3CMhfzu2cRPIfziAAgnWVfgtqA0STXnY9D0HvfsKPl6khy6VWkeF09Chqo/XVO/SV5LSgplkgXh1OzS6ITwT99UWDRqIeXYAvMJFyrHkzdxNgtAddYVxmx8WQqfqUFQ6A3HSnJy2Fq04H3gLszQxrVPzw8fNeOzBe7hIviaZdgRsglc26NO13EX//e4DA1ImiYKciFGvDNDBrqtv8u3XAG+8jVe/dLwKbBXnvi64udh2/H/lTBfWQ3eV08/R6m0m4aF8jbv0oBuXReyXuEy9D6xNm+yceekWzKAmTYPFb9W5XLveIgt8SIQO9P6tGuMWV6w7KRhgbpgI886ZeSVS3WcAGIr11SvSNa+x5WapOd/mizHrA8VvW4v8GjmYYwTOsmiLuYl2t1fWY76yYOOdSDLC9XhJN/mS3qxxX7WR4KCJgpstyzTVXj+uyuzi23sV1SdUvO35r3VkZk11ad9Qmp9WLXpdSQfMAKbu/lC7C9HfrGuM=
-cache:
-  bundler: true
-  directories:
-    - /home/travis/.rvm/
-install:
-- gem install bundler
-- bundle install
-script:
-- bundle exec rake deploy
-after_success:
-- bash &lt;(curl -s https://codecov.io/bash)
-</code></pre>
-
-<p>发现启用了 cache 之后，快很多了。搞到动图凑内容：</p>
-
-<p><img src="/img/cache_1581461859_5053.gif" alt="cache_1581461859_5053" /></p>
-
-<p>用来测试构建时长，哈哈哈哈！</p>
- <a href="/2020/02/12/intro-to-travis/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2020/02/12/hello-asciidoctor/">
         <h2 class="post-title">
             AsciiDoc语法参考
@@ -652,6 +471,136 @@ after_success:
 </div>
 <hr>
 
+<div class="post-preview">
+    <a href="/2020/02/04/inner-class/">
+        <h2 class="post-title">
+            Java 内部类
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Inner Class&nbsp;&nbsp;2020年2月4日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <blockquote>
+  <p>在这一篇文章，你将会学习到：</p>
+
+  <ul>
+    <li>内部类是什么</li>
+    <li>如何声明内部类</li>
+    <li>如何声明成员、局部，以及匿名内部类</li>
+    <li>如何创建内部类的对象</li>
+  </ul>
+</blockquote>
+
+<h3 id="什么是内部类">什么是内部类？</h3>
+
+<p>我们知道类（class）是包（package）的成员（member）。即顶层类，直接放在包下面的类。例如以下这段代码：</p>
+
+<pre><code class="language-java">// TopLevel.java
+package io.zwt.innerclasses;
+
+public class TopLevel {
+    private int value = 101;
+    
+    public int getValue() {
+        return value;
+    }
+    
+    public void setValue(int value) {
+        this.value = value;
+    }
+}
+</code></pre>
+
+<p>上面的 <code>TopLevel</code> 类是 <code>io.zwt.innerclasses</code> 包的成员。 这个里有三个成员：</p>
+
+<ul>
+  <li>一个实例变量（instance variable）：<code>value</code></li>
+  <li>两个方法（method）：<code>getValue()</code> and <code>setValue()</code></li>
+</ul>
+
+<p>一个类也可以声明在另一个类里面。这种类称为<em>内部类</em>。如果定义在另一个类中的类显式或隐式被声明为static，则它被称为嵌套类，而不是内部类。包含内部类的类称为<em>外层类</em>或<em>外部类</em>。看一下下面的 <code>Outer</code> 和 <code>Inner</code> 类声明：</p>
+
+<pre><code class="language-java">// Outer.java
+pakcage io.zwt.innerclasses;
+
+public class Outer {
+	public class Inner {
+		// 内部类的成员在这里
+	}
+	// 外部类的其它成员在这里
+}
+</code></pre>
+
+<p>一个内部类实例只能存在于其外部类实例内。也就是说，你在创建内部类实例之前必须要有一个外部类的实例。这个规则在规范一个对象不能脱离另一个对象而存在这方面很有用。内部类可以完全访问到它的外部类的所有成员，包括私有成员。</p>
+ <a href="/2020/02/04/inner-class/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/02/02/builder-pattern-in-depth/">
+        <h2 class="post-title">
+            深入生成器设计模式
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Builder Pattern in Depth&nbsp;&nbsp;2020年2月2日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="gof-定义">GoF 定义</h3>
+
+<blockquote>
+  <p>Separate the construction of a complex object from its representation so that the same construction processes can create different representations.</p>
+
+  <p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同表示。（中文版书里的翻译）</p>
+</blockquote>
+
+<p>Builder 在《设计模式》的中文版里边翻译为“生成器”，那我就按这个译法吧。生成器模式属于创建型模式（Creational patterns），它关注如何创建对象。当需要构建的对象比较复杂，由多个部分组成，也就说它的构造方法会有很多参数，就可以考虑使用这种模式。生成器模式认为对象的构建机制应该独立于它的组成部分（也就是属性），对象的<strong>构建过程</strong>不关注对象的<strong>组成部分</strong>。所以同一个构建过程可以构建出不同表示（属性）的对象（通过<strong>改变构建步骤</strong>）。</p>
+ <a href="/2020/02/02/builder-pattern-in-depth/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2020/02/01/spring-classes/">
+        <h2 class="post-title">
+            Spring Boot的类
+        </h2>
+        
+        <h3 class="post-subtitle">
+            学习笔记&nbsp;&nbsp;2020年2月1日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="常见类的用途">常见类的用途</h2>
+
+<h3 id="springapplicationbuilder">SpringApplicationBuilder</h3>
+
+<p><code>java.lang.Object</code><br />
+​	<code>org.springframework.boot.builder.SpringApplicationBuilder</code></p>
+
+<p>Builder for <code>SpringApplication</code> and <code>ApplicationContext</code> instances with convenient fluent API and context hierarchy support. Simple example of a context hierarchy:<br />
+<code>new SpringApplicationBuider(ParentConfig.class).child(ChildConfig.class).run(args);</code><br />
+Another common use case is setting active profiles and default properties to set up the environment for an application:</p>
+
+<pre><code class="language-java">new SpringApplicationBuilder(Application.class).profiles("server")
+    			.properties("transport=local").run(args);
+</code></pre>
+
+<p>If your needs are simpler, consider using the static convenience methods in SpringApplication instead.</p>
+
+<p>(org.springframework.boot:spring-boot:2.2.4.RELEASE)</p>
+ <a href="/2020/02/01/spring-classes/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
 
 <!-- Pager -->
 
@@ -690,21 +639,13 @@ after_success:
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="34">
+                                <a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                                <a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                <a href="/tags/#笔试面试" title="笔试面试" rel="5">
                                     笔试面试
                                 </a>
                             
@@ -796,21 +737,9 @@ after_success:
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
                                 <a href="/tags/#RSocket" title="RSocket" rel="5">
                                     RSocket
                                 </a>
-                            
-                        
-                            
-                        
-                            
-                        
                             
                         
                             
@@ -830,11 +759,9 @@ after_success:
                             
                         
                             
-                                <a href="/tags/#Notes" title="Notes" rel="5">
+                                <a href="/tags/#Notes" title="Notes" rel="4">
                                     Notes
                                 </a>
-                            
-                        
                             
                         
                             
@@ -851,10 +778,6 @@ after_success:
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
-                            
-                        
-                            
-                        
                             
                         
                             

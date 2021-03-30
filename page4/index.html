@@ -175,83 +175,6 @@
             ">
             
 <div class="post-preview">
-    <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程9
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Java RSocket客户端&nbsp;&nbsp;2020年1月9日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在2019年12月13日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-java-rsocket-client/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>在这一节，我们添加一个RSocket客户端，用来连接上一节创建的RSocket服务器。</p>
-
-<p>现在，我们有了一个使用Spring WebClient的端到端应用程序。在上一节中，我们介绍了一个新的RSocket服务器，在这节，我们将看到如何创建一个客户端来连接它</p>
-
- <a href="/2020/01/09/reactive-spring-boot-part9-java-rsocket-client/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程8
-        </h2>
-        
-        <h3 class="post-subtitle">
-            Kotlin RSocket服务器&nbsp;&nbsp;2020年1月9日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在当地时间2019年12月9日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-kotlin-rsocket-server/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>在这一节，我们将给Kotlin后端添加一个新的服务，这次是通过RSocket，一种为响应式数据流而生的协议，发送价格数据。</p>
-
-<p>目前为止，我们以及成功地创建了一个端到端的应用程序，从Kotlin Spring Boot后端发送价格数据，并且将它们展示到一个JavaFX折线图上。那用的是HTTP的服务器发送事件。 但是，既然我们这个是响应式应用程序，我们可能想要选择一种更加适合流式数据的协议。</p>
-
-<p>在这一步，我们要创建一个通过RSocket协议发送价格数据的服务</p>
-
- <a href="/2020/01/09/reactive-spring-boot-part8-kotlin-rsocket-server/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/">
-        <h2 class="post-title">
-            响应式Spring Boot系列教程7
-        </h2>
-        
-        <h3 class="post-subtitle">
-            订阅多个消费者&nbsp;&nbsp;2020年1月9日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>原文由 Trisha Gee 在当地时间2019年12月2日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-subscribing-multiple-consumers/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
-
-<p>在这一节，我们更新实时更新图表显示多于一种股票价格，也就意味着订阅多于一个消费者到我们的响应式价格数据流。</p>
-
-<p>在上一步，我们让JavaFX折线图订阅到来自响应式Spring Boot的服务，并实时显示它们。在这一步，我们要更新图表，让它能多次订阅并在同一个图表显示多组数据。</p>
-
- <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
     <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/">
         <h2 class="post-title">
             响应式Spring Boot系列教程6
@@ -399,38 +322,120 @@
 <hr>
 
 <div class="post-preview">
-    <a href="/2019/12/22/calculus-2014-2015-1/">
+    <a href="/2019/12/03/reactive-evolution-part2/">
         <h2 class="post-title">
-            复习 2014-2015-1
+            响应式变革 Reactive Evolution 第 2 部分
         </h2>
         
         <h3 class="post-subtitle">
-            复习微积分&nbsp;&nbsp;2019年12月22日
+            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理&nbsp;&nbsp;2019年12月3日
         </h3>
         
     </a>
     <div class="post-content-preview">
-        <h1 id="a">A</h1>
+        <h2 id="响应式变革第-2-部分构造边缘服务客户端">响应式变革第 2 部分——构造边缘服务客户端</h2>
 
-<h4 id="一填空题">一、填空题</h4>
+<h3 id="第二节开场">第二节开场</h3>
 
-<p><strong>1.</strong>  若函数 \(f(x) =\begin{cases}a + x, x &gt; 0 \\ e^{-x},\space\space\space x &lt; 0 \end{cases}\) 在点 $x = 0$ 处连续，则 $a = $ <em>__</em> .</p>
+<p>现在 我们已经构建了一个服务是一个 HTTP API 额…… 我们演示了 WebSocket 我们演示了 响应式 NoSQL 和 SQL 数据访问 在 Spring Data 的世界里 我们全部用 Java 写的加点 JavaScript 对吧 那有点 额…… 你懂得 总会遇到 JavaScript 的对吧？就如谚语所说那样。额 然后 现在 是时候将我们的注意力转到 构建客户端 构建一个东西 我们可以用来 额 与那个服务进行通信 去构建边缘服务 而边缘服务是在逻辑上在架构的边缘的东西 首个来自外界请求的端口。会被适配到对下游微服务的请求，而边缘服务是逻辑上我们处理，一些边界关键问题。例如 负载均衡
+路由 还有安全之类的。所以我们要在这里做 在这个边缘服务里做，额 我们要构建一个 像往常一样。通过到 start.spring.io OK? 所以我们开始，啊 现在。我们要构建一个应用，你知道吗 顺便说一下 有点失望。之前从 10 月 31 日开始。那时候是万圣节前夜。从 10 月 31 日开始，这是万圣节前夜风格的。那很酷啊，现在变回暗色模式也很好 你懂的。但 当时这里有个南瓜和鬼怪的，随意啦 没关系。</p>
+ <a href="/2019/12/03/reactive-evolution-part2/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
 
-<p><strong>2.</strong>  若 $f(x) = e^{-x}$，则 $f^{(n)}(x) = $ <em>__</em> .</p>
+<div class="post-preview">
+    <a href="/2019/11/21/reactive-evolution-part1/">
+        <h2 class="post-title">
+            响应式变革 Reactive Evolution 第 1 部分
+        </h2>
+        
+        <h3 class="post-subtitle">
+            根据龙之春 Josh Long Devoxx Belgium 2019 演讲整理&nbsp;&nbsp;2019年11月21日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="响应式变革第-1-部分构造服务端">响应式变革第 1 部分——构造服务端</h2>
 
-<p><strong>3.</strong>   $\displaystyle \int \ln x dx = $ <em>__</em> .</p>
+<h3 id="传统的方式">传统的方式</h3>
 
-<p><strong>4.</strong>  曲线 $\displaystyle y = x^3 - x + 1$  在 $(0, 1)$ 处的切线方程为 <em>__</em> .</p>
+<p>​		响应式编程不是一个特别新的话题，不是新的概念。大概在 5 年前就开始讨论这个话题了。它更多地应该是一个答案。对更老的问题的答案，一个已经存在很久了的问题——如何扩展系统，可以支持更多用户，处理更多进入系统的请求。响应式编程是一种表达方式，一种新的答案。而答案的本身，并不是很新颖。响应式编程，更多是关于线程的使用效率。是关于让你的系统，让你的软件，在 JVM 上更好地处理线程的一种方式。这是很重要的，因为线程代价高，JVM 的线程开销大。</p>
+ <a href="/2019/11/21/reactive-evolution-part1/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
 
-<p><strong>5.</strong>  函数 $y = x^3 + 3x^2 - 1$ 在 $[-1, 1]$ 上最大值为 <em>__</em> .</p>
+<div class="post-preview">
+    <a href="/2019/11/17/effective-java-item1-notes/">
+        <h2 class="post-title">
+            Effective Java 条款1
+        </h2>
+        
+        <h3 class="post-subtitle">
+            读书笔记&nbsp;&nbsp;2019年11月17日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="item-1-consider-static-factory-methods-instead-of-constructors">ITEM 1: Consider static factory methods instead of constructors</h2>
 
-<p><strong>6.</strong> 设 $\displaystyle F(x) = \int_{0}^{x^2}(t^3 - t)dt$，则 $F’(1) =$ <em>__</em> .</p>
+<p>属于 “创建和销毁对象” 那章。静态工厂方法跟“四人帮”设计模式里面的<em>工厂方法</em>模式是不同的。</p>
+ <a href="/2019/11/17/effective-java-item1-notes/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
 
-<p><strong>7.</strong>  $\displaystyle\int_{-1}^{1}(x^3 - \sqrt{1-x^2})dx=$<em>__</em> .</p>
+<div class="post-preview">
+    <a href="/2019/11/15/concurrency/">
+        <h2 class="post-title">
+            Java 并发
+        </h2>
+        
+        <h3 class="post-subtitle">
+            基础内容&nbsp;&nbsp;2019年11月15日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="concurrency-并发">Concurrency 并发</h2>
 
-<p><strong>8.</strong> 曲线 $y = x^2$ 与曲线 $y = x$ 所围成图形的面积为 <em>__</em> .</p>
+<h3 id="synchronized-语句块">Synchronized 语句块</h3>
 
- <a href="/2019/12/22/calculus-2014-2015-1/"><b>阅读更多📰</b></a>
+<pre><code class="language-java">package synchronizing;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class SheepManager {
+	
+	private int sheepCount = 0;
+	
+	// private void incrementAndReport() {
+	private void incrementAndReport() {
+		synchronized(this) {
+        System.out.print((++sheepCount)+" ");
+        }
+	}
+
+	public static void main(String[] args) {
+
+		ExecutorService service = null;
+		try {
+			service = Executors.newFixedThreadPool(20);
+			
+			SheepManager manager = new SheepManager();
+			for(int i = 0; i &lt; 10; i++) 
+				service.submit(()-&gt; manager.incrementAndReport());
+			} finally {
+				if (service != null) service.shutdown();
+			}
+	}
+}
+</code></pre>
+
+<p>使用 Monitor 或称为 Lock，使用 synchronized 的时候，注意🔒的对象是那个。保证同步，就要去要锁同一个对象。</p>
+ <a href="/2019/11/15/concurrency/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
@@ -473,21 +478,13 @@
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="34">
+                                <a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                                <a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                <a href="/tags/#笔试面试" title="笔试面试" rel="5">
                                     笔试面试
                                 </a>
                             
@@ -579,21 +576,9 @@
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
                                 <a href="/tags/#RSocket" title="RSocket" rel="5">
                                     RSocket
                                 </a>
-                            
-                        
-                            
-                        
-                            
-                        
                             
                         
                             
@@ -613,11 +598,9 @@
                             
                         
                             
-                                <a href="/tags/#Notes" title="Notes" rel="5">
+                                <a href="/tags/#Notes" title="Notes" rel="4">
                                     Notes
                                 </a>
-                            
-                        
                             
                         
                             
@@ -634,10 +617,6 @@
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
-                            
-                        
-                            
-                        
                             
                         
                             

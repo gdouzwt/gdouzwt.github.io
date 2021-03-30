@@ -175,283 +175,301 @@
             ">
             
 <div class="post-preview">
-    <a href="/2019/11/11/jpackage-early-access/">
+    <a href="/2019/10/14/do1-cloud-test-review/">
         <h2 class="post-title">
-            JDK 的 jpackage 早期预览版
+            相反顺序输出一个整数
         </h2>
         
         <h3 class="post-subtitle">
-            Java 应用新的打包方式&nbsp;&nbsp;2019年11月11日
+            笔试编程题&nbsp;&nbsp;2019年10月14日
         </h3>
         
     </a>
     <div class="post-content-preview">
-        <h3 id="在-windows-测试">在 Windows 测试</h3>
+        <h5 id="起初">起初</h5>
 
-<pre><code>jpackage --type exe --name javafx-library --description "Demo of jpackage" --vendor "Zhao Wentao" --app-version 0.0.1 --input input --dest output --main-jar app.jar --win-shortcut --win-menu
-</code></pre>
+<p>编写程序，对输入的一个整数，按相反顺序输出该数。</p>
 
-<p>需要 Wix Toolsets</p>
- <a href="/2019/11/11/jpackage-early-access/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/11/07/java-multithreading/">
-        <h2 class="post-title">
-            Java 多线程编程
-        </h2>
-        
-        <h3 class="post-subtitle">
-            回顾 Java 多线程编程的基础知识&nbsp;&nbsp;2019年11月7日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h3 id="多线程编程">多线程编程</h3>
-
-<h4 id="java-的线程模型">Java 的线程模型</h4>
-
-<h5 id="线程的优先级">线程的优先级</h5>
-
-<h5 id="线程同步问题">线程同步问题</h5>
-
-<h5 id="线程的消息机制">线程的消息机制</h5>
-
-<h5 id="thread-类-和-runnable-接口">Thread 类 和 Runnable 接口</h5>
- <a href="/2019/11/07/java-multithreading/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/11/06/java-lambda-revisited/">
-        <h2 class="post-title">
-            Java Lambda 表达式
-        </h2>
-        
-        <h3 class="post-subtitle">
-            深入理解 Lambda&nbsp;&nbsp;2019年11月6日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="lambda-expressions">Lambda Expressions</h2>
-
-<h4 id="introducing-lambda-expressions">Introducing Lambda Expressions</h4>
-
-<h5 id="lambda-expression-基础">Lambda Expression 基础</h5>
-
-<h5 id="函数式接口">函数式接口</h5>
-
-<h5 id="一些函数表达式例子">一些函数表达式例子</h5>
-<p>演示一个简单的 Lambda 表达式</p>
-
-<pre><code class="language-java">// Demonstrate a simple lambda expression. 
- 
-// A functional interface. 
-interface MyNumber { 
-  double getValue();  
+<pre><code class="language-java">// ReverseInt.java
+import java.util.Scanner;
+public class ReverseInt {
+	public static void main(String[] args) {
+		System.out.println("请输入一个整数：");
+		Scanner input = new Scanner(System.in);
+		String value = "" + input.nextBigInteger();
+		input.close();
+		String reversed = "";
+		for (int i = value.length() - 1; i &gt;= 0; i--) {
+			reversed = reversed + value.charAt(i);
+		}
+		System.out.println(reversed);
+	}
 }
 </code></pre>
+<p>当时手写代码，<code>for</code> 循环的控制条件边界写错了，当时写成了 <code>for (int i = value.length(); i &gt; 0; i--)</code>  结果数组越界了。应该是 <code>for (int i = value.length() - 1; i &gt;= 0; i--)</code> 的。</p>
 
-<p>使用 Lambda 表达式</p>
- <a href="/2019/11/06/java-lambda-revisited/"><b>阅读更多📰</b></a>
+<p>换成 <code>input.nextBigInteger();</code> 好一点。</p>
+ <a href="/2019/10/14/do1-cloud-test-review/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2019/11/04/java-generic-revisited/">
+    <a href="/2019/10/13/oca-guide-intro-test-review/">
         <h2 class="post-title">
-            Java 泛型回顾
+            OCA 自测回顾
         </h2>
         
         <h3 class="post-subtitle">
-            深入理解泛型&nbsp;&nbsp;2019年11月4日
+            Assessment Test&nbsp;&nbsp;2019年10月13日
         </h3>
         
     </a>
     <div class="post-content-preview">
-        <h1 id="generics">Generics</h1>
+        <h2 id="oca-自测题回顾">OCA 自测题回顾</h2>
 
-<p>JDK 1.5 版本开始引入，加强了<strong>类型安全（Type safety）</strong>，强化了语言本身，更加强化了集合框架（Collections Framework）。Java 8 开始加入 Lambda、Stream 更加进一步增强了语言的表达能力。</p>
-
-<h3 id="什么是泛型">什么是泛型？</h3>
-
-<p>泛型（Generics）意思是参数化类型（Parameterized types）。泛型允许在创建类、接口和方法的时候，以提供参数的形式指定其能操作的数据类型。它的对象是类、接口、方法。这三者都可以泛型化。</p>
-
-<p>在没有泛型特性之前，可以通过 Object 类实现泛型编程，但是不能保证类型安全。</p>
- <a href="/2019/11/04/java-generic-revisited/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/11/02/java-protected-access-modifier-revisited/">
-        <h2 class="post-title">
-            回顾 protected 访问修饰符
-        </h2>
-        
-        <h3 class="post-subtitle">
-            重读一下 OCA Guide 访问控制符内容&nbsp;&nbsp;2019年11月2日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="使用-protected-访问控制符">使用 protected 访问控制符</h2>
-
-<p>这是基础内容了，但是不能轻视，越基础越要清晰理解。</p>
- <a href="/2019/11/02/java-protected-access-modifier-revisited/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/10/31/maven-basics-review/">
-        <h2 class="post-title">
-            回顾 Maven 的一些基本操作
-        </h2>
-        
-        <h3 class="post-subtitle">
-            记录一下方便以后查看&nbsp;&nbsp;2019年10月31日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="使用-maven-创建最简单的项目">使用 Maven 创建最简单的项目</h2>
-
-<p>在安装好了 Maven 之后，可以在命令行窗口输入以下命令创建一个简单的 Maven 项目：</p>
-
-<pre><code class="language-shell">mvn archetype:generate -DgroupId=io.zwt.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+<ol>
+  <li>What is the output of the following code? (Choose all that apply)
+    <pre><code class="language-java">interface HasTail { int getTailLength(); } 
+abstract class Puma implements HasTail { 
+    protected int getTailLength() {return 4;} 
+} 
+public class Cougar extends Puma { 
+    public static void main(String[] args) { 
+        Puma puma = new Puma(); 
+        System.out.println(puma.getTailLength()); 
+ } 
+       
+    public int getTailLength(int length) {return 2;} 
+} 
 </code></pre>
+    <blockquote>
+      <p><strong>A.</strong> 2</p>
 
-<p>可以看到结果生成了一个目录为 my-app 的项目：</p>
- <a href="/2019/10/31/maven-basics-review/"><b>阅读更多📰</b></a>
+      <p><strong>B.</strong> 4</p>
+
+      <p><strong>C.</strong> The code will not compile because of line 3.</p>
+
+      <p><strong>D.</strong> The code will not compile because of line 5.</p>
+
+      <p><strong>E.</strong> The code will not compile because of line 7.</p>
+
+      <p><strong>F.</strong> The output cannot be determined from the code provided.</p>
+    </blockquote>
+  </li>
+</ol>
+ <a href="/2019/10/13/oca-guide-intro-test-review/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/">
+    <a href="/2019/10/13/get-int-array-from-console-input/">
         <h2 class="post-title">
-            响应式Spring Boot系列教程1
+            控制台输入数组
         </h2>
         
         <h3 class="post-subtitle">
-            Kotlin REST服务端&nbsp;&nbsp;2019年10月31日
+            编程题数据输入方式&nbsp;&nbsp;2019年10月13日
         </h3>
         
     </a>
     <div class="post-content-preview">
-        <blockquote>
-  <p>Posted on October 28, 2019 by Trisha Gee</p>
+        <h2 id="输入数据到整型数组">输入数据到整型数组</h2>
 
-  <p>原文由 Trisha Gee 在当地时间2019年10月28日发布在 <a href="https://blog.jetbrains.com/idea/2019/10/tutorial-reactive-spring-boot-a-kotlin-rest-service/">INTELLIJ IDEA BLOG</a></p>
-</blockquote>
+<h4 id="问题">问题</h4>
 
-<p>这个月（2019年10月）我在 SpringOne Platform（大会）做了一个现场代码演示，展示了如何构建一个 Spring Boot 应用，用来显示实时（股票）价格，用到了 Spring（很明显），Kotlin 还有 JavaFX。这个代码演示有录像，<a href="https://blog.jetbrains.com/idea/2019/10/fully-reactive-spring-kotlin-and-javafx-playing-together/">是一个时长 70 分钟的视频，</a>不过我觉得作为一系列更简短的视频配以博客文章会更加容易消化，可以更慢、更详细地介绍每一步。</p>
-
-<p>这是第一步：使用 Kotlin 创建一个响应式 Spring Boot 服务。</p>
-
-<p>这篇博文包含一个视频演示一步步操作过程和一个文字版的操作过程（从视频的讲稿演变而来）给那些更偏好文字版的人。这个教程是我们构建一个完整的使用 <a href="https://kotlinlang.org/">Kotlin</a> 写的 Spring Boot 应用作后端， <a href="https://jdk.java.net/13/">Java</a> 写客户端以及一个  JavaFX 写的用户界面的其中一些步骤。</p>
-
-<p>教程的第一步是创建一个 <a href="https://spring.io/guides/tutorials/spring-boot-kotlin/">Kotlin 版的 Spring Boot 应用</a>，作为应用程序的后端。我们将会创建一个 <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> 服务，可在后面的教程中接入。</p>
-
- <a href="/2019/10/31/reactive-spring-boot-part1-a-kotlin-rest-service/"><b>阅读更多📰</b></a>
+<p>从控制台标准输入读取键盘输入的数，存放到整型数组里面。数组的长度不确定，这种情况怎么处理？</p>
+ <a href="/2019/10/13/get-int-array-from-console-input/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2019/10/30/ocp-review-topics/">
+    <a href="/2019/10/12/sorting-algorithms/">
         <h2 class="post-title">
-            OCP 考试大纲
+            常见排序算法
         </h2>
         
         <h3 class="post-subtitle">
-            1Z0-809 官方考点&nbsp;&nbsp;2019年10月30日
+            要掌握基本排序算法的实现&nbsp;&nbsp;2019年10月12日
         </h3>
         
     </a>
     <div class="post-content-preview">
-        <h2 id="exam-objectives">Exam Objectives</h2>
+        <h2 id="常见的排序算法">常见的排序算法</h2>
 
-<p>考点内容见<a href="https://education.oracle.com/java-se-8-programmer-ii/pexam_1Z0-809">这个链接</a></p>
-
-<h4 id="java-class-design">Java Class Design</h4>
-
-<ul>
-  <li>Implement encapsulation</li>
-  <li>Implement inheritance including visibility modifiers and composition</li>
-  <li>Implement polymorphism</li>
-  <li>Override <code>hashCode</code>, <code>equals</code>, and <code>toString</code> methods from <code>Object</code> class</li>
-  <li>Create and use singleton classes and immutable classes</li>
-  <li>Develop code that uses <code>static</code> keyword on initialize blocks, variables, methods, and classes</li>
-</ul>
- <a href="/2019/10/30/ocp-review-topics/"><b>阅读更多📰</b></a>
+ <a href="/2019/10/12/sorting-algorithms/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2019/10/25/oca-exam-prep-review/">
+    <a href="/2019/10/12/errata/">
         <h2 class="post-title">
-            OCA 回顾与评价
+            OCA Study Guide Errata
         </h2>
         
         <h3 class="post-subtitle">
-            备考参考书籍、软件，还有考试体验&nbsp;&nbsp;2019年10月25日
+            OCA 学习指南的勘误&nbsp;&nbsp;2019年10月12日
         </h3>
         
     </a>
     <div class="post-content-preview">
-        <h2 id="背景">背景</h2>
+        <h2 id="errata">ERRATA</h2>
 
-<p>大学是软件工程专业，大一专业课先学 C 语言，接着是C语言的数据结构。大二分方向，C++ 和  Java 两个方向。C++ 作为我入门面向对象编程的语言，学完大学的 C++ 课程，主要实践就是用 Qt 写了个简单的数据库课程设计，之后就没有怎么用了，荒废掉了。 C 语言还因为学习微机原理（51 单片机）重新拾起来了一段时间。之后因为那段时间喜欢折腾一些硬件所以也开始玩树莓派，树莓派用 Python 比较多，所以又稍微接触了一下 Python 的基础。到后来因为组队参加比赛，开始接触 Android 编程，那时候 Android 还未开始用 Kotlin, 就开始学习，边学边开发。后来学校的课程也有 Java Web，和 Android 。在做课程设计的过程就开始使用 Spring Boot + AngularJS (那时候用的是 1.x)，写一下后端 REST API，之后觉得 Java Web 后端开发是我想做的方向。可以因为之前学得比较杂，还因为 C/C++ 硬件背景，让我在情感上有点不重视 Java，所以学习投入程度不够。后果就是有时候看代码，写代码的时候觉得很吃力，一种似懂非懂的状态，模糊不清晰，好像大概知道这是做什么功能，但是要清晰地表达出来就有困难了。 要摆脱这种状况，所以多看书，多写代码。参加 Oracle Java 认证考试的作用就是可以驱动学习，有了这个目标，就会认真深入学习，这就是考试的意义。</p>
- <a href="/2019/10/25/oca-exam-prep-review/"><b>阅读更多📰</b></a>
+ <a href="/2019/10/12/errata/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2019/10/23/ets-test2-review/">
+    <a href="/2019/10/07/ets-foundation-test-review/">
         <h2 class="post-title">
-            ETS Test 2 回顾
+            EST 基础测试回顾
         </h2>
         
         <h3 class="post-subtitle">
-            Test 2 76% (53/70) 正确率通过&nbsp;&nbsp;2019年10月23日
+            整理错题，查漏补缺&nbsp;&nbsp;2019年10月7日
         </h3>
         
     </a>
     <div class="post-content-preview">
-        <blockquote>
-  <p>Enthuware Test Studio Test 2 错题回顾，题目编号为测试系统的编号。</p>
-</blockquote>
+        <h3 id="基础测试的情况">基础测试的情况</h3>
 
-<p><strong>2.</strong>Given:</p>
-<pre><code class="language-java">package loops;
-public class JustLooping {
-    private int j;
-    void showJ(){
-        while(j&lt;=5){
-            for(int j=1; j &lt;= 5;){
-                System.out.print(j+" ");
-                j++;
-            }
-            j++;
-        }
-    }
-    public static void main(String[] args) {
-        new JustLooping().showJ();
-    }
-}
-</code></pre>
-<p>What is the result?<br />
-<strong>You had to select 1 option</strong></p>
- <a href="/2019/10/23/ets-test2-review/"><b>阅读更多📰</b></a>
+<h4 id="测试报告">测试报告</h4>
+
+<p>当时第一次测试结果报告如下：</p>
+
+<p><img src="/img/foundation-test.png" alt="foundation-test" /></p>
+
+<p>按照考试的主题（或者说考点）来看的话，Java Basics 正确率 6/7。然后，OO Concepts 过关的，Java Data Types 部分就只对了 3 题，有点危险。基础测试没有涉及到垃圾回收的内容，但是真正考试应该会有的，而且现在工作要求也肯定会问，需要了解的。关于操作符和条件判断结构居然也只有对了 6 个题，看起来真的有点 tricky。接下来的数组、循环结构和构造方法这些考点感觉还过得去的样子。 关于方法的使用居然有点不稳，要搞清楚了，可能需要翻译 Coderanch 的文章加深一下理解。这次没有涉及方法重载的题目，然而关于继承的理解，可能还不够深，要看看编程思想了。<code>instanceof</code>在继承相关主题没有考到，但在操作符题目里出现了，异常处理方面需要加强。最基本的 <code>String</code>， 以及相关的类要烂熟了，至少 API 文档过一遍。最后 Java 8 新的时间日期 API 还没有了解，这一次就新的旧的都看一遍吧，所以今天是要看完错题，找出对应的知识点，考点，然后读 API 文档。</p>
+ <a href="/2019/10/07/ets-foundation-test-review/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/09/29/core-java-interview-cracking/">
+        <h2 class="post-title">
+            Java核心技术及面试指南读书记录
+        </h2>
+        
+        <h3 class="post-subtitle">
+            学习笔记&nbsp;&nbsp;2019年9月29日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="目录">目录</h3>
+<h4 id="第1章带你走进java的世界">第1章　带你走进Java的世界</h4>
+<h5 id="11搭建java开发环境运行基本程序">1.1　搭建Java开发环境，运行基本程序</h5>
+<p>1.1.1　在MyEclipse中开发第一个Java程序 
+1.1.2　第一个程序分析容易犯的错误 
+1.1.3　开发稍微复杂带函数调用的程序 
+1.1.4　可以通过Debug来排查问题 
+1.1.5　输入运行时的参数</p>
+ <a href="/2019/09/29/core-java-interview-cracking/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/09/28/mybatis-intro/">
+        <h2 class="post-title">
+            学习MyBatis基础知识
+        </h2>
+        
+        <h3 class="post-subtitle">
+            学习笔记&nbsp;&nbsp;2019年9月28日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="目录">目录</h3>
+
+<h4 id="第1章-mybatis入门-1">第1章 MyBatis入门 1</h4>
+
+<h5 id="11-mybatis简介-2">1.1 MyBatis简介 2</h5>
+
+<p>与其他的ORM不同，MyBatis没有将Java对象与数据库表关联起来，而是将Java方法与SQL语句关联。SQL语句可以被动态生成。</p>
+ <a href="/2019/09/28/mybatis-intro/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/09/27/redis-basics/">
+        <h2 class="post-title">
+            学习Redis基础知识
+        </h2>
+        
+        <h3 class="post-subtitle">
+            肯定会用到Redis的，至少要理解最基础的命令&nbsp;&nbsp;2019年9月27日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="基础命令">基础命令</h3>
+
+<p>启动 Redis</p>
+
+<p><code>redis-server</code></p>
+
+<p>查看 Redis 是否启动</p>
+
+<p><code>redis-cli</code></p>
+
+<p><code>redis-cli --raw</code> 中文不会乱码</p>
+
+<p>默认情况下相当于 <code>redis-cli -h 127.0.0.1 -p 6379</code></p>
+
+<p>设置键值对：</p>
+
+<p><code>set myKey abc</code></p>
+
+<p>取出键值对：</p>
+
+<p><code>get myKey</code></p>
+ <a href="/2019/09/27/redis-basics/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/09/26/exam-review/">
+        <h2 class="post-title">
+            笔试题目回顾
+        </h2>
+        
+        <h3 class="post-subtitle">
+            做过的题目值得总结下&nbsp;&nbsp;2019年9月26日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h3 id="多选一选择题和编程题">多选一选择题和编程题</h3>
+
+<h4 id="javacore---14题">JavaCore - 14题</h4>
+
+<ol>
+  <li>
+    <p>下述哪些说法是正确的？（）</p>
+
+    <blockquote>
+      <p>A. 实例变量是用static关键字声明的</p>
+
+      <p>B. 方法变量在方法执行时创建</p>
+
+      <p>C. 实例变量是类的成员变量</p>
+
+      <p>D. 方法变量在使用之前必须初始化</p>
+    </blockquote>
+
+    <p>这个题有点怀疑它的准确性，单选题又问“哪些说法是正确的”……</p>
+  </li>
+</ol>
+ <a href="/2019/09/26/exam-review/"><b>阅读更多📰</b></a>
     </div>
 </div>
 <hr>
@@ -494,21 +512,13 @@ public class JustLooping {
                             
                         
                             
-                                <a href="/tags/#Java" title="Java" rel="34">
+                                <a href="/tags/#Java" title="Java" rel="29">
                                     Java
                                 </a>
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
-                        
-                            
-                                <a href="/tags/#笔试面试" title="笔试面试" rel="6">
+                                <a href="/tags/#笔试面试" title="笔试面试" rel="5">
                                     笔试面试
                                 </a>
                             
@@ -600,21 +610,9 @@ public class JustLooping {
                             
                         
                             
-                        
-                            
-                        
-                            
-                        
-                            
                                 <a href="/tags/#RSocket" title="RSocket" rel="5">
                                     RSocket
                                 </a>
-                            
-                        
-                            
-                        
-                            
-                        
                             
                         
                             
@@ -634,11 +632,9 @@ public class JustLooping {
                             
                         
                             
-                                <a href="/tags/#Notes" title="Notes" rel="5">
+                                <a href="/tags/#Notes" title="Notes" rel="4">
                                     Notes
                                 </a>
-                            
-                        
                             
                         
                             
@@ -655,10 +651,6 @@ public class JustLooping {
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
-                            
-                        
-                            
-                        
                             
                         
                             
