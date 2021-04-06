@@ -175,6 +175,380 @@
             ">
             
 <div class="post-preview">
+    <a href="/2021/04/06/install-spring-boot-as-linux-service/">
+        <h2 class="post-title">
+            安装Spring Boot应用(作为系统服务)
+        </h2>
+        
+    </a>
+    <div class="post-content-preview">
+        <blockquote>
+  <p>本文介绍将 Spring Boot 应用打包为可执行 jar 文件,并将其安装到 Linux 系统作为 <code>init.d</code> 服务或 <code>systemd</code> 服务。</p>
+</blockquote>
+
+<h3 id="安装-spring-boot-应用作为系统服务">安装 Spring Boot 应用(作为系统服务)</h3>
+
+<p>以 jar 形式打包的 Spring  Boot 应用可以使用命令 <code>java -jar</code> 运行，但也可以将它作为 Unix 环境的完全可执行文件的形式。一个完全可执行的 jar 可以像其它任何二进制可执行文件那样被执行，或者也可以注册到 <code>init.d</code> 或 <code>systemd</code>。这样的方式有助于在常见的生产环境中安装和管理 Spring Boot 应用。</p>
+
+<p>要在 Maven 创建一个完全可执行的 jar， 使用以下插件配置：</p>
+
+<pre><code class="language-xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+        &lt;executable&gt;true&lt;/executable&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<p>如果使用 Gradle 就用下面的配置：</p>
+
+<pre><code class="language-groovy">bootJar {
+	launchScript()
+}
+</code></pre>
+
+<p>生成的可执行 jar 可以通过命令 <code>./my-application.jar</code> (其中 <code>my-application</code> 是你的应用 artifact 名称)。包含这个 jar 的目录会用作应用程序的工作目录。</p>
+
+<h4 id="1-支持的操作系统">1. 支持的操作系统</h4>
+
+<p>默认的脚本支持大部分 Linux 发行版而且已在 CentOS 和 Ubuntu 上测试过。 其它系统，例如 OS X 和 FreeBSD，需要使用自定义的 <code>embeddedLaunchScript</code>。</p>
+
+<h4 id="2-unixlinux-服务">2. Unix/Linux 服务</h4>
+
+<p>Spring Boot 应用可以容易地作为 Unix/Linux service 让 <code>init.d</code> 或 <code>systemd</code> 去启动。</p>
+
+<h5 id="21-安装为-initd-服务-system-v">2.1 安装为 init.d 服务 (System V)</h5>
+
+<p>前面步骤生成的可执行 jar 可以用于 <code>init.d</code> service。 只需要符号连接到 <code>init.d</code> 就可以支持标准的 <code>start</code>，<code>stop</code>，<code>restart</code>，以及 <code>status</code> 命令。</p>
+
+<p>其中的脚本支持下列特性：</p>
+
+<ul>
+  <li>以 jar 文件拥有者的用户去启动服务</li>
+  <li>通过使用 <code>/var/run/&lt;appname&gt;/&lt;appname&gt;.pid</code> 追踪应用程序的 PID</li>
+  <li>将控制台输出的日志写到 <code>/var/log/&lt;appname&gt;.log</code></li>
+</ul>
+
+<p>假设你有个 Spring Boot 应用安装在 <code>/var/myapp</code> ，那么要将它安装为一个 <code>init.d</code> 服务，可以按以下命令创建一个符号连接：</p>
+
+<pre><code class="language-bash">$ sudo ln -s /var/myapp/myapp.jar /etc/init.d/myapp
+</code></pre>
+
+<p>一旦安装完成，你就可以按照常规方式去启动和停止服务了。例如，在基于 Debian 的系统，你可以用以下命令启动：</p>
+
+<pre><code class="language-bash">$ service myapp start
+</code></pre>
+
+<blockquote>
+  <p><strong>注意</strong>❗  如果应用程序启动失败，请检查写到 <code>var/log/&lt;appname&gt;.log</code> 的日志。</p>
+</blockquote>
+
+<p>你也可以用操作系统的标准工具去将应用设为自动启动。例如，在基于 Debian 的系统，可以使用以下命令：</p>
+
+<pre><code class="language-bash">$ update-rc.d myapp defaults &lt;priority&gt;
+</code></pre>
+
+<h6 id="保护-initd-服务">保护 init.d 服务</h6>
+
+<blockquote>
+  <p>❕ 以下是一些关于以 init.d service 方式运行 Spring Boot 应用需要注意的一些安全问题。</p>
+</blockquote>
+
+<p>当以 root 执行，即用 root 用户去启动 init.d 的 service，默认的可执行脚本会以环境变量 <code>RUN_AS_USER</code> 所指定的用户去运行应用。当环境变量没有设置，就会以 jar 文件的拥有者用户去执行。你绝不应该以 root 用户运行 Spring Boot 应用，即 <code>RUN_AS_USER</code> 绝不应该设为 root，且你的应用的 jar 文件的拥有者不应该是 root。适当的做法是创建一个专门的用户用于运行应用，并设置 <code>RUN_AS_USER</code> 环境变量的值为该用户，或者使用 <code>chown</code> 去将其设为 jar 文件的拥有者，如以下命令所示：</p>
+
+<pre><code class="language-bash">$ chown bootapp:bootapp your-app.jar
+</code></pre>
+
+<p>在这情况下，默认的可执行脚本会以 <code>bootapp</code> 用户去运行应用。</p>
+
+<blockquote>
+  <p>💡 为降低应用程序的用户被黑，应该考虑禁用它的登录shell，例如，将那个帐户的shell为 <code>/usr/sbin/nologin</code></p>
+</blockquote>
+
+<p>应该对应用程序的 jar 文件设置适当的权限，防止被修改。首先，权限设为不可写，只允许它的拥有者读或执行，如：</p>
+
+<pre><code class="language-bash">$ chmod 500 your-app.jar
+</code></pre>
+
+<p>接下来，限制当帐户被黑了的破坏范围。如果被黑了，黑客可以将 jar 文件设为可写的并修改它的内容。其中一种防护方式是将它设置为不可修改的，通过使用 <code>chattr</code> 命令，命令如下：</p>
+
+<pre><code>$ sudo chattr +i your-app.jar
+</code></pre>
+
+<p>这会防止任何用户，包括 root 修改 jar 的内容。</p>
+
+<p>如果 root 用于控制应用程序的 service，而且你使用 <code>.conf</code> 文件去自定义应用的启动，然后 <code>.conf</code> 文件被 root 用户读取并生效的。那么那文件也应该相应地做保护。使用 <code>chmod</code> 设置那文件只允许它的拥有者读取，并将 root 设为拥有者，如以下命令所示：</p>
+
+<pre><code class="language-bash">$ chmod 400 your-app.conf
+$ sudo chown root:root your-app.conf
+</code></pre>
+
+<h5 id="22-安装为一个-systemd-service"><strong>2.2. 安装为一个 systemd Service</strong></h5>
+
+<p><code>systemd</code> 是 System V init system 的继任者，并已被很多现代 Linux 发行版采用。尽管你可以继续在 <code>systemd</code> 使用 <code>init.d</code> 脚本，它也可以使用 <code>systemd</code> ‘service’ 脚本去启动 Spring Boot 应用程序的。</p>
+
+<p>假设你有个 Spring Boot 应用安装在 <code>/var/myapp</code>，要将 Spring Boot 应用程序安装为 <code>systemd</code> 服务，你需要创建一个名为 <code>myapp.service</code> 的脚本，并放到 <code>/etc/systemd/system</code> 目录。以下脚本提供作为例子：</p>
+
+<pre><code class="language-bash">[Unit]
+Description=myapp
+After=syslog.target
+
+[Service]
+User=myapp
+ExecStart=/var/myapp/myapp.jar
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<blockquote>
+  <p>❗ 记得修改 <code>Description</code>, <code>User</code> 和 <code>ExecStart</code> 字段为自己的应用程序。</p>
+</blockquote>
+
+<blockquote>
+  <p>❕ 那个 <code>ExecStart</code> 字段没有声明脚本的动作命令，这意味着默认使用 <code>run</code> 命令</p>
+</blockquote>
+
+<p>注意，不像使用 <code>init.d</code> service 运行的那样，运行应用的用户，PID 文件，还有控制台输出日志文件都是由 <code>systemd</code> 本身管理的，因此，<strong>必须</strong>在 ‘service’ 脚本中使用适当的字段进行配置。详细配置方式可以参考 <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">service unit configuration man page</a></p>
+
+<p>要将应用设置为开机启动，可以使用以下命令：</p>
+
+<pre><code class="language-bash">$ systemctl enable myapp.service
+</code></pre>
+
+<p>详情可参考 <code>man systemctl</code> 。</p>
+
+<h5 id="23-自定义启动脚本">2.3. 自定义启动脚本</h5>
+
+<p>由 Maven 或 Gradle 插件写的内置启动脚本有好几种自定义的方式。对于大多数人而言，使用默认脚本和添加一些新的自定义配置通常就够了。如果发现没法自定义某些需要的东西，那使用 <code>embeddedLaunchScript</code> 选项去写你自己的版本。</p>
+
+<h6 id="在写入过程自定义启动脚本">在写入过程自定义启动脚本</h6>
+
+<p>通常在启动脚本被写入到 jar 文件的过程时去自定义脚本的元素是合理的。例如, init.d 脚本可以提供一个 “description”. 因为你提前就知道了 description (而且不需要变更),你可能也会在 jar 生成时候提供它。</p>
+
+<p>要自定义写入的元素,使用Spring Boot Maven 插件的 <code>embeddedLaunchScriptProperties</code> 选项, <a href="https://docs.spring.io/spring-boot/docs/2.4.4/gradle-plugin/reference/htmlsingle/#packaging-executable-configuring-launch-script">或 Spring Boot Gradle 插件的 <code>launchScript</code> 的 <code>properpies</code> 属性.</a></p>
+
+<p>默认脚本支持替换的属性如下:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">名称</th>
+      <th style="text-align: left">描述</th>
+      <th style="text-align: left">Gradle 默认值</th>
+      <th style="text-align: left">Maven 默认值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>mode</code></td>
+      <td style="text-align: left">The script mode.</td>
+      <td style="text-align: left"><code>auto</code></td>
+      <td style="text-align: left"><code>auto</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>initInfoProvides</code></td>
+      <td style="text-align: left">The <code>Provides</code> section of “INIT INFO”</td>
+      <td style="text-align: left"><code>${task.baseName}</code></td>
+      <td style="text-align: left"><code>${project.artifactId}</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>initInfoRequiredStart</code></td>
+      <td style="text-align: left"><code>Required-Start</code> section of “INIT INFO”.</td>
+      <td style="text-align: left"><code>$remote_fs $syslog $network</code></td>
+      <td style="text-align: left"><code>$remote_fs $syslog $network</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>initInfoRequiredStop</code></td>
+      <td style="text-align: left"><code>Required-Stop</code> section of “INIT INFO”.</td>
+      <td style="text-align: left"><code>$remote_fs $syslog $network</code></td>
+      <td style="text-align: left"><code>$remote_fs $syslog $network</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>initInfoDefaultStart</code></td>
+      <td style="text-align: left"><code>Default-Start</code> section of “INIT INFO”.</td>
+      <td style="text-align: left"><code>2 3 4 5</code></td>
+      <td style="text-align: left"><code>2 3 4 5</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>initInfoDefaultStop</code></td>
+      <td style="text-align: left"><code>Default-Stop</code> section of “INIT INFO”.</td>
+      <td style="text-align: left"><code>0 1 6</code></td>
+      <td style="text-align: left"><code>0 1 6</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>initInfoShortDescription</code></td>
+      <td style="text-align: left"><code>Short-Description</code> section of “INIT INFO”.</td>
+      <td style="text-align: left">Single-line version of <code>${project.description}</code> (falling back to <code>${task.baseName}</code>)</td>
+      <td style="text-align: left"><code>${project.name}</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>initInfoDescription</code></td>
+      <td style="text-align: left"><code>Description</code> section of “INIT INFO”.</td>
+      <td style="text-align: left"><code>${project.description}</code> (falling back to <code>${task.baseName}</code>)</td>
+      <td style="text-align: left"><code>${project.description}</code> (falling back to <code>${project.name}</code>)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>initInfoChkconfig</code></td>
+      <td style="text-align: left"><code>chkconfig</code> section of “INIT INFO”</td>
+      <td style="text-align: left"><code>2345 99 01</code></td>
+      <td style="text-align: left"><code>2345 99 01</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>confFolder</code></td>
+      <td style="text-align: left">The default value for <code>CONF_FOLDER</code></td>
+      <td style="text-align: left">Folder containing the jar</td>
+      <td style="text-align: left">Folder containing the jar</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>inlinedConfScript</code></td>
+      <td style="text-align: left">Reference to a file script that should be inlined in the default launch script. This can be used to set environmental variables such as <code>JAVA_OPTS</code> before any external config files are loaded</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>logFolder</code></td>
+      <td style="text-align: left">Default value for <code>LOG_FOLDER</code>. Only valid for an <code>init.d</code> service</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>logFilename</code></td>
+      <td style="text-align: left">Default value for <code>LOG_FILENAME</code>. Only valid for an <code>init.d</code> service</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>pidFolder</code></td>
+      <td style="text-align: left">Default value for <code>PID_FOLDER</code>. Only valid for an <code>init.d</code> service</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>pidFilename</code></td>
+      <td style="text-align: left">Default value for the name of the PID file in <code>PID_FOLDER</code>. Only valid for an <code>init.d</code> service</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>useStartStopDaemon</code></td>
+      <td style="text-align: left">Whether the <code>start-stop-daemon</code> command, when it’s available, should be used to control the process</td>
+      <td style="text-align: left"><code>true</code></td>
+      <td style="text-align: left"><code>true</code></td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>stopWaitTime</code></td>
+      <td style="text-align: left">Default value for <code>STOP_WAIT_TIME</code> in seconds. Only valid for an <code>init.d</code> service</td>
+      <td style="text-align: left">60</td>
+      <td style="text-align: left">60</td>
+    </tr>
+  </tbody>
+</table>
+
+<h6 id="运行时自定义脚本">运行时自定义脚本</h6>
+
+<p>对于 jar 写入后还需要自定义的脚本内容,你可以使用环境变量,或一个 <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment-script-customization-conf-file">config 文件</a></p>
+
+<p>默认脚本支持下来环境变量属性:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">变量</th>
+      <th style="text-align: left">描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><code>MODE</code></td>
+      <td style="text-align: left">The “mode” of operation. The default depends on the way the jar was built but is usually <code>auto</code> (meaning it tries to guess if it is an init script by checking if it is a symlink in a directory called <code>init.d</code>). You can explicitly set it to <code>service</code> so that the <code>stop|start|status|restart</code> commands work or to <code>run</code> if you want to run the script in the foreground.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>RUN_AS_USER</code></td>
+      <td style="text-align: left">The user that will be used to run the application. When not set, the user that owns the jar file will be used.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>USE_START_STOP_DAEMON</code></td>
+      <td style="text-align: left">Whether the <code>start-stop-daemon</code> command, when it’s available, should be used to control the process. Defaults to <code>true</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>PID_FOLDER</code></td>
+      <td style="text-align: left">The root name of the pid folder (<code>/var/run</code> by default).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>LOG_FOLDER</code></td>
+      <td style="text-align: left">The name of the folder in which to put log files (<code>/var/log</code> by default).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>CONF_FOLDER</code></td>
+      <td style="text-align: left">The name of the folder from which to read .conf files (same folder as jar-file by default).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>LOG_FILENAME</code></td>
+      <td style="text-align: left">The name of the log file in the <code>LOG_FOLDER</code> (<code>&lt;appname&gt;.log</code> by default).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>APP_NAME</code></td>
+      <td style="text-align: left">The name of the app. If the jar is run from a symlink, the script guesses the app name. If it is not a symlink or you want to explicitly set the app name, this can be useful.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>RUN_ARGS</code></td>
+      <td style="text-align: left">The arguments to pass to the program (the Spring Boot app).</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>JAVA_HOME</code></td>
+      <td style="text-align: left">The location of the <code>java</code> executable is discovered by using the <code>PATH</code> by default, but you can set it explicitly if there is an executable file at <code>$JAVA_HOME/bin/java</code>.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>JAVA_OPTS</code></td>
+      <td style="text-align: left">Options that are passed to the JVM when it is launched.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>JARFILE</code></td>
+      <td style="text-align: left">The explicit location of the jar file, in case the script is being used to launch a jar that it is not actually embedded.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>DEBUG</code></td>
+      <td style="text-align: left">If not empty, sets the <code>-x</code> flag on the shell process, allowing you to see the logic in the script.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><code>STOP_WAIT_TIME</code></td>
+      <td style="text-align: left">The time in seconds to wait when stopping the application before forcing a shutdown (<code>60</code> by default).</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>❕ 其中 <code>PID_FOLDER</code>, <code>LOG_FOLDER</code>, 和<code>LOG_FILENAME</code> 变量仅适用于 <code>init.d</code> service. 对于<code>systemd</code>, 等价的自定义设置通过 ‘service’ script 实现. 详情请查看 <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">service unit configuration man page</a>.</p>
+</blockquote>
+
+<p>除了 <code>JARFILE</code> 和 <code>APP_NAME</code> , 上面所列出的设置都可以通过一个 <code>.conf</code> 文件去配置. 该文件应该与 jar 文件放在一起,并使用相同的文件名,但扩展名为 <code>.conf</code> 例如, 一个 jar 文件名为 <code>/var/myapp/myapp.jar</code> 使用的配置文件名称是 <code>/var/myapp/myapp.conf</code> , 入下面所示:</p>
+
+<p><strong>myapp.conf</strong></p>
+
+<pre><code class="language-ini">JAVA_OPTS=-Xmx1024M
+LOG_FOLDER=/custom/log/folder
+</code></pre>
+
+<blockquote>
+  <p>💡  如果你不喜欢将config 文件跟 jar 文件放到一起, 你可以设置一个 <code>CONF_FOLDER</code> 环境变量以自定义配置文件的位置.</p>
+</blockquote>
+
+<p>了解更多对配置文件的安全保护措施, 可参考 <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment-initd-service-securing">the guidelines for securing an init.d service</a>.</p>
+
+<h4 id="3microsoft-windows-services">3.Microsoft Windows Services</h4>
+
+<p>一个 Spring Boot 应用程序可以通过使用<a href="https://github.com/kohsuke/winsw"><code>winsw</code></a>作为 Windows 服务启动</p>
+
+<p>详情可参考: A (<a href="https://github.com/snicoll-scratches/spring-boot-daemon">separately maintained sample</a>) describes step-by-step how you can create a Windows service for your Spring Boot application.</p>
+ <a href="/2021/04/06/install-spring-boot-as-linux-service/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2021/03/05/grafana-iot-visualization-dashboard/">
         <h2 class="post-title">
             基于Grafana的物联网可视化仪表盘
@@ -449,88 +823,6 @@ The access modifier <code>protected</code> and <code>private</code> pertain only
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2020/03/28/ocp-mock-test2-review/">
-        <h2 class="post-title">
-            OCP-1Z0-816模拟测试2回顾
-        </h2>
-        
-    </a>
-    <div class="post-content-preview">
-        <p><strong>1.</strong> Given</p>
-
-<pre><code class="language-java">class Booby {
-}
-class Dooby extends Booby {
-}
-class Tooby extends Dooby {
-}
-
-public class TestClass {
-  Booby b = new Booby();
-  Tooby t = new Tooby();
-  public void do1(List&lt;? super Dooby&gt; dataList) {
-    //1 INSERT CODE HERE
-  }
-  public void do2(List&lt;? extends Dooby&gt; dataList) {
-    //2 INSERT CODE HERE
-  }
-}
-</code></pre>
-
-<p>and the following four statements:</p>
-
-<ol>
-  <li>b = dataList.get(0);</li>
-  <li>t = dataList.get(0);</li>
-  <li>dataList.add(b);</li>
-  <li>dataList.add(t);</li>
-</ol>
-
-<p>What can be inserted in the above code?</p>
-
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 1 and 3 can inserted at //1 and Statements 2 and 4 can be inserted at //2.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" checked="checked" />Statement 4 can inserted at //1 and Statement 1 can be inserted at //2.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 3 and 4 can inserted at //1 and Statements 1 and 2 can be inserted at //2.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statements 1 and 2 can inserted at //1 and Statements 3 and 4 can be inserted at //2.</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Statement 1 can inserted at //1 and Statement 4 can be inserted at //2.</li>
-</ul>
-
-<p><strong>Explanation</strong></p>
-
-<ol>
-  <li>
-    <p><code>addData1(List&lt;? super Dooby&gt; dataList)</code><br />
-This means that dataList is a List whose elements are of a class that is either Dooby or a super class of Dooby. We don’t know which super class of Dooby. Thus, if you try to add any object to dataList, it has to be a assignable to Dooby.<br />
-Thus, <code>dataList.add(b);</code> will be invalid because b is not assignable to Dooby.<br />
-Further, if you try to take some object out of dataList, that object will be of a class that is either Dooby or a Superclass of Dooby. Only way you can declare a variable that can be assigned the object retrieved from dataList is Object obj. Thus, <code>t = dataList.get(0);</code> and <code>b = dataList.get(0);</code> are both invalid.</p>
-  </li>
-  <li>
-    <p><code>addData2(List&lt;? extends Dooby&gt; dataList)</code><br />
-This means that dataList is a List whose elements are of a class that is either Dooby or a subclass of Dooby. Since we don’t know which subclass of Dooby is the list composed of, there is no way you can add any object to this list.<br />
-If you try to take some object out of dataList, that object will be of a class that is either Dooby or a subclass of Dooby and thus it can be assigned to a variable of class Dooby or its superclass.. Thus, <code>t = dataList.get(0);</code> is invalid.</p>
-  </li>
-</ol>
-
-<p><strong>泛型规则（JLS）</strong><br />
-A type argument $T_1$ is said to contain another type argument $T_2$, written $T_2 &lt;= T_1$, is the set of types denoted by $T_2$ is provably a subset of the set of types denoted by $T_1$ under the reflexive and transitive closure of the following rules(where $&lt;:$ denotes subtyping($\S4.10$)):</p>
-
-<ul>
-  <li>$?\space extends\space T&lt;=\space ?\space extends \space S$ if $T &lt;: S$</li>
-  <li>$?\space extends \space T&lt;=\space ?$</li>
-  <li>$?\space super \space T&lt;=\space ?\space super \space S$  if $T &lt;: S$</li>
-  <li>$?\space super \space T&lt;=\space ?$</li>
-  <li>$?\space super \space T&lt;=\space ? \space extends \space Object$</li>
-  <li>$ T&lt;=\space T$</li>
-  <li>$T &lt;= \space ? \space extends \space T$</li>
-  <li>$T &lt;= \space ? \space super \space T$</li>
-</ul>
- <a href="/2020/03/28/ocp-mock-test2-review/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -617,7 +909,7 @@ A type argument $T_1$ is said to contain another type argument $T_2$, written $T
                             
                         
                             
-                                <a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                <a href="/tags/#Spring Boot" title="Spring Boot" rel="14">
                                     Spring Boot
                                 </a>
                             
@@ -704,6 +996,12 @@ A type argument $T_1$ is said to contain another type argument $T_2$, written $T
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             

@@ -175,6 +175,60 @@
             ">
             
 <div class="post-preview">
+    <a href="/2019/11/15/concurrency/">
+        <h2 class="post-title">
+            Java 并发
+        </h2>
+        
+        <h3 class="post-subtitle">
+            基础内容&nbsp;&nbsp;2019年11月15日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <h2 id="concurrency-并发">Concurrency 并发</h2>
+
+<h3 id="synchronized-语句块">Synchronized 语句块</h3>
+
+<pre><code class="language-java">package synchronizing;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class SheepManager {
+	
+	private int sheepCount = 0;
+	
+	// private void incrementAndReport() {
+	private void incrementAndReport() {
+		synchronized(this) {
+        System.out.print((++sheepCount)+" ");
+        }
+	}
+
+	public static void main(String[] args) {
+
+		ExecutorService service = null;
+		try {
+			service = Executors.newFixedThreadPool(20);
+			
+			SheepManager manager = new SheepManager();
+			for(int i = 0; i &lt; 10; i++) 
+				service.submit(()-&gt; manager.incrementAndReport());
+			} finally {
+				if (service != null) service.shutdown();
+			}
+	}
+}
+</code></pre>
+
+<p>使用 Monitor 或称为 Lock，使用 synchronized 的时候，注意🔒的对象是那个。保证同步，就要去要锁同一个对象。</p>
+ <a href="/2019/11/15/concurrency/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2019/11/14/upgrade-ocp-java-8-to-java-se-11-exam-review-topics/">
         <h2 class="post-title">
             升级到 Java SE 11 开发者考试大纲
@@ -434,26 +488,6 @@ public class JustLooping {
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2019/10/22/oca-study-guide-test-review/">
-        <h2 class="post-title">
-            OCA Study Guide 练习回顾
-        </h2>
-        
-        <h3 class="post-subtitle">
-            全部章节的错题&nbsp;&nbsp;2019年10月22日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <blockquote>
-  <p>这文章讲OCA准备过程，读过的书籍。 这本书叫 OCA Oracle Certified Associate Java SE 8 Programmer I Study Guide 以下按章节整理错题：</p>
-</blockquote>
- <a href="/2019/10/22/oca-study-guide-test-review/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -544,7 +578,7 @@ public class JustLooping {
                             
                         
                             
-                                <a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                <a href="/tags/#Spring Boot" title="Spring Boot" rel="14">
                                     Spring Boot
                                 </a>
                             
@@ -631,6 +665,12 @@ public class JustLooping {
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             

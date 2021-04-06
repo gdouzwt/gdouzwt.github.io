@@ -175,6 +175,31 @@
             ">
             
 <div class="post-preview">
+    <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/">
+        <h2 class="post-title">
+            响应式Spring Boot系列教程7
+        </h2>
+        
+        <h3 class="post-subtitle">
+            订阅多个消费者&nbsp;&nbsp;2020年1月9日
+        </h3>
+        
+    </a>
+    <div class="post-content-preview">
+        <blockquote>
+  <p>原文由 Trisha Gee 在当地时间2019年12月2日发布在 <a href="https://blog.jetbrains.com/idea/2019/12/tutorial-reactive-spring-boot-subscribing-multiple-consumers/">INTELLIJ IDEA BLOG</a></p>
+</blockquote>
+
+<p>在这一节，我们更新实时更新图表显示多于一种股票价格，也就意味着订阅多于一个消费者到我们的响应式价格数据流。</p>
+
+<p>在上一步，我们让JavaFX折线图订阅到来自响应式Spring Boot的服务，并实时显示它们。在这一步，我们要更新图表，让它能多次订阅并在同一个图表显示多组数据。</p>
+
+ <a href="/2020/01/09/reactive-spring-boot-part7-subscribing-multiple-consumers/"><b>阅读更多📰</b></a>
+    </div>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2020/01/09/reactive-spring-boot-part6-displaying-reactive-data/">
         <h2 class="post-title">
             响应式Spring Boot系列教程6
@@ -386,60 +411,6 @@
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2019/11/15/concurrency/">
-        <h2 class="post-title">
-            Java 并发
-        </h2>
-        
-        <h3 class="post-subtitle">
-            基础内容&nbsp;&nbsp;2019年11月15日
-        </h3>
-        
-    </a>
-    <div class="post-content-preview">
-        <h2 id="concurrency-并发">Concurrency 并发</h2>
-
-<h3 id="synchronized-语句块">Synchronized 语句块</h3>
-
-<pre><code class="language-java">package synchronizing;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-public class SheepManager {
-	
-	private int sheepCount = 0;
-	
-	// private void incrementAndReport() {
-	private void incrementAndReport() {
-		synchronized(this) {
-        System.out.print((++sheepCount)+" ");
-        }
-	}
-
-	public static void main(String[] args) {
-
-		ExecutorService service = null;
-		try {
-			service = Executors.newFixedThreadPool(20);
-			
-			SheepManager manager = new SheepManager();
-			for(int i = 0; i &lt; 10; i++) 
-				service.submit(()-&gt; manager.incrementAndReport());
-			} finally {
-				if (service != null) service.shutdown();
-			}
-	}
-}
-</code></pre>
-
-<p>使用 Monitor 或称为 Lock，使用 synchronized 的时候，注意🔒的对象是那个。保证同步，就要去要锁同一个对象。</p>
- <a href="/2019/11/15/concurrency/"><b>阅读更多📰</b></a>
-    </div>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -530,7 +501,7 @@ public class SheepManager {
                             
                         
                             
-                                <a href="/tags/#Spring Boot" title="Spring Boot" rel="13">
+                                <a href="/tags/#Spring Boot" title="Spring Boot" rel="14">
                                     Spring Boot
                                 </a>
                             
@@ -617,6 +588,12 @@ public class SheepManager {
                                 <a href="/tags/#1Z0-816" title="1Z0-816" rel="4">
                                     1Z0-816
                                 </a>
+                            
+                        
+                            
+                        
+                            
+                        
                             
                         
                             
