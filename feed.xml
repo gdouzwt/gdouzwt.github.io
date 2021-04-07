@@ -5,14 +5,15 @@
     <description></description>
     <link>https://blog.zwt.io/</link>
     <atom:link href="https://blog.zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 06 Apr 2021 08:14:56 +0000</pubDate>
-    <lastBuildDate>Tue, 06 Apr 2021 08:14:56 +0000</lastBuildDate>
+    <pubDate>Wed, 07 Apr 2021 10:44:25 +0000</pubDate>
+    <lastBuildDate>Wed, 07 Apr 2021 10:44:25 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
         <title>安装Spring Boot应用(作为系统服务)</title>
         <description>&lt;blockquote&gt;
-  &lt;p&gt;本文介绍将 Spring Boot 应用打包为可执行 jar 文件,并将其安装到 Linux 系统作为 &lt;code&gt;init.d&lt;/code&gt; 服务或 &lt;code&gt;systemd&lt;/code&gt; 服务。&lt;/p&gt;
+  &lt;p&gt;本文介绍 Spring Boot 应用打包为可执行 jar 文件,并将其安装到 Linux 系统作为 &lt;code&gt;init.d&lt;/code&gt; 服务或 &lt;code&gt;systemd&lt;/code&gt; 服务。
+注意，系统的 Java 要安装正常，不然 &lt;code&gt;systemd&lt;/code&gt; 不能正常识别。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;以 jar 形式打包的 Spring  Boot 应用可以使用命令 &lt;code&gt;java -jar&lt;/code&gt; 运行，但也可以将它作为 Unix 环境的完全可执行文件的形式。一个完全可执行的 jar 可以像其它任何二进制可执行文件那样被执行，或者也可以注册到 &lt;code&gt;init.d&lt;/code&gt; 或 &lt;code&gt;systemd&lt;/code&gt;。这样的方式有助于在常见的生产环境中安装和管理 Spring Boot 应用。&lt;/p&gt;
