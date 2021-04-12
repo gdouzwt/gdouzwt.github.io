@@ -5,8 +5,8 @@
     <description></description>
     <link>https://blog.zwt.io/</link>
     <atom:link href="https://blog.zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 07 Apr 2021 10:44:25 +0000</pubDate>
-    <lastBuildDate>Wed, 07 Apr 2021 10:44:25 +0000</lastBuildDate>
+    <pubDate>Mon, 12 Apr 2021 14:30:20 +0000</pubDate>
+    <lastBuildDate>Mon, 12 Apr 2021 14:30:20 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
@@ -93,7 +93,7 @@
 &lt;p&gt;在这情况下，默认的可执行脚本会以 &lt;code&gt;bootapp&lt;/code&gt; 用户去运行应用。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;💡 为降低应用程序的用户被黑，应该考虑禁用它的登录shell，例如，将那个帐户的shell为 &lt;code&gt;/usr/sbin/nologin&lt;/code&gt;&lt;/p&gt;
+  &lt;p&gt;💡 为降低应用程序的用户被黑的可能性，应该考虑禁用它的登录shell，例如，将那个帐户的shell为 &lt;code&gt;/usr/sbin/nologin&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;应该对应用程序的 jar 文件设置适当的权限，防止被修改。首先，权限设为不可写，只允许它的拥有者读或执行，如：&lt;/p&gt;
