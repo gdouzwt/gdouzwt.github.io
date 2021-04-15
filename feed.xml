@@ -5,12 +5,12 @@
     <description></description>
     <link>https://blog.zwt.io/</link>
     <atom:link href="https://blog.zwt.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 12 Apr 2021 14:30:20 +0000</pubDate>
-    <lastBuildDate>Mon, 12 Apr 2021 14:30:20 +0000</lastBuildDate>
+    <pubDate>Thu, 15 Apr 2021 01:36:52 +0000</pubDate>
+    <lastBuildDate>Thu, 15 Apr 2021 01:36:52 +0000</lastBuildDate>
     <generator>Jekyll v4.1.1</generator>
     
       <item>
-        <title>安装Spring Boot应用(作为系统服务)</title>
+        <title>安装Spring Boot应用作为系统服务</title>
         <description>&lt;blockquote&gt;
   &lt;p&gt;本文介绍 Spring Boot 应用打包为可执行 jar 文件,并将其安装到 Linux 系统作为 &lt;code&gt;init.d&lt;/code&gt; 服务或 &lt;code&gt;systemd&lt;/code&gt; 服务。
 注意，系统的 Java 要安装正常，不然 &lt;code&gt;systemd&lt;/code&gt; 不能正常识别。&lt;/p&gt;
