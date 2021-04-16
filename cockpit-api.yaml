@@ -1,0 +1,180 @@
+---
+openapi: 3.0.3
+info:
+  title: the-cockpit API
+  description: the-cockpit API
+  version: 1.0.0
+servers:
+- url: https://test-hr-srpt.seedland.cc:8060/api
+paths:
+  /auth/data-auths:
+    post:
+      tags:
+      - 权限数据
+      summary: 数据权限
+      operationId: dataAuths
+      responses:
+        "200":
+          description: OK
+  /basicData/inAndLeaving/{year}:
+    get:
+      tags:
+      - 基础数据
+      summary: 入离职分析
+      operationId: inAndLeaving
+      parameters:
+      - name: year
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+  /basicData/situation/{year}:
+    get:
+      tags:
+      - 基础数据
+      summary: 人员总体情况
+      operationId: situation
+      parameters:
+      - name: year
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+  /basicData/structure/{year}:
+    get:
+      tags:
+      - 基础数据
+      summary: 人员结构
+      operationId: structure
+      parameters:
+      - name: year
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+  /costData/costAnalysis/{year}:
+    get:
+      tags:
+      - 成本分析
+      summary: 集团总部或者一线单位
+      operationId: costAnalysis
+      parameters:
+      - name: year
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+  /costData/monthCostAnalysis/{year}:
+    get:
+      tags:
+      - 成本分析
+      summary: 月份公司成本分析
+      operationId: monthCostAnalysis
+      parameters:
+      - name: year
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+  /costData/totalCostAnalysis/{year}:
+    get:
+      tags:
+      - 总成本分析
+      summary: 总成本分析
+      operationId: totalCostAnalysis
+      parameters:
+      - name: year
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+  /peopleEfficiency/organizationalStructure/{year}/{type}:
+    get:
+      tags:
+      - 人效分析
+      summary: 组织架构
+      operationId: organizationalStructure
+      parameters:
+      - name: year
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: type
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: number
+          format: int32
+      responses:
+        "200":
+          description: OK
+  /salaryAnalysis/totalSalaries/{year}:
+    get:
+      tags:
+      - 薪资分析
+      summary: 薪资总额
+      operationId: totalSalaries
+      parameters:
+      - name: year
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+  /salaryAnalysis/totalSalaryAnalysis/{year}:
+    get:
+      tags:
+      - 薪资分析
+      summary: 总的薪资分析
+      operationId: totalSalaryAnalysis
+      parameters:
+      - name: year
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+components: {}
